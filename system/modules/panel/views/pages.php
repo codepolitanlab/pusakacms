@@ -31,8 +31,9 @@
             source = elm.data('url'),
             dest = $(this).parents('.dd-item').data('url');
             console.log(elm);
+            var newmap = JSON.stringify($('.dd').nestable('serialize'));
 
-            $.post(BASE_URL+'panel/pages/sort/', {source : source, dest : dest})
+            $.post(BASE_URL+'panel/pages/sort/', {source : source, dest : dest, newmap : newmap})
             .done(function(data){
                 console.log(data);
                 var res = JSON.parse(data);

@@ -1,0 +1,123 @@
+/* Red */
+
+
+/* -----------------------------------
+** GENERAL
+** ----------------------------------- */
+body { color:#4f4f4f; }
+
+a { color: #d44434; }
+a:hover, a:focus { color: #b93729; }
+
+
+
+/* -----------------------------------
+** BUTTON
+** ----------------------------------- */
+.btn-default {
+	border-color:  #d44434;
+	color: #d44434;
+}
+.btn-default:hover,
+.btn-default:focus {
+	border-color: #b93729;
+	color: #b93729;
+}
+
+.btn-border {
+	border-color:  #d44434;
+	color: #d44434;
+}
+.btn-border:hover,
+.btn-border:focus {
+	border-color: #b93729;
+	color: #b93729;
+}
+.btn-primary {
+	background: #d44434;
+	border-color: #d44434;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+	background: #c03b2c;
+	border-color: #c03b2c;
+}
+
+
+
+/* -----------------------------------
+** NAVBAR
+** ----------------------------------- */
+.navbar { background: #fedfc0; }
+.navbar .navbar-nav li a { color: #d44434; }
+.navbar .navbar-nav li a:hover,
+.navbar .navbar-nav li a:focus {
+	background: #f6d7b8;
+}
+.navbar .navbar-nav li.active a { color: #d44434; }
+.navbar-default { background: #fedfc0; }
+
+
+
+
+/* -----------------------------------
+** HOMEPAGE
+** ----------------------------------- */
+.home-header { background: #fedfc0 url(../img/bg_jakarta_city_dark.png) no-repeat left bottom; }
+.home-content {
+	background: #4d4645;
+	color: #ffffff;
+}
+.home-footer {
+	background: #4d4645 url(../img/bg_footer_red.png) no-repeat center bottom;
+	color: #ffffff;
+}
+
+
+
+
+/* -----------------------------------
+** BLOG
+** ----------------------------------- */
+.blog-header {
+	background: #4d4645;
+	color: #f8e9ed;
+}
+.blog-content .the-content { border-color: #f5f5f5; }
+.blog-content .the-content .date { color: #a7a7a7; }
+.blog-content .the-content .cat { border-color: #f0f0f0; }
+.blog-content .the-content .cat a { background: #f9fbfb; }
+.blog-content .the-content .cat a:focus,
+.blog-content .the-content .cat a:hover { background: #f2f8f9; }
+
+
+
+
+/* -----------------------------------
+** PAGINATION
+** ----------------------------------- */
+.pagination li a {
+	color: #cccccc;
+	background: #ffffff;
+}
+.pagination li a:hover,
+.pagination li a:focus {
+	color: #b9baba;
+	background: #f4f9fa;
+}
+.pagination li.active a,
+.pagination li.active a:hover {
+	background: #d44434;
+	border-color: #d44434;
+}
+
+
+
+
+/* -----------------------------------
+** 404
+** ----------------------------------- */
+.notfound-wrapper {
+	background: #605d5d url(../img/bg_jakarta_city_dark.png) no-repeat left bottom;
+	color: #f8e9ed;
+}
