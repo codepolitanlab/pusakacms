@@ -3,9 +3,13 @@
         "title": "Home",
         "url": "home"
     },
+    "download": {
+        "url": "download",
+        "title": "Download"
+    },
     "blog": {
-        "url": "blog",
-        "title": "Blog"
+        "title": "Blog",
+        "url": "blog"
     },
     "docs": {
         "title": "Docs",
@@ -18,10 +22,6 @@
                     "fitur": {
                         "title": "Fitur",
                         "url": "docs\/apa-itu-pusaka\/fitur"
-                    },
-                    "download": {
-                        "title": "Download",
-                        "url": "docs\/apa-itu-pusaka\/download"
                     },
                     "showcase": {
                         "title": "Showcase",
@@ -49,13 +49,17 @@
                         "title": "Instalasi",
                         "url": "docs\/panduan-pengguna\/instalasi"
                     },
-                    "konfigurasi": {
-                        "title": "Konfigurasi",
-                        "url": "docs\/panduan-pengguna\/konfigurasi"
+                    "upgrade-sistem": {
+                        "title": "Upgrade Sistem",
+                        "url": "docs\/panduan-pengguna\/upgrade-sistem"
                     },
                     "struktur-file": {
                         "title": "Struktur File",
                         "url": "docs\/panduan-pengguna\/struktur-file"
+                    },
+                    "konfigurasi": {
+                        "title": "Konfigurasi",
+                        "url": "docs\/panduan-pengguna\/konfigurasi"
                     },
                     "membuat-halaman": {
                         "title": "Membuat Halaman",

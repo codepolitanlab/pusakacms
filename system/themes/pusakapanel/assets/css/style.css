@@ -890,6 +890,7 @@ ul.navlist li ul {
 .dd3-content { display: block; height: 30px; margin: 5px 0; padding: 5px 10px 5px 40px; color: #333; text-decoration: none; 
     background: #fafafa;
 }
+.dd3-content:hover {background: #eee;}
 
 .dd-dragel > .dd3-item > .dd3-content { margin: 0; }
 

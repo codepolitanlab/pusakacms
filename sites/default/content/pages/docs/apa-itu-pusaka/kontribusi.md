@@ -8,5 +8,7 @@ Kalau kamu tertarik untuk mengembangkan PusakaCMS dengan ide-ide segarmu, kamu b
 ## Kontributor
 
 - [Toni Haryanto](http://toniharyanto.net)
+- [Kresna Galuh Darastya Herlangga](http://kresnagaluh.com)
+- [Ahmad Oriza](http://ahmadoriza.com)
 
 Ingin namamu terpasang disini sebagai kontributor? Silakan *pull request* pengayaan yang kamu buat berikut dengan menambahkan namamu di halaman ini.

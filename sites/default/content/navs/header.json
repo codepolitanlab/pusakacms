@@ -9,31 +9,38 @@
             {
                 "title": "Apa itu Pusaka?",
                 "slug": "apa-itu-pusaka",
-                "source": "uri",
                 "url": "docs\/apa-itu-pusaka",
+                "source": "uri",
                 "target": "_self"
             },
             {
                 "title": "Panduan Pengguna",
                 "slug": "panduan-pengguna",
-                "source": "uri",
                 "url": "docs\/panduan-pengguna",
+                "source": "uri",
                 "target": "_self"
             },
             {
                 "title": "Panduan Pengembang",
                 "slug": "panduan-pengembang",
-                "source": "uri",
                 "url": "docs\/panduan-pengembang",
+                "source": "uri",
                 "target": "_self"
             }
         ]
     },
     {
+        "title": "Download",
+        "slug": "download",
+        "url": "download",
+        "source": "uri",
+        "target": "_self"
+    },
+    {
         "title": "Blog",
         "slug": "blog",
-        "source": "uri",
         "url": "blog",
+        "source": "uri",
         "target": "_self"
     }
 ]
