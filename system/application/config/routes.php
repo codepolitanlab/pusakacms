@@ -38,12 +38,8 @@
 |
 */
 
-$route['default_controller'] = "yllumi";
-$route['404_override'] = "yllumi";
-
-// $route['docs'] = "yllumi/index";
-// $route['docs/(:any)'] = "yllumi/index/$1";
-
+$route['default_controller'] = "cms";
+$route['404_override'] = "cms";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

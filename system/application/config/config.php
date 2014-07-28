@@ -2,14 +2,6 @@
 
 /*
 |--------------------------------------------------------------------------
-| Site Title
-|--------------------------------------------------------------------------
-*/
-
-$config['site_title']			= 'Yllumi CMS';
-
-/*
-|--------------------------------------------------------------------------
 | Base Site URL
 |--------------------------------------------------------------------------
 |
@@ -364,19 +356,6 @@ $config['rewrite_short_tags'] = FALSE;
 |
 */
 $config['proxy_ips'] = '';
-
-/**
- * Fizl Configs
- *
- * These are the available Fizl config variables
- */
-
-$config['templates_folder']		= APPPATH.'views/freedo/views';
-$config['assets_folder']		= APPPATH.'views/freedo/assets';
-$config['content_folder']		= 'content';
-
-$config['fizl_date_format']		= 'Y-m-d H:i:s';
-
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

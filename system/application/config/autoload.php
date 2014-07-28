@@ -80,7 +80,7 @@ $autoload['helper'] = array('file', 'url', 'template', 'directory');
 |
 */
 
-$autoload['config'] = array();
+$autoload['config'] = array('site');
 
 
 /*
