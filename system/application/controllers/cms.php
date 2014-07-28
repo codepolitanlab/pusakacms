@@ -38,12 +38,12 @@ class CMS extends MY_Controller {
 		$segments = array_values($segments);
 		
 		// if it is blog post
-		if($segments[0] == 'posts' && isset($segments[1]))
+		if($segments[0] == $this->config->item('post_folder') && isset($segments[1]))
 		{
 			// delete the first index contain 'posts' first
 			array_shift($segments);
 
-			$file_path = CONTENT_FOLDER.'/posts/'.implode("-", $segments);
+			$file_path = CONTENT_FOLDER.'/'.$this->config->item('post_folder').'/'.implode("-", $segments);
 		}
 		// if it is a page
 		else 
