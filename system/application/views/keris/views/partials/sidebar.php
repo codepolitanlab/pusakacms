@@ -7,8 +7,8 @@
 		"depth" => 2
 	);
 
-	$this->fizl->initialize($config);
-	echo $this->fizl->nav($this->uri->segment(1));
+	$this->pusaka->initialize($config);
+	echo $this->pusaka->nav($this->uri->segment(1));
 
 ?>
 </div>

@@ -1,4 +1,4 @@
-# Jooglo v { site_title } Documentation
+# Jooglo v{{ config:jooglo_version }} Documentation
 
 Selamat datang di dokumentasi Jooglo CMS. Konten dokumentasi ini masih dalam tahap pengembangan seiring dengan perkembangan aplikasi. Konten dokumentasi dapat berbentuk tutorial suatu teknik atau cara menggunakan suatu library/helper.
 

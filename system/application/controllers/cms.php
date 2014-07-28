@@ -32,18 +32,28 @@ class CMS extends MY_Controller {
 		{
 			$is_home = TRUE;
 			$segments = array('index');
-		}
+		} 
 
 		// reset index to 0
 		$segments = array_values($segments);
+		
+		// if it is blog post
+		if($segments[0] == 'posts' && isset($segments[1]))
+		{
+			// delete the first index contain 'posts' first
+			array_shift($segments);
+
+			$file_path = CONTENT_FOLDER.'/posts/'.implode("-", $segments);
+		}
+		// if it is a page
+		else 
+		{
+			$file_path = CONTENT_FOLDER.'/'.implode('/', $segments);
+		}
 
 		// check if there is a custom layout for this page
 		if($this->template->layout_exists($segments[0]))
 			$this->template->set_layout($segments[0]);
-
-		// Turn the URL into a file path
-		$file_path = CONTENT_FOLDER;
-		if ($segments) $file_path .= '/'.implode('/', $segments);
 
 		$this->template->view_content($file_path);
 	}

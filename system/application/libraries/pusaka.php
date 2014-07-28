@@ -11,7 +11,7 @@
  * @license		http://parse19.com/fizl/docs/license.html
  * @link		http://parse19.com/fizl
  */
-class Fizl {
+class Pusaka {
 
 	var $CI;
 	var $level 			= 0;
@@ -254,7 +254,7 @@ class Fizl {
 		$name = str_replace('-', ' ', $name);
 		$name = str_replace('_', ' ', $name);
 
-		return ucwords($name);
+		return $name;
 	}
 
 	// --------------------------------------------------------------------------

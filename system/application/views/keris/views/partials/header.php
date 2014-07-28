@@ -14,8 +14,8 @@
 						"depth" => 1
 						);
 
-					$this->fizl->initialize($config);
-					echo $this->fizl->nav(null, 1);
+					$this->pusaka->initialize($config);
+					echo $this->pusaka->nav(null, 1);
 				?>
 			</div>
 		</div>
