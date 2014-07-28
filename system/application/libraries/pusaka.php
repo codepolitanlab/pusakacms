@@ -70,6 +70,9 @@ class Pusaka {
 		// get derectory map
 		$map = directory_map(FCPATH.$this->CI->config->item('content_folder').'/'.$start, $depth);
 
+		// sort by newest post for posts entry
+		if($prefix == $this->CI->config->item('post_folder')) rsort($map);
+
 		// parse map in order to compatible with build_list()
 		$new_map = $this->_parse_map($map, $prefix);
 
@@ -83,7 +86,7 @@ class Pusaka {
 	{
 		$ul = '';
 
-		if($prefix == 'posts/')
+		if($prefix == $this->CI->config->item('post_folder').'/')
 		{
 			foreach ($tree as $key => $value)
 			{
@@ -206,12 +209,16 @@ class Pusaka {
 	{
 		$name = $this->remove_extension($name);
 
-		if($prefix == 'posts'){
+		if($prefix == $this->CI->config->item('post_folder')){
 			$name = $this->remove_date($name);
 		}
 
 		$name = str_replace('-', ' ', $name);
 		$name = str_replace('_', ' ', $name);
+
+		// assumes that root folders need uppercase first
+		if(! $prefix)
+			$name = ucfirst($name);
 
 		return $name;
 	}
