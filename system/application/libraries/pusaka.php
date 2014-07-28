@@ -65,13 +65,11 @@ class Pusaka {
 
 	function nav($start = null, $depth = 2)
 	{
-		if($start) $start .= '/';
-
 		// get derectory map
 		$map = directory_map(FCPATH.$this->CI->config->item('content_folder').'/'.$start, $depth);
 
 		// parse map in order to compatible with build_list()
-		$new_map = $this->_parse_map($map);
+		$new_map = $this->_parse_map($map, $start);
 
 		// bulid the list
 		$list = $this->build_list($new_map, $start);
@@ -83,28 +81,68 @@ class Pusaka {
 	{
 		$ul = '';
 
-		foreach ($tree as $key => $value)
+		if($prefix == 'posts')
 		{
-			$li = '';
-			$active = false;
+			$prefix .= '/';
 
-			if (is_array($value))
+			foreach ($tree as $key => $value)
 			{
+				$li = '';
+				$active = false;
+
+				// change dash in date to slash
+				$segs = explode("-", $key, 4);
+				if(count($segs) > 3)
+					$newkey = implode("/", $segs);
+				else
+					$newkey = $key;
+				
 				// set active for match link
-				if(uri_string() == $prefix.$key) $active = true;
+				if(uri_string() == $prefix.$newkey) $active = true;
 
 				// set active for upper link
-				if(strstr(uri_string(), $prefix.$key)) $active = true;
+				if(strstr(uri_string(), $prefix.$newkey)) $active = true;
 
 				if (array_key_exists('_title', $value)) {
 
-					$li .= "<a href='".site_url($prefix.$key)."/' ".($active ? "class='".$this->current_class."'" : "").">${value['_title']}</a>";
+					$li .= "<a href='".site_url($prefix.$newkey)."' ".($active ? "class='".$this->current_class."'" : "").">${value['_title']}</a>";
 				} else {
-					$li .= "$prefix$key/";
+					$li .= "$prefix$newkey/";
 				}
 
-				$li .= $this->build_list($value, "$prefix$key/");
+				$li .= $this->build_list($value, "$prefix$newkey");
 				$ul .= strlen($li) ? "<li".($active ? " class='".$this->current_class."'" : "").">$li</li>" : '';
+				
+			}
+		}
+
+		else {
+			
+			$prefix .= '/';
+
+			foreach ($tree as $key => $value)
+			{
+				$li = '';
+				$active = false;
+
+				if (is_array($value))
+				{
+					// set active for match link
+					if(uri_string() == $prefix.$key) $active = true;
+
+					// set active for upper link
+					if(strstr(uri_string(), $prefix.$key)) $active = true;
+
+					if (array_key_exists('_title', $value)) {
+
+						$li .= "<a href='".site_url($prefix.$key)."' ".($active ? "class='".$this->current_class."'" : "").">${value['_title']}</a>";
+					} else {
+						$li .= "$prefix$key/";
+					}
+
+					$li .= $this->build_list($value, "$prefix$key");
+					$ul .= strlen($li) ? "<li".($active ? " class='".$this->current_class."'" : "").">$li</li>" : '';
+				}
 			}
 		}
 
@@ -122,7 +160,7 @@ class Pusaka {
 	 * @param	array - directory map
 	 * @return	array
 	 */
-	private function _parse_map($map)
+	private function _parse_map($map, $prefix = null)
 	{
 		$new_map = array();
 		$order = FALSE;
@@ -134,13 +172,13 @@ class Pusaka {
 			{
 				$stack[] = $key;
 
-				$new_map[$key] = array_merge(array('_title' => $this->guess_name($key)), $this->_parse_map($map[$key]));
+				$new_map[$key] = array_merge(array('_title' => $this->guess_name($key, $prefix)), $this->_parse_map($map[$key]));
 
 				array_pop($stack);
 			}
 			else
 			{
-				$new_map[$this->remove_extension($file)]['_title'] = $this->guess_name($file);
+				$new_map[$this->remove_extension($file)]['_title'] = $this->guess_name($file, $prefix);
 			}
 		}
 
@@ -155,89 +193,6 @@ class Pusaka {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Create HTML UL from tree array
-	 *
-	 * @access	public
-	 * @param	array - special tree array
-	 * @return	void
-	 */
-	public function create_ul($tree, $ul_class = 'nav', $current_class = false)
-	{
-		$this->depth++;
-
-		$this->html .= '<ul class="depth_'.$this->depth.' '.$this->ul_class.'">'."\n";
-
-		foreach($tree as $key => $item)
-		{
-			if ($key == '_title') continue;
-
-			if (is_array($item))
-			{
-				$this->stack[] = $key;
-
-				$this->html .= '<li><a href="'.site_url(implode('/', $this->stack)).'">'.$item['_title']."</a>\n";
-
-				$this->create_ul($item);
-
-				$this->html .= '</li>';
-
-				array_pop($this->stack);
-			}
-			else
-			{
-				$this->stack[] = $key;
-
-				// Check if we have segments (are not on home)
-				if ($this->CI->uri->segment_array()) {
-
-					// Write segments array
-					$segments = $this->CI->uri->segment_array();
-
-					// Fix the array keys (start at 0)
-					$segments = array_values($segments);
-
-					// Check if we are in a folder's home
-					$total_segments = $this->CI->uri->total_segments();
-					$array_segments = count($this->stack);
-
-					if ($array_segments == $total_segments + 1) {
-
-						// Fix the array...
-						array_push($segments, 'index');
-
-					}
-
-				} else {
-
-					// So we are on home, fix some errors
-					$array_segments = 1;
-					$segments = array('index');
-
-				}
-
-				// compare the arrays to see if it's the current
-				if ($this->stack[$array_segments - 1] == $segments[$array_segments - 1]) {
-
-					$this->html .= "\t".'<li class="'. $this->current_class .'"><a href="'.site_url(implode('/', $this->stack)).'">'.$item.'</a></li>'."\n";
-
-				} else {
-
-					$this->html .= "\t".'<li><a href="'.site_url(implode('/', $this->stack)).'">'.$item.'</a></li>'."\n";
-
-				}
-
-				array_pop($this->stack);
-			}
-		}
-
-		$this->html .= '</ul>'."\n\n";
-
-		$this->depth--;
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
 	 * Guess Name
 	 *
 	 * Takes a file name and attempts to generate
@@ -247,9 +202,13 @@ class Pusaka {
 	 * @param	string - file name
 	 * @retrun 	string
 	 */
-	public function guess_name($name)
+	public function guess_name($name, $prefix = null)
 	{
 		$name = $this->remove_extension($name);
+
+		if($prefix == 'posts'){
+			$name = $this->remove_date($name);
+		}
 
 		$name = str_replace('-', ' ', $name);
 		$name = str_replace('_', ' ', $name);
@@ -277,6 +236,27 @@ class Pusaka {
 		}
 
 		return $file;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Remove the date from a file name
+	 *
+	 * @access	public
+	 * @param	string - file name
+	 * @return	string- the extension
+	 */
+	public function remove_date($filename)
+	{
+		$segs = explode('-', $filename, 4);
+
+		if(count($segs) > 3)
+		{
+			$filename = $segs[3];
+		}
+
+		return $filename;
 	}
 
 }
