@@ -63,13 +63,15 @@ class Pusaka {
 		}
 	}
 
-	function nav($start = null, $depth = 2)
+	function nav($prefix = null, $depth = 2)
 	{
+		$start = ($prefix) ? $prefix.'/' : '';
+
 		// get derectory map
 		$map = directory_map(FCPATH.$this->CI->config->item('content_folder').'/'.$start, $depth);
 
 		// parse map in order to compatible with build_list()
-		$new_map = $this->_parse_map($map, $start);
+		$new_map = $this->_parse_map($map, $prefix);
 
 		// bulid the list
 		$list = $this->build_list($new_map, $start);
@@ -81,44 +83,42 @@ class Pusaka {
 	{
 		$ul = '';
 
-		if($prefix == 'posts')
+		if($prefix == 'posts/')
 		{
-			$prefix .= '/';
-
 			foreach ($tree as $key => $value)
 			{
 				$li = '';
 				$active = false;
 
-				// change dash in date to slash
-				$segs = explode("-", $key, 4);
-				if(count($segs) > 3)
-					$newkey = implode("/", $segs);
-				else
-					$newkey = $key;
-				
-				// set active for match link
-				if(uri_string() == $prefix.$newkey) $active = true;
+				if (is_array($value))
+				{
 
-				// set active for upper link
-				if(strstr(uri_string(), $prefix.$newkey)) $active = true;
+					// change dash in date to slash
+					$segs = explode("-", $key, 4);
+					if(count($segs) > 3)
+						$newkey = implode("/", $segs);
+					else
+						$newkey = $key;
 
-				if (array_key_exists('_title', $value)) {
+					// set active for match link
+					if(uri_string() == $prefix.$newkey) $active = true;
 
-					$li .= "<a href='".site_url($prefix.$newkey)."' ".($active ? "class='".$this->current_class."'" : "").">${value['_title']}</a>";
-				} else {
-					$li .= "$prefix$newkey/";
+					// set active for upper link
+					if(strstr(uri_string(), $prefix.$newkey)) $active = true;
+
+					if (array_key_exists('_title', $value)) {
+
+						$li .= "<a href='".site_url($prefix.$newkey)."/' ".($active ? "class='".$this->current_class."'" : "").">${value['_title']}</a>";
+					} else {
+						$li .= "$prefix$newkey/";
+					}
+
+					$li .= $this->build_list($value, "$prefix$newkey/");
+					$ul .= strlen($li) ? "<li".($active ? " class='".$this->current_class."'" : "").">$li</li>" : '';
 				}
-
-				$li .= $this->build_list($value, "$prefix$newkey");
-				$ul .= strlen($li) ? "<li".($active ? " class='".$this->current_class."'" : "").">$li</li>" : '';
-				
 			}
 		}
-
 		else {
-			
-			$prefix .= '/';
 
 			foreach ($tree as $key => $value)
 			{
@@ -127,20 +127,20 @@ class Pusaka {
 
 				if (is_array($value))
 				{
-					// set active for match link
+				// set active for match link
 					if(uri_string() == $prefix.$key) $active = true;
 
-					// set active for upper link
+				// set active for upper link
 					if(strstr(uri_string(), $prefix.$key)) $active = true;
 
 					if (array_key_exists('_title', $value)) {
 
-						$li .= "<a href='".site_url($prefix.$key)."' ".($active ? "class='".$this->current_class."'" : "").">${value['_title']}</a>";
+						$li .= "<a href='".site_url($prefix.$key)."/' ".($active ? "class='".$this->current_class."'" : "").">${value['_title']}</a>";
 					} else {
 						$li .= "$prefix$key/";
 					}
 
-					$li .= $this->build_list($value, "$prefix$key");
+					$li .= $this->build_list($value, "$prefix$key/");
 					$ul .= strlen($li) ? "<li".($active ? " class='".$this->current_class."'" : "").">$li</li>" : '';
 				}
 			}
