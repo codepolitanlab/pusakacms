@@ -1,3 +1,0 @@
-# MVC Theme
-
-MVC theme adalah salah satu inovasi Jooglo dalam menghadirkan nilai tambah dibanding CMS yang sudah ada. MVC theme memungkinkan developer untuk membuat tema dengan kustomisasi yang lebih fleksibel terutama dari sisi perangkat kustomisasi tema. MVC theme berarti tema yang didalamnya terdapat tambahan controller dan model sehingga developer dapat membuat semacam modul yang terintegrasi langsung dengan tema. Contoh implementasinya adalah seperti theme customizer pada tema WordPress. Dengan MVC theme, developer dapat menyertakan theme customizer dalam satu paket instalasi tema.
