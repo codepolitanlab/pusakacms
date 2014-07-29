@@ -63,12 +63,33 @@ class Pusaka {
 		}
 	}
 
-	function nav($prefix = null, $depth = 3)
+	function nav($prefix = null, $depth = 2)
 	{
 		$start = ($prefix) ? $prefix.'/' : '';
 
-		// get derectory map
-		$map = directory_map(FCPATH.$this->CI->config->item('content_folder').'/'.$start, $depth);
+		$folder = CONTENT_FOLDER;
+
+		// if prefix set
+		if($prefix){
+			$segs = explode("/", $prefix);
+
+			// tambahin satu di awal sebagai root kalo prefix cuma satu segment
+			if(count($segs) < 2)
+				array_unshift($segs, "/");
+
+			// get nav.json for checking the pseudo path
+			$json = $this->object_to_array(json_decode(read_file($folder.$segs[0].'/nav.json')));
+
+			foreach ($json as $key => $value) {
+				if($key == $segs[1]){
+					$map = directory_map(FCPATH.$folder.'/'.$value['_file'], $depth);
+					break;
+				}
+			}
+		}
+		// if prefix is root content
+		else
+			$map = directory_map(FCPATH.$folder, $depth);
 
 		// parse map in order to compatible with build_list()
 		$new_map = $this->_parse_map($map, $prefix);
@@ -77,6 +98,32 @@ class Pusaka {
 		$list = $this->build_list($new_map, $start);
 
 		return $list;
+	}
+
+	function sync_nav($prefix = null)
+	{
+		$start = ($prefix) ? $prefix.'/' : '';
+
+		// get derectory map
+		$map = directory_map(FCPATH.CONTENT_FOLDER.'/'.$start, 1);
+
+		foreach ($map as $file) {
+			if(is_dir(CONTENT_FOLDER.'/'.$start.$file))
+				$this->sync_nav($start.$file);
+		}
+
+		// parse map in order to compatible with _build_list()
+		$new_map = $this->_parse_map($map, $prefix, true);
+
+		// generate json
+		$list = json_encode($new_map);
+
+
+		// save to file
+		if ( ! write_file(FCPATH.CONTENT_FOLDER.'/'.$start.'nav.json', $list))
+			echo $prefix." failed<br><br>";
+		else
+			echo $prefix." success<br><br>";
 	}
 
 	function build_list($tree, $prefix = '')
@@ -149,6 +196,88 @@ class Pusaka {
 		return strlen($ul) ? "<ul class='".$this->ul_class."'>$ul</ul>" : '';
 	}
 
+	function object_to_array($obj) {
+		if(is_object($obj)) $obj = (array) $obj;
+		if(is_array($obj)) {
+			$new = array();
+			foreach($obj as $key => $val) {
+				$new[$key] = $this->object_to_array($val);
+			}
+		}
+		else $new = $obj;
+		return $new;       
+	}
+
+	function _build_list($tree, $prefix = '')
+	{
+		$ul = '';
+
+		if($this->is_posts_prefix($prefix))
+		{
+			foreach ($tree as $key => $value)
+			{
+				$li = '';
+				$active = false;
+
+				if (is_array($value))
+				{
+
+					// change dash in date to slash
+					$segs = explode("-", $key, 4);
+					if(count($segs) > 3)
+						$newkey = implode("/", $segs);
+					else
+						$newkey = $key;
+
+					// set active for match link
+					if(uri_string() == $prefix.$newkey) $active = true;
+
+					// set active for upper link
+					if(strstr(uri_string(), $prefix.$newkey)) $active = true;
+
+					if (array_key_exists('_title', $value)) {
+
+						$li .= "<a href='".site_url($prefix.$newkey)."/' ".($active ? "class='".$this->current_class."'" : "").">${value['_title']}</a>";
+					} else {
+						$li .= "$prefix$newkey/";
+					}
+
+					$li .= $this->_build_list($value, "$prefix$newkey/");
+					$ul .= strlen($li) ? "<li".($active ? " class='".$this->current_class."'" : "").">$li</li>" : '';
+				}
+			}
+		}
+		else {
+
+			foreach ($tree as $key => $value)
+			{
+				$li = '';
+				$active = false;
+
+				if (is_array($value))
+				{
+				// set active for match link
+					if(uri_string() == $prefix.$key) $active = true;
+
+				// set active for upper link
+					if(strstr(uri_string(), $prefix.$key)) $active = true;
+
+					if (array_key_exists('_title', $value)) {
+
+						$li .= "<a href='".site_url($prefix.$key)."/' ".($active ? "class='".$this->current_class."'" : "").">${value['_title']}</a>";
+					} else {
+						$li .= "$prefix$key/";
+					}
+
+					$li .= $this->_build_list($value, "$prefix$key/");
+					$ul .= strlen($li) ? "<li".($active ? " class='".$this->current_class."'" : "").">$li</li>" : '';
+				}
+			}
+		}
+
+		return strlen($ul) ? "<ul class='".$this->ul_class."'>$ul</ul>" : '';
+	}
+
 	
 	/**
 	 * Parse Map
@@ -160,11 +289,9 @@ class Pusaka {
 	 * @param	array - directory map
 	 * @return	array
 	 */
-	private function _parse_map($map, $prefix = null)
+	private function _parse_map($map, $prefix = null, $add_folder_name = false)
 	{
 		$new_map = array();
-		$order = FALSE;
-		$stack = array();
 		
 		foreach($map as $key => $file)
 		{
@@ -172,19 +299,20 @@ class Pusaka {
 			{
 				// show on menu only numbered files/folders
 				if(strpos($key, ':')){	
-
-					$stack[] = $key;
-
-					$new_map[$key] = array_merge(array('_title' => $this->guess_name($key, $prefix)), $this->_parse_map($map[$key]));
-
-					array_pop($stack);
+					// add _title field
+					$new_map[$key] = array_merge(array('_title' => $key), $this->_parse_map($map[$key], $prefix, $add_folder_name));
 				}
 			}
 			else
 			{
 				// show on menu only numbered files/folders
-				if (strpos($file, ':'))
-					$new_map[$this->remove_extension($file)]['_title'] = $this->guess_name($file, $prefix);
+				if (strpos($file, ':')){
+					$new_map[$this->remove_extension($file)]['_title'] = $file;
+				
+				// add _folder field
+				// if($add_folder_name)
+					$new_map[$this->remove_extension($file)]['_file'] = $file;
+				}
 			}
 		}
 
@@ -252,13 +380,17 @@ class Pusaka {
 	public function clean_name($map, $prefix = null)
 	{
 		$new_map = array();
-		$temp_title = '';
 		$temp_key = '';
-		foreach ($map as $key => &$value) {
+
+		foreach ($map as $key => $value) {
 			// kalo keynya _title, value pasti string
 			if($key == '_title'){
 				$new_map['_title'] = $this->guess_name($value, $prefix);
 			} 
+			// kalo keynya _file biarkan
+			elseif($key == '_file') {
+				$new_map['_file'] = $value;
+			}
 			// kalo keynya bukan _title, value pasti array
 			else {
 				// simpan nama key baru sementara

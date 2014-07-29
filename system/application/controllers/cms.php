@@ -45,10 +45,23 @@ class CMS extends MY_Controller {
 
 			$file_path = CONTENT_FOLDER.'/'.$this->config->item('post_folder').'/'.implode("-", $segments);
 		}
-		// if it is a page
+		// if it is a page, get the real path first
 		else 
 		{
-			$file_path = CONTENT_FOLDER.'/'.implode('/', $segments);
+			$level = array();
+			$file_path = CONTENT_FOLDER;
+
+			foreach ($segments as $segment) 
+			{
+				$level = json_decode(read_file($file_path.'/nav.json'));
+
+				foreach ($level as $key => $file) {
+					if($key == $segment){
+						$file_path .= '/'.$file->_file;
+						break;
+					}
+				}
+			}
 		}
 
 		// check if there is a custom layout for this page
@@ -57,5 +70,4 @@ class CMS extends MY_Controller {
 
 		$this->template->view_content($file_path);
 	}
-
 }
