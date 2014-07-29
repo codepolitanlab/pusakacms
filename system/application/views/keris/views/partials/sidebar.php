@@ -4,7 +4,7 @@
 		"ul_class" => "nav nav-pills nav-stacked",
 		"current_class" => "active",
 		"start" => $this->uri->segment(1),
-		"depth" => 2
+		"depth" => 3
 	);
 
 	$this->pusaka->initialize($config);

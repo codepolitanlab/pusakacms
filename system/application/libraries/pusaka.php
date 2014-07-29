@@ -18,7 +18,7 @@ class Pusaka {
 	var $ul_class 		= 'nav';
 	var $current_class 	= 'active';
 	var $start 			= '/';
-	var $depth 			= 2;
+	var $depth 			= 3;
 	var $remove_index	= true;
 	var $stack			= array();
 
@@ -63,15 +63,12 @@ class Pusaka {
 		}
 	}
 
-	function nav($prefix = null, $depth = 2)
+	function nav($prefix = null, $depth = 3)
 	{
 		$start = ($prefix) ? $prefix.'/' : '';
 
 		// get derectory map
 		$map = directory_map(FCPATH.$this->CI->config->item('content_folder').'/'.$start, $depth);
-
-		// sort by newest post for posts entry
-		if($prefix == $this->CI->config->item('post_folder')) rsort($map);
 
 		// parse map in order to compatible with build_list()
 		$new_map = $this->_parse_map($map, $prefix);
@@ -86,7 +83,7 @@ class Pusaka {
 	{
 		$ul = '';
 
-		if($prefix == $this->CI->config->item('post_folder').'/')
+		if($this->is_posts_prefix($prefix))
 		{
 			foreach ($tree as $key => $value)
 			{
@@ -173,15 +170,21 @@ class Pusaka {
 		{
 			if (is_array($file))
 			{
-				$stack[] = $key;
+				// show on menu only numbered files/folders
+				if(strpos($key, ':')){	
 
-				$new_map[$key] = array_merge(array('_title' => $this->guess_name($key, $prefix)), $this->_parse_map($map[$key]));
+					$stack[] = $key;
 
-				array_pop($stack);
+					$new_map[$key] = array_merge(array('_title' => $this->guess_name($key, $prefix)), $this->_parse_map($map[$key]));
+
+					array_pop($stack);
+				}
 			}
 			else
 			{
-				$new_map[$this->remove_extension($file)]['_title'] = $this->guess_name($file, $prefix);
+				// show on menu only numbered files/folders
+				if (strpos($file, ':'))
+					$new_map[$this->remove_extension($file)]['_title'] = $this->guess_name($file, $prefix);
 			}
 		}
 
@@ -190,6 +193,20 @@ class Pusaka {
 			unset($new_map['index']);
 		}
 		
+		// sort by newest post for posts entry
+		if($this->is_posts_prefix($prefix)) 
+			arsort($new_map);
+		else{
+			// sort the content
+			asort($new_map);
+
+			// sort the key
+			ksort($new_map);
+		}
+
+		// clean the name from number
+		$new_map = $this->clean_name($new_map, $prefix);
+
 		return $new_map;
 	}
 
@@ -209,8 +226,17 @@ class Pusaka {
 	{
 		$name = $this->remove_extension($name);
 
-		if($prefix == $this->CI->config->item('post_folder')){
-			$name = $this->remove_date($name);
+		if($this->is_posts_prefix($prefix)){
+			$segs = explode('-', $name, 4);
+
+			if(count($segs) > 3)
+			{
+				$name = $segs[3];
+			}
+
+		} else {
+			$pos = strpos($name, ':');
+			$name = substr($name, ($pos===FALSE)? 0 : $pos+1);
 		}
 
 		$name = str_replace('-', ' ', $name);
@@ -221,6 +247,30 @@ class Pusaka {
 			$name = ucfirst($name);
 
 		return $name;
+	}
+
+	public function clean_name($map, $prefix = null)
+	{
+		$new_map = array();
+		$temp_title = '';
+		$temp_key = '';
+		foreach ($map as $key => &$value) {
+			// kalo keynya _title, value pasti string
+			if($key == '_title'){
+				$new_map['_title'] = $this->guess_name($value, $prefix);
+			} 
+			// kalo keynya bukan _title, value pasti array
+			else {
+				// simpan nama key baru sementara
+				$pos = strpos($key, ':');
+				$temp_key = substr($key, ($pos===FALSE)? 0 : $pos+1);
+
+				// clean name lagi buat value array
+				$new_map[$temp_key] = $this->clean_name($value, $prefix);
+			}
+		}
+
+		return $new_map;
 	}
 
 	// --------------------------------------------------------------------------
@@ -247,23 +297,15 @@ class Pusaka {
 
 	// --------------------------------------------------------------------------
 
-	/**
-	 * Remove the date from a file name
-	 *
-	 * @access	public
-	 * @param	string - file name
-	 * @return	string- the extension
-	 */
-	public function remove_date($filename)
+	public function is_posts_prefix($prefix)
 	{
-		$segs = explode('-', $filename, 4);
-
-		if(count($segs) > 3)
-		{
-			$filename = $segs[3];
+		if(strpos($prefix, ':')){
+			$segs = explode(":", $prefix);
+			$prefix = $segs[1];
 		}
 
-		return $filename;
+		if($prefix == $this->CI->config->item('post_folder') or $prefix == $this->CI->config->item('post_folder').'/')
+			return true;
 	}
 
 }
