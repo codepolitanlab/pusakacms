@@ -67,25 +67,27 @@ class Pusaka {
 	{
 		$start = ($prefix) ? $prefix.'/' : '';
 
-		$folder = CONTENT_FOLDER;
+		$folder = CONTENT_FOLDER.'/';
 
 		// if prefix set
 		if($prefix){
 			$segs = explode("/", $prefix);
 
-			// tambahin satu di awal sebagai root kalo prefix cuma satu segment
-			if(count($segs) < 2)
-				array_unshift($segs, "/");
+			// tambahin satu di awal sebagai root
+			array_unshift($segs, "");
 
-			// get nav.json for checking the pseudo path
-			$json = $this->object_to_array(json_decode(read_file($folder.$segs[0].'/nav.json')));
+			for($i = 0; $i < count($segs)-1; $i++){
+				// get nav.json for checking the pseudo path
+				$json = $this->object_to_array(json_decode(read_file($folder.'nav.json')));
 
-			foreach ($json as $key => $value) {
-				if($key == $segs[1]){
-					$map = directory_map(FCPATH.$folder.'/'.$value['_file'], $depth);
-					break;
+				foreach ($json as $key => $value) {
+					if($key == $segs[$i+1]){
+						$folder .= $value['_file'].'/';
+						break;
+					}
 				}
 			}
+			$map = directory_map(FCPATH.$folder, $depth);
 		}
 		// if prefix is root content
 		else
