@@ -40,7 +40,7 @@ class Template
 	private $_title_separator = ' | ';
 
 	private $_parser_enabled = TRUE;
-	private $_parser_body_enabled = FALSE;
+	private $_parser_body_enabled = TRUE;
 
 	private $_theme_locations = array();
 	private $_asset_locations = array();
@@ -293,7 +293,7 @@ class Template
 	 * @param	string
 	 * @return	void
 	 */
-	public function view_content($view, $return = FALSE)
+	public function view_content($view, $data = array(), $return = FALSE)
 	{
 		if (empty($this->_title))
 		{

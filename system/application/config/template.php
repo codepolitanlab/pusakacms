@@ -85,7 +85,7 @@ $config['theme'] = 'keris';
 */
 
 $config['theme_locations'] = array(
-	APPPATH.'views/'
+	APPURL.'views/'
 );
 
 /*
