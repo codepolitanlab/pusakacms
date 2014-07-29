@@ -65,20 +65,40 @@ class Pusaka {
 
 	function nav($prefix = null, $depth = 2)
 	{
-		$start = ($prefix) ? $prefix.'/' : '';
+		$folder = CONTENT_FOLDER;
 
-		// get derectory map
-		$map = directory_map(FCPATH.$this->CI->config->item('content_folder').'/'.$start, $depth);
+		// if sort.json available
+		if(file_exists($folder.'/'.$prefix.'/sort.json'))
+		{
+			$new_map = array();
 
-		// sort by newest post for posts entry
-		if($prefix == $this->CI->config->item('post_folder')) rsort($map);
+			$map = json_decode(read_file($folder.'/'.$prefix.'/sort.json'));
+			foreach ($map as $key => $value) {
+				$new_map[$key]['_title'] = $value;
+			}
+			
+			// bulid the list
+			$list = $this->build_list($new_map, $prefix);
+		}
+		// otherwise we grab folder list
+		else
+		{
+			$start = ($prefix) ? $prefix.'/' : '';
 
-		// parse map in order to compatible with build_list()
-		$new_map = $this->_parse_map($map, $prefix);
+			// get derectory map
+			$map = directory_map(FCPATH.$this->CI->config->item('content_folder').'/'.$start, $depth);
 
-		// bulid the list
-		$list = $this->build_list($new_map, $start);
+			// sort by newest post for posts entry
+			if($prefix == $this->CI->config->item('post_folder')) rsort($map);
 
+			// parse map in order to compatible with build_list()
+			$new_map = $this->_parse_map($map, $prefix);
+
+			// bulid the list
+			$list = $this->build_list($new_map, $start);
+
+		}
+		
 		return $list;
 	}
 
@@ -110,7 +130,6 @@ class Pusaka {
 					if(strstr(uri_string(), $prefix.$newkey)) $active = true;
 
 					if (array_key_exists('_title', $value)) {
-
 						$li .= "<a href='".site_url($prefix.$newkey)."/' ".($active ? "class='".$this->current_class."'" : "").">${value['_title']}</a>";
 					} else {
 						$li .= "$prefix$newkey/";
@@ -137,8 +156,10 @@ class Pusaka {
 					if(strstr(uri_string(), $prefix.$key)) $active = true;
 
 					if (array_key_exists('_title', $value)) {
+						// don't use index term
+						$newkey = ($key == 'index')? '' : $key.'/';
 
-						$li .= "<a href='".site_url($prefix.$key)."/' ".($active ? "class='".$this->current_class."'" : "").">${value['_title']}</a>";
+						$li .= "<a href='".site_url($prefix.$newkey)."' ".($active ? "class='".$this->current_class."'" : "").">${value['_title']}</a>";
 					} else {
 						$li .= "$prefix$key/";
 					}
@@ -173,11 +194,7 @@ class Pusaka {
 		{
 			if (is_array($file))
 			{
-				$stack[] = $key;
-
 				$new_map[$key] = array_merge(array('_title' => $this->guess_name($key, $prefix)), $this->_parse_map($map[$key]));
-
-				array_pop($stack);
 			}
 			else
 			{

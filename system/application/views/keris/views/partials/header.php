@@ -9,9 +9,7 @@
 				<?php
 					$config = array(
 						"ul_class" => "nav navbar-nav navbar-right",
-						"current_class" => "active",
-						"start" => "/",
-						"depth" => 1
+						"current_class" => "active"
 						);
 
 					$this->pusaka->initialize($config);
