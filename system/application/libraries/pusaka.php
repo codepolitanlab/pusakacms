@@ -22,6 +22,7 @@ class Pusaka {
 	var $remove_index	= true;
 	var $stack			= array();
 	var $navfile		= "nav.json";
+	var $allowed_ext	= array('html','md','textile');
 
 	/**
 	 * Constructor
@@ -68,13 +69,25 @@ class Pusaka {
 	{
 		$folder = CONTENT_FOLDER.'/'.$prefix;
 
-		$map = $this->dig_navfile($folder, $depth);
+		$new_map = array();
 
 		// sort by newest post for posts entry
-		if($prefix == $this->CI->config->item('post_folder')) rsort($map);
+		if($prefix == $this->CI->config->item('post_folder')){
+			$map = directory_map($folder);
+			foreach ($map as $value) {
+				if($this->is_valid_ext($value))
+					$new_map[$this->remove_extension($value)]['_title'] = $this->guess_name($this->remove_date($value));
+			}
+
+			if ($this->remove_index === TRUE AND isset($new_map['index']))
+					unset($new_map['index']);
+
+			asort($new_map);
+		} else
+			$new_map = $this->dig_navfile($folder, $depth);
 
 		// bulid the list
-		$list = $this->build_list($map, $prefix);
+		$list = $this->build_list($new_map, ($prefix)? $prefix.'/' : '');
 		
 		return $list;
 	}
@@ -172,12 +185,14 @@ class Pusaka {
 				$li = '';
 				$active = false;
 
+				// echo uri_string().' > '.$prefix.$key."<br>\n\n";
+
 				if (is_array($value))
 				{
-				// set active for match link
+					// set active for match link
 					if(uri_string() == $prefix.$key) $active = true;
 
-				// set active for upper link
+					// set active for upper link
 					if(strstr(uri_string(), $prefix.$key)) $active = true;
 
 					if (array_key_exists('_title', $value)) {
@@ -223,7 +238,7 @@ class Pusaka {
 
 		// assumes that root folders need uppercase first
 		if(! $prefix)
-			$name = ucfirst($name);
+			$name = ucwords($name);
 
 		return $name;
 	}
@@ -248,6 +263,15 @@ class Pusaka {
 		}
 
 		return $file;
+	}
+
+	public function is_valid_ext($file)
+	{
+		$part = pathinfo($file);
+		if(in_array($part['extension'], $this->allowed_ext))
+			return true;
+
+		return false;
 	}
 
 	// --------------------------------------------------------------------------

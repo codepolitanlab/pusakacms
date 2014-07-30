@@ -21,8 +21,12 @@ class CMS extends MY_Controller {
 	 * @access	public
 	 * @return	void
 	 */
-	public function _remap()
+	public function _remap($method, $params = array())
 	{
+		// run the main method first if available
+		if (method_exists($this, $method))
+			return call_user_func_array(array($this, $method), $params);
+
 		$segments = $this->uri->segment_array();
 
 		$is_home = FALSE;
@@ -32,10 +36,10 @@ class CMS extends MY_Controller {
 		{
 			$is_home = TRUE;
 			$segments = array('index');
-		} 
+		}
 
 		// reset index to 0
-		$segments = array_values($segments);
+			$segments = array_values($segments);
 		
 		// if it is blog post
 		if($segments[0] == $this->config->item('post_folder') && isset($segments[1]))
@@ -56,6 +60,11 @@ class CMS extends MY_Controller {
 			$this->template->set_layout($segments[0]);
 
 		$this->template->view_content($file_path);
+	}
+
+	function sync_nav_contents()
+	{
+		echo "lulus";
 	}
 
 }
