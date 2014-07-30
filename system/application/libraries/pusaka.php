@@ -119,7 +119,8 @@ class Pusaka {
 
 				//simpan sebagai nav.json
 				foreach ($map as $file) {
-					$for_json[$this->remove_extension($file)] = $this->guess_name($file);
+					if($this->is_valid_ext($file))
+						$for_json[$this->remove_extension($file)] = $this->guess_name($file);
 				}
 				if ($this->remove_index === TRUE AND isset($for_json['index']))
 					unset($for_json['index']);
