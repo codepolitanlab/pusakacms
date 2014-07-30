@@ -1,7 +1,1 @@
-{
-	"frontend-theme":"Frontend Theme",
-	"admin-theme":"Admin Theme",
-	"mvc-theme":"MVC Theme",
-	"modular":"Modularization",
-	"migrations":"Manage Migrations"
-}
+{"admin-theme":"Admin theme","mvc-theme":"Mvc theme","frontend-theme":"Frontend theme","index":"Index","migrations":"Migrations","modular":"Modular"}

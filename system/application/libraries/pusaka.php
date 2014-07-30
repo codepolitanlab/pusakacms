@@ -67,51 +67,63 @@ class Pusaka {
 	{
 		$folder = CONTENT_FOLDER.'/'.$prefix;
 
-		// if sort.json available
-		if(file_exists($folder.'/sort.json'))
-		{
-			$new_map = $this->dig_sortjson($folder, $depth);
+		$map = $this->dig_sortjson($folder, $depth);
 
-			// bulid the list
-			$list = $this->build_list($new_map, $prefix);
-		}
-		// otherwise we grab folder list
-		else
-		{
-			$start = ($prefix) ? $prefix.'/' : '';
+		// sort by newest post for posts entry
+		if($prefix == $this->CI->config->item('post_folder')) rsort($map);
 
-			// get derectory map
-			$map = directory_map(FCPATH.$folder.$start, $depth);
-
-			// sort by newest post for posts entry
-			if($prefix == $this->CI->config->item('post_folder')) rsort($map);
-
-			// parse map in order to compatible with build_list()
-			$new_map = $this->_parse_map($map, $prefix);
-
-			// bulid the list
-			$list = $this->build_list($new_map, $start);
-
-		}
+		// bulid the list
+		$list = $this->build_list($map, $prefix);
 		
 		return $list;
 	}
 
 	function dig_sortjson($prefix = null, $depth = 3, $level = 1)
 	{
-		if($level <= $depth) {
-			$new_map = array();
+		if($level <= $depth){
 
-			$map = json_decode(read_file($prefix.'/sort.json'));
-			
-			foreach ($map as $key => $value) {
-				if(is_dir($prefix.'/'.$key))
-					$new_map[$key] = $this->dig_sortjson($prefix.'/'.$key, $depth, $level+1);
+			if(file_exists($prefix.'/sort.json')) {
+				$new_map = array();
 
-				$new_map[$key]['_title'] = $value;
+				$map = json_decode(read_file($prefix.'/sort.json'));
+
+				foreach ($map as $key => $value) {
+					if(is_dir($prefix.'/'.$key))
+						$new_map[$key] = $this->dig_sortjson($prefix.'/'.$key, $depth, $level+1);
+
+					$new_map[$key]['_title'] = $value;
+				}
+
+				if ($this->remove_index === TRUE AND isset($new_map['index']))
+					unset($new_map['index']);
+
+				return $new_map;
+
+			} else {
+				// get derectory map
+				$map = directory_map(FCPATH.$prefix, 1);
+
+				$for_json = array();
+				$new_map = array();
+
+				//simpan sebagai sort.json
+				foreach ($map as $file) {
+					$for_json[$this->remove_extension($file)] = $this->guess_name($file);
+				}
+				write_file($prefix.'/sort.json', json_encode($for_json));	
+
+				foreach ($for_json as $key => $value) {
+					if(is_dir($prefix.'/'.$key))
+						$new_map[$key] = $this->dig_sortjson($prefix.'/'.$key.'/', $depth, $level+1);
+
+					$new_map[$key]['_title'] = $value;
+				}
+
+				if ($this->remove_index === TRUE AND isset($new_map['index']))
+					unset($new_map['index']);
+
+				return $new_map;
 			}
-	
-			return $new_map;
 		}
 
 		return false;
@@ -186,43 +198,6 @@ class Pusaka {
 		}
 
 		return strlen($ul) ? "<ul class='".$this->ul_class."'>$ul</ul>" : '';
-	}
-
-	
-	/**
-	 * Parse Map
-	 *
-	 * Parse a directory map row into
-	 * a tree structure for the UL function.
-	 *
-	 * @access	private
-	 * @param	array - directory map
-	 * @return	array
-	 */
-	private function _parse_map($map, $prefix = null)
-	{
-		$new_map = array();
-		$order = FALSE;
-		$stack = array();
-		
-		foreach($map as $key => $file)
-		{
-			if (is_array($file))
-			{
-				$new_map[$key] = array_merge(array('_title' => $this->guess_name($key, $prefix)), $this->_parse_map($map[$key]));
-			}
-			else
-			{
-				$new_map[$this->remove_extension($file)]['_title'] = $this->guess_name($file, $prefix);
-			}
-		}
-
-		if ($this->remove_index === TRUE AND isset($new_map['index']))
-		{
-			unset($new_map['index']);
-		}
-		
-		return $new_map;
 	}
 
 	// --------------------------------------------------------------------------
