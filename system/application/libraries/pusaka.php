@@ -21,6 +21,7 @@ class Pusaka {
 	var $depth 			= 2;
 	var $remove_index	= true;
 	var $stack			= array();
+	var $navfile		= "nav.json";
 
 	/**
 	 * Constructor
@@ -67,7 +68,7 @@ class Pusaka {
 	{
 		$folder = CONTENT_FOLDER.'/'.$prefix;
 
-		$map = $this->dig_sortjson($folder, $depth);
+		$map = $this->dig_navfile($folder, $depth);
 
 		// sort by newest post for posts entry
 		if($prefix == $this->CI->config->item('post_folder')) rsort($map);
@@ -78,24 +79,21 @@ class Pusaka {
 		return $list;
 	}
 
-	function dig_sortjson($prefix = null, $depth = 3, $level = 1)
+	function dig_navfile($prefix = null, $depth = 3, $level = 1)
 	{
 		if($level <= $depth){
 
-			if(file_exists($prefix.'/sort.json')) {
+			if(file_exists($prefix.'/'.$this->navfile)) {
 				$new_map = array();
 
-				$map = json_decode(read_file($prefix.'/sort.json'));
+				$map = json_decode(read_file($prefix.'/'.$this->navfile));
 
 				foreach ($map as $key => $value) {
 					if(is_dir($prefix.'/'.$key))
-						$new_map[$key] = $this->dig_sortjson($prefix.'/'.$key, $depth, $level+1);
+						$new_map[$key] = $this->dig_navfile($prefix.'/'.$key, $depth, $level+1);
 
 					$new_map[$key]['_title'] = $value;
 				}
-
-				if ($this->remove_index === TRUE AND isset($new_map['index']))
-					unset($new_map['index']);
 
 				return $new_map;
 
@@ -106,21 +104,21 @@ class Pusaka {
 				$for_json = array();
 				$new_map = array();
 
-				//simpan sebagai sort.json
+				//simpan sebagai nav.json
 				foreach ($map as $file) {
 					$for_json[$this->remove_extension($file)] = $this->guess_name($file);
 				}
-				write_file($prefix.'/sort.json', json_encode($for_json));	
+				if ($this->remove_index === TRUE AND isset($for_json['index']))
+					unset($for_json['index']);
+
+				write_file($prefix.'/'.$this->navfile, str_replace(array("{",",","}"), array("{\n\t",",\n\t","\n}"),json_encode($for_json)));	
 
 				foreach ($for_json as $key => $value) {
 					if(is_dir($prefix.'/'.$key))
-						$new_map[$key] = $this->dig_sortjson($prefix.'/'.$key.'/', $depth, $level+1);
+						$new_map[$key] = $this->dig_navfile($prefix.'/'.$key.'/', $depth, $level+1);
 
 					$new_map[$key]['_title'] = $value;
 				}
-
-				if ($this->remove_index === TRUE AND isset($new_map['index']))
-					unset($new_map['index']);
 
 				return $new_map;
 			}
