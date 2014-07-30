@@ -63,20 +63,15 @@ class Pusaka {
 		}
 	}
 
-	function nav($prefix = null, $depth = 2)
+	function nav($prefix = null, $depth = 3)
 	{
-		$folder = CONTENT_FOLDER;
+		$folder = CONTENT_FOLDER.'/'.$prefix;
 
 		// if sort.json available
-		if(file_exists($folder.'/'.$prefix.'/sort.json'))
+		if(file_exists($folder.'/sort.json'))
 		{
-			$new_map = array();
+			$new_map = $this->dig_sortjson($folder, $depth);
 
-			$map = json_decode(read_file($folder.'/'.$prefix.'/sort.json'));
-			foreach ($map as $key => $value) {
-				$new_map[$key]['_title'] = $value;
-			}
-			
 			// bulid the list
 			$list = $this->build_list($new_map, $prefix);
 		}
@@ -86,7 +81,7 @@ class Pusaka {
 			$start = ($prefix) ? $prefix.'/' : '';
 
 			// get derectory map
-			$map = directory_map(FCPATH.$this->CI->config->item('content_folder').'/'.$start, $depth);
+			$map = directory_map(FCPATH.$folder.$start, $depth);
 
 			// sort by newest post for posts entry
 			if($prefix == $this->CI->config->item('post_folder')) rsort($map);
@@ -100,6 +95,26 @@ class Pusaka {
 		}
 		
 		return $list;
+	}
+
+	function dig_sortjson($prefix = null, $depth = 3, $level = 1)
+	{
+		if($level <= $depth) {
+			$new_map = array();
+
+			$map = json_decode(read_file($prefix.'/sort.json'));
+			
+			foreach ($map as $key => $value) {
+				if(is_dir($prefix.'/'.$key))
+					$new_map[$key] = $this->dig_sortjson($prefix.'/'.$key, $depth, $level+1);
+
+				$new_map[$key]['_title'] = $value;
+			}
+	
+			return $new_map;
+		}
+
+		return false;
 	}
 
 	function build_list($tree, $prefix = '')

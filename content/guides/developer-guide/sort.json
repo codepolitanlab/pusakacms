@@ -2,6 +2,6 @@
 	"frontend-theme":"Frontend Theme",
 	"admin-theme":"Admin Theme",
 	"mvc-theme":"MVC Theme",
-	"creating-module":"How to Create Module",
+	"modular":"Modularization",
 	"migrations":"Manage Migrations"
 }
