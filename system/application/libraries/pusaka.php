@@ -119,7 +119,7 @@ class Pusaka {
 
 				//simpan sebagai nav.json
 				foreach ($map as $file) {
-					if($this->is_valid_ext($file))
+					if($this->is_valid_ext($prefix.'/'.$file))
 						$for_json[$this->remove_extension($file)] = $this->guess_name($file);
 				}
 				if ($this->remove_index === TRUE AND isset($for_json['index']))
@@ -268,11 +268,13 @@ class Pusaka {
 
 	public function is_valid_ext($file)
 	{
-		$part = pathinfo($file);
-		if(in_array($part['extension'], $this->allowed_ext))
-			return true;
+		if(is_file($file)){
+			$part = pathinfo($file);
+			if(! in_array($part['extension'], $this->allowed_ext))
+				return false;
 
-		return false;
+		}
+		return true;
 	}
 
 	// --------------------------------------------------------------------------

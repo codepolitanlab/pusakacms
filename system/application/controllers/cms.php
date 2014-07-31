@@ -39,24 +39,26 @@ class CMS extends MY_Controller {
 		}
 
 		// reset index to 0
-			$segments = array_values($segments);
+		$segments = array_values($segments);
 		
-		// if it is blog post
+		// if it is STREAM POST
 		if($segments[0] == $this->config->item('post_folder') && isset($segments[1]))
 		{
-			// delete the first index contain 'posts' first
+			// delete the first index 'posts'
 			array_shift($segments);
 
 			$file_path = CONTENT_FOLDER.'/'.$this->config->item('post_folder').'/'.implode("-", $segments);
 		}
-		// if it is a page
+		// if it is a PAGE
 		else 
 		{
 			$file_path = CONTENT_FOLDER.'/'.implode('/', $segments);
 		}
 
 		// check if there is a custom layout for this page
-		if($this->template->layout_exists($segments[0]))
+		if($this->template->layout_exists(implode("/",$segments)))
+			$this->template->set_layout(implode("/",$segments));
+		elseif($this->template->layout_exists($segments[0]))
 			$this->template->set_layout($segments[0]);
 
 		$this->template->view_content($file_path);
