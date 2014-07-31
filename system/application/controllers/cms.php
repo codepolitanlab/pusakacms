@@ -42,24 +42,39 @@ class CMS extends MY_Controller {
 		$segments = array_values($segments);
 		
 		// if it is STREAM POST
-		if($segments[0] == $this->config->item('post_folder') && isset($segments[1]))
+		if($segments[0] == $this->config->item('post_folder'))
 		{
-			// delete the first index 'posts'
-			array_shift($segments);
+			// if it is a single post
+			if(isset($segments[1])){	
+				// delete the first index 'posts' for smooth implode
+				array_shift($segments);
 
-			$file_path = CONTENT_FOLDER.'/'.$this->config->item('post_folder').'/'.implode("-", $segments);
+				$file_path = CONTENT_FOLDER.'/'.$this->config->item('post_folder').'/'.implode("-", $segments);
+
+				$this->template->set_layout($this->config->item('post_folder') ? $this->config->item('post_folder') : 'default');
+			}
+			// otherwise, then it is a post list
+			else {
+				// delete the first index 'posts'
+				array_shift($segments);
+
+				$file_path = CONTENT_FOLDER.'/'.$this->config->item('post_folder').'/'.implode("-", $segments);
+
+				$this->template->set_layout($this->config->item('post_folder').'s' ? $this->config->item('post_folder').'s' : 'default');
+			}
 		}
 		// if it is a PAGE
 		else 
 		{
 			$file_path = CONTENT_FOLDER.'/'.implode('/', $segments);
+			
+			// check if there is a custom layout for this page
+			if($this->template->layout_exists(implode("/",$segments)))
+				$this->template->set_layout(implode("/",$segments));
+			elseif($this->template->layout_exists($segments[0]))
+				$this->template->set_layout($segments[0]);
 		}
 
-		// check if there is a custom layout for this page
-		if($this->template->layout_exists(implode("/",$segments)))
-			$this->template->set_layout(implode("/",$segments));
-		elseif($this->template->layout_exists($segments[0]))
-			$this->template->set_layout($segments[0]);
 
 		$this->template->view_content($file_path);
 	}
@@ -67,6 +82,20 @@ class CMS extends MY_Controller {
 	function sync_nav_contents()
 	{
 		echo "lulus";
+	}
+
+	function coba($page = 1)
+	{
+		$this->output->enable_profiler(TRUE);
+
+		$files = directory_map(CONTENT_FOLDER.'/blog');
+		rsort($files);
+		print_r($files);
+
+		$perpage = 5;
+
+		$output = array_slice($files, ($page-1)*$perpage, $perpage);
+		print_r($output);
 	}
 
 }
