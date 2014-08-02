@@ -1,7 +1,6 @@
 {
-	"index":"Home",
-	"blog":"Blog",
-	"docs":"Docs",
-	"guides":"Guides",
-	"contact":"Contact"
+	"apa-itu-pusaka":"Apa Itu Pusaka?",
+	"panduan-pengguna":"Panduan Pengguna",
+	"panduan-pengembang":"Panduan Pengembang",
+	"blog":"Blog"
 }

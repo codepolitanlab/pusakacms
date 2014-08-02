@@ -11,7 +11,7 @@
 			<div class="col-md-3 col-md-offset-1">
 				<?php get_partial('sidebar'); ?>
 			</div>
-			<div class="col-md-7">
+			<div class="col-md-7 the-content">
 				<?php echo $template['body']; ?>
 			</div>
 		</div>

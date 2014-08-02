@@ -16,6 +16,8 @@ class Pusaka {
 	var $CI;
 	var $level 			= 0;
 	var $ul_class 		= 'nav';
+	var $li_class 		= '';
+	var $a_class 		= '';
 	var $current_class 	= 'active';
 	var $start 			= '/';
 	var $depth 			= 2;
@@ -198,7 +200,7 @@ class Pusaka {
 
 					if (array_key_exists('_title', $value)) {
 						// don't use index term
-						$newkey = ($key == 'index')? '' : $key.'/';
+						$newkey = ($key == 'index')? 'index/' : $key.'/';
 
 						$li .= "<a href='".site_url($prefix.$newkey)."' ".($active ? "class='".$this->current_class."'" : "").">${value['_title']}</a>";
 					} else {

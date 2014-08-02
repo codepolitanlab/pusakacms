@@ -318,7 +318,7 @@ textarea {
 }
 
 a {
-  color: #008cba;
+  color: #927FA5;
   text-decoration: none;
 }
 
@@ -4282,12 +4282,14 @@ textarea.input-group-sm > .input-group-btn > .btn {
   position: relative;
   display: block;
   padding: 3px 15px;
+  margin: 1px 0;
 }
 
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
-  background-color: #eeeeee;
+  color: #fff;
+  background-color: #B99EC3;
 }
 
 .nav > li.disabled > a {
@@ -4424,14 +4426,14 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
-  color: #ffffff;
-  background-color: #008cba;
+  color: #777;
+  background-color: #E6D6EC;
 }
 .nav-pills > li ul li.active > a,
 .nav-pills > li ul li.active > a:hover,
 .nav-pills > li ul li.active > a:focus {
-  color: #ffffff;
-  background-color: #008cba;
+  color: #777;
+  background-color: ##E6D6EC;
 }
 
 .nav-pills > li.active > a .caret,
@@ -4791,9 +4793,10 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar-brand {
   float: left;
-  padding: 12px 15px;
-  font-size: 19px;
+  padding: 15px 15px 10px;
+  font-size: 30px;
   line-height: 21px;
+  font-weight: 600;
 }
 
 .navbar-brand:hover,
@@ -5099,12 +5102,12 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse {
-  background-color: #7F7EA8;
-  border-color: #006687;
+  background-color: transparent;
+  border-color: transparent;
 }
 
 .navbar-inverse .navbar-brand {
-  color: #ffffff;
+  color: #666;
 }
 
 .navbar-inverse .navbar-brand:hover,
@@ -5118,20 +5121,20 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse .navbar-nav > li > a {
-  color: #ffffff;
+  color: #777;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
   color: #ffffff;
-  background-color: #006687;
+  background-color: #B99EC3;
 }
 
 .navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover,
 .navbar-inverse .navbar-nav > .active > a:focus {
-  color: #ffffff;
-  background-color: #006687;
+  color: #777;
+  background-color: #E6D6EC;
 }
 
 .navbar-inverse .navbar-nav > .disabled > a,
@@ -7501,7 +7504,7 @@ td.visible-print {
 }
 
 .navbar {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 300;
   border: none;
 }
@@ -7789,6 +7792,10 @@ ul > li > ul li {border-left: 5px solid #eee;}
 }
 .sidebar {
   margin-top: 5px;
-  background-color: #fafafa;
   margin-bottom: 20px;
+}
+.the-content {
+  background-color: #fff;
+  padding: 10px 20px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 1px 1px;
 }
