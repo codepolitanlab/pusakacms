@@ -75,8 +75,9 @@ class CMS extends MY_Controller {
 				$this->template->set_layout($segments[0]);
 		}
 
+		// print_r($this->data);
 
-		$this->template->view_content($file_path);
+		$this->template->view_content($file_path, $this->data);
 	}
 
 	function sync_nav_contents()

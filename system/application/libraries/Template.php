@@ -44,7 +44,6 @@ class Template
 
 	private $_theme_locations = array();
 	private $_asset_locations = array();
-	private $_content_location = 'content/';
 
 	private $_is_mobile = FALSE;
 
@@ -295,6 +294,15 @@ class Template
 	 */
 	public function view_content($view, $data = array(), $return = FALSE)
 	{
+		// Set whatever values are given. These will be available to all view files
+		is_array($data) OR $data = (array) $data;
+
+		// Merge in what we already have with the specific data
+		$this->_data = array_merge($this->_data, $data);
+
+		// We don't need you any more buddy
+		unset($data);
+
 		if (empty($this->_title))
 		{
 			$this->_title = $this->_guess_title();
@@ -322,7 +330,7 @@ class Template
 		$this->_ci->output->cache($this->cache_lifetime);
 
 		// Test to see if this file
-		$this->_body = $this->_find_content($view);
+		$this->_body = $this->_find_content($view, $this->_data, $this->_parser_body_enabled);
 
 		// Want this file wrapped with a layout file?
 		if ($this->_layout)
@@ -880,7 +888,7 @@ class Template
 	}
 
 	// search content file
-	private function _find_content($view)
+	private function _find_content($view, $data = array(), $parse_view = TRUE)
 	{
 		$supported_files = array('html', 'md', 'textile');
 		$file_ext = NULL;
@@ -924,7 +932,7 @@ class Template
 		if(! $file_ext)
 			show_404();
 
-		return self::_load_content($file_path, $file_ext);
+		return self::_load_content($file_path, $file_ext, $data, $parse_view);
 	} 
 
 	private function _load_view($view, array $data, $parse_view = TRUE, $override_view_path = NULL)
@@ -969,11 +977,17 @@ class Template
 		return $content;
 	}
 
-	private function _load_content($view, $ext)
+	private function _load_content($view, $ext, $data = array(), $parse_view = TRUE)
 	{
 		$content = read_file($view);
 
-		// check textile first
+		if ($this->_parser_enabled === TRUE AND $parse_view === TRUE)
+		{
+			// Load content and pass through the parser
+			$content = $this->_ci->parser->parse_string($content, $data, TRUE);
+		}
+
+			// check textile first
 		if ($ext == 'textile')
 		{
 			require_once(APPPATH.'libraries/textile.php');

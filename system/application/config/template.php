@@ -13,7 +13,7 @@
 |
 */
 
-$config['parser_enabled'] = FALSE;
+$config['parser_enabled'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +28,7 @@ $config['parser_enabled'] = FALSE;
 |
 */
 
-$config['parser_body_enabled'] = FALSE;
+$config['parser_body_enabled'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,16 +102,3 @@ $config['theme_locations'] = array(
 $config['asset_locations'] = array(
 	'assets' 	=> '../../../assets/',
 );
-
-/*
-|--------------------------------------------------------------------------
-| Content Locations
-|--------------------------------------------------------------------------
-|
-| Where should we expect to see static contents?
-|
-|	Default: array('content' => '../content/')
-|
-*/
-
-$config['content_locations'] = 'content/';

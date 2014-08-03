@@ -8,7 +8,5 @@
 
 $config['site_title'] 			= 'Pusaka';
 $config['site_slogan'] 			= 'Just a Simple File-based CMS';
-
 $config['content_folder']		= 'content';
-
 $config['post_folder']			= 'blog';
