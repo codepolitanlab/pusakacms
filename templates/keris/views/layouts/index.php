@@ -17,15 +17,15 @@
 
 		<div class="row marketing">
 			<div class="col-md-4">
-				<h4>Subheading</h4>
+				<h4>Sederhana</h4>
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim iste recusandae sequi magnam temporibus maxime minus similique accusamus ullam? Tenetur eius natus, quibusdam! Laborum odit, autem aut odio eos nisi.Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
 			</div>
 			<div class="col-md-4">
-				<h4>Subheading</h4>
+				<h4>Skalabilitas</h4>
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim iste recusandae sequi magnam temporibus maxime minus similique accusamus ullam? Tenetur eius natus, quibusdam! Laborum odit, autem aut odio eos nisi.Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
 			</div>
 			<div class="col-md-4">
-				<h4>Subheading</h4>
+				<h4>Cepat</h4>
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim iste recusandae sequi magnam temporibus maxime minus similique accusamus ullam? Tenetur eius natus, quibusdam! Laborum odit, autem aut odio eos nisi.Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
 			</div>
 		</div>
