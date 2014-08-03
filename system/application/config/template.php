@@ -85,7 +85,7 @@ $config['theme'] = 'keris';
 */
 
 $config['theme_locations'] = array(
-	APPURL.'views/'
+	'templates/'
 );
 
 /*
@@ -100,7 +100,7 @@ $config['theme_locations'] = array(
 */
 
 $config['asset_locations'] = array(
-	'freedo' 	=> APPPATH.'views/freedo/assets/',
+	'assets' 	=> '../../../assets/',
 );
 
 /*

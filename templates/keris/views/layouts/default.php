@@ -8,10 +8,10 @@
 
 	<div class="container">		
 		<div class="row">
-			<div class="col-md-3 col-md-offset-1">
+			<div class="col-md-3">
 				<?php get_partial('sidebar'); ?>
 			</div>
-			<div class="col-md-7 the-content">
+			<div class="col-md-9 the-content">
 				<?php echo $template['body']; ?>
 			</div>
 		</div>
