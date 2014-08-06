@@ -80,9 +80,9 @@ class CMS extends MY_Controller {
 		$this->template->view_content($file_path, $this->data);
 	}
 
-	function sync_nav_contents()
+	function sync_nav()
 	{
-		echo "lulus";
+		$this->pusaka->sync_nav();
 	}
 
 	function coba($page = 1)

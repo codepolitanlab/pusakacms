@@ -14,7 +14,7 @@
 class Pusaka {
 
 	var $CI;
-	var $level 			= 0;
+	var $level 			= 1;
 	var $ul_class 		= 'nav';
 	var $li_class 		= '';
 	var $a_class 		= '';
@@ -94,8 +94,10 @@ class Pusaka {
 		return $list;
 	}
 
-	function dig_navfile($prefix = null, $depth = 3, $level = 1)
+	function dig_navfile($prefix = null, $depth = 9, $level = 1)
 	{
+		if(!$prefix) $prefix = CONTENT_FOLDER;
+
 		if($level <= $depth){
 
 			if(file_exists($prefix.'/'.$this->navfile)) {
@@ -127,7 +129,7 @@ class Pusaka {
 				if ($this->remove_index === TRUE AND isset($for_json['index']))
 					unset($for_json['index']);
 
-				write_file($prefix.'/'.$this->navfile, str_replace(array("{",",","}"), array("{\n\t",",\n\t","\n}"),json_encode($for_json)));	
+				write_file($prefix.'/'.$this->navfile, str_replace(array("{",",","}"), array("{\n\t",",\n\t","\n}"),json_encode($for_json)));
 
 				foreach ($for_json as $key => $value) {
 					if(is_dir($prefix.'/'.$key))
@@ -141,6 +143,72 @@ class Pusaka {
 		}
 
 		return false;
+	}
+
+	function sync_nav($prefix = null)
+	{
+		header("Content-Type:text/plain");
+
+		if(!$prefix) $prefix = CONTENT_FOLDER;
+		
+		$map = directory_map($prefix, 1);
+
+		$new_map = array();
+		foreach ($map as $file)
+			if($file != $this->navfile and $file != 'index.html')
+				$new_map[] = $this->remove_extension($file);
+	
+		$json = (array) json_decode(read_file($prefix.'/'.$this->navfile));
+		$json_simpled = array_keys($json);
+		print_r($json_simpled);
+
+		// add the new content to menu
+		$diff = array_diff($new_map, $json_simpled);
+		if(count($diff) > 0){
+			foreach ($diff as $value){	
+				$json += array($this->remove_extension($value) => $this->guess_name($value));
+				echo "menu synced for new content $prefix/$value\n";
+			}
+
+			// make sure it is writablle
+			if(! write_file($prefix.'/'.$this->navfile, str_replace(array("{",",","}"), array("{\n\t",",\n\t","\n}"),json_encode($json)), "w")){
+				echo "please set content folder writable.\n";
+				exit;
+			}
+		}
+
+		// remove the deleted content to menu
+		$new_map[] = 'index';
+		$rev_diff = array_diff($json_simpled, $new_map);
+		$new_json = array();
+		if(count($rev_diff) > 0){
+			foreach ($json as $key => $value)
+				if(! in_array($key, $rev_diff))
+					$new_json += array($key => $value);
+
+			// make sure it is writablle
+			if(! write_file($prefix.'/'.$this->navfile, str_replace(array("{",",","}"), array("{\n\t",",\n\t","\n}"),json_encode($new_json)), "w")){
+				echo "please set content folder writable.\n";
+				exit;
+			}
+			else
+				echo "menu updated for folder $prefix/\n";
+		}
+
+		// do for the child folders
+		foreach ($new_map as $folder)
+			if(is_dir($prefix.'/'.$folder))
+				$this->sync_nav($prefix.'/'.$folder);
+	}
+
+	function _filter_array($var)
+	{
+		// if($var != $this->navfile and $var != 'index.html')
+
+		echo $var."\n";
+		echo $this->remove_extension($var)."\n";
+
+		// return false;
 	}
 
 	function build_list($tree, $prefix = '')
