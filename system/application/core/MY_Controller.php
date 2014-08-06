@@ -26,6 +26,7 @@ class MY_Controller extends MX_Controller
 
 		// set site url
 		$this->data['site_url'] = site_url();
+		$this->data['current_url'] = current_url();
 
 		define('CONTENT_FOLDER', $this->config->item('content_folder'));
 	}

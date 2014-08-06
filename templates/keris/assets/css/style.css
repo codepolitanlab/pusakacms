@@ -181,3 +181,12 @@ color:white;
     max-width: 960px;
   }
 }
+
+.the-content ul {
+  padding: 0 20px;
+  margin-bottom: 25px;
+}
+
+.the-content ul li {
+  margin-bottom: 5px;
+}
