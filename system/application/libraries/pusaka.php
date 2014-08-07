@@ -160,7 +160,7 @@ class Pusaka {
 	
 		$json = (array) json_decode(read_file($prefix.'/'.$this->navfile));
 		$json_simpled = array_keys($json);
-		print_r($json_simpled);
+		// print_r($json_simpled);
 
 		// add the new content to menu
 		$diff = array_diff($new_map, $json_simpled);

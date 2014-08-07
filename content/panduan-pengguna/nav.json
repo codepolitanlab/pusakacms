@@ -1,8 +1,9 @@
 {
 	"instalasi":"Instalasi",
+	"struktur-file":"Struktur File",
 	"mengatur-menu":"Mengatur Menu",
 	"membuat-halaman":"Membuat Halaman",
-	"membuat-post-stream":"Membuat Post Stream",
-	"format-penulisan":"Format Penulisan",
-	"layout-halaman":"Layout Halaman"
+	"posting-blog":"Posting Blog",
+	"layout-halaman":"Layout Halaman",
+	"format-penulisan":"Format Penulisan"
 }
