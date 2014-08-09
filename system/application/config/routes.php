@@ -41,5 +41,7 @@
 $route['default_controller'] = "cms";
 $route['404_override'] = "cms";
 
+$route['sync_nav'] = "cms/sync_nav";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
