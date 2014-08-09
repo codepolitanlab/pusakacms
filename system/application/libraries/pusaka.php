@@ -58,7 +58,7 @@ class Pusaka {
 		$new_map = array();
 
 		// sort by newest post for posts entry
-		if($prefix == $this->CI->config->item('post_folder')){
+		if($prefix == $this->CI->config->item('post_term')){
 			$map = directory_map($folder);
 			foreach ($map as $value) {
 				if($this->is_valid_ext($value))
@@ -102,7 +102,7 @@ class Pusaka {
 		$new_map = array();
 
 		// sort by newest post for posts entry
-		if($prefix == $this->CI->config->item('post_folder')){
+		if($prefix == $this->CI->config->item('post_term')){
 			$map = directory_map($folder);
 			foreach ($map as $value) {
 				if($this->is_valid_ext($value))
@@ -280,7 +280,7 @@ class Pusaka {
 	{
 		$ul = '';
 
-		if($prefix == $this->CI->config->item('post_folder').'/')
+		if($prefix == $this->CI->config->item('post_term').'/')
 		{
 			foreach ($tree as $key => $value)
 			{
@@ -366,7 +366,7 @@ class Pusaka {
 	{
 		$name = $this->remove_extension($name);
 
-		if($prefix == $this->CI->config->item('post_folder')){
+		if($prefix == $this->CI->config->item('post_term')){
 			$name = $this->remove_date($name);
 		}
 
