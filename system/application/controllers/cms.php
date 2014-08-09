@@ -48,21 +48,21 @@ class CMS extends MY_Controller {
 			if(isset($segments[1])){	
 				// delete the first index 'posts' for smooth implode
 				array_shift($segments);
-				$file_path = CONTENT_FOLDER.'/'.$this->config->item('post_folder').'/'.implode("-", $segments);
+				$file_path = PAGE_FOLDER.'/'.$this->config->item('post_folder').'/'.implode("-", $segments);
 				$this->template->set_layout('post');
 			}
 			// otherwise, then it is a post list
 			else {
 				// delete the first index 'posts'
 				array_shift($segments);
-				$file_path = CONTENT_FOLDER.'/'.$this->config->item('post_folder').'/'.implode("-", $segments);
+				$file_path = PAGE_FOLDER.'/'.$this->config->item('post_folder').'/'.implode("-", $segments);
 				$this->template->set_layout('posts');
 			}
 		}
 		// if it is a PAGE
 		else 
 		{
-			$file_path = CONTENT_FOLDER.'/'.implode('/', $segments);
+			$file_path = PAGE_FOLDER.'/'.implode('/', $segments);
 			
 			// check if there is a custom layout for this page
 			if($this->template->layout_exists(implode("/",$segments)))
@@ -85,7 +85,7 @@ class CMS extends MY_Controller {
 	{
 		$this->output->enable_profiler(TRUE);
 
-		$files = directory_map(CONTENT_FOLDER.'/blog');
+		$files = directory_map(PAGE_FOLDER.'/blog');
 		rsort($files);
 		print_r($files);
 

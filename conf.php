@@ -6,10 +6,11 @@
 |--------------------------------------------------------------------------
 */
 
-$config['site_title'] 			= 'Pusaka';
-$config['site_slogan'] 			= 'Just a Simple File-based CMS';
+$config['site_title'] 		= 'Pusaka';
+$config['site_slogan'] 		= 'Just a Simple File-based CMS';
 
-$config['theme'] 				= 'keris';
+$config['theme'] 			= 'keris';
 
-$config['content_folder']		= 'content';
-$config['post_folder']			= 'blog';
+$config['page_folder']		= 'content/pages';
+$config['post_folder']		= 'content/posts';
+$config['category_folder']	= $config['post_folder'].'/categories';
