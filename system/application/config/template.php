@@ -41,7 +41,7 @@ $config['parser_body_enabled'] = TRUE;
 |
 */
 
-$config['title_separator'] = ' | ';
+$config['title_separator'] = ' - ';
 
 /*
 |--------------------------------------------------------------------------
@@ -71,7 +71,7 @@ $config['layout'] = 'default';
 |
 */
 
-$config['theme'] = 'keris';
+$config['theme'] = '';
 
 /*
 |--------------------------------------------------------------------------

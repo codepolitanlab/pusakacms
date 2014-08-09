@@ -1,12 +1,3 @@
 <div class="sidebar">
-<?php
-	$config = array(
-		"ul_class" => "nav nav-pills nav-stacked",
-		"current_class" => "active",
-	);
-
-	$this->pusaka->initialize($config);
-	echo $this->pusaka->nav($this->uri->segment(1), 3);
-
-?>
+<?php echo $this->pusaka->generate_nav($this->uri->segment(1), 3, "nav nav-pills nav-stacked", "list", "active"); ?>
 </div>

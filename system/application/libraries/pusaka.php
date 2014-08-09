@@ -1,15 +1,15 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * Fizl Library
+ * Pusaka Library
  *
- * Allows you to easily define a nav list.
+ * All methods used in Pusaka Core
  *
- * @package		Fizl
- * @author		Adam Fairholm (@adamfairholm)
- * @copyright	Copyright (c) 2011-2012, Parse19
- * @license		http://parse19.com/fizl/docs/license.html
- * @link		http://parse19.com/fizl
+ * @package		Pusaka
+ * @author		Toni Haryanto (@toharyan)
+ * @copyright	Copyright (c) 2014, Nyankod
+ * @license		http://pusakacms.nyankod.com/license
+ * @link		http://pusakacms.nyankod.com
  */
 class Pusaka {
 
@@ -32,44 +32,72 @@ class Pusaka {
 	 * @access	public
 	 * @param	array	initialization parameters
 	 */
-	public function __construct($params = array())
+	public function __construct()
 	{
 		$this->CI =& get_instance();
-
-		if (count($params) > 0)
-		{
-			$this->initialize($params);
-		}
-
-		log_message('debug', "Fizl Class Initialized");
 	}
 
 	// --------------------------------------------------------------------
 
 	/**
-	 * Initialize Preferences
+	 * Generate Navigation
 	 *
 	 * @access	public
-	 * @param	array	initialization parameters
-	 * @return	void
+	 * @param	string	starting folder
+	 * @param	int 	navigation depth
+	 * @param	string 	ul class
+	 * @param	string 	li class
+	 * @param	string 	active class applied in active li and a
+	 * @return	string
 	 */
-	function initialize($params = array())
+
+	function get_nav($prefix = null, $depth = 3)
 	{
-		if (count($params) > 0)
-		{
-			foreach ($params as $key => $val)
-			{
-				if (isset($this->$key))
-				{
-					$this->$key = $val;
-				}
+		// init variable
+		$folder = CONTENT_FOLDER.'/'.$prefix;
+		$new_map = array();
+
+		// sort by newest post for posts entry
+		if($prefix == $this->CI->config->item('post_folder')){
+			$map = directory_map($folder);
+			foreach ($map as $value) {
+				if($this->is_valid_ext($value))
+					$new_map[$prefix.$this->remove_extension($value)] = $this->guess_name($this->remove_date($value));
 			}
-		}
+
+			if ($this->remove_index === TRUE AND isset($new_map['index']))
+					unset($new_map['index']);
+
+			asort($new_map);
+		} else
+			$new_map = $this->_dig_navfile($prefix, $depth, 1, true);
+
+		// bulid the list
+		return $new_map;
 	}
 
-	function nav($prefix = null, $depth = 3)
+	// --------------------------------------------------------------------
+
+	/**
+	 * Generate Navigation
+	 *
+	 * @access	public
+	 * @param	string	starting folder
+	 * @param	int 	navigation depth
+	 * @param	string 	ul class
+	 * @param	string 	li class
+	 * @param	string 	active class applied in active li and a
+	 * @return	string
+	 */
+
+	function generate_nav($prefix = null, $depth = 3, $ul_class = null, $li_class = null, $active_class = null)
 	{
+		// set variable
 		$folder = CONTENT_FOLDER.'/'.$prefix;
+
+		if($ul_class) $this->ul_class = $ul_class;
+		if($li_class) $this->li_class = $li_class;
+		if($active_class) $this->active_class = $active_class;
 
 		$new_map = array();
 
@@ -86,65 +114,21 @@ class Pusaka {
 
 			asort($new_map);
 		} else
-			$new_map = $this->dig_navfile($folder, $depth);
+			$new_map = $this->_dig_navfile($prefix, $depth);
 
 		// bulid the list
-		$list = $this->build_list($new_map, ($prefix)? $prefix.'/' : '');
-		
-		return $list;
+		return $this->_build_list($new_map, ($prefix)? $prefix.'/' : '');
 	}
 
-	function dig_navfile($prefix = null, $depth = 9, $level = 1)
-	{
-		if(!$prefix) $prefix = CONTENT_FOLDER;
+	// --------------------------------------------------------------------
 
-		if($level <= $depth){
-
-			if(file_exists($prefix.'/'.$this->navfile)) {
-				$new_map = array();
-
-				$map = json_decode(read_file($prefix.'/'.$this->navfile));
-
-				foreach ($map as $key => $value) {
-					if(is_dir($prefix.'/'.$key))
-						$new_map[$key] = $this->dig_navfile($prefix.'/'.$key, $depth, $level+1);
-
-					$new_map[$key]['_title'] = $value;
-				}
-
-				return $new_map;
-
-			} else {
-				// get derectory map
-				$map = directory_map(FCPATH.$prefix, 1);
-
-				$for_json = array();
-				$new_map = array();
-
-				//simpan sebagai nav.json
-				foreach ($map as $file) {
-					if($this->is_valid_ext($prefix.'/'.$file))
-						$for_json[$this->remove_extension($file)] = $this->guess_name($file);
-				}
-				if ($this->remove_index === TRUE AND isset($for_json['index']))
-					unset($for_json['index']);
-
-				write_file($prefix.'/'.$this->navfile, str_replace(array("{",",","}"), array("{\n\t",",\n\t","\n}"),json_encode($for_json)));
-
-				foreach ($for_json as $key => $value) {
-					if(is_dir($prefix.'/'.$key))
-						$new_map[$key] = $this->dig_navfile($prefix.'/'.$key.'/', $depth, $level+1);
-
-					$new_map[$key]['_title'] = $value;
-				}
-
-				return $new_map;
-			}
-		}
-
-		return false;
-	}
-
+	/**
+	 * Sync navigation from content
+	 *
+	 * @access	public
+	 * @param	string	starting folder
+	 * @return	void
+	 */
 	function sync_nav($prefix = null)
 	{
 		header("Content-Type:text/plain");
@@ -201,17 +185,98 @@ class Pusaka {
 				$this->sync_nav($prefix.'/'.$folder);
 	}
 
-	function _filter_array($var)
+	// --------------------------------------------------------------------
+
+	/**
+	 * dig navigation json file
+	 *
+	 * @access	private
+	 * @param	string	starting folder
+	 * @param	int		navigation depth
+	 * @param	int		current nav level
+	 * @return	array
+	 */
+	function _dig_navfile($prefix = null, $depth = 9, $level = 1, $simple_array = false)
 	{
-		// if($var != $this->navfile and $var != 'index.html')
+		if($prefix) $prefix .= '/';
 
-		echo $var."\n";
-		echo $this->remove_extension($var)."\n";
+		if($level <= $depth){
 
-		// return false;
+			if(file_exists(CONTENT_FOLDER.'/'.$prefix.$this->navfile)) {
+				$new_map = array();
+
+				$map = json_decode(read_file(CONTENT_FOLDER.'/'.$prefix.$this->navfile));
+
+				if($simple_array){
+					foreach ($map as $key => $value) {
+						if(is_dir(CONTENT_FOLDER.'/'.$prefix.$key))
+							$new_map[$prefix.$key] = $this->_dig_navfile($prefix.$key, $depth, $level+1, $simple_array);
+
+						$new_map[$prefix.$key]['_title'] = $value;
+					}
+				} else {	
+					foreach ($map as $key => $value) {
+						if(is_dir(CONTENT_FOLDER.'/'.$prefix.$key))
+							$new_map[$key] = $this->_dig_navfile($prefix.$key, $depth, $level+1);
+
+						$new_map[$key]['_title'] = $value;
+					}
+				}
+
+				return $new_map;
+
+			} else {
+				// get derectory map
+				$map = directory_map(FCPATH.CONTENT_FOLDER.'/'.$prefix, 1);
+
+				$for_json = array();
+				$new_map = array();
+
+				//simpan sebagai nav.json
+				foreach ($map as $file) {
+					if($this->is_valid_ext(CONTENT_FOLDER.'/'.$prefix.'/'.$file))
+						$for_json[$this->remove_extension($file)] = $this->guess_name($file);
+				}
+
+				if ($this->remove_index === TRUE AND isset($for_json['index']))
+					unset($for_json['index']);
+
+				write_file(CONTENT_FOLDER.'/'.$prefix.'/'.$this->navfile, str_replace(array("{",",","}"), array("{\n\t",",\n\t","\n}"),json_encode($for_json)));
+
+				if($simple_array){
+					foreach ($for_json as $key => $value) {
+						if(is_dir(CONTENT_FOLDER.'/'.$prefix.$key))
+							$new_map[$prefix.$key] = $this->_dig_navfile($prefix.$key, $depth, $level+1, $simple_array);
+
+						$new_map[$prefix.$key]['_title'] = $value;
+					}
+				} else {
+					foreach ($for_json as $key => $value) {
+						if(is_dir(CONTENT_FOLDER.'/'.$prefix.$key))
+							$new_map[$key] = $this->_dig_navfile($prefix.$key, $depth, $level+1);
+
+						$new_map[$key]['_title'] = $value;
+					}
+				}
+
+				return $new_map;
+			}
+		}
+
+		return false;
 	}
 
-	function build_list($tree, $prefix = '')
+	// --------------------------------------------------------------------
+
+	/**
+	 * build html list
+	 *
+	 * @access	private
+	 * @param	array	array tree
+	 * @param	string	starting folder
+	 * @return	string
+	 */
+	function _build_list($tree, $prefix = '')
 	{
 		$ul = '';
 
@@ -244,7 +309,7 @@ class Pusaka {
 						$li .= "$prefix$newkey/";
 					}
 
-					$li .= $this->build_list($value, "$prefix$newkey/");
+					$li .= $this->_build_list($value, "$prefix$newkey/");
 					$ul .= strlen($li) ? "<li".($active ? " class='".$this->current_class."'" : "").">$li</li>" : '';
 				}
 			}
@@ -275,7 +340,7 @@ class Pusaka {
 						$li .= "$prefix$key/";
 					}
 
-					$li .= $this->build_list($value, "$prefix$key/");
+					$li .= $this->_build_list($value, "$prefix$key/");
 					$ul .= strlen($li) ? "<li".($active ? " class='".$this->current_class."'" : "").">$li</li>" : '';
 				}
 			}
@@ -293,7 +358,8 @@ class Pusaka {
 	 * a human-readble name from it.
 	 *
 	 * @access	public
-	 * @param	string - file name
+	 * @param	string 	file name
+	 * @param	string 	starting folder to indicate is it blog post or else
 	 * @retrun 	string
 	 */
 	public function guess_name($name, $prefix = null)
@@ -320,8 +386,8 @@ class Pusaka {
 	 * Remove the extension from a file
 	 *
 	 * @access	public
-	 * @param	string - file name
-	 * @return	string- the extension
+	 * @param	string 	file name
+	 * @return	string	file name without extension
 	 */
 	public function remove_extension($file)
 	{
@@ -336,10 +402,19 @@ class Pusaka {
 		return $file;
 	}
 
-	public function is_valid_ext($file)
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Check a valid extension file
+	 *
+	 * @access	public
+	 * @param	string 	path/to/filename.ext
+	 * @return	bool	true if it is a valid extension
+	 */
+	public function is_valid_ext($filepath)
 	{
-		if(is_file($file)){
-			$part = pathinfo($file);
+		if(is_file($filepath)){
+			$part = pathinfo($filepath);
 			if(! in_array($part['extension'], $this->allowed_ext))
 				return false;
 
@@ -353,8 +428,8 @@ class Pusaka {
 	 * Remove the date from a file name
 	 *
 	 * @access	public
-	 * @param	string - file name
-	 * @return	string- the extension
+	 * @param	string 	filename
+	 * @return	string	filename without date
 	 */
 	public function remove_date($filename)
 	{

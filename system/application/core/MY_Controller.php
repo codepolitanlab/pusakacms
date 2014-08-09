@@ -24,6 +24,9 @@ class MY_Controller extends MX_Controller
 			$this->data[$key] = $var;
 		}
 
+		// set theme
+		$this->template->set_theme($this->config->item('theme'));
+
 		// set site url
 		$this->data['site_url'] = site_url();
 		$this->data['current_url'] = current_url();

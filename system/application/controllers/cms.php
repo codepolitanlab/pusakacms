@@ -48,19 +48,15 @@ class CMS extends MY_Controller {
 			if(isset($segments[1])){	
 				// delete the first index 'posts' for smooth implode
 				array_shift($segments);
-
 				$file_path = CONTENT_FOLDER.'/'.$this->config->item('post_folder').'/'.implode("-", $segments);
-
-				$this->template->set_layout($this->config->item('post_folder') ? $this->config->item('post_folder') : 'default');
+				$this->template->set_layout('post');
 			}
 			// otherwise, then it is a post list
 			else {
 				// delete the first index 'posts'
 				array_shift($segments);
-
 				$file_path = CONTENT_FOLDER.'/'.$this->config->item('post_folder').'/'.implode("-", $segments);
-
-				$this->template->set_layout($this->config->item('post_folder').'s' ? $this->config->item('post_folder').'s' : 'default');
+				$this->template->set_layout('posts');
 			}
 		}
 		// if it is a PAGE

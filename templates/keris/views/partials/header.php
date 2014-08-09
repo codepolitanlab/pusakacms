@@ -6,15 +6,7 @@
 					<a class="navbar-brand" href="<?php echo site_url(); ?>"><?php echo $this->config->item('site_title'); ?></a>
 				</div>
 
-				<?php
-					$config = array(
-						"ul_class" => "nav navbar-nav navbar-right",
-						"current_class" => "active"
-						);
-
-					$this->pusaka->initialize($config);
-					echo $this->pusaka->nav(null, 1);
-				?>
+				<?php echo $this->pusaka->generate_nav(null, 1, "nav navbar-nav navbar-right", null, "active"); ?>
 			</div>
 		</div>
 	</div>
