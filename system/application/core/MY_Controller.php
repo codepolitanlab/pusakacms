@@ -32,5 +32,7 @@ class MY_Controller extends MX_Controller
 		$this->data['current_url'] = current_url();
 
 		define('PAGE_FOLDER', $this->config->item('page_folder'));
+		define('POST_FOLDER', $this->config->item('post_folder'));
+		define('POST_TERM', $this->config->item('post_term'));
 	}
 }

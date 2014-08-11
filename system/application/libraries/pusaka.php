@@ -58,7 +58,7 @@ class Pusaka {
 		$new_map = array();
 
 		// sort by newest post for posts entry
-		if($prefix == $this->CI->config->item('post_term')){
+		if($prefix == POST_TERM){
 			$map = directory_map($folder);
 			foreach ($map as $value) {
 				if($this->is_valid_ext($value))
@@ -102,7 +102,7 @@ class Pusaka {
 		$new_map = array();
 
 		// sort by newest post for posts entry
-		if($prefix == $this->CI->config->item('post_term')){
+		if($prefix == POST_TERM){
 			$map = directory_map($folder);
 			foreach ($map as $value) {
 				if($this->is_valid_ext($value))
@@ -144,7 +144,6 @@ class Pusaka {
 	
 		$json = (array) json_decode(read_file($prefix.'/'.$this->navfile));
 		$json_simpled = array_keys($json);
-		// print_r($json_simpled);
 
 		// add the new content to menu
 		$diff = array_diff($new_map, $json_simpled);
@@ -162,7 +161,7 @@ class Pusaka {
 		}
 
 		// remove the deleted content to menu
-		$new_map[] = 'index';
+		$new_map = array_merge($new_map, array('index', POST_TERM)); // set the undelete
 		$rev_diff = array_diff($json_simpled, $new_map);
 		$new_json = array();
 		if(count($rev_diff) > 0){
@@ -184,6 +183,73 @@ class Pusaka {
 			if(is_dir($prefix.'/'.$folder))
 				$this->sync_nav($prefix.'/'.$folder);
 	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * get all blog post data tree
+	 *
+	 * @access	public
+	 * @return	array
+	 */
+	function get_posts_tree()
+	{
+		// if post.json has been
+		if(file_exists(POST_FOLDER.'/'.$this->navfile)) {
+			$tree = (array) json_decode(read_file(POST_FOLDER.'/'.$this->navfile));
+
+		} else {
+			// get derectory map
+			$map = directory_map(POST_FOLDER, 1);
+
+			$tree = array();
+
+			//simpan sebagai nav.json
+			foreach ($map as $file) {
+				// change dash in date to slash
+				$segs = explode("-", $file, 4);
+				if(count($segs) > 3)
+					$newkey = $this->remove_extension(implode("/", $segs));
+				else
+					$newkey = $this->remove_extension($file);
+
+				if($file != $this->navfile && $file != 'index.html' && $this->is_valid_ext(POST_FOLDER.'/'.$file))
+					$tree[POST_TERM.'/'.$newkey] = $this->guess_name($this->remove_date($file));
+			}
+
+			arsort($tree);
+			write_file(POST_FOLDER.'/'.$this->navfile, str_replace(array("{",",","}"), array("{\n\t",",\n\t","\n}"),json_encode($tree)));
+		}
+
+		return $tree;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * get blog posts
+	 *
+	 * @access	private
+	 * @param	string	category, null for get all
+	 * @param	int		page number
+	 * @return	array
+	 */
+	function get_posts($category = null, $page = 1)
+	{
+		if($category){
+
+		} else {
+			$map = $this->get_posts_tree();
+			$begin = ($page-1)*$this->CI->config->item('post_per_page');
+			$limit = $this->CI->config->item('post_per_page');
+			$new_map = array_slice($map, $begin, $limit);
+
+		}
+
+		print_r($map);
+		print_r($new_map);
+	}
+
 
 	// --------------------------------------------------------------------
 
@@ -280,7 +346,7 @@ class Pusaka {
 	{
 		$ul = '';
 
-		if($prefix == $this->CI->config->item('post_term').'/')
+		if($prefix == POST_TERM.'/')
 		{
 			foreach ($tree as $key => $value)
 			{
@@ -366,7 +432,7 @@ class Pusaka {
 	{
 		$name = $this->remove_extension($name);
 
-		if($prefix == $this->CI->config->item('post_term')){
+		if($prefix == POST_TERM){
 			$name = $this->remove_date($name);
 		}
 

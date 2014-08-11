@@ -42,22 +42,9 @@ class CMS extends MY_Controller {
 		$segments = array_values($segments);
 		
 		// if it is STREAM POST
-		if($segments[0] == $this->config->item('post_folder'))
+		if($segments[0] == $this->config->item('post_term'))
 		{
-			// if it is a single post
-			if(isset($segments[1])){	
-				// delete the first index 'posts' for smooth implode
-				array_shift($segments);
-				$file_path = PAGE_FOLDER.'/'.$this->config->item('post_folder').'/'.implode("-", $segments);
-				$this->template->set_layout('post');
-			}
-			// otherwise, then it is a post list
-			else {
-				// delete the first index 'posts'
-				array_shift($segments);
-				$file_path = PAGE_FOLDER.'/'.$this->config->item('post_folder').'/'.implode("-", $segments);
-				$this->template->set_layout('posts');
-			}
+			return call_user_func_array(array($this, 'post'), $params);
 		}
 		// if it is a PAGE
 		else 
@@ -69,11 +56,9 @@ class CMS extends MY_Controller {
 				$this->template->set_layout(implode("/",$segments));
 			elseif($this->template->layout_exists($segments[0]))
 				$this->template->set_layout($segments[0]);
+
+			$this->template->view_content($file_path, $this->data);
 		}
-
-		// print_r($this->data);
-
-		$this->template->view_content($file_path, $this->data);
 	}
 
 	function sync_nav()
@@ -81,18 +66,40 @@ class CMS extends MY_Controller {
 		$this->pusaka->sync_nav();
 	}
 
-	function coba($page = 1)
+	function post()
 	{
-		$this->output->enable_profiler(TRUE);
+		$this->template->set_layout(null);
 
-		$files = directory_map(PAGE_FOLDER.'/blog');
-		rsort($files);
-		print_r($files);
+		// it is a post list
+		if(! isset($segments[1])){
+			$this->data['posts'] = $this->pusaka->get_posts();
 
-		$perpage = 5;
+			$this->template->view('layouts/posts', $this->data);
+		}
+		else {
+			// if it is a blog label
+			if($segments[1] == 'label'){
+				if(! isset($segments[2])) show_404();
 
-		$output = array_slice($files, ($page-1)*$perpage, $perpage);
-		print_r($output);
+				$this->data['posts'] = $this->pusaka->get_posts($segments[2], $segments[3] ? $segments[3] : 1);
+			} 
+			
+			// if it is a post list with page number
+			elseif($segments[1] == 'p'){
+				if(! isset($segments[2])) show_404();
+
+				$this->data['posts'] = $this->pusaka->get_posts(null, $segments[3] ? $segments[3] : 1);
+			}
+			
+			// if it is a label page
+			else {
+				$this->template->view('layouts/post');
+
+				$this->data['posts'] = $this->pusaka->get_posts();
+				
+				$this->template->view('layouts/posts', $this->data);
+			}
+		}
 	}
 
 }

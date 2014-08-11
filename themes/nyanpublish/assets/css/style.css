@@ -1,0 +1,187 @@
+/*
+ * Author: Carlos Alvarez
+ * URL: http://alvarez.is
+ *
+ * Project Name: Feedo - Free Bootstrap Theme
+ * Version: 1.0
+ * URL: http://blacktie.co/
+ */
+ 
+/* FONTS */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Open Sans Light'), local('OpenSans-Light'), url(../fonts/OpenSans-Light.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(../fonts/OpenSans.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(../fonts/OpenSans-Semibold.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 300;
+  src: local('Open Sans Light Italic'), local('OpenSansLight-Italic'), url(../fonts/OpenSansLight-Italic.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Open Sans Italic'), local('OpenSans-Italic'), url(../fonts/OpenSans-Italic.woff) format('woff');
+}
+
+/* OVERALL ASPECT */
+
+body {
+    background-color: #f2f2f2;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #555;
+
+    -webkit-font-smoothing: antialiased;
+    -webkit-overflow-scrolling: touch;
+    
+}
+
+/* Titles */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Paragraph & Typographic */
+p {
+    line-height: 24px;
+    margin-bottom: 25px;
+}
+
+.centered {
+    text-align: center;
+}
+
+.goleft {
+	text-align: left;
+}
+
+/* Links */
+a {
+    word-wrap: break-word;
+
+    -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+    transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+a:hover,
+a:focus {
+    color: #7b7b7b;
+    text-decoration: none;
+    outline: 0;
+}
+
+a:before,
+a:after {
+    -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+    transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+ hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+.mb10 {
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+.centered {
+	text-align: center;
+}
+
+/* CONFIGURATION FOR Feedo */
+
+.site {
+	background: white;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	box-shadow: 5px 5px 5px #2f2f2f;
+}
+.site-title {
+	background: #7f7ea8;
+	margin-left: -15px;
+	margin-right: -15px;
+	padding: 20px;
+}
+
+.site-title h2 {
+	font-weight: 400;
+	color: white;
+	text-align: center;
+}
+
+.site-footer {
+	margin-left: -15px;
+	margin-right: -15px;
+	text-align: center;
+}
+
+.post {
+	display: block;
+	padding-top:15px;
+	padding-bottom: 15px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	border-bottom: 1px solid #ddd;
+}
+
+.post .pull-right {
+	margin-top: -15px;
+}
+
+.post .glyphicon {
+	font-size: 24px;
+	color: #7f7ea8
+}
+
+/*Helper*/
+
+.font-white{
+color:white;
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+.the-content ul {
+  padding: 0 20px;
+  margin-bottom: 25px;
+}
+
+.the-content ul li {
+  margin-bottom: 5px;
+}
