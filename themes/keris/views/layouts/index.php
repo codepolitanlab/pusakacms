@@ -31,7 +31,7 @@
 		</div>
 
 	</div>
-	
+
 	<?php get_partial('footer'); ?>
 </body>
 </html>
