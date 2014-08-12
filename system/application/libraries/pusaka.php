@@ -268,7 +268,15 @@ class Pusaka {
 			if(is_file(POST_FOLDER.'/'.$filename.'.'.$ext))
 				$filename .= '.'.$ext;
 		}
-		return $post = read_file(POST_FOLDER.'/'.$filename);
+		$post = explode("---\n", read_file(POST_FOLDER.'/'.$filename));
+
+		$new_post = array();
+
+		foreach ($post as &$elm) {
+			$new_post[] = explode(":", $elm, 2);
+		}
+
+		return $new_post;
 	}
 
 

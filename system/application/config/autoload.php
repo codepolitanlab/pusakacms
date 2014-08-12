@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('template', 'pusaka','parser');
+$autoload['libraries'] = array('template', 'pusaka');
 
 
 /*

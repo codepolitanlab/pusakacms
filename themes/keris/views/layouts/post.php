@@ -9,10 +9,10 @@
 	<div class="container">		
 		<div class="row">
 			<div class="col-md-6 col-md-offset-1">
-				<?php echo $template['body']; ?>
+				<?php print_r($posts); ?>
 			</div>
 			<div class="col-md-4">
-				<?php get_partial('sidebar'); ?>
+				
 			</div>
 		</div>
 	</div>
