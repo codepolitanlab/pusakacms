@@ -70,34 +70,40 @@ class CMS extends MY_Controller {
 	{
 		$this->template->set_layout(null);
 
+		$segments = $this->uri->segment_array();
+		$segments = array_values($segments);
+
 		// it is a post list
 		if(! isset($segments[1])){
 			$this->data['posts'] = $this->pusaka->get_posts();
 
+			// print_r($this->data['posts']);
+
 			$this->template->view('layouts/posts', $this->data);
 		}
 		else {
+			// if it is a post list with page number
+			if($segments[1] == 'p'){
+				if(! isset($segments[2]) || ! intval($segments[2])) show_404();
+
+				$this->data['posts'] = $this->pusaka->get_posts(null, $segments[2] ? $segments[2] : 1);
+				$this->template->view('layouts/posts', $this->data);
+			}
+
 			// if it is a blog label
-			if($segments[1] == 'label'){
+			elseif($segments[1] == 'label'){
 				if(! isset($segments[2])) show_404();
 
 				$this->data['posts'] = $this->pusaka->get_posts($segments[2], $segments[3] ? $segments[3] : 1);
-			} 
-			
-			// if it is a post list with page number
-			elseif($segments[1] == 'p'){
-				if(! isset($segments[2])) show_404();
-
-				$this->data['posts'] = $this->pusaka->get_posts(null, $segments[3] ? $segments[3] : 1);
+				$this->template->view('layouts/posts', $this->data);
 			}
 			
-			// if it is a label page
+			// then it is a detail post
 			else {
-				$this->template->view('layouts/post');
-
-				$this->data['posts'] = $this->pusaka->get_posts();
+				array_shift($segments);
+				$this->data['posts'] = $this->pusaka->get_post(implode('-', $segments));
+				$this->template->view('layouts/post', $this->data);
 				
-				$this->template->view('layouts/posts', $this->data);
 			}
 		}
 	}

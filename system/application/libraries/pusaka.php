@@ -240,14 +240,35 @@ class Pusaka {
 
 		} else {
 			$map = $this->get_posts_tree();
-			$begin = ($page-1)*$this->CI->config->item('post_per_page');
+			$begin = ($page - 1) * $this->CI->config->item('post_per_page');
 			$limit = $this->CI->config->item('post_per_page');
 			$new_map = array_slice($map, $begin, $limit);
 
 		}
+		// print_r($map);
+		// print_r($new_map);
 
-		print_r($map);
-		print_r($new_map);
+		return $new_map;
+
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * get detail blog post
+	 *
+	 * @access	private
+	 * @param	string	category, null for get all
+	 * @param	int		page number
+	 * @return	array
+	 */
+	function get_post($filename = null)
+	{
+		foreach ($this->allowed_ext as $ext) {
+			if(is_file(POST_FOLDER.'/'.$filename.'.'.$ext))
+				$filename .= '.'.$ext;
+		}
+		return $post = read_file(POST_FOLDER.'/'.$filename);
 	}
 
 

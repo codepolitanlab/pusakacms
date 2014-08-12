@@ -9,7 +9,7 @@
 $config['site_title'] 		= 'Pusaka';
 $config['site_slogan'] 		= 'Just a Simple File-based CMS';
 
-$config['theme'] 			= 'nyanpublish';
+$config['theme'] 			= 'keris';
 
 $config['page_folder']		= 'content/pages';
 $config['post_folder']		= 'content/posts';
