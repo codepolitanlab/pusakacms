@@ -34,5 +34,6 @@ class MY_Controller extends MX_Controller
 		define('PAGE_FOLDER', $this->config->item('page_folder'));
 		define('POST_FOLDER', $this->config->item('post_folder'));
 		define('POST_TERM', $this->config->item('post_term'));
+		define('LABEL_FOLDER', $this->config->item('label_folder'));
 	}
 }

@@ -131,7 +131,7 @@ class Pusaka {
 	 */
 	function sync_nav($prefix = null)
 	{
-		header("Content-Type:text/plain");
+		$output = '';
 
 		if(!$prefix) $prefix = PAGE_FOLDER;
 		
@@ -150,12 +150,12 @@ class Pusaka {
 		if(count($diff) > 0){
 			foreach ($diff as $value){	
 				$json += array($this->remove_extension($value) => $this->guess_name($value));
-				echo "menu synced for new content $prefix/$value\n";
+				$output .= "menu synced for new content $prefix/$value\n";
 			}
 
 			// make sure it is writablle
 			if(! write_file($prefix.'/'.$this->navfile, str_replace(array("{",",","}"), array("{\n\t",",\n\t","\n}"),json_encode($json)), "w")){
-				echo "please set content folder writable.\n";
+				$output .= "please set content folder writable.\n";
 				exit;
 			}
 		}
@@ -171,17 +171,48 @@ class Pusaka {
 
 			// make sure it is writablle
 			if(! write_file($prefix.'/'.$this->navfile, str_replace(array("{",",","}"), array("{\n\t",",\n\t","\n}"),json_encode($new_json)), "w")){
-				echo "please set content folder writable.\n";
+				$output .= "please set content folder writable.\n";
 				exit;
 			}
 			else
-				echo "menu updated for folder $prefix/\n";
+				$output .= "menu updated for folder $prefix/\n";
 		}
 
 		// do for the child folders
 		foreach ($new_map as $folder)
 			if(is_dir($prefix.'/'.$folder))
-				$this->sync_nav($prefix.'/'.$folder);
+				$output .= $this->sync_nav($prefix.'/'.$folder);
+
+		return $output;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Sync post label
+	 *
+	 * @access	public
+	 * @param	string	starting folder
+	 * @return	void
+	 */
+	function sync_label()
+	{
+		$posts = $this->get_posts(null, 'all');
+		$labels = array();
+
+		foreach ($posts as $post) {
+			foreach ($post['labels'] as $label) {
+				$labels[trim($label)][] = $post['url'];
+			}
+		}
+
+		$output = '';
+		foreach ($labels as $label => $url) {
+			write_file(LABEL_FOLDER.'/'.$label.'.json', str_replace(array("[",",","]"), array("[\n\t",",\n\t","\n]"),json_encode($url)));
+			$output .= "Label $label list updated.\n";
+		}
+
+		return $output;
 	}
 
 	// --------------------------------------------------------------------
@@ -244,7 +275,7 @@ class Pusaka {
 			$map = $this->get_posts_tree();
 			$begin = ($page - 1) * $this->CI->config->item('post_per_page');
 			$limit = $this->CI->config->item('post_per_page');
-			$new_map = array_slice($map, $begin, $limit);
+			$new_map = ($page != 'all') ? array_slice($map, $begin, $limit) : $map;
 		}
 
 		foreach ($new_map as $url => $title) {
@@ -288,8 +319,10 @@ class Pusaka {
 
 			foreach ($post as $elm) {
 				$segs = preg_split("/( : | :|: |:)/", $elm, 2);
-				if($segs[0] == 'categories')
+
+				if($segs[0] == 'labels')
 					$new_post[$segs[0]] = preg_split("/(\s,\s|\s,|,\s)/", $segs[1]);
+
 				elseif($segs[0] == 'content')
 					// check textile first
 					if ($ext == 'textile')
@@ -314,6 +347,25 @@ class Pusaka {
 		return false;
 	}
 
+	// --------------------------------------------------------------------
+
+	/**
+	 * get post label list
+	 *
+	 * @access	private
+	 * @return	array
+	 */
+	function get_labels()
+	{
+		$labels = directory_map(LABEL_FOLDER, 1);
+
+		$list = array();
+		foreach ($labels as $label) {
+			if($label != 'index.html')
+				$list['labels/'.strtolower($this->remove_extension($label))] = strtolower($this->remove_extension($label));
+		}
+		print_r($list);
+	}
 
 	// --------------------------------------------------------------------
 

@@ -318,13 +318,13 @@ textarea {
 }
 
 a {
-  color: #927FA5;
+  color: #247562;
   text-decoration: none;
 }
 
 a:hover,
 a:focus {
-  color: #00526e;
+  color: #000;
   text-decoration: underline;
 }
 
@@ -515,15 +515,12 @@ h6 .small,
 h1,
 h2,
 h3 {
-  margin-top: 15px;
-  margin-bottom: 24px;
+  margin-top: 10px;
+  margin-bottom: 15px;
 }
 
 h2 {
   padding: 10px 0;
-}
-h3 {
-  margin-top: 24px;
 }
 
 h1 small,
@@ -538,8 +535,8 @@ h3 .small {
 h4,
 h5,
 h6 {
-  margin-top: 10.5px;
-  margin-bottom: 10.5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 h4 small,
@@ -553,32 +550,32 @@ h6 .small {
 
 h1,
 .h1 {
-  font-size: 39px;
+  font-size: 28px;
 }
 
 h2,
 .h2 {
-  font-size: 32px;
+  font-size: 24px;
 }
 
 h3,
 .h3 {
-  font-size: 26px;
+  font-size: 20px;
 }
 
 h4,
 .h4 {
-  font-size: 19px;
+  font-size: 22px;
 }
 
 h5,
 .h5 {
-  font-size: 15px;
+  font-size: 20px;
 }
 
 h6,
 .h6 {
-  font-size: 13px;
+  font-size: 18px;
 }
 
 .page-header {
@@ -4533,8 +4530,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar {
   position: relative;
-  min-height: 45px;
-  margin-bottom: 21px;
+  min-height: 100px;
+  margin-bottom: 40px;
   border: 1px solid transparent;
 }
 
@@ -4793,7 +4790,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar-brand {
   float: left;
-  padding: 15px 15px 10px;
+  padding: 25px 15px 25px;
   font-size: 30px;
   line-height: 21px;
   font-weight: 600;
@@ -5102,8 +5099,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse {
-  background-color: transparent;
-  border-color: transparent;
+  background-color: #2F362F;
+  border-color: #D44233;
 }
 
 .navbar-inverse .navbar-brand {
@@ -7507,6 +7504,7 @@ td.visible-print {
   font-size: 14px;
   font-weight: 300;
   border: none;
+  border-bottom: 4px solid #7E5CD8;
 }
 
 .navbar .navbar-toggle:hover .icon-bar {
@@ -7793,9 +7791,4 @@ ul > li > ul li {border-left: 5px solid #eee;}
 .sidebar {
   margin-top: 5px;
   margin-bottom: 20px;
-}
-.the-content {
-  background-color: #fff;
-  padding: 10px 20px;
-  box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 1px 1px;
 }

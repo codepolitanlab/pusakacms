@@ -16,15 +16,15 @@
 					<div class="content">
 						<?php echo $post['content']; ?>
 					</div>
-					
+
 					<div class="cat">
 						tags: 
-						<?php foreach ($post['categories'] as $category): ?>
-							<span class="label label-info"><?php echo anchor(POST_TERM.'/label/'.$category, $category); ?></span>
+						<?php foreach ($post['labels'] as $label): ?>
+							<span class="label label-info"><?php echo anchor(POST_TERM.'/label/'.$label, $label); ?></span>
 						<?php endforeach; ?>
 					</div>
 				</article>
-				
+
 			</div>
 			<div class="col-md-3">
 				

@@ -36,6 +36,9 @@ class CMS extends MY_Controller {
 		{
 			$is_home = TRUE;
 			$segments = array('index');
+
+			if($this->config->item('post_as_home'))
+				return call_user_func_array(array($this, 'post'), $params);
 		}
 
 		// reset index to 0
@@ -63,7 +66,18 @@ class CMS extends MY_Controller {
 
 	function sync_nav()
 	{
-		$this->pusaka->sync_nav();
+		header("Content-Type:text/plain");
+		echo $this->pusaka->sync_nav();
+	}
+
+	function sync_label()
+	{
+		header("Content-Type:text/plain");
+		echo $this->pusaka->sync_label();
+	}
+
+	function coba(){
+		$this->pusaka->get_labels();
 	}
 
 	function post()

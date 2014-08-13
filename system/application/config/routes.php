@@ -38,10 +38,11 @@
 |
 */
 
-$route['default_controller'] = "cms";
-$route['404_override'] = "cms";
+$route['default_controller']	= "cms";
+$route['404_override'] 			= "cms";
 
-$route['sync_nav'] = "cms/sync_nav";
+$route['sync_nav'] 				= "cms/sync_nav";
+$route['sync_label'] 			= "cms/sync_label";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
