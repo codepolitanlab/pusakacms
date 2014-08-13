@@ -185,3 +185,11 @@ color:white;
 .the-content ul li {
   margin-bottom: 5px;
 }
+
+.label a {
+  color: white;
+}
+
+.content {
+  margin: 20px 0;
+}

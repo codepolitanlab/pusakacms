@@ -77,8 +77,6 @@ class CMS extends MY_Controller {
 		if(! isset($segments[1])){
 			$this->data['posts'] = $this->pusaka->get_posts();
 
-			// print_r($this->data['posts']);
-
 			$this->template->view('layouts/posts', $this->data);
 		}
 		else {
@@ -101,7 +99,8 @@ class CMS extends MY_Controller {
 			// then it is a detail post
 			else {
 				array_shift($segments);
-				$this->data['posts'] = $this->pusaka->get_post(implode('-', $segments));
+				$this->data['post'] = $this->pusaka->get_post(implode('-', $segments));
+				if(! $this->data['post']) show_404();
 				$this->template->view('layouts/post', $this->data);
 				
 			}

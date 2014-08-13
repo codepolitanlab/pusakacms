@@ -264,19 +264,47 @@ class Pusaka {
 	 */
 	function get_post($filename = null)
 	{
-		foreach ($this->allowed_ext as $ext) {
-			if(is_file(POST_FOLDER.'/'.$filename.'.'.$ext))
-				$filename .= '.'.$ext;
-		}
-		$post = explode("---\n", read_file(POST_FOLDER.'/'.$filename));
+		$ext = 'html';
 
-		$new_post = array();
-
-		foreach ($post as &$elm) {
-			$new_post[] = explode(":", $elm, 2);
+		foreach ($this->allowed_ext as $the_ext) {
+			if(is_file(POST_FOLDER.'/'.$filename.'.'.$the_ext)){
+				$filename .= '.'.$the_ext;
+				$ext = $the_ext;
+				break;
+			}
 		}
 
-		return $new_post;
+		$file = read_file(POST_FOLDER.'/'.$filename);
+
+		if(!empty($file)){
+			$post = explode("---\n", $file);
+			
+			$new_post = array('title' => $this->guess_name($filename, POST_TERM));
+
+			foreach ($post as $elm) {
+				$segs = preg_split("/( : | :|: |:)/", $elm, 2);
+				if($segs[0] == 'categories')
+					$new_post[$segs[0]] = preg_split("/(\s,\s|\s,|,\s)/", $segs[1]);
+				elseif($segs[0] == 'content')
+					// check textile first
+					if ($ext == 'textile')
+					{
+						require_once(APPPATH.'libraries/textile.php');
+						$new_post[$segs[0]] = TextileThis($segs[1]);
+					}
+					else // if not textile, use markdown as default
+					{
+						require_once(APPPATH.'libraries/markdown.php');
+						$new_post[$segs[0]] = str_replace("&amp;", "&", Markdown($segs[1]));
+					}
+				else
+					$new_post[$segs[0]] = trim($segs[1]);
+	}
+			
+			return $new_post;
+		}
+
+		return false;
 	}
 
 
