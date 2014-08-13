@@ -177,6 +177,12 @@ color:white;
   }
 }
 
+article.the-content {
+  margin-bottom: 30px;
+  padding-bottom: 40px !important;
+  border-bottom: 4px solid lightsteelblue;
+}
+
 .the-content ul {
   padding: 0 20px;
   margin-bottom: 25px;

@@ -15,4 +15,4 @@ $config['page_folder']		= 'content/pages';
 $config['post_folder']		= 'content/posts';
 $config['category_folder']	= $config['post_folder'].'/categories';
 $config['post_term']		= 'blog';
-$config['post_per_page']	= 1;
+$config['post_per_page']	= 10;

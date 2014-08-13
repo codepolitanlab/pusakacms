@@ -98,8 +98,8 @@ class CMS extends MY_Controller {
 			
 			// then it is a detail post
 			else {
-				array_shift($segments);
-				$this->data['post'] = $this->pusaka->get_post(implode('-', $segments));
+				$uri = $this->uri->uri_string();
+				$this->data['post'] = $this->pusaka->get_post($uri);
 				if(! $this->data['post']) show_404();
 				$this->template->view('layouts/post', $this->data);
 				

@@ -214,10 +214,10 @@ class Pusaka {
 					$newkey = $this->remove_extension($file);
 
 				if($file != $this->navfile && $file != 'index.html' && $this->is_valid_ext(POST_FOLDER.'/'.$file))
-					$tree[POST_TERM.'/'.$newkey] = $this->guess_name($this->remove_date($file));
+					$tree[POST_TERM.'/'.$newkey] = $this->guess_name($file, POST_TERM);
 			}
 
-			arsort($tree);
+			krsort($tree);
 			write_file(POST_FOLDER.'/'.$this->navfile, str_replace(array("{",",","}"), array("{\n\t",",\n\t","\n}"),json_encode($tree)));
 		}
 
@@ -236,6 +236,8 @@ class Pusaka {
 	 */
 	function get_posts($category = null, $page = 1)
 	{
+		$posts = array();
+
 		if($category){
 
 		} else {
@@ -243,13 +245,13 @@ class Pusaka {
 			$begin = ($page - 1) * $this->CI->config->item('post_per_page');
 			$limit = $this->CI->config->item('post_per_page');
 			$new_map = array_slice($map, $begin, $limit);
-
 		}
-		// print_r($map);
-		// print_r($new_map);
 
-		return $new_map;
+		foreach ($new_map as $url => $title) {
+			$posts[] = $this->get_post($url);
+		}
 
+		return $posts;
 	}
 
 	// --------------------------------------------------------------------
@@ -262,8 +264,11 @@ class Pusaka {
 	 * @param	int		page number
 	 * @return	array
 	 */
-	function get_post($filename = null)
+	function get_post($url = null)
 	{
+		$segs = explode("/", $url);
+		array_shift($segs);
+		$filename = implode("-", $segs);
 		$ext = 'html';
 
 		foreach ($this->allowed_ext as $the_ext) {
@@ -299,7 +304,9 @@ class Pusaka {
 					}
 				else
 					$new_post[$segs[0]] = trim($segs[1]);
-	}
+
+				$new_post['url'] = $url;
+			}
 			
 			return $new_post;
 		}
