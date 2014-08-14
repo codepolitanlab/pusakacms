@@ -1,6 +1,6 @@
-# Sample Page
+h1. Sample Subpage
 
-This is sample page, made by file with filename of its page name.
+This is sample subpage, made by file with filename of its page name under the parent folder as parent page. This page use textile format.
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi eius illum ratione, eos recusandae praesentium, ducimus assumenda, error asperiores magnam laudantium! Qui asperiores impedit ipsum doloremque voluptatem a incidunt eius. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi eius illum ratione, eos recusandae praesentium, ducimus assumenda, error asperiores magnam laudantium! Qui asperiores impedit ipsum doloremque voluptatem a incidunt eius.
 
