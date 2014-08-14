@@ -299,6 +299,7 @@ class Pusaka {
 	{
 		$segs = explode("/", $url);
 		array_shift($segs);
+		$date = $segs[0].'-'.$segs[1].'-'.$segs[2];
 		$filename = implode("-", $segs);
 		$ext = 'html';
 
@@ -313,9 +314,9 @@ class Pusaka {
 		$file = read_file(POST_FOLDER.'/'.$filename);
 
 		if(!empty($file)){
-			$post = explode("---\n", $file);
+			$post = explode("---", $file);
 			
-			$new_post = array('title' => $this->guess_name($filename, POST_TERM));
+			$new_post = array('title' => $this->guess_name($filename, POST_TERM), 'date' => $date);
 
 			foreach ($post as $elm) {
 				$segs = preg_split("/( : | :|: |:)/", $elm, 2);
@@ -323,24 +324,24 @@ class Pusaka {
 				if($segs[0] == 'labels')
 					$new_post[$segs[0]] = preg_split("/(\s,\s|\s,|,\s)/", $segs[1]);
 
-				elseif($segs[0] == 'content')
+				elseif(trim($segs[0]) == 'content')
 					// check textile first
 					if ($ext == 'textile')
 					{
 						require_once(APPPATH.'libraries/textile.php');
-						$new_post[$segs[0]] = TextileThis($segs[1]);
+						$new_post[trim($segs[0])] = TextileThis($segs[1]);
 					}
 					else // if not textile, use markdown as default
 					{
 						require_once(APPPATH.'libraries/markdown.php');
-						$new_post[$segs[0]] = str_replace("&amp;", "&", Markdown($segs[1]));
+						$new_post[trim($segs[0])] = str_replace("&amp;", "&", Markdown($segs[1]));
 					}
 				else
 					$new_post[$segs[0]] = trim($segs[1]);
 
 				$new_post['url'] = $url;
 			}
-			
+			// print_r($new_post);
 			return $new_post;
 		}
 
