@@ -297,17 +297,27 @@ class Pusaka {
 		$posts = array();
 
 		if($category){
+			$file = read_file(LABEL_FOLDER.'/'.$category.'.json');
+			if(empty($file)) return false;
+			$map = (array) json_decode($file);
+			$begin = ($page - 1) * $this->CI->config->item('post_per_page');
+			$limit = $this->CI->config->item('post_per_page');
+			$new_map = ($page != 'all') ? array_slice($map, $begin, $limit) : $map;
 
+			foreach ($new_map as $url) {
+				$posts[] = $this->get_post($url);
+			}
 		} else {
 			$map = $this->get_posts_tree();
 			$begin = ($page - 1) * $this->CI->config->item('post_per_page');
 			$limit = $this->CI->config->item('post_per_page');
 			$new_map = ($page != 'all') ? array_slice($map, $begin, $limit) : $map;
+			
+			foreach ($new_map as $url => $title) {
+				$posts[] = $this->get_post($url);
+			}
 		}
 
-		foreach ($new_map as $url => $title) {
-			$posts[] = $this->get_post($url);
-		}
 
 		return $posts;
 	}
@@ -390,9 +400,9 @@ class Pusaka {
 		$list = array();
 		foreach ($labels as $label) {
 			if($label != 'index.html')
-				$list['labels/'.strtolower($this->remove_extension($label))] = strtolower($this->remove_extension($label));
+				$list[POST_TERM.'/label/'.strtolower($this->remove_extension($label))] = strtolower($this->remove_extension($label));
 		}
-		print_r($list);
+		return $list;
 	}
 
 	// --------------------------------------------------------------------

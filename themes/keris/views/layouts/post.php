@@ -13,21 +13,22 @@
 				<article class="the-content">
 					<h1><?php echo $post['title']; ?></h1>
 
-					<div class="content">
-						<?php echo $post['content']; ?>
-					</div>
-
+					<span class="date">Diposkan pada tanggal <?php echo date("d F Y", strtotime($post['date'])); ?></span>
 					<div class="cat">
 						tags: 
 						<?php foreach ($post['labels'] as $label): ?>
-							<span class="label label-info"><?php echo anchor(POST_TERM.'/label/'.$label, $label); ?></span>
+							<span><?php echo anchor(POST_TERM.'/label/'.$label, $label); ?></span>
 						<?php endforeach; ?>
+					</div>
+
+					<div class="content">
+						<?php echo $post['content']; ?>
 					</div>
 				</article>
 
 			</div>
 			<div class="col-md-3">
-				
+				<?php get_partial('post_sidebar'); ?>
 			</div>
 		</div>
 	</div>

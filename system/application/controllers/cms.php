@@ -99,7 +99,7 @@ class CMS extends MY_Controller {
 			if($segments[1] == 'p'){
 				if(! isset($segments[2]) || ! intval($segments[2])) show_404();
 
-				$this->data['posts'] = $this->pusaka->get_posts(null, $segments[2] ? $segments[2] : 1);
+				$this->data['posts'] = $this->pusaka->get_posts(null, isset($segments[2]) ? $segments[2] : 1);
 				$this->template->view('layouts/posts', $this->data);
 			}
 
@@ -107,7 +107,8 @@ class CMS extends MY_Controller {
 			elseif($segments[1] == 'label'){
 				if(! isset($segments[2])) show_404();
 
-				$this->data['posts'] = $this->pusaka->get_posts($segments[2], $segments[3] ? $segments[3] : 1);
+				$this->data['label'] = $segments[2];
+				$this->data['posts'] = $this->pusaka->get_posts($segments[2], isset($segments[3]) ? $segments[3] : 1);
 				$this->template->view('layouts/posts', $this->data);
 			}
 			
