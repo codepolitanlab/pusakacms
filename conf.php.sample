@@ -9,8 +9,8 @@
 $config['site_title'] 		= 'Pusaka';
 $config['site_slogan'] 		= 'Just a Simple File-based CMS';
 
-$config['theme'] 			= 'keris';
-$config['post_as_home']		= TRUE;
+$config['theme'] 		= 'keris';
+$config['post_as_home']		= FALSE;
 
 $config['page_folder']		= 'content/pages';
 $config['post_folder']		= 'content/posts';
