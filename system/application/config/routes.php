@@ -42,6 +42,7 @@ $route['default_controller']	= "cms";
 $route['404_override'] 			= "cms";
 
 $route['sync_nav'] 				= "cms/sync_nav";
+$route['sync_post'] 			= "cms/sync_post";
 $route['sync_label'] 			= "cms/sync_label";
 
 /* End of file routes.php */

@@ -133,56 +133,83 @@ class Pusaka {
 	{
 		$output = '';
 
-		if(!$prefix) $prefix = PAGE_FOLDER;
+		if($prefix == POST_TERM){
+			// get derectory map
+			$map = directory_map(POST_FOLDER, 1);
+
+			$tree = array();
+
+			//simpan sebagai nav.json
+			foreach ($map as $file) {
+				// change dash in date to slash
+				$segs = explode("-", $file, 4);
+				if(count($segs) > 3)
+					$newkey = $this->remove_extension(implode("/", $segs));
+				else
+					$newkey = $this->remove_extension($file);
+
+				if($file != $this->navfile && $file != 'index.html' && $this->is_valid_ext(POST_FOLDER.'/'.$file))
+					$tree[POST_TERM.'/'.$newkey] = $this->guess_name($file, POST_TERM);
+			}
+
+			krsort($tree);
+			write_file(POST_FOLDER.'/'.$this->navfile, str_replace(array("{",",","}"), array("{\n\t",",\n\t","\n}"),json_encode($tree)));
+			$output .= "post index synced.";
+			
+		} else {
+
+			if(!$prefix) $prefix = PAGE_FOLDER;
+
+			$map = directory_map($prefix, 1);
+
+			$new_map = array();
+			foreach ($map as $file)
+				if($file != $this->navfile and $file != 'index.html')
+					$new_map[] = $this->remove_extension($file);
+
+				$json = (array) json_decode(read_file($prefix.'/'.$this->navfile));
+				$json_simpled = array_keys($json);
+
+				// add the new content to menu
+				$diff = array_diff($new_map, $json_simpled);
+				if(count($diff) > 0){
+					foreach ($diff as $value){	
+						$json += array($this->remove_extension($value) => $this->guess_name($value));
+						$output .= "menu synced for new content $prefix/$value\n";
+					}
+
+					// make sure it is writablle
+					if(! write_file($prefix.'/'.$this->navfile, str_replace(array("{",",","}"), array("{\n\t",",\n\t","\n}"),json_encode($json)), "w")){
+						$output .= "please set content folder writable.\n";
+						exit;
+					}
+				}
+
+			// remove the deleted content to menu
+			$new_map = array_merge($new_map, array('index', POST_TERM)); // set the undelete
+			$rev_diff = array_diff($json_simpled, $new_map);
+			$new_json = array();
+			if(count($rev_diff) > 0){
+				foreach ($json as $key => $value)
+					if(! in_array($key, $rev_diff))
+						$new_json += array($key => $value);
+
+				// make sure it is writablle
+					if(! write_file($prefix.'/'.$this->navfile, str_replace(array("{",",","}"), array("{\n\t",",\n\t","\n}"),json_encode($new_json)), "w")){
+						$output .= "please set content folder writable.\n";
+						exit;
+					}
+					else
+						$output .= "menu updated for folder $prefix/\n";
+				}
+
+			// do for the child folders
+			foreach ($new_map as $folder)
+				if(is_dir($prefix.'/'.$folder))
+					$output .= $this->sync_nav($prefix.'/'.$folder);
+
+		}
 		
-		$map = directory_map($prefix, 1);
-
-		$new_map = array();
-		foreach ($map as $file)
-			if($file != $this->navfile and $file != 'index.html')
-				$new_map[] = $this->remove_extension($file);
-	
-		$json = (array) json_decode(read_file($prefix.'/'.$this->navfile));
-		$json_simpled = array_keys($json);
-
-		// add the new content to menu
-		$diff = array_diff($new_map, $json_simpled);
-		if(count($diff) > 0){
-			foreach ($diff as $value){	
-				$json += array($this->remove_extension($value) => $this->guess_name($value));
-				$output .= "menu synced for new content $prefix/$value\n";
-			}
-
-			// make sure it is writablle
-			if(! write_file($prefix.'/'.$this->navfile, str_replace(array("{",",","}"), array("{\n\t",",\n\t","\n}"),json_encode($json)), "w")){
-				$output .= "please set content folder writable.\n";
-				exit;
-			}
-		}
-
-		// remove the deleted content to menu
-		$new_map = array_merge($new_map, array('index', POST_TERM)); // set the undelete
-		$rev_diff = array_diff($json_simpled, $new_map);
-		$new_json = array();
-		if(count($rev_diff) > 0){
-			foreach ($json as $key => $value)
-				if(! in_array($key, $rev_diff))
-					$new_json += array($key => $value);
-
-			// make sure it is writablle
-			if(! write_file($prefix.'/'.$this->navfile, str_replace(array("{",",","}"), array("{\n\t",",\n\t","\n}"),json_encode($new_json)), "w")){
-				$output .= "please set content folder writable.\n";
-				exit;
-			}
-			else
-				$output .= "menu updated for folder $prefix/\n";
-		}
-
-		// do for the child folders
-		foreach ($new_map as $folder)
-			if(is_dir($prefix.'/'.$folder))
-				$output .= $this->sync_nav($prefix.'/'.$folder);
-
 		return $output;
 	}
 
