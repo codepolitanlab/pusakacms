@@ -224,19 +224,28 @@ class Pusaka {
 	 */
 	function sync_label()
 	{
+		// get all post
 		$posts = $this->get_posts(null, 'all');
 		$labels = array();
 
-		foreach ($posts as $post) {
+		// get all labels for each post
+		foreach ($posts['entries'] as $post) {
 			foreach ($post['labels'] as $label) {
 				$labels[trim($label)][] = $post['url'];
 			}
 		}
 
+		// delete all labels first
+		delete_files(LABEL_FOLDER);
+		write_file(LABEL_FOLDER.'/index.html', 'Directory access forbidden.');
+
+		// rewrite label indexes
 		$output = '';
 		foreach ($labels as $label => $url) {
-			write_file(LABEL_FOLDER.'/'.$label.'.json', str_replace(array("[",",","]"), array("[\n\t",",\n\t","\n]"),json_encode($url)));
-			$output .= "Label $label list updated.\n";
+			if(write_file(LABEL_FOLDER.'/'.$label.'.json', str_replace(array("[",",","]"), array("[\n\t",",\n\t","\n]"),json_encode($url))))
+				$output .= "Label $label list updated.\n";
+			else
+				$output .= "Label $label fail update. Please make content/labels/ folder writtable.\n";
 		}
 
 		return $output;
@@ -305,8 +314,9 @@ class Pusaka {
 			$new_map = ($page != 'all') ? array_slice($map, $begin, $limit) : $map;
 
 			foreach ($new_map as $url) {
-				$posts[] = $this->get_post($url);
+				$posts['entries'][] = $this->get_post($url);
 			}
+			$posts['total'] = count($map);
 		} else {
 			$map = $this->get_posts_tree();
 			$begin = ($page - 1) * $this->CI->config->item('post_per_page');
@@ -314,12 +324,64 @@ class Pusaka {
 			$new_map = ($page != 'all') ? array_slice($map, $begin, $limit) : $map;
 			
 			foreach ($new_map as $url => $title) {
-				$posts[] = $this->get_post($url);
+				$posts['entries'][] = $this->get_post($url);
 			}
+			$posts['total'] = count($map);
+		}
+
+		return $posts;
+	}
+
+	function pagination($total, $label = false, $layout_options = array())
+	{
+		// create pagination
+		$this->CI->load->library('pagination');
+		
+		if($label){
+			$config['base_url'] = site_url(POST_TERM.'/label/'.$label);
+			$config['uri_segment'] = 4;
+		}
+		else {
+			$config['base_url'] = site_url(POST_TERM.'/p/');
+			$config['uri_segment'] = 3;
 		}
 
 
-		return $posts;
+		$config['total_rows'] = $total;
+		$config['per_page'] = $this->CI->config->item('post_per_page'); 
+		$config['use_page_numbers'] = TRUE;
+
+		// layouting
+		$config['first_link'] = '&lt;&lt; First';
+		$config['last_link'] = 'Last &gt;&gt;';
+
+		$config['first_tag_open'] = '<li>';
+		$config['first_tag_close'] = '</li>';
+
+		$config['last_tag_open'] = '<li>';
+		$config['last_tag_close'] = '<li>';
+
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		
+		$config['next_link'] = 'Next &gt;';
+		$config['next_tag_open'] = '<li>';
+		$config['next_tag_close'] = '</li>';
+		$config['prev_link'] = '&lt; Prev';
+		$config['prev_tag_open'] = '<li>';
+		$config['prev_tag_close'] = '</li>';
+		$config['cur_tag_open'] = '<li class="active"><a>';
+		$config['cur_tag_close'] = '</a></li>';
+
+		// override layout
+		if(count($layout_options) > 0){
+			foreach ($layout_option as $key => $value) {
+				$config[$key] = $value;
+			}
+		}
+
+		$this->CI->pagination->initialize($config); 
+		return $this->CI->pagination->create_links();
 	}
 
 	// --------------------------------------------------------------------
@@ -354,12 +416,17 @@ class Pusaka {
 			$post = explode("---", $file);
 			
 			$new_post = array('title' => $this->guess_name($filename, POST_TERM), 'date' => $date);
+			
 
 			foreach ($post as $elm) {
 				$segs = preg_split("/( : | :|: |:)/", $elm, 2);
 
-				if($segs[0] == 'labels')
-					$new_post[$segs[0]] = preg_split("/(\s,\s|\s,|,\s)/", $segs[1]);
+				// set meta to config
+				if(in_array(trim($segs[0]), array('meta_keywords', 'meta_description', 'author')))
+					$this->CI->config->set_item(trim($segs[0]), trim($segs[1]));
+
+				if(trim($segs[0]) == 'labels')
+					$new_post[trim($segs[0])] = preg_split("/(\s,\s|\s,|,\s)/", $segs[1]);
 
 				elseif(trim($segs[0]) == 'content')
 					// check textile first
@@ -378,6 +445,7 @@ class Pusaka {
 
 				$new_post['url'] = $url;
 			}
+
 			// print_r($new_post);
 			return $new_post;
 		}

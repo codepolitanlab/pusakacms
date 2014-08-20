@@ -77,13 +77,10 @@ class CMS extends MY_Controller {
 		echo $this->pusaka->sync_label();
 	}
 
-	function coba(){
-		$this->pusaka->get_labels();
-	}
-
 	function post()
 	{
 		$this->template->set_layout(null);
+		$this->data['label'] = false;
 
 		$segments = $this->uri->segment_array();
 		$segments = array_values($segments);
@@ -97,8 +94,6 @@ class CMS extends MY_Controller {
 		else {
 			// if it is a post list with page number
 			if($segments[1] == 'p'){
-				if(! isset($segments[2]) || ! intval($segments[2])) show_404();
-
 				$this->data['posts'] = $this->pusaka->get_posts(null, isset($segments[2]) ? $segments[2] : 1);
 				$this->template->view('layouts/posts', $this->data);
 			}
@@ -117,6 +112,10 @@ class CMS extends MY_Controller {
 				$uri = $this->uri->uri_string();
 				$this->data['post'] = $this->pusaka->get_post($uri);
 				if(! $this->data['post']) show_404();
+
+				// set meta title
+				$this->config->set_item('site_title', $this->data['post']['title'].' - '.$this->config->item('site_title'));
+
 				$this->template->view('layouts/post', $this->data);
 				
 			}

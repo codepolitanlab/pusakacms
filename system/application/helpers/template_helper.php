@@ -244,3 +244,11 @@ if ( ! function_exists('get_source_path'))
 		return SOURCEPATH.$url;
 	}
 }
+
+if ( ! function_exists('site_config'))
+{
+	function site_config($key) {
+		$CI =& get_instance();
+		return $CI->config->item($key);
+	}
+}
