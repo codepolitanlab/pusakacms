@@ -17,3 +17,7 @@ $config['post_folder']		= 'content/posts';
 $config['label_folder']		= 'content/labels';
 $config['post_term']		= 'blog';
 $config['post_per_page']	= 10;
+
+// site metadata
+$config['meta_description']	= "";
+$config['meta_keywords']	= "";

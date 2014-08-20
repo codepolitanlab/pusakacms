@@ -1,0 +1,10 @@
+# Node files #
+######################
+node_modules
+
+# Project files #
+######################
+src
+compile
+*.sublime-project
+*.sublime-workspace
