@@ -85,7 +85,7 @@ $config['theme'] = '';
 */
 
 $config['theme_locations'] = array(
-	'themes/'
+	'system/themes/'
 );
 
 /*

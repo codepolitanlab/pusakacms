@@ -61,7 +61,27 @@ class MX_Router extends CI_Router
 	}
 	
 	/** Locate the controller **/
-	public function locate($segments) {		
+	public function locate($segments) {
+
+		if($sites = @file_get_contents(FCPATH.'sites/sites.json')) {
+			$arr_sites = (array) json_decode($sites);
+			
+			$base_url = ( ! empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off') ? 'https' : 'http';
+			$domain = $_SERVER['HTTP_HOST'];
+			
+			// check if request is from local computer or online server
+			if($domain == 'localhost') {
+				$base = str_replace('/'.basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
+				$base_url .= '://'.$domain.$base;
+			} else {
+				$base_url .= '://'.$domain;
+			}
+
+			if($site_slug = array_search($base_url, $arr_sites))
+				define('SITE_SLUG', $site_slug);
+			else
+				define('SITE_SLUG', 'default');
+		}
 		
 		$this->module = '';
 		$this->directory = '';

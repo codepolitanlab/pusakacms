@@ -87,6 +87,8 @@ class CMS extends MY_Controller {
 
 		// it is a post list
 		if(! isset($segments[1])){
+			$this->config->set_item('page_title', $this->config->item('post_term').' - '.$this->config->item('page_title'));
+
 			$this->data['posts'] = $this->pusaka->get_posts();
 
 			$this->template->view('layouts/posts', $this->data);
@@ -94,6 +96,8 @@ class CMS extends MY_Controller {
 		else {
 			// if it is a post list with page number
 			if($segments[1] == 'p'){
+				$this->config->set_item('page_title', $this->config->item('post_term').' - '.$this->config->item('page_title'));
+
 				$this->data['posts'] = $this->pusaka->get_posts(null, isset($segments[2]) ? $segments[2] : 1);
 				$this->template->view('layouts/posts', $this->data);
 			}
@@ -101,6 +105,8 @@ class CMS extends MY_Controller {
 			// if it is a blog label
 			elseif($segments[1] == 'label'){
 				if(! isset($segments[2])) show_404();
+
+				$this->config->set_item('page_title', $segments[2].' - '.$this->config->item('page_title'));
 
 				$this->data['label'] = $segments[2];
 				$this->data['posts'] = $this->pusaka->get_posts($segments[2], isset($segments[3]) ? $segments[3] : 1);
@@ -114,7 +120,7 @@ class CMS extends MY_Controller {
 				if(! $this->data['post']) show_404();
 
 				// set meta title
-				$this->config->set_item('site_title', $this->data['post']['title'].' - '.$this->config->item('site_title'));
+				$this->config->set_item('page_title', $this->data['post']['title'].' - '.$this->config->item('page_title'));
 
 				$this->template->view('layouts/post', $this->data);
 				
