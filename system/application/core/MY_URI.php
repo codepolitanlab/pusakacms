@@ -33,6 +33,7 @@ class MY_URI extends CI_URI {
 			{
 				$uri = $_SERVER['REQUEST_URI'].'/'.SITE_SLUG;
 			}
+			echo $uri;
 		} else {
 			if (strpos($_SERVER['REQUEST_URI'], $_SERVER['SCRIPT_NAME']) === 0)
 			{
