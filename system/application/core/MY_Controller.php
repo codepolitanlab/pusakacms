@@ -35,8 +35,6 @@ class MY_Controller extends MX_Controller
 		$this->data['site_url'] = site_url();
 		$this->data['current_url'] = current_url();
 
-		echo site_url();
-
 		define('PAGE_FOLDER', $sitepath.'content/'.$this->config->item('page_folder'));
 		define('POST_FOLDER', $sitepath.'content/'.$this->config->item('post_folder'));
 		define('LABEL_FOLDER', $sitepath.'content/'.$this->config->item('label_folder'));
