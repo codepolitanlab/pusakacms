@@ -78,9 +78,14 @@ class MX_Config extends CI_Config
 	 */
 	public function site_url($uri = '')
 	{
+		$site_slug = SITE_SLUG.'/';
+
+		if($_SERVER['HTTP_HOST'] != 'localhost')
+			$site_slug = '';
+
 		if (empty($uri))
 		{
-			return $this->slash_item('base_url').$this->item('index_page').SITE_SLUG.'/';
+			return $this->slash_item('base_url').$this->item('index_page').$site_slug;
 		}
 
 		$uri = $this->_uri_string($uri);
@@ -98,13 +103,13 @@ class MX_Config extends CI_Config
 				$uri .= $suffix;
 			}
 
-			return $this->slash_item('base_url').$this->slash_item('index_page').SITE_SLUG.'/'.$uri;
+			return $this->slash_item('base_url').$this->slash_item('index_page').$site_slug.$uri;
 		}
 		elseif (strpos($uri, '?') === FALSE)
 		{
 			$uri = '?'.$uri;
 		}
 
-		return $this->slash_item('base_url').$this->item('index_page').SITE_SLUG.'/'.$uri;
+		return $this->slash_item('base_url').$this->item('index_page').$site_slug.$uri;
 	}
 }
