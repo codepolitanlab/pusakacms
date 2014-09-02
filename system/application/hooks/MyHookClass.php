@@ -7,10 +7,10 @@ Class MyHookClass {
 		if($sites = @file_get_contents(FCPATH.'sites/sites.json')) {
 			
 			$domain = $_SERVER['HTTP_HOST'];
+			$arr_sites = (array) json_decode($sites);
 
 			// if it is a local server
 			if($domain == 'localhost'){
-				$arr_sites = (array) json_decode($sites);
 
 				$base_url = ( ! empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off') ? 'https' : 'http';
 
