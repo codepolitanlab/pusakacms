@@ -117,7 +117,10 @@ class Pusaka {
 			$new_map = $this->_dig_navfile($prefix, $depth);
 
 		// bulid the list
-		return $this->_build_list($new_map, ($prefix)? $prefix.'/' : '');
+		if(!empty($new_map))
+			return $this->_build_list($new_map, ($prefix)? $prefix.'/' : '');
+
+		return false;
 	}
 
 	// --------------------------------------------------------------------
@@ -516,6 +519,8 @@ class Pusaka {
 			} else {
 				// get derectory map
 				$map = directory_map(FCPATH.PAGE_FOLDER.'/'.$prefix, 1);
+
+				if(!$map) return false;
 
 				$for_json = array();
 				$new_map = array();
