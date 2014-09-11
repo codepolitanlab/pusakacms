@@ -97,7 +97,7 @@ class Template
 		if ($this->_theme_locations === array())
 		{
 			// Let's use this obvious default
-			$this->_theme_locations = array(APPPATH . 'themes/');
+			$this->_theme_locations = array('sites/themes/');
 		}
 
 		// No asset locations set in config?
