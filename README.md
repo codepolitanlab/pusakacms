@@ -6,6 +6,6 @@ Pusaka CMS is a file-based Content Management System built on top of CodeIgniter
 TODO:
 
 - multisite (done)
-- theme per sites
+- theme per sites (done)
 - layout is choosen per page
 - admin panel
