@@ -159,16 +159,30 @@ if ( ! function_exists('get_module_asset'))
 }
 
 /**
-	* set and get the partial for templating
+	* get the partial for templating
 	* 
 	* @param String $file 	name
-	* @return String css url or tag
+	* @return String filename
 	*/
 if ( ! function_exists('get_partial'))
 {
 	function get_partial($name) {
 		$CI = &get_instance();
 		echo $CI->template->load_view('partials/'.$name);
+	}
+}
+
+/**
+	* get the snippet for templating
+	* 
+	* @param String $file 	name
+	* @return String filename
+	*/
+if ( ! function_exists('get_snippet'))
+{
+	function get_snippet($name) {
+		$CI = &get_instance();
+		echo $CI->template->load_view('snippets/'.$name);
 	}
 }
 
