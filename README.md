@@ -11,3 +11,4 @@ TODO:
 - layout is choosen per page
 - error handling
 - admin panel
+- enable translation
