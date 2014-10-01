@@ -42,10 +42,10 @@
 /* OVERALL ASPECT */
 
 body {
-    background-color: #fff;
+    background-color: #e7ec9c;
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 16px;
     color: #555;
 
     -webkit-font-smoothing: antialiased;
@@ -57,35 +57,6 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
-    color: #555;
-}
-h1 a,
-h1 a,
-h2 a,
-h2 a,
-h3 a,
-h3 a,
-h4 a,
-h4 a,
-h5 a,
-h5 a,
-h6 a,
-h6 a {
-  color: #444;
-}
-h1 a:hover,
-h1 a:focus,
-h2 a:hover,
-h2 a:focus,
-h3 a:hover,
-h3 a:focus,
-h4 a:hover,
-h4 a:focus,
-h5 a:hover,
-h5 a:focus,
-h6 a:hover,
-h6 a:focus {
-  color: #555;
 }
 
 /* Paragraph & Typographic */
@@ -106,8 +77,7 @@ p {
 a {
     word-wrap: break-word;
 
-    -webkit-transition: color 0.1s ease-in,
-    background 0.1s ease-in;
+    -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
     -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
     -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
     -o-transition: color 0.1s ease-in, background 0.1s ease-in;
@@ -116,7 +86,7 @@ a {
 
 a:hover,
 a:focus {
-    color: #333;
+    color: #7b7b7b;
     text-decoration: none;
     outline: 0;
 }
@@ -207,12 +177,9 @@ color:white;
 }
 
 article.the-content {
-  margin-bottom: 50px;
-  padding-bottom: 30px !important;
-  border-bottom: 2px solid #CAECE5;
-}
-article.the-content:last-child {
-  border-bottom: none;
+  margin-bottom: 30px;
+  padding-bottom: 40px !important;
+  border-bottom: 4px solid lightsteelblue;
 }
 
 .the-content ul {
@@ -225,129 +192,73 @@ article.the-content:last-child {
 }
 
 .label a {
-  color: #333;
+  color: white;
 }
 
 .content {
   margin: 20px 0;
 }
 
-.cat span {
-  margin-left: 3px;
-  background: #eee;
-  padding: 2px 5px;
-}
-
-.border-footer {
-  background:#479a89;
-  height:5px;
-}
 
 
 
-img {
-	max-width:100%;
+
+.pusaka-header {
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0, #F1C40F),
+    color-stop(1, #F08A0E)
+  );
+  background-image: -o-linear-gradient(bottom, #F1C40F 0%, #F08A0E 100%);
+  background-image: -moz-linear-gradient(bottom, #F1C40F 0%, #F08A0E 100%);
+  background-image: -webkit-linear-gradient(bottom, #F1C40F 0%, #F08A0E 100%);
+  background-image: -ms-linear-gradient(bottom, #F1C40F 0%, #F08A0E 100%);
+  background-image: linear-gradient(to bottom, #F1C40F 0%, #F08A0E 100%);
+}
+.header-inner {
+   color: #ffffff;
+  padding-top: 80px;
+  padding-bottom: 80px;
+  background: #8ec63f url(../img/corak_batik.png) no-repeat right bottom;
+}
+.pusaka-header .lead {
+  color: #ffffff;
+  margin-bottom: 50px;
+}
+.pusaka-header .link-wrapper {
+  margin-top: 50px;
+}
+.pusaka-header .link-wrapper a {
+  color: #ffffff;
+  margin: 0px 15px;
 }
 
-
-/*------------------------------------------------*/
-/*---------------------[NAVBAR]-------------------*/
-/*------------------------------------------------*/
-.navbar {
-	border-bottom:0px;
-	min-height: 0;
-	padding-top:20px;
-	padding-bottom:20px;
+.btn-download {
+  background: transparent;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
 }
-.navbar-right {
-	line-height:45px;
-	height:45px;
-}
-.navbar-right a {
-	color:#e3f6f3;
-	text-decoration:none;
-}
-.navbar-right a:hover {
-	color:#9fcfc7;
-	text-decoration:none;
+.btn-download:hover,
+.btn-download:focus {
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  color: #f39c12;
 }
 
-
-/*------------------------------------------------*/
-/*---------------------[FOOTER]-------------------*/
-/*------------------------------------------------*/
-
-  #footer-widgets { padding-top: 80px; }
-    .footer-widget { float: left; width: 225px; margin: 0 60px 50px 0; color: #fff; }
-    .last { margin-right: 0; }
-      #main-footer .et_pb_widget { margin: 0; }
-      #footer-widgets .fwidget { padding-bottom: 15px; }
-      #footer-widgets .footer-widget h4 { font-weight: 500; padding-bottom: 9px; font-size: 18px; margin-bottom: 0; }
-      #footer-widgets .footer-widget p { line-height: 24px; }
-      #footer-widgets .footer-widget li { line-height: 24px; padding: 0 0 18px 14px; position: relative; }
-      #footer-widgets .footer-widget li:before { border-color: #7EBEC5; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; border-style: solid; border-width: 3px; content: ""; left: 0; position: absolute; top: 9px; }
-        #footer-widgets .footer-widget li a { color: #fff; text-decoration: none; }
-        #footer-widgets .footer-widget li a:hover { color: rgba(255, 255, 255, 0.7); }
-#footer-bottom { background-color: #1f1f1f; background-color: rgba(0, 0, 0, 0.32); padding: 15px 0 5px; }
-  #footer-info { text-align: left; color: #666; padding-bottom: 10px; float: left; }
-    #footer-info a { font-weight: 700; color: #666; }
-
-#footer-bottom {
-  background:#2F362F !important;
-  color:#ffffff;
-  padding-bottom:20px;
-  border-top: 5px solid #479A89;
-  font-size: 13px;
-}
-#footer-bottom p { color:#ffffff; }
-#footer-bottom a { color:#CAECE5; }
-#footer-bottom a:hover { color:#fff; }
-#footer-bottom .footer-nav a { margin: 0 5px; }
-
-.codimio-nyanlogo {
-  width:250px;
-  float:right;
+.pusaka-features {
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 
-#footer-bottom #footer-info {
-  width:600px;
-  color:#b8b8b8;
-}
-#footer-bottom #footer-info h3 {
-  color:#f8f8f8;
-  margin-bottom:10px;
-}
-#footer-bottom #footer-info .copyright-text {
-  border-top:0px solid #484c48;
-  margin-top:15px;
-  padding-top:5px;
-}
-#footer-bottom #footer-info .copyright-text a { color:#78CAB7; font-weight:normal; }
-#footer-bottom #footer-info .copyright-text a:hover,
-#footer-bottom #footer-info .copyright-text a:focus { color:#78CAB7; font-weight:normal; }
-
-span.date, .cat, .comment-count {
-  background: none;
-  font-size: 12px;
-  color: #999;
-  margin-right: 10px;
-}
-
-.widget {
-  margin-bottom: 30px;
-}
-.label.label-info {
-	display:inline-block;
-	margin-right:1px;
-	margin-bottom:1px;
-	padding:0px;
-	background:#ffffff;
-}
-.label.label-info a {
-	color:#ffffff;
-	background:#279b88;
-	font-size:14px;
-	margin-bottom:5px;
-	display:inline-block;
-	padding:5px 5px;
+.pusaka-footer {
+  border-top: 1px solid #ccd08e;
+  font-size: 14px;
+  padding: 10px 0px;
 }

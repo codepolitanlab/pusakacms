@@ -1,13 +1,12 @@
 <nav class="navbar navbar-default navbar-inverse" role="navigation">
 	<div class="container">		
 		<div class="row">
-			<div class="col-md-7">
-				<h1><a href="<?php echo site_url(); ?>"><?php echo site_config('site_name'); ?></a></h1>
-			</div>
-			<div class="col-md-5">
-				<div class="navbar-right">
-					<?php echo $this->pusaka->generate_nav(null, 1, "nav nav-pills", null, "active"); ?>
+			<div class="col-md-12">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="<?php echo site_url(); ?>"><?php echo $this->config->item('site_title'); ?></a>
 				</div>
+
+				<?php echo $this->pusaka->generate_nav(null, 1, "nav navbar-nav navbar-right", null, "active"); ?>
 			</div>
 		</div>
 	</div>

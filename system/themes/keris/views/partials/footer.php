@@ -1,7 +1,3 @@
-<div id="footer-bottom">
-	<div class="container clearfix">
-		<div class="col-md-12" style="text-align:right">
-			Copyright ©2014 <a href="http://www.nyankod.com" target="_blank">Nyankod</a>. All rights reserved.
-		</div>
-	</div>	<!-- .container -->
+<div class="pusaka-footer text-center">	
+	&copy;<?php echo date("Y"); ?> <?php echo anchor("/", $this->config->item('site_title')); ?> by <?php echo anchor('http://www.nyankod.com', 'Nyankod', 'target="_blank"'); ?>
 </div>

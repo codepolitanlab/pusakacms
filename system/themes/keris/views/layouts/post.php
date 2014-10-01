@@ -13,21 +13,17 @@
 				<article class="the-content">
 					<h1><?php echo $post['title']; ?></h1>
 
-					<span class="date"><i class="glyphicon glyphicon-calendar"></i> <?php echo date("d F Y", strtotime($post['date'])); ?></span>
-					<span class="cat">
-						<i class="glyphicon glyphicon-tags"></i> 
-						<?php foreach ($post['labels'] as $post_label): ?>
-							<span><?php echo anchor(POST_TERM.'/label/'.$post_label, $post_label); ?></span>
+					<span class="date">Diposkan pada tanggal <?php echo date("d F Y", strtotime($post['date'])); ?></span>
+					<div class="cat">
+						tags: 
+						<?php foreach ($post['labels'] as $label): ?>
+							<span><?php echo anchor(POST_TERM.'/label/'.$label, $label); ?></span>
 						<?php endforeach; ?>
-					</span>
+					</div>
 
 					<div class="content">
 						<?php echo $post['content']; ?>
 					</div>
-				</article>
-
-				<article>
-					<?php get_snippet('disqus'); ?>
 				</article>
 
 			</div>

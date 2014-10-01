@@ -318,13 +318,13 @@ textarea {
 }
 
 a {
-  color: #247562;
+  color: #927FA5;
   text-decoration: none;
 }
 
 a:hover,
 a:focus {
-  color: #000;
+  color: #00526e;
   text-decoration: underline;
 }
 
@@ -515,12 +515,15 @@ h6 .small,
 h1,
 h2,
 h3 {
-  margin-top: 10px;
-  margin-bottom: 15px;
+  margin-top: 15px;
+  margin-bottom: 24px;
 }
 
 h2 {
   padding: 10px 0;
+}
+h3 {
+  margin-top: 24px;
 }
 
 h1 small,
@@ -535,8 +538,8 @@ h3 .small {
 h4,
 h5,
 h6 {
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 10.5px;
+  margin-bottom: 10.5px;
 }
 
 h4 small,
@@ -550,32 +553,32 @@ h6 .small {
 
 h1,
 .h1 {
-  font-size: 28px;
+  font-size: 39px;
 }
 
 h2,
 .h2 {
-  font-size: 24px;
+  font-size: 32px;
 }
 
 h3,
 .h3 {
-  font-size: 20px;
+  font-size: 26px;
 }
 
 h4,
 .h4 {
-  font-size: 22px;
+  font-size: 19px;
 }
 
 h5,
 .h5 {
-  font-size: 20px;
+  font-size: 15px;
 }
 
 h6,
 .h6 {
-  font-size: 18px;
+  font-size: 13px;
 }
 
 .page-header {
@@ -4530,8 +4533,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar {
   position: relative;
-  min-height: 100px;
-  margin-bottom: 40px;
+  min-height: 45px;
+  margin-bottom: 21px;
   border: 1px solid transparent;
 }
 
@@ -4790,7 +4793,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar-brand {
   float: left;
-  padding: 25px 15px 25px;
+  padding: 15px 15px 10px;
   font-size: 30px;
   line-height: 21px;
   font-weight: 600;
@@ -5099,8 +5102,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse {
-  background-color: #2F362F;
-  border-color: #D44233;
+  background-color: transparent;
+  border-color: transparent;
 }
 
 .navbar-inverse .navbar-brand {
@@ -5291,8 +5294,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
   z-index: 2;
   color: #ffffff;
   cursor: default;
-  background-color: #279b88;
-  border-color: #279b88;
+  background-color: #008cba;
+  border-color: #008cba;
 }
 
 .pagination > .disabled > span,
@@ -7504,7 +7507,6 @@ td.visible-print {
   font-size: 14px;
   font-weight: 300;
   border: none;
-  border-bottom: 4px solid #479A89;
 }
 
 .navbar .navbar-toggle:hover .icon-bar {
@@ -7644,7 +7646,8 @@ label,
 .pagination > li:first-child > span,
 .pagination > li:last-child > span {
   margin-left: 4px;
-  border-radius: 0;
+  color: #999999;
+  border-radius: 3px;
 }
 
 .pagination-lg > li > a {
@@ -7790,4 +7793,9 @@ ul > li > ul li {border-left: 5px solid #eee;}
 .sidebar {
   margin-top: 5px;
   margin-bottom: 20px;
+}
+.the-content {
+  background-color: #fff;
+  padding: 10px 20px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 1px 1px;
 }
