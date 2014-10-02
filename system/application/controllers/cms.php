@@ -137,7 +137,7 @@ class CMS extends MY_Controller {
 
 		if(file_exists('sites/'.$site.'/DOMAIN')){
 			$domain = @file_get_contents('sites/'.$site.'/DOMAIN');
-			if(write_file('sites/_domain/'.$domain, $site)){
+			if(write_file('sites/_domain/'.$domain.'.conf', $site)){
 				header("Content-Type:text/plain");
 				echo "Domain setting for site $site updated.";
 			}
