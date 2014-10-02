@@ -22,7 +22,7 @@ Class MyHookClass {
 
 		// then it is a online server with real domain
 		else {
-			if(file_exists('sites/_domain/'.$domain))
+			if(file_exists('sites/_domain/'.$domain.'.conf'))
 				define('SITE_SLUG', trim(@file_get_contents('sites/_domain/'.$domain.'.conf')));
 			else
 				show_error('Site not configured yet');
