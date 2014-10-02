@@ -18,9 +18,18 @@ class MY_Controller extends MX_Controller
 		date_default_timezone_set('Asia/Jakarta');
 
 		$sitepath = 'sites/'.SITE_SLUG.'/';
-
+		
 		// set site config
-		$raw_configs = require_once(FCPATH.$sitepath.'conf.php');
+		if(!file_exists((FCPATH.$sitepath.'conf.json'))){
+			show_error('conf.json file for your site is not found. Please create it first.');
+		}
+
+		$config = json_decode(file_get_contents(FCPATH.$sitepath.'conf.json'));
+		
+		if(json_last_error() > 0){
+			show_error('conf.json error: '. json_last_error_msg());
+		}
+
 		foreach($config as $key => $var){
 			$this->config->set_item($key, $var);
 			$this->data[$key] = $var;
