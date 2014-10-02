@@ -8,9 +8,6 @@ Class MyHookClass {
 
 		// if it is a local server
 		if($domain == 'localhost'){
-
-			$base_url = ( ! empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off') ? 'https' : 'http';
-
 			$segments = explode('/', $_SERVER['REQUEST_URI']);
 
 			if(isset($segments[2]) && ! empty(trim($segments[2]))) {	
@@ -25,14 +22,10 @@ Class MyHookClass {
 
 		// then it is a online server with real domain
 		else {
-			$base_url = ( ! empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off') ? 'https' : 'http';
-			$base_url .= '://'.$domain;
-
-			$available_site = (array) $arr_sites['online'];
-			if($site_slug = array_search($base_url, $available_site))
-				define('SITE_SLUG', $site_slug);
+			if(file_exists('sites/_domain/'.$domain))
+				define('SITE_SLUG', trim(@file_get_contents('sites/_domain/'.$domain)));
 			else
-				define('SITE_SLUG', 'default');
+				show_error('Site not configured yet');
 		}
 	}
 }

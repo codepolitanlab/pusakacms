@@ -128,4 +128,23 @@ class CMS extends MY_Controller {
 		}
 	}
 
+	/*
+	 * param string $site 	site_slug
+	 */
+	function update_domain($site = null)
+	{
+		if(!$site) show_error('which site domain must be update?');
+
+		if(file_exists('sites/'.$site.'/DOMAIN')){
+			$domain = @file_get_contents('sites/'.$site.'/DOMAIN');
+			if(write_file('sites/_domain/'.$domain, $site)){
+				header("Content-Type:text/plain");
+				echo "Domain setting for site $site updated.";
+			}
+			else
+				show_error('Writing domain configuration file failed. /sites/_domain/ folder must be writable.');
+		} else
+			show_error('DOMAIN file not found');
+	}
+
 }

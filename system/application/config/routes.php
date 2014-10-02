@@ -43,7 +43,7 @@ $route['404_override'] 			= "cms";
 
 $route['sync_nav'] 				= "cms/sync_nav";
 $route['sync_post'] 			= "cms/sync_post";
-$route['sync_label'] 			= "cms/sync_label";
+$route['update_domain/(:any)']	= "cms/update_domain/$1";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
