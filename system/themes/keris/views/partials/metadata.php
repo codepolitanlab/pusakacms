@@ -1,6 +1,6 @@
 <base href="<?php echo base_url() ?>" />
 <meta charset="utf-8">
-<title><?php echo $this->config->item('site_title'); ?></title>
+<title><?php echo $this->config->item('site_name'); ?></title>
 
 <!-- Bootstrap core CSS -->
 <link href="<?php echo get_theme_url() ?>/assets/css/bootstrap.css" rel="stylesheet">
