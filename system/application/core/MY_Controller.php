@@ -14,6 +14,7 @@ class MY_Controller extends MX_Controller
 	{
 		parent::__construct();
 
+		$this->output->enable_profiler(false);
 		// Set timezone
 		date_default_timezone_set('Asia/Jakarta');
 

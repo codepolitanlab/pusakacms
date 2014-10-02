@@ -10,7 +10,7 @@ Class MyHookClass {
 		if($domain == 'localhost'){
 			$segments = explode('/', $_SERVER['REQUEST_URI']);
 
-			if(isset($segments[2]) && ! empty(trim($segments[2]))) {	
+			if(isset($segments[2]) && !empty($segments[2])) {	
 				if(is_dir('sites/'.$segments[2]))
 					define('SITE_SLUG', $segments[2]);
 				else
