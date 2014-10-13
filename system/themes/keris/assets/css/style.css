@@ -204,32 +204,18 @@ article.the-content {
 
 
 .pusaka-header {
-  background-image: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    color-stop(0, #F1C40F),
-    color-stop(1, #F08A0E)
-  );
-  background-image: -o-linear-gradient(bottom, #F1C40F 0%, #F08A0E 100%);
-  background-image: -moz-linear-gradient(bottom, #F1C40F 0%, #F08A0E 100%);
-  background-image: -webkit-linear-gradient(bottom, #F1C40F 0%, #F08A0E 100%);
-  background-image: -ms-linear-gradient(bottom, #F1C40F 0%, #F08A0E 100%);
-  background-image: linear-gradient(to bottom, #F1C40F 0%, #F08A0E 100%);
-}
-.header-inner {
    color: #ffffff;
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: 40px;
+  padding-bottom: 40px;
   background: #8ec63f url(../img/corak_batik.png) no-repeat right bottom;
 }
 .pusaka-header .lead {
   color: #ffffff;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   font-size: 18px;
 }
 .pusaka-header .link-wrapper {
-  margin-top: 50px;
+  margin-top: 30px;
 }
 .pusaka-header .link-wrapper a {
   color: #ffffff;
