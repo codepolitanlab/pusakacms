@@ -11,11 +11,70 @@
  * @license		http://nyankod.com/license
  * @link		http://nyankod.com/pusakacms
  */
-class Panel extends MY_Controller {
+
+class Panel extends Admin_Controller {
 
 	function index()
 	{
-		echo "Hello Admin!";
+		$this->template->view('dashboard');
+	}
+
+	function dashboard()
+	{
+		$this->index();
+	}
+
+	function pages()
+	{
+		$this->template->view('pages');
+	}
+
+	function posts()
+	{
+		
+		$this->template->view('posts');
+	}
+
+	function menus()
+	{
+		
+		$this->template->view('menus');
+	}
+
+	function media()
+	{
+		
+		$this->template->view('media');
+	}
+
+	function settings()
+	{
+		
+		$this->template->view('settings');
+	}
+
+	function new_post()
+	{
+
+		$this->template->view('form');
+	}
+
+	function edit_post()
+	{
+
+		$this->template->view('form');
+	}
+
+	function new_page()
+	{
+
+		$this->template->view('form');
+	}
+
+	function edit_page()
+	{
+
+		$this->template->view('form');
 	}
 
 }
