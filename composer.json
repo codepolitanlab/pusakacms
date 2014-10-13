@@ -1,0 +1,9 @@
+{
+	"name": "nyankod/pusakacms",
+	"description": "flat file CMS built on top of CodeIgniter.",
+	"keywords": ["nyankod", "pusaka", "pusakacms"],
+	"license": "MIT",
+	"require": {
+        "pyrocms/lex": "2.3.*"
+	}
+}
