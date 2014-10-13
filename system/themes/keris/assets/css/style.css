@@ -205,17 +205,17 @@ article.the-content {
 
 .pusaka-header {
    color: #ffffff;
-  padding-top: 60px;
+  padding-top: 40px;
   padding-bottom: 40px;
   background: #8ec63f url(../img/corak_batik.png) no-repeat right bottom;
 }
 .pusaka-header .lead {
   color: #ffffff;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   font-size: 18px;
 }
 .pusaka-header .link-wrapper {
-  margin-top: 50px;
+  margin-top: 30px;
 }
 .pusaka-header .link-wrapper a {
   color: #ffffff;
