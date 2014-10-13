@@ -8,6 +8,9 @@
 <!-- Custom styles for this template -->
 <link href="<?php echo get_theme_url() ?>/assets/css/style.css" rel="stylesheet">
 
+<link rel="shortcut icon" href="<?php echo get_theme_url() ?>/assets/img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="<?php echo get_theme_url() ?>/assets/img/favicon.ico" type="image/x-icon">
+
 <script>
 	var links = document.links;
 	for (var i = 0, linksLength = links.length; i < linksLength; i++) {
