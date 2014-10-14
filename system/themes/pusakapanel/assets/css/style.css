@@ -40,6 +40,10 @@
 }
 
 /* OVERALL ASPECT */
+html, body {
+  height: 100%;
+  margin: 0px;
+}
 
 body {
   background-color: white;
@@ -47,7 +51,6 @@ body {
   font-weight: 300;
   font-size: 18px;
   color: #555;
-  padding: 10px 20px;
   min-height: 640px;
 
   -webkit-font-smoothing: antialiased;
@@ -98,7 +101,7 @@ a {
 
 a:hover,
 a:focus {
-  color: #7b7b7b;
+  color: #8EC63F;
   text-decoration: none;
   outline: 0;
 }
@@ -178,29 +181,41 @@ hr {
 
 /*SIdebar*/
 .sidebar .nav-stacked {
-  border-right: 1px solid #aaa;
+  /*border-right: 1px solid #aaa;*/
+}
+.sidebar .nav-stacked li.active {
+  -webkit-box-shadow:rgba(0, 0, 0, 0.498039) -5px 0px 0px 0px inset;
+  -moz-box-shadow:rgba(0, 0, 0, 0.498039) -5px 0px 0px 0px inset;
+  box-shadow:rgba(0, 0, 0, 0.498039) -5px 0px 0px 0px inset;
 }
 .sidebar .nav-stacked li {
   margin: 0;
 }
 .sidebar .nav-stacked li.active a {
-  border: 1px solid #aaa;
-  border-right: 0;
   background-color: white;
-  margin-right: -1px;
+  margin-right: -15px;
+  margin-left: 15px;
+  padding-right: 25px;
   font-size: 28px;
   border-radius: 5px 0 0 5px;
-  color: #158cba;
+  color: darkgreen;
+  text-shadow:rgba(0, 0, 0, 0.3) 1px 1px 1px;
+}
+.sidebar .nav-stacked li.active a:hover {
+  background-color: white;
+  padding-right: 25px; 
 }
 .sidebar .nav-stacked li a {
   padding: 10px 10px;
   font-size: 18px;
   text-align: right;
+  color: white;
   transition: .2s;
+  text-shadow:rgba(0, 0, 0, 0.8) 1px 1px 1px;
 }
 .sidebar .nav-stacked li a:hover {
   background-color: transparent;
-  color: #927FA5;
+  color: #8EC63F;
   padding-right: 15px;
 }
 
@@ -294,7 +309,24 @@ article.the-content {
 }
 
 .pusaka-footer {
-  font-size: 14px;
+  font-size: 12px;
   padding: 10px 0px;
   margin-top: 40px;
+  position: absolute;
+  bottom: 15px;
+  right: 25px;
+}
+
+.wrapper {
+  height: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+.side-panel {
+  position: relative;
+  background: rgb(0, 36, 0);
+  height: 100%;
+  -webkit-box-shadow:rgba(0, 0, 0, 0.498039) -5px 0px 0px 0px inset;
+  -moz-box-shadow:rgba(0, 0, 0, 0.498039) -5px 0px 0px 0px inset;
+  box-shadow:rgba(0, 0, 0, 0.498039) -5px 0px 0px 0px inset;
 }

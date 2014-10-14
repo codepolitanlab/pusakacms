@@ -1,3 +1,3 @@
-<div class="navbar-header">
-	<a class="navbar-brand" href="<?php echo site_url(); ?>"><?php echo $this->config->item('site_name'); ?></a>
-</div>
+<a href="<?php echo site_url(); ?>" style="display:block; text-align:center;margin-top:20px; margin-bottom:20px;">
+	<img src="<?php echo get_theme_image('kujang_logo.png', false); ?>" height="100px">
+</a>

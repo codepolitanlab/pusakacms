@@ -2,11 +2,17 @@
 <meta charset="utf-8">
 <title><?php echo $this->config->item('site_name'); ?></title>
 
+<script src="<?php echo get_theme_url() ?>assets/js/jquery.min.js"></script>
+<script src="<?php echo get_theme_url() ?>assets/js/bootstrap.min.js"></script>
+<script src="<?php echo get_theme_url() ?>assets/js/pagedown-bootstrap/js/jquery.pagedown-bootstrap.combined.min.js"></script>
+
 <!-- Bootstrap core CSS -->
-<link href="<?php echo get_theme_url() ?>/assets/css/bootstrap.css" rel="stylesheet">
+<link href="<?php echo get_theme_url() ?>assets/css/bootstrap.css" rel="stylesheet">
+<link href="<?php echo get_theme_url() ?>assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="<?php echo get_theme_url() ?>assets/js/pagedown-bootstrap/css/jquery.pagedown-bootstrap.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="<?php echo get_theme_url() ?>/assets/css/style.css" rel="stylesheet">
+<link href="<?php echo get_theme_url() ?>assets/css/style.css" rel="stylesheet">
 
 <script>
 	var links = document.links;
