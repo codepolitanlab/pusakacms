@@ -1,10 +1,10 @@
-# Daftar Rilis
+# Daftar Rilis Download
 
-## Rilis versi stabil terbaru
+##  Download versi stabil terbaru
 
 [PusakaCMS v1.0]({{ helpers.base_url }})
 
-## Rilis versi terdahulu
+## Download versi terdahulu
 
 [PusakaCMS v0.3b]({{ helpers.base_url }}) <br>
 [PusakaCMS v0.2b]({{ helpers.base_url }}) <br>
