@@ -4,7 +4,7 @@
 
 Kamu perlu komputer yang terinstal XAMPP/WAMP di Windows atau LAMP di Linux atau MAMP di MacOS, atau aplikasi web server lainnya. Intinya PusakaCMS hanya memerlukan Web server (Apache2 atau web server lain) dan PHP 5.3.x. 
 
-- Download *source code* PusakaCMS dari halaman [{site_url}download]({site_url}download)
+- Download *source code* PusakaCMS dari halaman [{{ helpers.site_url }}download]({{ helpers.site_url }}download)
 - buat folder di localhost dengan nama sesuai keinginanmu, misalnya `pusaka/`
 - Ekstrak semua file yang ada di dalam file kompresi PusakaCMS ke folder `pusaka/`
 - Buka file `conf.php` kemudian ganti konfigurasi sesuai dengan kebutuhanmu

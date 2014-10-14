@@ -23,11 +23,6 @@ class CMS extends MY_Controller {
 	 */
 	public function _remap($method, $params = array())
 	{
-		echo $_SERVER['HTTP_HOST'].'<br>';
-		echo $_SERVER['REQUEST_URI'].'<br>';
-		echo $_SERVER['SCRIPT_NAME'].'<br>';
-		echo $this->uri->uri_string();
-
 		// run the main method first if available
 		if (method_exists($this, $method))
 			return call_user_func_array(array($this, $method), $params);
