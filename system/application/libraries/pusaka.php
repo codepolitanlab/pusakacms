@@ -418,7 +418,7 @@ class Pusaka {
 		$file = read_file(POST_FOLDER.'/'.$filename);
 
 		if(!empty($file)){
-			$post = explode("---", $file);
+			$post = explode("~~~~~", $file);
 			
 			$new_post = array('title' => $this->guess_name($filename, POST_TERM), 'date' => $date);			
 

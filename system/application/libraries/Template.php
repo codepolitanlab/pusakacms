@@ -988,7 +988,7 @@ class Template
 	{
 		$file = read_file($view);
 
-		$content_part = explode("---", $file);
+		$content_part = explode("~~~~~", $file);
 
 		// if user set fields
 		if(count($content_part) > 1){
