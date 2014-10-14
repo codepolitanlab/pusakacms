@@ -244,6 +244,10 @@ switch (ENVIRONMENT)
 
 	define('VIEWPATH', $view_folder);
 
+
+// load Composer libraries
+include_once './vendor/autoload.php';
+
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
@@ -252,6 +256,7 @@ switch (ENVIRONMENT)
  * And away we go...
  */
 require_once BASEPATH.'core/CodeIgniter.php';
+
 
 /* End of file index.php */
 /* Location: ./index.php */

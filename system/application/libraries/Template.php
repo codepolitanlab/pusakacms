@@ -41,6 +41,7 @@ class Template
 
 	private $_parser_enabled = TRUE;
 	private $_parser_body_enabled = TRUE;
+	private $_lexparser;
 
 	private $_theme_locations = array();
 	private $_asset_locations = array();
@@ -67,6 +68,9 @@ class Template
 		{
 			$this->initialize($config);
 		}
+
+		if($this->_parser_enabled)
+			$this->_lexparser = new Lex\Parser();
 
 		log_message('debug', 'Template Class Initialized');
 	}
@@ -246,7 +250,7 @@ class Template
 			{
 				if ($this->_parser_enabled === TRUE)
 				{
-					$partial['string'] = $this->_ci->parser->parse_string($partial['string'], $this->_data + $partial['data'], TRUE, TRUE);
+					$partial['string'] = $this->_lexparser->parse($partial['string'], $this->_data + $partial['data'], TRUE, TRUE);
 				}
 
 				$template['partials'][$name] = $partial['string'];
@@ -948,7 +952,7 @@ class Template
 				$content = $this->_ci->load->file($override_view_path.$view.self::_ext($view), TRUE);
 
 				// parse content
-				$content = $this->_ci->parser->parse_string($content, $data, TRUE);
+				$content = $this->_lexparser->parse($content, $data, TRUE);
 			}
 
 			else
@@ -970,7 +974,7 @@ class Template
 			$content = ($this->_parser_enabled === TRUE AND $parse_view === TRUE)
 
 				// Parse that bad boy
-				? $this->_ci->parser->parse($view, $data, TRUE)
+				? $this->_lexparser->parse($this->_ci->load->view($view, null, true), $data, TRUE)
 
 				// None of that fancy stuff for me!
 				: $this->_ci->load->view($view, $data, TRUE);
@@ -986,7 +990,7 @@ class Template
 		if ($this->_parser_enabled === TRUE AND $parse_view === TRUE)
 		{
 			// Load content and pass through the parser
-			$content = $this->_ci->parser->parse_string($content, $data, TRUE);
+			$content = $this->_lexparser->parse($content, $data, TRUE);
 		}
 
 			// check textile first
