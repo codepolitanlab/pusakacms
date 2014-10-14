@@ -26,6 +26,7 @@ class CMS extends MY_Controller {
 		echo $_SERVER['HTTP_HOST'].'<br>';
 		echo $_SERVER['REQUEST_URI'].'<br>';
 		echo $_SERVER['SCRIPT_NAME'].'<br>';
+		echo $this->uri->uri_string();
 
 		// run the main method first if available
 		if (method_exists($this, $method))
