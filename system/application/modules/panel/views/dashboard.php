@@ -1,1 +1,0 @@
-{{ helpers.get_theme_url }}
