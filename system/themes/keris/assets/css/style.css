@@ -42,11 +42,11 @@
 /* OVERALL ASPECT */
 
 body {
-    background-color: #e7ec9c;
+    background-color: white;
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
     font-size: 16px;
-    color: #555;
+    color: #666;
 
     -webkit-font-smoothing: antialiased;
     -webkit-overflow-scrolling: touch;
@@ -56,7 +56,7 @@ body {
 /* Titles */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Open Sans', sans-serif;
-    font-weight: 600;
+    font-weight: 300;
 }
 
 /* Paragraph & Typographic */
@@ -86,7 +86,7 @@ a {
 
 a:hover,
 a:focus {
-    color: #7b7b7b;
+    color: darkgreen;
     text-decoration: none;
     outline: 0;
 }

@@ -156,7 +156,7 @@ class Pusaka {
 			}
 
 			krsort($tree);
-			write_file(POST_FOLDER.'/'.$this->navfile, str_replace(array("{",",","}"), array("{\n\t",",\n\t","\n}"),json_encode($tree)));
+			write_file(POST_FOLDER.'/'.$this->navfile, json_encode($tree, JSON_PRETTY_PRINT));
 			$output .= "post index synced.";
 			
 		} else {
@@ -182,7 +182,7 @@ class Pusaka {
 					}
 
 					// make sure it is writablle
-					if(! write_file($prefix.'/'.$this->navfile, str_replace(array("{",",","}"), array("{\n\t",",\n\t","\n}"),json_encode($json)), "w")){
+					if(! write_file($prefix.'/'.$this->navfile, json_encode($json, JSON_PRETTY_PRINT), "w")) {
 						$output .= "please set content folder writable.\n";
 						exit;
 					}
@@ -198,7 +198,7 @@ class Pusaka {
 						$new_json += array($key => $value);
 
 				// make sure it is writablle
-					if(! write_file($prefix.'/'.$this->navfile, str_replace(array("{",",","}"), array("{\n\t",",\n\t","\n}"),json_encode($new_json)), "w")){
+					if(! write_file($prefix.'/'.$this->navfile, json_encode($new_json, JSON_PRETTY_PRINT), "w")){
 						$output .= "please set content folder writable.\n";
 						exit;
 					}
@@ -245,7 +245,7 @@ class Pusaka {
 		// rewrite label indexes
 		$output = '';
 		foreach ($labels as $label => $url) {
-			if(write_file(LABEL_FOLDER.'/'.$label.'.json', str_replace(array("[",",","]"), array("[\n\t",",\n\t","\n]"),json_encode($url))))
+			if(write_file(LABEL_FOLDER.'/'.$label.'.json', json_encode($url, JSON_PRETTY_PRINT)))
 				$output .= "Label $label list updated.\n";
 			else
 				$output .= "Label $label fail update. Please make content/labels/ folder writtable.\n";
@@ -288,7 +288,7 @@ class Pusaka {
 			}
 
 			krsort($tree);
-			write_file(POST_FOLDER.'/'.$this->navfile, str_replace(array("{",",","}"), array("{\n\t",",\n\t","\n}"),json_encode($tree)));
+			write_file(POST_FOLDER.'/'.$this->navfile, json_encode($tree, JSON_PRETTY_PRINT));
 		}
 
 		return $tree;
@@ -534,7 +534,7 @@ class Pusaka {
 				if ($this->remove_index === TRUE AND isset($for_json['index']))
 					unset($for_json['index']);
 
-				write_file(PAGE_FOLDER.'/'.$prefix.'/'.$this->navfile, str_replace(array("{",",","}"), array("{\n\t",",\n\t","\n}"),json_encode($for_json)));
+				write_file(PAGE_FOLDER.'/'.$prefix.'/'.$this->navfile, json_encode($for_json, JSON_PRETTY_PRINT));
 
 				if($simple_array){
 					foreach ($for_json as $key => $value) {
