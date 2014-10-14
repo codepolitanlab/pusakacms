@@ -55,10 +55,11 @@ class CMS extends MY_Controller {
 			$file_path = PAGE_FOLDER.'/'.implode('/', $segments);
 			
 			// check if there is a custom layout for this page
-			if($this->template->layout_exists(implode("/",$segments)))
-				$this->template->set_layout(implode("/",$segments));
-			elseif($this->template->layout_exists($segments[0]))
-				$this->template->set_layout($segments[0]);
+			if($this->template->layout_exists('pages/'.implode("/",$segments)))
+				$this->template->set_layout('pages/'.implode("/",$segments));
+			// check if there is a custom layout for this page and its children
+			elseif($this->template->layout_exists('pages/'.$segments[0]))
+				$this->template->set_layout('pages/'.$segments[0]);
 
 			$this->template->view_content($file_path, $this->data);
 		}

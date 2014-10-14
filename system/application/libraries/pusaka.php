@@ -420,8 +420,7 @@ class Pusaka {
 		if(!empty($file)){
 			$post = explode("---", $file);
 			
-			$new_post = array('title' => $this->guess_name($filename, POST_TERM), 'date' => $date);
-			
+			$new_post = array('title' => $this->guess_name($filename, POST_TERM), 'date' => $date);			
 
 			foreach ($post as $elm) {
 				$segs = preg_split("/( : | :|: |:)/", $elm, 2);

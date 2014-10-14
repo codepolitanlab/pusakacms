@@ -892,6 +892,50 @@ class Template
 		return self::_load_view($view, $this->_data + $data, $parse_view);
 	}
 
+	private function _load_view($view, array $data, $parse_view = TRUE, $override_view_path = NULL)
+	{
+		// Sevear hackery to load views from custom places AND maintain compatibility with Modular Extensions
+		if ($override_view_path !== NULL)
+		{
+			if ($this->_parser_enabled === TRUE AND $parse_view === TRUE)
+			{
+				$this->_ci->load->vars($data);
+
+				// Load it directly, bypassing $this->load->view() as ME resets _ci_view
+				$content = $this->_ci->load->file($override_view_path.$view.self::_ext($view), TRUE);
+
+				// parse content
+				$content = $this->_lexparser->parse($content, $data, 'Template::_lex_callback');
+			}
+
+			else
+			{
+				$this->_ci->load->vars($data);
+				
+				// Load it directly, bypassing $this->load->view() as ME resets _ci_view
+				$content = $this->_ci->load->file(
+					$override_view_path.$view.self::_ext($view),
+					TRUE
+					);
+			}
+		}
+
+		// Can just run as usual
+		else
+		{
+			// Grab the content of the view (parsed or loaded)
+			$content = ($this->_parser_enabled === TRUE AND $parse_view === TRUE)
+
+				// Parse that bad boy
+			? $this->_lexparser->parse($this->_ci->load->view($view, null, true), $data, 'Template::_lex_callback')
+
+				// None of that fancy stuff for me!
+			: $this->_ci->load->view($view, $data, TRUE);
+		}
+
+		return $content;
+	}
+
 	// search content file
 	private function _find_content($view, $data = array(), $parse_view = TRUE)
 	{
@@ -938,72 +982,62 @@ class Template
 			show_404();
 
 		return self::_load_content($file_path, $file_ext, $data, $parse_view);
-	} 
-
-	private function _load_view($view, array $data, $parse_view = TRUE, $override_view_path = NULL)
-	{
-		// Sevear hackery to load views from custom places AND maintain compatibility with Modular Extensions
-		if ($override_view_path !== NULL)
-		{
-			if ($this->_parser_enabled === TRUE AND $parse_view === TRUE)
-			{
-				$this->_ci->load->vars($data);
-
-				// Load it directly, bypassing $this->load->view() as ME resets _ci_view
-				$content = $this->_ci->load->file($override_view_path.$view.self::_ext($view), TRUE);
-
-				// parse content
-				$content = $this->_lexparser->parse($content, $data, 'Template::_lex_callback');
-			}
-
-			else
-			{
-				$this->_ci->load->vars($data);
-				
-				// Load it directly, bypassing $this->load->view() as ME resets _ci_view
-				$content = $this->_ci->load->file(
-					$override_view_path.$view.self::_ext($view),
-					TRUE
-					);
-			}
-		}
-
-		// Can just run as usual
-		else
-		{
-			// Grab the content of the view (parsed or loaded)
-			$content = ($this->_parser_enabled === TRUE AND $parse_view === TRUE)
-
-				// Parse that bad boy
-			? $this->_lexparser->parse($this->_ci->load->view($view, null, true), $data, 'Template::_lex_callback')
-
-				// None of that fancy stuff for me!
-			: $this->_ci->load->view($view, $data, TRUE);
-		}
-
-		return $content;
 	}
 
 	private function _load_content($view, $ext, $data = array(), $parse_view = TRUE)
 	{
-		$content = read_file($view);
+		$file = read_file($view);
 
-		if ($this->_parser_enabled === TRUE AND $parse_view === TRUE)
-		{
-			// Load content and pass through the parser
-			$content = $this->_lexparser->parse($content, $data, 'Template::_lex_callback');
-		}
+		$content_part = explode("---", $file);
+
+		// if user set fields
+		if(count($content_part) > 1){
+			foreach ($content_part as $elm) {
+				$segs = preg_split("/( : | :|: |:)/", $elm, 2);
+
+				// set meta to config
+				if(in_array(trim($segs[0]), array('meta_keywords', 'meta_description', 'author')))
+					$this->_ci->config->set_item(trim($segs[0]), trim($segs[1]));
+
+				if(trim($segs[0]) == 'layout')
+					$this->set_layout(trim($segs[1]));
+
+				if(trim($segs[0]) == 'content'){
+					// parse content first with lex parser
+					if ($this->_parser_enabled === TRUE AND $parse_view === TRUE)
+						$content = $this->_lexparser->parse(trim($segs[1]), $data, 'Template::_lex_callback');
+
+					// check textile first
+					if ($ext == 'textile')
+					{
+						require_once(APPPATH.'libraries/textile.php');
+						$content = TextileThis($content);
+					}
+					// if not textile, use markdown as default
+					else 
+					{
+						require_once(APPPATH.'libraries/markdown.php');
+						$content = str_replace("&amp;", "&", Markdown($content));
+					}
+				}
+			}
+		} else {
+			// parse content first with lex parser
+			if ($this->_parser_enabled === TRUE AND $parse_view === TRUE)
+				$content = $this->_lexparser->parse($file, $data, 'Template::_lex_callback');
 
 			// check textile first
-		if ($ext == 'textile')
-		{
-			require_once(APPPATH.'libraries/textile.php');
-			$content = TextileThis($content);
-		}
-		else // if not textile, use markdown as default
-		{
-			require_once(APPPATH.'libraries/markdown.php');
-			$content = str_replace("&amp;", "&", Markdown($content));
+			if ($ext == 'textile')
+			{
+				require_once(APPPATH.'libraries/textile.php');
+				$content = TextileThis($content);
+			}
+			// if not textile, use markdown as default
+			else 
+			{
+				require_once(APPPATH.'libraries/markdown.php');
+				$content = str_replace("&amp;", "&", Markdown($content));
+			}
 		}
 
 		return $content;
