@@ -179,7 +179,7 @@ color:white;
 article.the-content {
   margin-bottom: 30px;
   padding-bottom: 40px !important;
-  border-bottom: 4px solid lightsteelblue;
+  border-bottom: 4px solid #8EC63F;
 }
 
 .the-content ul {
@@ -245,7 +245,24 @@ article.the-content {
 }
 
 .pusaka-footer {
-  border-top: 1px solid #ccd08e;
   font-size: 14px;
   padding: 10px 0px;
+}
+span.date,
+span.cat {
+  font-size: 14px;
+  font-style: italic;
+  margin-right: 10px;
+}
+span.cat span a {
+  font-weight: normal;
+}
+span.cat i {
+  margin-right: 3px;
+}
+span.cat span a:after {
+  content: ",";
+}
+span.cat span:last-child a:after {
+  content: " ";
 }

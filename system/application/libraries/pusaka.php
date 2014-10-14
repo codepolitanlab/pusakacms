@@ -317,7 +317,8 @@ class Pusaka {
 			$new_map = ($page != 'all') ? array_slice($map, $begin, $limit) : $map;
 
 			foreach ($new_map as $url) {
-				$posts['entries'][] = $this->get_post($url);
+				if($post = $this->get_post($url))
+					$posts['entries'][] = ($post);
 			}
 			$posts['total'] = count($map);
 		} else {
@@ -327,7 +328,8 @@ class Pusaka {
 			$new_map = ($page != 'all') ? array_slice($map, $begin, $limit) : $map;
 			
 			foreach ($new_map as $url => $title) {
-				$posts['entries'][] = $this->get_post($url);
+				if($post = $this->get_post($url))
+					$posts['entries'][] = ($post);
 			}
 			$posts['total'] = count($map);
 		}
