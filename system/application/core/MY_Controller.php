@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-require APPPATH."third_party/MX/Controller.php";
+require APPPATH."libraries/MX/Controller.php";
 
 /*
 | Parent class of every controller.
