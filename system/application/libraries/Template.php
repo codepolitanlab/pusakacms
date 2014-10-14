@@ -69,8 +69,9 @@ class Template
 			$this->initialize($config);
 		}
 
-		if($this->_parser_enabled)
+		if($this->_parser_enabled){
 			$this->_lexparser = new Lex\Parser();
+		}
 
 		log_message('debug', 'Template Class Initialized');
 	}
@@ -250,7 +251,7 @@ class Template
 			{
 				if ($this->_parser_enabled === TRUE)
 				{
-					$partial['string'] = $this->_lexparser->parse($partial['string'], $this->_data + $partial['data'], TRUE, TRUE);
+					$partial['string'] = $this->_lexparser->parse($partial['string'], $this->_data + $partial['data'], 'Template::_lex_callback');
 				}
 
 				$template['partials'][$name] = $partial['string'];
@@ -426,11 +427,11 @@ class Template
 		switch($type)
 		{
 			case 'meta':
-				$this->_metadata[$name] = '<meta name="'.$name.'" content="'.$content.'" />';
+			$this->_metadata[$name] = '<meta name="'.$name.'" content="'.$content.'" />';
 			break;
 
 			case 'link':
-				$this->_metadata[$content] = '<link rel="'.$name.'" href="'.$content.'" />';
+			$this->_metadata[$content] = '<link rel="'.$name.'" href="'.$content.'" />';
 			break;
 		}
 
@@ -451,17 +452,17 @@ class Template
 		if(isset($part[1]))
 			switch($part[0]){
 				case 'plugins':
-					$url = base_url().'plugins/'.$part[1]; break;
+				$url = base_url().'plugins/'.$part[1]; break;
 				default:
-					$url = $this->module->module_asset_location($part[0], '/assets/js/'.$part[1]); break;
+				$url = $this->module->module_asset_location($part[0], '/assets/js/'.$part[1]); break;
 			}
-		else
-			$url = base_url().$this->_theme_path.'assets/js/'.$part[0];
+			else
+				$url = base_url().$this->_theme_path.'assets/js/'.$part[0];
 
-		$this->_js[$file] = '<script src="'.$url.'"></script>';
-		
-		return $this;
-	}
+			$this->_js[$file] = '<script src="'.$url.'"></script>';
+
+			return $this;
+		}
 
 	/**
 	 * Set css for output later
@@ -478,17 +479,17 @@ class Template
 		if(isset($part[1]))
 			switch($part[0]){
 				case 'plugins':
-					$url = base_url().'plugins/'.$part[1]; break;
+				$url = base_url().'plugins/'.$part[1]; break;
 				default:
-					$url = $this->module->module_asset_location($part[0], '/assets/css/'.$part[1]); break;
+				$url = $this->module->module_asset_location($part[0], '/assets/css/'.$part[1]); break;
 			}
-		else
-			$url = base_url().$this->_theme_path.'assets/css/'.$part[0];
+			else
+				$url = base_url().$this->_theme_path.'assets/css/'.$part[0];
 
-		$this->_css[$file] = '<link rel="stylesheet" type="text/css" href="'.$url.'"'.(($media != 'both')? ' media="'.$media.'"': '').' />';
-		
-		return $this;
-	}
+			$this->_css[$file] = '<link rel="stylesheet" type="text/css" href="'.$url.'"'.(($media != 'both')? ' media="'.$media.'"': '').' />';
+
+			return $this;
+		}
 
 
 	/**
@@ -519,10 +520,10 @@ class Template
 	 * @access public
 	 * @return string	The current theme
 	 */
-	 public function get_theme()
-	 {
-	 	return $this->_theme;
-	 }
+	public function get_theme()
+	{
+		return $this->_theme;
+	}
 
 	/**
 	 * Get the current theme path
@@ -875,7 +876,7 @@ class Template
 				$theme_views = array(
 					$this->_theme . '/views/modules/' . $this->_module . '/' . $view,
 					$this->_theme . '/views/' . $view
-				);
+					);
 
 				foreach ($theme_views as $theme_view)
 				{
@@ -952,7 +953,7 @@ class Template
 				$content = $this->_ci->load->file($override_view_path.$view.self::_ext($view), TRUE);
 
 				// parse content
-				$content = $this->_lexparser->parse($content, $data, TRUE);
+				$content = $this->_lexparser->parse($content, $data, 'Template::_lex_callback');
 			}
 
 			else
@@ -963,7 +964,7 @@ class Template
 				$content = $this->_ci->load->file(
 					$override_view_path.$view.self::_ext($view),
 					TRUE
-				);
+					);
 			}
 		}
 
@@ -974,10 +975,10 @@ class Template
 			$content = ($this->_parser_enabled === TRUE AND $parse_view === TRUE)
 
 				// Parse that bad boy
-				? $this->_lexparser->parse($this->_ci->load->view($view, null, true), $data, TRUE)
+			? $this->_lexparser->parse($this->_ci->load->view($view, null, true), $data, 'Template::_lex_callback')
 
 				// None of that fancy stuff for me!
-				: $this->_ci->load->view($view, $data, TRUE);
+			: $this->_ci->load->view($view, $data, TRUE);
 		}
 
 		return $content;
@@ -990,7 +991,7 @@ class Template
 		if ($this->_parser_enabled === TRUE AND $parse_view === TRUE)
 		{
 			// Load content and pass through the parser
-			$content = $this->_lexparser->parse($content, $data, TRUE);
+			$content = $this->_lexparser->parse($content, $data, 'Template::_lex_callback');
 		}
 
 			// check textile first
@@ -1042,6 +1043,20 @@ class Template
 	private function _ext($file)
 	{
 		return pathinfo($file, PATHINFO_EXTENSION) ? '' : '.php';
+	}
+
+	// callback function for lex parser
+	// for this time, we use it for call helper only
+	static function _lex_callback($name, $attributes, $content)
+	{
+		$func_name = explode(".", $name);
+
+		if(count($func_name) == 2){
+			if($func_name[0] == 'helpers' && function_exists($func_name[1]))
+				return call_user_func_array($func_name[1], $attributes);
+		}
+
+		return false;
 	}
 }
 
