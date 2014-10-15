@@ -3747,6 +3747,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .tab-content > .tab-pane {
   display: none;
+  padding: 20px 0;
 }
 .tab-content > .active {
   display: block;
@@ -4991,7 +4992,7 @@ a.list-group-item-danger.active:focus {
 .panel-title {
   margin-top: 0;
   margin-bottom: 0;
-  font-size: 16px;
+  font-size: 24px;
   color: inherit;
 }
 .panel-title > a {
@@ -6283,7 +6284,7 @@ button.close {
 }
 table a:not(.btn),
 .table a:not(.btn) {
-  text-decoration: underline;
+  text-decoration: none;
 }
 table .success,
 .table .success,
@@ -6375,7 +6376,6 @@ label {
 }
 .nav-tabs > li > a {
   margin-top: 6px;
-  border-color: #e7e7e7;
   color: #333333;
   -webkit-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;

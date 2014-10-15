@@ -10,7 +10,7 @@
 <ul class="content-list nav">
 	<li>
 		<div class="list-desc">
-			<h4><a href="#">Docs</a></h4>
+			<h3><a href="#">Docs</a></h3>
 			<small><a href="#"><span class="fa fa-external-link"></span> {{ helpers.site_url }}docs</a></small>
 			<div class="row">
 				<div class="col-md-6">
@@ -31,7 +31,7 @@
 		<ul class="nav children">
 			<li>
 				<div class="list-desc">
-					<h4><a href="#">Apa itu pusaka</a></h4>
+					<h3><a href="#">Apa itu pusaka</a></h3>
 					<small><a href="#"><span class="fa fa-external-link"></span> {{ helpers.site_url }}docs/apa itu pusaka</a></small>
 					<div class="row">
 						<div class="col-md-6">
@@ -52,7 +52,7 @@
 				<ul class="nav children">
 					<li>
 						<div class="list-desc">
-						<h4><a href="#">Fitur</a></h4>
+						<h3><a href="#">Fitur</a></h3>
 							<small><a href="#"><span class="fa fa-external-link"></span> {{ helpers.site_url }}docs/apa itu pusaka</a></small>
 							<div class="row">
 								<div class="col-md-6">
@@ -73,7 +73,7 @@
 					</li>
 					<li>
 						<div class="list-desc">
-							<h4><a href="#">Showcase</a></h4>
+							<h3><a href="#">Showcase</a></h3>
 							<small><a href="#"><span class="fa fa-external-link"></span> {{ helpers.site_url }}docs/templating</a></small>
 							<div class="row">
 								<div class="col-md-6">
@@ -96,7 +96,7 @@
 			</li>
 			<li>
 				<div class="list-desc">
-					<h4><a href="#">Templating</a></h4>
+					<h3><a href="#">Templating</a></h3>
 					<small><a href="#"><span class="fa fa-external-link"></span> {{ helpers.site_url }}docs/templating</a></small>
 					<div class="row">
 						<div class="col-md-6">
@@ -119,7 +119,7 @@
 	</li>
 	<li>
 		<div class="list-desc">
-			<h4><a href="#">About</a></h4>
+			<h3><a href="#">About</a></h3>
 			<small><a href="#"><span class="fa fa-external-link"></span> {{ helpers.site_url }}about</a></small>
 			<div class="row">
 				<div class="col-md-6">
@@ -140,7 +140,7 @@
 	</li>
 	<li>
 		<div class="list-desc">
-			<h4><a href="#">Contact</a></h4>
+			<h3><a href="#">Contact</a></h3>
 			<small><a href="#"><span class="fa fa-external-link"></span> {{ helpers.site_url }}contact</a></small>
 			<div class="row">
 				<div class="col-md-6">

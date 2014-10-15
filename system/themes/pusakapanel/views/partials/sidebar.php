@@ -13,7 +13,11 @@ $links = array(
 		),
 	'media' => '<span class="fa fa-picture-o"></span><br>Media',
 	'menus' => '<span class="fa fa-list"></span><br>Menus',
-	'settings' => '<span class="fa fa-gears"></span><br>Settings',
+	'settings' => array(
+		'#' => '<span class="fa fa-gears"></span><br>Settings',
+		'settings#general' => 'General',
+		'settings#auth' => 'Authentication'
+		),
 	);
 	?>
 

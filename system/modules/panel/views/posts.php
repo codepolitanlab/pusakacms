@@ -10,7 +10,7 @@
 <ul class="content-list nav">
 	<li>
 		<div class="list-desc">
-			<h4><a href="#">Launching PusakaCMS di Balai Sarbini Jakarta</a></h4>
+			<h3><a href="#">Launching PusakaCMS di Balai Sarbini Jakarta</a></h3>
 			<small><a href="#"><span class="fa fa-external-link"></span> {{ helpers.site_url }}blog/2014/10/12/launching-pusakacms-di-balai-sarbini-jakarta</a></small>
 			<div class="row">
 				<div class="col-md-6">
@@ -29,7 +29,7 @@
 	</li>
 	<li>
 		<div class="list-desc">
-			<h4><a href="#">Rilis Versi Stabil Pertama</a></h4>
+			<h3><a href="#">Rilis Versi Stabil Pertama</a></h3>
 			<small><a href="#"><span class="fa fa-external-link"></span> {{ helpers.site_url }}blog/2014/10/12/rilis-versi-stabil-pertama</a></small>
 			<div class="row">
 				<div class="col-md-6">
@@ -48,7 +48,7 @@
 	</li>
 	<li>
 		<div class="list-desc">
-			<h4><a href="#">Hello PusakaCMS!</a></h4>
+			<h3><a href="#">Hello PusakaCMS!</a></h3>
 			<small><a href="#"><span class="fa fa-external-link"></span> {{ helpers.site_url }}blog/2014/10/12/hello-pusaka</a></small>
 			<div class="row">
 				<div class="col-md-6">

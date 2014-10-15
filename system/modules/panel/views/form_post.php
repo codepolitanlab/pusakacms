@@ -1,16 +1,16 @@
 <form action="#" class="panel-form">
-<h1>Create new page</h1>
+<h1>Create new post</h1>
 
 <div class="row">
 	<div class="col-md-6">
 		<div class="form-group">
-			<label for="title">Title <small>page title</small></label>
+			<label for="title">Title <small>post title</small></label>
 			<input type="text" class="form-control" name="title">
 		</div>		
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-			<label for="slug">Slug <small>page url will become {{ helpers.site_title }}</small></label>
+			<label for="slug">Slug <small>post url will become {{ helpers.site_title }}</small></label>
 			<input type="text" class="form-control" name="slug">
 		</div>		
 	</div>
@@ -19,7 +19,7 @@
 <div class="row">
 	<div class="col-md-6">
 		<div class="form-group">
-			<label for="title">Layout <small>page layout file</small></label>
+			<label for="title">Layout <small>post layout file</small></label>
 			<select class="form-control" name="layout" id="layout">
 				<option value="auto">auto</option>
 				<option value="full-width">full-width</option>
@@ -41,7 +41,7 @@
 
 <div class="form-group">
 <label for="content">Content</label>	
-<textarea id="pagedownMe" class="form-control" rows="10">
+<textarea id="postdownMe" class="form-control" rows="10">
 # This is the *first* editor.
 
 Just plain **Markdown**, except that the input is sanitized:
@@ -63,7 +63,7 @@ Just plain **Markdown**, except that the input is sanitized:
 
 <script type="text/javascript">
 (function() {
-	$("textarea#pagedownMe").pagedownBootstrap();
+	$("textarea#postdownMe").pagedownBootstrap();
 	$('.wmd-preview').addClass('well').css('display', 'none');
 })();
 </script>

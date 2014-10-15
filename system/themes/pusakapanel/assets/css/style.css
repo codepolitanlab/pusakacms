@@ -399,27 +399,32 @@ ul.content-list a {
 ul.content-list small {
   font-size: 13px;
   font-style: italic;
+  display: block;
+  margin-bottom: 10px;
 }
-ul.content-list h4 {
+ul.content-list h3 {
   margin: 0;
 }
-ul.content-list .option {
-  margin-top: 10px;
+ul.content-list h3 a {
+  color: #8EC63F;
+}
+.option {
   margin-bottom: 5px;
 }
-ul.content-list .option a {
+.option a {
+  color: #888;
   display: inline-block;
   font-size: 14px;
   margin-right: 10px;
   vertical-align: middle;
 }
-ul.content-list .option a.edit:hover {
+.option a.edit:hover {
   color: #8EC63F;
 }
-ul.content-list .option a.add:hover {
+.option a.add:hover {
   color: steelblue;
 }
-ul.content-list .option a.remove:hover {
+.option a.remove:hover {
   color: darkred;
 }
 
