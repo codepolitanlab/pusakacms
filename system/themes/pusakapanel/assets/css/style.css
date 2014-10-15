@@ -67,6 +67,7 @@ h1 {
   margin-bottom: 40px;
   padding: 10px 0;
   text-transform: uppercase;
+  color: #E6B408;
 }
 
 /* Paragraph & Typographic */
@@ -213,7 +214,7 @@ hr {
   padding: 10px 20px 10px 20px;
   font-size: 12px;
   text-align: center;
-  color:  #E4FFBE;
+  color:  #fff;
   transition: .2s;
   text-shadow:rgba(0, 0, 0, 0.8) 1px 1px 1px;
 }
@@ -223,7 +224,7 @@ hr {
 .sidebar .nav-stacked li > ul > li > a {
   padding: 8px 10px;
   font-size: 15px;
-  color:  #8EC63F;
+  color:  #fff;
   transition: .2s;
   display: block;
   text-shadow:rgba(0, 0, 0, 0.8) 1px 1px 1px;
@@ -231,7 +232,7 @@ hr {
 .sidebar .nav-stacked > li > a:hover,
 .sidebar .nav-stacked li > ul > li > a:hover {
   background-color: transparent;
-  color: #fff;
+  color: #F1E84F;
 }
 
 .sidebar .nav-stacked li ul {

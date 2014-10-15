@@ -56,25 +56,25 @@ class Panel extends Admin_Controller {
 	function new_post()
 	{
 
-		$this->template->view('form');
+		$this->template->view('form_post');
 	}
 
 	function edit_post()
 	{
 
-		$this->template->view('form');
+		$this->template->view('form_post');
 	}
 
 	function new_page()
 	{
 
-		$this->template->view('form');
+		$this->template->view('form_page');
 	}
 
 	function edit_page()
 	{
 
-		$this->template->view('form');
+		$this->template->view('form_page');
 	}
 
 }
