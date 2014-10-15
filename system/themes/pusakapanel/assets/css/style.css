@@ -185,11 +185,6 @@ hr {
   margin-right: -15px;
   margin-left: -15px;
 }
-.sidebar .nav-stacked > li.active {
-  -webkit-box-shadow:rgba(0, 0, 0, 0.498039) -5px 0px 0px 0px inset;
-  -moz-box-shadow:rgba(0, 0, 0, 0.498039) -5px 0px 0px 0px inset;
-  box-shadow:rgba(0, 0, 0, 0.498039) -5px 0px 0px 0px inset;
-}
 .sidebar .nav-stacked > li {
   margin: 0;
   position: relative;
@@ -198,8 +193,11 @@ hr {
   background-color: white;
   /*font-size: 28px;*/
   border-radius: 0;
-  color: darkgreen;
+  color: rgb(3, 31, 3);
   text-shadow:rgba(0, 0, 0, 0.3) 1px 1px 1px;
+  -webkit-box-shadow:rgba(0, 0, 0, 0.980392) 0px 5px 0px 0px;
+  -moz-box-shadow:rgba(0, 0, 0, 0.980392) 0px 5px 0px 0px;
+  box-shadow:rgba(0, 0, 0, 0.980392) 0px 5px 0px 0px;
 }
 .sidebar .nav-stacked > li.active > a:hover {
   background-color: white;
@@ -209,7 +207,7 @@ hr {
   padding: 10px 20px 10px 20px;
   font-size: 12px;
   text-align: center;
-  color:  #8EC63F;
+  color:  #E4FFBE;
   transition: .2s;
   text-shadow:rgba(0, 0, 0, 0.8) 1px 1px 1px;
 }
@@ -320,6 +318,10 @@ article.the-content {
 .pusaka-header .link-wrapper a {
   color: #ffffff;
   margin: 0px 15px;
+}
+
+.button-bar {
+  margin-bottom: 40px;
 }
 
 .btn-download {

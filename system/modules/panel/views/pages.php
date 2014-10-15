@@ -1,7 +1,6 @@
-<ul class="nav navbar nav-pills navbar-right">
-	<li><a class="btn btn-lg btn-primary" href="#">+ Create Page</a></li>
-</ul>
-<br>
+<div class="button-bar align-right">
+	<div><a class="btn btn-lg btn-primary" href="#">+ Buat Halaman Baru</a></div>
+</div>
 <ul class="content-list nav">
 	<li>
 		<div class="list-desc">
@@ -17,8 +16,8 @@
 				<div class="col-md-6 align-right">			
 					<div class="option">
 						<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
-						<a href="#" class="add"><span class="fa fa-plus"></span> Add Child Page</a>
-						<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
+						<a href="#" class="add"><span class="fa fa-plus"></span> Tambah Subhalaman</a>
+						<a href="#" class="remove"><span class="fa fa-times"></span> Hapus</a>
 					</div>
 				</div>
 			</div>
@@ -38,8 +37,8 @@
 						<div class="col-md-6 align-right">			
 							<div class="option">
 								<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
-								<a href="#" class="add"><span class="fa fa-plus"></span> Add Child Page</a>
-								<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
+								<a href="#" class="add"><span class="fa fa-plus"></span> Tambah Subhalaman</a>
+								<a href="#" class="remove"><span class="fa fa-times"></span> Hapus</a>
 							</div>
 						</div>
 					</div>
@@ -59,8 +58,8 @@
 								<div class="col-md-6 align-right">			
 									<div class="option">
 										<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
-										<a href="#" class="add"><span class="fa fa-plus"></span> Add Child Page</a>
-										<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
+										<a href="#" class="add"><span class="fa fa-plus"></span> Tambah Subhalaman</a>
+										<a href="#" class="remove"><span class="fa fa-times"></span> Hapus</a>
 									</div>
 								</div>
 							</div>
@@ -80,8 +79,8 @@
 								<div class="col-md-6 align-right">			
 									<div class="option">
 										<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
-										<a href="#" class="add"><span class="fa fa-plus"></span> Add Child Page</a>
-										<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
+										<a href="#" class="add"><span class="fa fa-plus"></span> Tambah Subhalaman</a>
+										<a href="#" class="remove"><span class="fa fa-times"></span> Hapus</a>
 									</div>
 								</div>
 							</div>
@@ -103,8 +102,8 @@
 						<div class="col-md-6 align-right">			
 							<div class="option">
 								<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
-								<a href="#" class="add"><span class="fa fa-plus"></span> Add Child Page</a>
-								<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
+								<a href="#" class="add"><span class="fa fa-plus"></span> Tambah Subhalaman</a>
+								<a href="#" class="remove"><span class="fa fa-times"></span> Hapus</a>
 							</div>
 						</div>
 					</div>
@@ -126,8 +125,8 @@
 				<div class="col-md-6 align-right">			
 					<div class="option">
 						<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
-						<a href="#" class="add"><span class="fa fa-plus"></span> Add Child Page</a>
-						<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
+						<a href="#" class="add"><span class="fa fa-plus"></span> Tambah Subhalaman</a>
+						<a href="#" class="remove"><span class="fa fa-times"></span> Hapus</a>
 					</div>
 				</div>
 			</div>
@@ -147,8 +146,8 @@
 				<div class="col-md-6 align-right">			
 					<div class="option">
 						<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
-						<a href="#" class="add"><span class="fa fa-plus"></span> Add Child Page</a>
-						<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
+						<a href="#" class="add"><span class="fa fa-plus"></span> Tambah Subhalaman</a>
+						<a href="#" class="remove"><span class="fa fa-times"></span> Hapus</a>
 					</div>
 				</div>
 			</div>
