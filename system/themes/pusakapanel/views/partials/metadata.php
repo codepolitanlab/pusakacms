@@ -4,7 +4,7 @@
 
 <script src="<?php echo get_theme_url() ?>assets/js/jquery.min.js"></script>
 <script src="<?php echo get_theme_url() ?>assets/js/bootstrap.min.js"></script>
-<script src="<?php echo get_theme_url() ?>assets/js/pagedown-bootstrap/js/jquery.pagedown-bootstrap.combined.min.js"></script>
+<script src="<?php echo get_theme_url() ?>assets/js/pagedown-bootstrap/js/jquery.pagedown-bootstrap.combined.js"></script>
 <script src="<?php echo get_theme_url() ?>assets/js/script.js"></script>
 
 <!-- Bootstrap core CSS -->

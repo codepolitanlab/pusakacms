@@ -2748,6 +2748,10 @@ else
 			buttons.redo = makeButton("wmd-redo-button", redoTitle, "fa fa-rotate-right", null, group4);
 			buttons.redo.execute = function (manager) { if (manager) manager.redo(); };
 
+			group5 = makeGroup(5);
+			buttons.preview = makeButton("wmd-preview-button", "Preview", "fa fa-eye", null, group5);
+			buttons.preview.execute = function(){$('.wmd-preview').toggle();$('.wmd-input').toggle();};
+
 			if (helpOptions) {
 				group5 = makeGroup(5);
 				group5.className = group5.className + " pull-right";

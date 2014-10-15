@@ -60,7 +60,13 @@ body {
 /* Titles */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Open Sans', sans-serif;
-  font-weight: 600;
+  font-weight: 300;
+}
+h1 {
+  margin-top: 0;
+  margin-bottom: 40px;
+  padding: 10px 0;
+  text-transform: uppercase;
 }
 
 /* Paragraph & Typographic */
@@ -381,7 +387,10 @@ ul.content-list li {
   border-bottom: 1px solid #ddd;
 }
 ul.content-list li .list-desc {
-  padding: 0 10px;
+  padding: 10px 10px 0;
+}
+ul.content-list li .list-desc:hover {
+  background: #fafafa;
 }
 ul.content-list a {
   color: #666;
@@ -391,7 +400,7 @@ ul.content-list small {
   font-style: italic;
 }
 ul.content-list h4 {
-  margin-bottom: 0;
+  margin: 0;
 }
 ul.content-list .option {
   margin-top: 10px;
@@ -416,4 +425,9 @@ ul.content-list .option a.remove:hover {
 ul.content-list ul.children {
   border-left: 30px solid #eee;
   display: none;
+}
+
+.form-group label small {
+  color: #aaa;
+  font-style: italic;
 }

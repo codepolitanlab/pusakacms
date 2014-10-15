@@ -4,9 +4,13 @@ $links = array(
 	'pages' => array(
 		'#' => '<span class="fa fa-file-text-o"></span><br>Pages',
 		'pages' => 'All pages',
-		'pages/create' => 'Create new'
+		'new_page' => 'Create new'
 		),
-	'posts' => '<span class="fa fa-book"></span><br>Posts',
+	'posts'  => array(
+		'#' => '<span class="fa fa-book"></span><br>Posts',
+		'pages' => 'All posts',
+		'new_post' => 'Create new'
+		),
 	'media' => '<span class="fa fa-picture-o"></span><br>Media',
 	'menus' => '<span class="fa fa-list"></span><br>Menus',
 	'settings' => '<span class="fa fa-gears"></span><br>Settings',

@@ -1,6 +1,12 @@
-<div class="button-bar align-right">
-	<div><a class="btn btn-lg btn-primary" href="#">+ Buat Halaman Baru</a></div>
+<div class="row heading">
+	<div class="col-md-6">
+		<h1>Pages</h1>
+	</div>
+	<div class="col-md-6 align-right">
+		<div><a class="btn btn-lg btn-primary" href="{{ helpers.site_url }}panel/new_page">+ Create new page</a></div>
+	</div>
 </div>
+
 <ul class="content-list nav">
 	<li>
 		<div class="list-desc">
@@ -16,8 +22,8 @@
 				<div class="col-md-6 align-right">			
 					<div class="option">
 						<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
-						<a href="#" class="add"><span class="fa fa-plus"></span> Tambah Subhalaman</a>
-						<a href="#" class="remove"><span class="fa fa-times"></span> Hapus</a>
+						<a href="#" class="add"><span class="fa fa-plus"></span> Create subpage</a>
+						<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
 					</div>
 				</div>
 			</div>
@@ -37,8 +43,8 @@
 						<div class="col-md-6 align-right">			
 							<div class="option">
 								<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
-								<a href="#" class="add"><span class="fa fa-plus"></span> Tambah Subhalaman</a>
-								<a href="#" class="remove"><span class="fa fa-times"></span> Hapus</a>
+								<a href="#" class="add"><span class="fa fa-plus"></span> Create subpage</a>
+								<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
 							</div>
 						</div>
 					</div>
@@ -58,8 +64,8 @@
 								<div class="col-md-6 align-right">			
 									<div class="option">
 										<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
-										<a href="#" class="add"><span class="fa fa-plus"></span> Tambah Subhalaman</a>
-										<a href="#" class="remove"><span class="fa fa-times"></span> Hapus</a>
+										<a href="#" class="add"><span class="fa fa-plus"></span> Create subpage</a>
+										<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
 									</div>
 								</div>
 							</div>
@@ -79,8 +85,8 @@
 								<div class="col-md-6 align-right">			
 									<div class="option">
 										<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
-										<a href="#" class="add"><span class="fa fa-plus"></span> Tambah Subhalaman</a>
-										<a href="#" class="remove"><span class="fa fa-times"></span> Hapus</a>
+										<a href="#" class="add"><span class="fa fa-plus"></span> Create subpage</a>
+										<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
 									</div>
 								</div>
 							</div>
@@ -102,8 +108,8 @@
 						<div class="col-md-6 align-right">			
 							<div class="option">
 								<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
-								<a href="#" class="add"><span class="fa fa-plus"></span> Tambah Subhalaman</a>
-								<a href="#" class="remove"><span class="fa fa-times"></span> Hapus</a>
+								<a href="#" class="add"><span class="fa fa-plus"></span> Create subpage</a>
+								<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
 							</div>
 						</div>
 					</div>
@@ -125,8 +131,8 @@
 				<div class="col-md-6 align-right">			
 					<div class="option">
 						<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
-						<a href="#" class="add"><span class="fa fa-plus"></span> Tambah Subhalaman</a>
-						<a href="#" class="remove"><span class="fa fa-times"></span> Hapus</a>
+						<a href="#" class="add"><span class="fa fa-plus"></span> Create subpage</a>
+						<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
 					</div>
 				</div>
 			</div>
@@ -146,8 +152,8 @@
 				<div class="col-md-6 align-right">			
 					<div class="option">
 						<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
-						<a href="#" class="add"><span class="fa fa-plus"></span> Tambah Subhalaman</a>
-						<a href="#" class="remove"><span class="fa fa-times"></span> Hapus</a>
+						<a href="#" class="add"><span class="fa fa-plus"></span> Create subpage</a>
+						<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
 					</div>
 				</div>
 			</div>

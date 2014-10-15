@@ -1,6 +1,12 @@
-<div class="button-bar align-right">
-	<div><a class="btn btn-lg btn-primary" href="#">+ Buat Post Baru</a></div>
+<div class="row heading">
+	<div class="col-md-6">
+		<h1>Posts</h1>
+	</div>
+	<div class="col-md-6 align-right">
+		<div><a class="btn btn-lg btn-primary" href="{{ helpers.site_url }}panel/new_post">+ Create new posts</a></div>
+	</div>
 </div>
+
 <ul class="content-list nav">
 	<li>
 		<div class="list-desc">
@@ -15,7 +21,7 @@
 				</div>
 				<div class="col-md-6 align-right">			
 					<div class="option">
-						<a href="#" class="remove"><span class="fa fa-times"></span> Hapus</a>
+						<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
 					</div>
 				</div>
 			</div>
@@ -34,7 +40,7 @@
 				</div>
 				<div class="col-md-6 align-right">			
 					<div class="option">
-						<a href="#" class="remove"><span class="fa fa-times"></span> Hapus</a>
+						<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
 					</div>
 				</div>
 			</div>
@@ -53,7 +59,7 @@
 				</div>
 				<div class="col-md-6 align-right">			
 					<div class="option">
-						<a href="#" class="remove"><span class="fa fa-times"></span> Hapus</a>
+						<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
 					</div>
 				</div>
 			</div>
