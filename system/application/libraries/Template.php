@@ -40,7 +40,7 @@ class Template
 	private $_title_separator = ' | ';
 
 	private $_parser_enabled = TRUE;
-	private $_parser_body_enabled = TRUE;
+	private $_parser_body_enabled = FALSE;
 	private $_lexparser;
 
 	private $_theme_locations = array();
@@ -243,7 +243,7 @@ class Template
 			// If it uses a view, load it
 			if (isset($partial['view']))
 			{
-				$template['partials'][$name] = $this->_find_view($partial['view'], $partial['data'], false);
+				$template['partials'][$name] = $this->_find_view($partial['view'], $partial['data'], FALSE);
 			}
 
 			// Otherwise the partial must be a string
@@ -866,7 +866,7 @@ class Template
 	}
 
 	// A module view file can be overriden in a theme
-	private function _find_view($view, array $data, $parse_view = TRUE)
+	private function _find_view($view, array $data, $parse_view = FALSE)
 	{
 		// Only bother looking in themes if there is a theme
 		if ( ! empty($this->_theme))
@@ -892,7 +892,7 @@ class Template
 		return self::_load_view($view, $this->_data + $data, $parse_view);
 	}
 
-	private function _load_view($view, array $data, $parse_view = TRUE, $override_view_path = NULL)
+	private function _load_view($view, array $data, $parse_view = FALSE, $override_view_path = NULL)
 	{
 		// Sevear hackery to load views from custom places AND maintain compatibility with Modular Extensions
 		if ($override_view_path !== NULL)
@@ -927,7 +927,7 @@ class Template
 			$content = ($this->_parser_enabled === TRUE AND $parse_view === TRUE)
 
 				// Parse that bad boy
-			? $this->_lexparser->parse($this->_ci->load->view($view, null, true), $data, 'Template::_lex_callback')
+			? $this->_lexparser->parse($this->_ci->load->view($view, $data, true), $data, 'Template::_lex_callback')
 
 				// None of that fancy stuff for me!
 			: $this->_ci->load->view($view, $data, TRUE);

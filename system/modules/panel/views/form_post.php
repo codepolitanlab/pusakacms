@@ -1,6 +1,6 @@
 <form action="#" class="panel-form">
 <h1>Create new post</h1>
-
+<?php echo $type; ?>
 <div class="row">
 	<div class="col-md-6">
 		<div class="form-group">
@@ -31,7 +31,7 @@
 		<div class="form-group">
 			<label for="slug">Format <small>content format</small></label>
 			<select class="form-control" name="format" id="layout">
-				<option value="markdown">markdown</option>
+				<option value="md">markdown</option>
 				<option value="textile">textile</option>
 				<option value="html">HTML</option>
 			</select>

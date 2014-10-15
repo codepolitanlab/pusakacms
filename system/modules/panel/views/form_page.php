@@ -16,6 +16,15 @@
 	</div>
 </div>
 
+<div class="form-group">
+	<label for="slug">Parent <small>Parent page</small></label>
+	<select class="form-control" name="format" id="layout">
+		<option value="docs">Docs</option>
+		<option value="docs/apa-itu-pusaka">Docs > Apa itu Pusaka</option>
+		<option value="about">About</option>
+	</select>
+</div>
+
 <div class="row">
 	<div class="col-md-6">
 		<div class="form-group">
@@ -31,7 +40,7 @@
 		<div class="form-group">
 			<label for="slug">Format <small>content format</small></label>
 			<select class="form-control" name="format" id="layout">
-				<option value="markdown">markdown</option>
+				<option value="md">markdown</option>
 				<option value="textile">textile</option>
 				<option value="html">HTML</option>
 			</select>

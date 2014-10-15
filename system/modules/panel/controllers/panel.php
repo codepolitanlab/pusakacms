@@ -47,22 +47,23 @@ class Panel extends Admin_Controller {
 		$this->template->view('media');
 	}
 
-	function settings()
+	function settings($tab = 'general')
 	{
-		
-		$this->template->view('settings');
+		$this->template
+			->set('tab', $tab)
+			->view('settings');
 	}
 
 	function new_post()
 	{
 
-		$this->template->view('form_post');
+		$this->template->view('form_post', array('type'=>'edit'));
 	}
 
 	function edit_post()
 	{
 
-		$this->template->view('form_post');
+		$this->template->view('form_post', array('type'=>'edit'));
 	}
 
 	function new_page()
