@@ -5,12 +5,11 @@
 </head>
 <body>
 	<div class="row wrapper">
-		<div class="col-md-2 side-panel">
+		<div class="col-md-1 side-panel">
 			<?php get_partial('header'); ?>
 			<?php get_partial('sidebar'); ?>
-			<?php get_partial('footer'); ?>
 		</div>
-		<div class="col-md-10">
+		<div class="col-md-11">
 			<div class="content">
 				<?php echo $template['body']; ?>
 			</div>
