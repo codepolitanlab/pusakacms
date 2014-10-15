@@ -437,3 +437,11 @@ ul.content-list ul.children {
   color: #aaa;
   font-style: italic;
 }
+
+.btn-tile {
+  min-width: 130px;
+}
+.btn-tile span.fa {
+  font-size: 48px;
+  display: block;
+}
