@@ -254,6 +254,12 @@ hr {
 .font-white{
   color:white;
 }
+.align-center {
+  text-align: center;
+}
+.align-right {
+  text-align: right;
+}
 
 /* Customize container */
 @media (min-width: 768px) {
@@ -364,12 +370,16 @@ article.the-content {
 ul.content-list {
   margin: 20px 0;
 }
-ul.content-list li {
-  border-bottom: 1px solid #ddd;
-  padding: 5px 10px;
+ul.content-list .row {
+  /*border-bottom: 1px solid #ddd;*/
 }
-ul.content-list li:hover {
-  background-color: #eee;
+ul.content-list li {
+  margin-bottom: -1px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+ul.content-list li .list-desc {
+  padding: 0 10px;
 }
 ul.content-list a {
   color: #666;
@@ -400,4 +410,8 @@ ul.content-list .option a.add:hover {
 ul.content-list .option a.remove:hover {
   color: darkred;
 }
-  
+
+ul.content-list ul.children {
+  border-left: 30px solid #eee;
+  display: none;
+}
