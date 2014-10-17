@@ -246,7 +246,7 @@ switch (ENVIRONMENT)
 
 
 // load Composer libraries
-include_once './vendor/autoload.php';
+include_once './system/vendor/autoload.php';
 
 /*
  * --------------------------------------------------------------------

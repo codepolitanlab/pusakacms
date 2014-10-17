@@ -1,4 +1,7 @@
 {
+	"config": {
+        "vendor-dir": "system/vendor"
+    },
 	"name": "nyankod/pusakacms",
 	"description": "flat file CMS built on top of CodeIgniter.",
 	"keywords": ["nyankod", "pusaka", "pusakacms"],

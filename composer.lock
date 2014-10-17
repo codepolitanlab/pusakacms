@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cb8c1446dad414510d9418713a7b025f",
+    "hash": "6d74d4701e979e05dd52c97b1e6a6f97",
     "packages": [
         {
             "name": "pyrocms/lex",
