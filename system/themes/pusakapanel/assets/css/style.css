@@ -108,7 +108,7 @@ a {
 
 a:hover,
 a:focus {
-  color: #8EC63F;
+  color: #2C3E50;
   text-decoration: none;
   outline: 0;
 }
@@ -200,7 +200,7 @@ hr {
   background-color: white;
   /*font-size: 28px;*/
   border-radius: 0;
-  color: #5B8520;
+  color: #2C3E50;
   text-shadow:rgba(0, 0, 0, 0.3) 1px 1px 1px;
   -webkit-box-shadow:rgba(0, 0, 0, 0.3) 0px 5px 0px 0px;
   -moz-box-shadow:rgba(0, 0, 0, 0.3) 0px 5px 0px 0px;
@@ -244,12 +244,13 @@ hr {
   position: absolute;
   right: -200px;
   top: 0;
-  background-color: #8EC63F;
+  background-color: #2C3E50;
   width: 200px;
   z-index: 10;
   list-style: none;
   padding: 5px 0 5px 10px;
   border-radius: 0 5px 5px 0;
+  box-shadow: rgba(0, 0, 0, 0.3) -5px 5px 0px 0px;
 }
 .sidebar .nav-stacked li:hover ul {
   display: block;
@@ -317,7 +318,7 @@ article.the-content {
  color: #ffffff;
  padding-top: 80px;
  padding-bottom: 80px;
- background: #8ec63f url(../img/corak_batik.png) no-repeat right bottom;
+ background: #2C3E50 url(../img/corak_batik.png) no-repeat right bottom;
 }
 .pusaka-header .lead {
   color: #ffffff;
@@ -373,7 +374,7 @@ article.the-content {
 }
 .side-panel {
   position: relative;
-  background: #8EC63F;
+  background: #2C3E50;
   height: 100%;
   -webkit-box-shadow:rgba(0, 0, 0, 0.3) -5px 0px 0px 0px inset;
   -moz-box-shadow:rgba(0, 0, 0, 0.3) -5px 0px 0px 0px inset;
@@ -451,10 +452,5 @@ ul.content-list ul.children {
   display: block;
 }
 .panel-dashboard {
-  position: absolute;
-  top: 40%;
-  left: 35%;
   padding: 20px;
-  margin: 200px auto 0;
-  width: 320px;
 }

@@ -8,7 +8,7 @@
 <script src="<?php echo get_theme_url() ?>assets/js/script.js"></script>
 
 <!-- Bootstrap core CSS -->
-<link href="<?php echo get_theme_url() ?>assets/css/bootstrap.css" rel="stylesheet">
+<link href="<?php echo get_theme_url() ?>assets/css/bootstrap.min.css" rel="stylesheet">
 <link href="<?php echo get_theme_url() ?>assets/css/font-awesome.min.css" rel="stylesheet">
 <link href="<?php echo get_theme_url() ?>assets/js/pagedown-bootstrap/css/jquery.pagedown-bootstrap.css" rel="stylesheet">
 
