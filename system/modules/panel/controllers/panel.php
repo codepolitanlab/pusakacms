@@ -35,10 +35,10 @@ class Panel extends Admin_Controller {
 		$this->template->view('posts');
 	}
 
-	function menus()
+	function navigation()
 	{
 		
-		$this->template->view('menus');
+		$this->template->view('navigation');
 	}
 
 	function media()

@@ -1,6 +1,6 @@
 <div class="row heading">
 	<div class="col-md-6">
-		<h1>Media</h1>
+		<h1>MEDIA</h1>
 	</div>
 </div>
 

@@ -48,7 +48,7 @@ html, body {
 body {
   background-color: white;
   font-family: 'Open Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 18px;
   color: #555;
   min-height: 640px;
@@ -60,11 +60,14 @@ body {
 /* Titles */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Open Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
 }
 h1 {
   margin-top: 0;
   margin-bottom: 40px;
+}
+.heading h1 { 
+  font-weight: 300;
   padding: 10px 0;
   text-transform: uppercase;
   color: #E6B408;
@@ -453,4 +456,11 @@ ul.content-list ul.children {
 }
 .panel-dashboard {
   padding: 20px;
+}
+.tab-content {
+  margin-top: 20px;
+}
+table a:not(.btn), 
+.table a:not(.btn) {
+  text-decoration: none;
 }

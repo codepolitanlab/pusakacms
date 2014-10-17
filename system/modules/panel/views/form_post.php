@@ -1,6 +1,6 @@
 <form action="#" class="panel-form">
-<h1>Create new post</h1>
-<?php echo $type; ?>
+<h1>CREATE NEW POST</h1>
+
 <div class="row">
 	<div class="col-md-6">
 		<div class="form-group">

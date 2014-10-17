@@ -1,5 +1,5 @@
 <form action="#" class="panel-form">
-	<h1>Create new page</h1>
+	<h1>CREATE NEW PAGE</h1>
 
 	<div class="row">
 		<div class="col-md-6">

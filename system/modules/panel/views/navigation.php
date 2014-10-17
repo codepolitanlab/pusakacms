@@ -1,9 +1,9 @@
 <div class="row heading">
 	<div class="col-md-6">
-		<h1>Menus</h1>
+		<h1>MENUS</h1>
 	</div>
 	<div class="col-md-6 align-right">
-		<div><a class="btn btn-lg btn-primary" href="{{ helpers.site_url }}panel/new_page">+ Create new area</a></div>
+		<div><a class="btn btn-md btn-primary" href="{{ helpers.site_url }}panel/new_page">+ Create new area</a></div>
 	</div>
 </div>
 

@@ -12,7 +12,7 @@ $links = array(
 		'new_post' => 'Create new'
 		),
 	'media' => '<span class="fa fa-picture-o"></span><br>Media',
-	'menus' => '<span class="fa fa-list"></span><br>Menus',
+	'navigation' => '<span class="fa fa-list"></span><br>Navigation',
 	'settings' => array(
 		'#' => '<span class="fa fa-gears"></span><br>Settings',
 		'settings#general' => 'General',

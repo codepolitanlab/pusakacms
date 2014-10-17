@@ -1,6 +1,6 @@
 <div class="row heading">
 	<div class="col-md-6">
-		<h1>Settings</h1>
+		<h1>SETTINGS</h1>
 	</div>
 </div>
 <ul class="nav nav-tabs">
