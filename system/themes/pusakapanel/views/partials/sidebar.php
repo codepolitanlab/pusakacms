@@ -16,8 +16,9 @@ $links = array(
 	'settings' => array(
 		'#' => '<span class="fa fa-gears"></span><br>Settings',
 		'settings' => 'General',
-		'auth' => 'Authentication'
+		'users' => 'Users'
 		),
+	'logout' => '<span class="fa fa-lock"></span><br>Logout as '.$this->session->userdata('username').' ('.$this->session->userdata('group').')'
 	);
 	?>
 

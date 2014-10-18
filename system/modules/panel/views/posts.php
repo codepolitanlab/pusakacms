@@ -16,11 +16,11 @@
 				<div class="col-md-6">
 					<div class="option">
 						<a href="#"><span class="fa fa-calendar"></span> 14 Oktober 2014</a>
-						<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
 					</div>
 				</div>
 				<div class="col-md-6 align-right">			
 					<div class="option">
+						<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
 						<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
 					</div>
 				</div>
@@ -35,11 +35,11 @@
 				<div class="col-md-6">
 					<div class="option">
 						<a href="#"><span class="fa fa-calendar"></span> 13 Oktober 2014</a>
-						<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
 					</div>
 				</div>
 				<div class="col-md-6 align-right">			
 					<div class="option">
+						<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
 						<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
 					</div>
 				</div>
@@ -54,11 +54,11 @@
 				<div class="col-md-6">
 					<div class="option">
 						<a href="#"><span class="fa fa-calendar"></span> 12 Oktober 2014</a>
-						<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
 					</div>
 				</div>
 				<div class="col-md-6 align-right">			
 					<div class="option">
+						<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
 						<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
 					</div>
 				</div>

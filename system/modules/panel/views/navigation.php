@@ -24,7 +24,7 @@
 			<td><a href="#" target="_blank">{{ helpers.site_url }}docs</a></td>
 			<td class="align-right">
 				<div class="option">
-					<a href="#" class="edit"><span class="fa fa-pencil"></span> Edit</a>
+					<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
 					<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
 				</div>
 			</td>
@@ -34,7 +34,7 @@
 			<td><a href="#" target="_blank">{{ helpers.site_url }}blog</a></td>
 			<td class="align-right">
 				<div class="option">
-					<a href="#" class="edit"><span class="fa fa-pencil"></span> Edit</a>
+					<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
 					<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
 				</div>
 			</td>
@@ -44,7 +44,7 @@
 			<td><a href="#" target="_blank">{{ helpers.site_url }}contact</a></td>
 			<td class="align-right">
 				<div class="option">
-					<a href="#" class="edit"><span class="fa fa-pencil"></span> Edit</a>
+					<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
 					<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
 				</div>
 			</td>
@@ -69,7 +69,7 @@
 			<td><a href="#" target="_blank">{{ helpers.site_url }}docs</a></td>
 			<td class="align-right">
 				<div class="option">
-					<a href="#" class="edit"><span class="fa fa-pencil"></span> Edit</a>
+					<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
 					<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
 				</div>
 			</td>
@@ -79,7 +79,7 @@
 			<td><a href="#" target="_blank">{{ helpers.site_url }}blog</a></td>
 			<td class="align-right">
 				<div class="option">
-					<a href="#" class="edit"><span class="fa fa-pencil"></span> Edit</a>
+					<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
 					<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
 				</div>
 			</td>
@@ -89,7 +89,7 @@
 			<td><a href="#" target="_blank">{{ helpers.site_url }}contact</a></td>
 			<td class="align-right">
 				<div class="option">
-					<a href="#" class="edit"><span class="fa fa-pencil"></span> Edit</a>
+					<a href="#" class="edit"><span class="fa fa-edit"></span> Edit</a>
 					<a href="#" class="remove"><span class="fa fa-times"></span> Delete</a>
 				</div>
 			</td>

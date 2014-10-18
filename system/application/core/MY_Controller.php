@@ -20,7 +20,7 @@ class MY_Controller extends MX_Controller
 
 		$sitepath = 'sites/'.SITE_SLUG.'/';
 		
-		// set site config
+		// check if main config file exist
 		if(!file_exists(($sitepath.'config/site.json'))){
 			show_error('site.json config file for your site is not found. Please create it first.');
 		}
@@ -32,8 +32,10 @@ class MY_Controller extends MX_Controller
 			show_error('confif file error: '. json_last_error_msg());
 		}
 
-		$config_file = scandir($sitepath.'config');
-		$config_file = array_diff($config_file, array('.', '..'));
+		// get all config file
+		$config_file = array_filter(scandir($sitepath.'config'), function($user){
+			return (! in_array($user, array('.','..','index.html')));
+		});
 
 		foreach ($config_file as $confile) {
 			$config = json_decode(read_file($sitepath.'config/'.$confile));
