@@ -14,7 +14,7 @@
 					<?php echo $this->session->flashdata('error')? '<div class="alert alert-danger">'. $this->session->flashdata('error') .'</div>' : ''; ?>
 				</div>
 
-				<form action="<?php echo site_url('panel/login'); ?>" method="POST">
+				<form action="<?php echo site_url('panel/auth/login'); ?>" method="POST">
 					<div class="form-group">
 						<input type="text" name="username" class="form-control" placeholder="Your username">
 					</div>
