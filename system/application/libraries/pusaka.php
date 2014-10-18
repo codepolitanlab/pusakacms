@@ -26,6 +26,8 @@ class Pusaka {
 	var $navfile		= "nav.json";
 	var $allowed_ext	= array('html','md','textile');
 
+	var $post_per_page;
+
 	/**
 	 * Constructor
 	 *
@@ -35,6 +37,10 @@ class Pusaka {
 	public function __construct()
 	{
 		$this->CI =& get_instance();
+
+		$this->post_per_page = $this->CI->config->item('post_per_page')
+								? $this->CI->config->item('post_per_page')
+								: 10;
 	}
 
 	// --------------------------------------------------------------------
@@ -312,8 +318,8 @@ class Pusaka {
 			$file = read_file(LABEL_FOLDER.'/'.$category.'.json');
 			if(empty($file)) return false;
 			$map = (array) json_decode($file);
-			$begin = ($page - 1) * $this->CI->config->item('post_per_page');
-			$limit = $this->CI->config->item('post_per_page');
+			$begin = ($page - 1) * $this->post_per_page;
+			$limit = $this->post_per_page;
 			$new_map = ($page != 'all') ? array_slice($map, $begin, $limit) : $map;
 
 			foreach ($new_map as $url) {
@@ -323,8 +329,8 @@ class Pusaka {
 			$posts['total'] = count($map);
 		} else {
 			$map = $this->get_posts_tree();
-			$begin = ($page - 1) * $this->CI->config->item('post_per_page');
-			$limit = $this->CI->config->item('post_per_page');
+			$begin = ($page - 1) * $this->post_per_page;
+			$limit = $this->post_per_page;
 			$new_map = ($page != 'all') ? array_slice($map, $begin, $limit) : $map;
 			
 			foreach ($new_map as $url => $title) {
@@ -353,7 +359,7 @@ class Pusaka {
 
 
 		$config['total_rows'] = $total;
-		$config['per_page'] = $this->CI->config->item('post_per_page'); 
+		$config['per_page'] = $this->post_per_page; 
 		$config['use_page_numbers'] = TRUE;
 
 		// layouting

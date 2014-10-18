@@ -1,0 +1,10 @@
+{
+    "theme": "keris",
+    "admin_theme": "pusakapanel",
+    "post_as_home": "",
+    "post_term": "blog",
+    "post_per_page": "10",
+    "page_folder": "pages",
+    "post_folder": "posts",
+    "label_folder": "labels"
+}

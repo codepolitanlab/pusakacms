@@ -136,8 +136,8 @@ class CMS extends MY_Controller {
 	{
 		if(!$site) show_error('which site domain must be update?');
 
-		if(file_exists('sites/'.$site.'/DOMAIN')){
-			$domain = @file_get_contents('sites/'.$site.'/DOMAIN');
+		if(file_exists('sites/'.$site.'/CNAME')){
+			$domain = @file_get_contents('sites/'.$site.'/CNAME');
 			if(write_file('sites/_domain/'.$domain.'.conf', $site)){
 				header("Content-Type:text/plain");
 				echo "Domain setting for site $site updated.";
@@ -145,7 +145,7 @@ class CMS extends MY_Controller {
 			else
 				show_error('Writing domain configuration file failed. /sites/_domain/ folder must be writable.');
 		} else
-			show_error('DOMAIN file not found');
+			show_error('CNAME file not found');
 	}
 
 }
