@@ -25,10 +25,10 @@ $base_url =
 	'://'.
 	// Get domain portion
 	$_SERVER['HTTP_HOST']; // DON'T TOUCH (base url (only domain) of site (without final /)).
-$upload_dir = '/sites/default/files/'; // path from base_url to base of upload folder (with start and final /)
-$current_path = '../../../../../sites/default/files/'; // relative path from filemanager folder to upload folder (with final /)
+$upload_dir = '/sites/default/content/files/'; // path from base_url to base of upload folder (with start and final /)
+$current_path = '../../../../../sites/default/content/files/'; // relative path from filemanager folder to upload folder (with final /)
 //thumbs folder can't put inside upload folder
-$thumbs_base_path = '../../../../../sites/default/files/thumbs/'; // relative path from filemanager folder to thumbs folder (with final /)
+$thumbs_base_path = '../../../../../sites/default/content/files/thumbs/'; // relative path from filemanager folder to thumbs folder (with final /)
 
 // OPTIONAL SECURITY
 // if set to true only those will access RF whose url contains the access key(akey) like: 

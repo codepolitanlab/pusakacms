@@ -23,7 +23,7 @@ class Pusaka {
 	var $depth 			= 2;
 	var $remove_index	= true;
 	var $stack			= array();
-	var $navfile		= "nav.json";
+	var $navfile		= "index.json";
 	var $allowed_ext	= array('html','md','textile');
 
 	var $post_per_page;
