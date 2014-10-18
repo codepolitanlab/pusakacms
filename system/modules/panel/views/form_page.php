@@ -1,5 +1,9 @@
+<div class="row heading">
+	<div class="col-md-6">
+		<h1>CREATE NEW PAGE</h1>
+	</div>
+</div>
 <form action="#" class="panel-form">
-	<h1>CREATE NEW PAGE</h1>
 
 	<div class="row">
 		<div class="col-md-6">

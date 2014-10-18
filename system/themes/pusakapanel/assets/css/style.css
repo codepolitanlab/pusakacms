@@ -210,8 +210,8 @@ hr {
   box-shadow:rgba(0, 0, 0, 0.3) 0px 5px 0px 0px;
 }
 .sidebar .nav-stacked > li.active > a:hover {
-  background-color: white;
-  color: #444;
+  background-color: #E6B509;
+  color: #fff;
 }
 .sidebar .nav-stacked > li > a {
   padding: 10px 20px 10px 20px;
@@ -233,33 +233,33 @@ hr {
   color:  #fff;
   transition: .2s;
   display: block;
-  text-shadow: rgba(0, 0, 0, 0.5) 1px 1px 1px;
 }
-.sidebar .nav-stacked > li > a:hover,
-.sidebar .nav-stacked li > ul > li > a:hover {
-  background-color: transparent;
+.sidebar .nav-stacked > li:hover > a,
+.sidebar .nav-stacked li > ul > li:hover > a {
+  background-color: #E6B509;
   color: #fff;
-  text-shadow: rgba(0, 0, 0, 0.5) 2px 2px 2px;
+  text-shadow: rgba(0, 0, 0, 0.2) 2px 2px 2px;
+  border-radius: 0;
 }
 
 .sidebar .nav-stacked li ul {
   display: none;
   position: absolute;
   right: -200px;
-  top: 0;
-  background-color: #2C3E50;
+  top: -5px;
+  background-color: #E6B509;
   width: 200px;
   z-index: 10;
   list-style: none;
-  padding: 5px 0 5px 10px;
+  padding: 10px 0 10px 10px;
   border-radius: 0 5px 5px 0;
-  box-shadow: rgba(0, 0, 0, 0.3) -5px 5px 0px 0px;
+  border: 5px solid #CE9F00;
+  border-left: 0;
 }
 .sidebar .nav-stacked li:hover ul {
   display: block;
 }
 .sidebar .nav-stacked li.active:hover ul {
-  display: none;
 }
 
 /*Helper*/

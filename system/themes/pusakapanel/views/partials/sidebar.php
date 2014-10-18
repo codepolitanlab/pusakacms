@@ -15,8 +15,8 @@ $links = array(
 	'navigation' => '<span class="fa fa-list"></span><br>Navigation',
 	'settings' => array(
 		'#' => '<span class="fa fa-gears"></span><br>Settings',
-		'settings#general' => 'General',
-		'settings#auth' => 'Authentication'
+		'settings' => 'General',
+		'auth' => 'Authentication'
 		),
 	);
 	?>

@@ -47,10 +47,13 @@ class Panel extends Admin_Controller {
 		$this->template->view('media');
 	}
 
-	function settings($tab = 'general')
+	function settings()
 	{
+		$config = json_decode(read_file('sites/'.SITE_SLUG.'/conf.json'));
+	
 		$this->template
-			->set('tab', $tab)
+			->set('tab', 'site')
+			->set('config', $config)
 			->view('settings');
 	}
 

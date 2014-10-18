@@ -1,14 +1,27 @@
+<form action="<?php echo site_url('panel/settings/save'); ?>"></form>
 <div class="row heading">
 	<div class="col-md-6">
-		<h1>SETTINGS</h1>
+		<h1>GENERAL SETTINGS</h1>
+	</div>
+	<div class="col-md-6 align-right">
+		<button class="btn btn-lg btn-success"><span class="fa fa-save"></span> Save settings</button>
 	</div>
 </div>
 <ul class="nav nav-tabs">
-	<li<?php echo ($tab == 'general')?' class="active"' : ''; ?>><a href="{{ helpers.site_url }}panel/settings/general">General</a></li>
-	<li<?php echo ($tab == 'auth')?' class="active"' : ''; ?>><a href="{{ helpers.site_url }}panel/settings/auth">Authentication</a></li>
+	<?php foreach ($config as $key => $value): ?>
+		<li<?php echo ($tab == $key)?' class="active"' : ''; ?>><a href="<?php echo "#".$key; ?>" role="tab" data-toggle="tab"><?php echo ucwords($key); ?></a></li>
+	<?php endforeach; ?>
 </ul>
 <div id="myTabContent" class="tab-content">
-	<div class="tab-pane fade active in" id="<?php echo $tab; ?>">
-		<p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
-	</div>
+	<?php foreach ($config as $key => $value): ?>
+		<div class="tab-pane fade in <?php echo ($tab == $key)? 'active' : ''; ?>" id="<?php echo $key; ?>">
+			<?php foreach ($value as $k => $v): ?>
+				<div class="form-group">
+					<label for="<?php echo $k; ?>"><?php echo $k; ?></label>
+					<input type="text" name="<?php echo $k; ?>" value="<?php echo $v; ?>" class="form-control">
+				</div>
+			<?php endforeach; ?>
+		</div>
+	<?php endforeach; ?>
 </div>
+</form>

@@ -21,19 +21,21 @@ class MY_Controller extends MX_Controller
 		$sitepath = 'sites/'.SITE_SLUG.'/';
 		
 		// set site config
-		if(!file_exists((FCPATH.$sitepath.'conf.json'))){
+		if(!file_exists(($sitepath.'conf.json'))){
 			show_error('conf.json file for your site is not found. Please create it first.');
 		}
 
-		$config = json_decode(file_get_contents(FCPATH.$sitepath.'conf.json'));
+		$config = json_decode(read_file($sitepath.'conf.json'));
 		
 		if(json_last_error() > 0){
 			show_error('conf.json error: '. json_last_error_msg());
 		}
 
-		foreach($config as $key => $var){
-			$this->config->set_item($key, $var);
-			$this->data[$key] = $var;
+		foreach($config as $var){
+			foreach ($var as $key => $value) {
+				$this->config->set_item($key, $value);
+				$this->data[$key] = $value;
+			}
 		}
 
 		$this->config->set_item('page_title', $this->config->item('site_name'));
