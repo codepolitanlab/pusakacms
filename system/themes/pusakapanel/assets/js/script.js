@@ -5,5 +5,6 @@ $(function(){
 		$child.slideToggle();
 
 		return false;
-	})
+	});
+
 });
