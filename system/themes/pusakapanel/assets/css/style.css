@@ -60,13 +60,12 @@ body {
 /* Titles */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Open Sans', sans-serif;
-  font-weight: 400;
+  font-weight: 300;
 }
 h1 {
   margin-top: 0;
 }
 .heading h1 { 
-  font-weight: 300;
   padding: 0;
   text-transform: uppercase;
   color: #E6B408;
@@ -106,7 +105,7 @@ p {
   border-bottom: 1px solid #ccc;
 }
 .navbar-inverse .navbar-nav>li>a {
-  color: #555;
+  color: #888;
 }
 .navbar-inverse .navbar-nav>li>a:hover, 
 .navbar-inverse .navbar-nav>li>a:focus,

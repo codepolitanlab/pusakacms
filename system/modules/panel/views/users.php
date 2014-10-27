@@ -16,7 +16,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="option">
-						<a href="#"><span class="fa fa-unlock-alt"></span> <?php echo $userdata[0]; ?></a>
+						<a href="#"><span class="fa fa-gavel"></span> <?php echo $userdata[0]; ?></a>
 					</div>
 				</div>
 				<div class="col-md-6 align-right">			

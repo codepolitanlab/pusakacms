@@ -1,6 +1,6 @@
 <div class="row heading">
 	<div class="col-md-6">
-		<h1>CREATE NEW POST</h1>
+		<h1>NEW POST</h1>
 	</div>
 </div>
 <form action="#" class="panel-form">
