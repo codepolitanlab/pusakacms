@@ -424,12 +424,13 @@ class Pusaka {
 		$file = read_file(POST_FOLDER.'/'.$filename);
 
 		if(!empty($file)){
-			$post = explode("~~~~~", $file);
+			$post = explode("{:", $file);
+			array_shift($post);
 			
 			$new_post = array('title' => $this->guess_name($filename, POST_TERM), 'date' => $date);			
 
 			foreach ($post as $elm) {
-				$segs = preg_split("/( : | :|: |:)/", $elm, 2);
+				$segs = preg_split("/( :} | :}|:} |:})/", $elm, 2);
 
 				// set meta to config
 				if(in_array(trim($segs[0]), array('meta_keywords', 'meta_description', 'author')))
