@@ -291,7 +291,7 @@ class Template
 	}
 	
 	/**
-	 * Build the entire HTML output of markdown or textile content
+	 * Build the entire HTML output of markdown content
 	 *
 	 * @access	public
 	 * @param	string
@@ -939,7 +939,7 @@ class Template
 	// search content file
 	private function _find_content($view, $data = array(), $parse_view = TRUE)
 	{
-		$supported_files = array('html', 'md', 'textile');
+		$supported_files = array('html', 'md');
 		$file_ext = NULL;
 
 		// check if the view has extension
@@ -1007,18 +1007,8 @@ class Template
 					if ($this->_parser_enabled === TRUE AND $parse_view === TRUE)
 						$content = $this->_lexparser->parse(trim($segs[1]), $data, 'Template::_lex_callback');
 
-					// check textile first
-					if ($ext == 'textile')
-					{
-						require_once(APPPATH.'libraries/textile.php');
-						$content = TextileThis($content);
-					}
-					// if not textile, use markdown as default
-					else 
-					{
-						require_once(APPPATH.'libraries/markdown.php');
-						$content = str_replace("&amp;", "&", Markdown($content));
-					}
+					$Parsedown = new Parsedown();
+					$content = $Parsedown->setBreaksEnabled(true)->text($content);
 				}
 			}
 		} else {
@@ -1026,18 +1016,8 @@ class Template
 			if ($this->_parser_enabled === TRUE AND $parse_view === TRUE)
 				$content = $this->_lexparser->parse($file, $data, 'Template::_lex_callback');
 
-			// check textile first
-			if ($ext == 'textile')
-			{
-				require_once(APPPATH.'libraries/textile.php');
-				$content = TextileThis($content);
-			}
-			// if not textile, use markdown as default
-			else 
-			{
-				require_once(APPPATH.'libraries/markdown.php');
-				$content = str_replace("&amp;", "&", Markdown($content));
-			}
+			$Parsedown = new Parsedown();
+			$content = $Parsedown->setBreaksEnabled(true)->text($content);
 		}
 
 		return $content;

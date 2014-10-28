@@ -24,7 +24,7 @@ class Pusaka {
 	var $remove_index	= true;
 	var $stack			= array();
 	var $navfile		= "index.json";
-	var $allowed_ext	= array('html','md','textile');
+	var $allowed_ext	= array('html','md');
 
 	var $post_per_page;
 
@@ -440,17 +440,10 @@ class Pusaka {
 					$new_post[trim($segs[0])] = preg_split("/(\s,\s|\s,|,\s)/", $segs[1]);
 
 				elseif(trim($segs[0]) == 'content')
-					// check textile first
-					if ($ext == 'textile')
-					{
-						require_once(APPPATH.'libraries/textile.php');
-						$new_post[trim($segs[0])] = TextileThis($segs[1]);
-					}
-					else // if not textile, use markdown as default
-					{
-						require_once(APPPATH.'libraries/markdown.php');
-						$new_post[trim($segs[0])] = str_replace("&amp;", "&", Markdown($segs[1]));
-					}
+				{
+					$Parsedown = new Parsedown();
+					$new_post[trim($segs[0])] = $Parsedown->setBreaksEnabled(true)->text($segs[1]);
+				}
 				else
 					$new_post[$segs[0]] = trim($segs[1]);
 
