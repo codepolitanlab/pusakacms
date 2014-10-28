@@ -34,7 +34,7 @@ class MY_Controller extends MX_Controller
 
 		// get all config file
 		$config_file = array_filter(scandir($sitepath.'config'), function($user){
-			return (! in_array($user, array('.','..','index.html')));
+			return (strpos($user, '.json'));
 		});
 
 		foreach ($config_file as $confile) {

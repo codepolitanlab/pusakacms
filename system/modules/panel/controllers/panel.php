@@ -14,11 +14,15 @@
 
 class Panel extends Admin_Controller {
 
+	var $users_path;
+
 	function __construct(){
 		parent::__construct();
 		$this->load->library('form_validation');
 		
 		if(! $this->session->userdata('username')) redirect('panel/login');
+
+		$this->users_path = 'sites/'. SITE_SLUG .'/users/';
 	}
 
 	function index()
@@ -74,7 +78,7 @@ class Panel extends Admin_Controller {
 				$this->form_validation->set_rules(substr($confile, 0, -5).'__'.$key, '<strong>'.substr($confile, 0, -5).'__'.$key.'</strong>', 'trim');
 			}
 		}
-	
+
 		// submit if data valid
 		if($this->form_validation->run()){
 			$post = $this->input->post();
@@ -94,30 +98,28 @@ class Panel extends Admin_Controller {
 			$this->session->set_flashdata('success', 'config saved.');
 			redirect('panel/settings');
 		}
-	
+
 		$this->template
-			->set('tab', 'site')
-			->set('config', $config)
-			->view('settings');
+		->set('tab', 'site')
+		->set('config', $config)
+		->view('settings');
 	}
 
 	function users()
 	{
 		// get user files
-		$users_path = 'sites/'.SITE_SLUG.'/users/';
-		$users_file = array_filter(scandir($users_path), function($user){
+		$users_file = array_filter(scandir($this->users_path), function($user){
 			return (! in_array($user, array('.','..','index.html')));
 		});
 
 		$users = array();
 		foreach ($users_file as $username) {
-			$user_file = read_file($users_path.$username);
-			$users[$username] = explode("\n", trim($user_file));
+			$users[substr($username, 0, -5)] = json_decode(read_file($this->users_path.$username));
 		}
 
 		$this->template
-			->set('users', $users)
-			->view('users');
+		->set('users', $users)
+		->view('users');
 	}
 
 	function new_post()
@@ -143,5 +145,68 @@ class Panel extends Admin_Controller {
 
 		$this->template->view('form_page');
 	}
+
+	function new_user()
+	{
+		$config = array(
+			array(
+				'field'   => 'username', 
+				'label'   => 'Username', 
+				'rules'   => 'trim|required'
+				),
+			array(
+				'field'   => 'password', 
+				'label'   => 'Password', 
+				'rules'   => 'required|matches[passconf]'
+				),
+			array(
+				'field'   => 'passconf', 
+				'label'   => 'Confirm Password', 
+				'rules'   => 'required'
+				),
+			);
+
+		$this->form_validation->set_rules($config);
+
+		// submit if data valid
+		if($this->form_validation->run()){
+			$post = $this->input->post();
+			$post_json = json_encode($post, JSON_PRETTY_PRINT);
+
+			if(file_exists($this->users_path.$post['username'].'.json')) {
+				$this->session->set_flashdata('error', "Username '{$post['username']}' has been used. Try another username.");
+				redirect('panel/users/new');
+			}
+
+			if(write_file($this->users_path.$post['username'].'.json', $post_json)){
+				$this->session->set_flashdata('success', 'New user saved.');
+				redirect('panel/users');
+			} else {
+				$this->session->set_flashdata('error', $this->users_path.' folder is not writtable.');
+				redirect('panel/users/new');
+			}
+		}
+
+		$this->template
+			->set('type', 'new')
+			->view('form_user');
+	}
+
+	function edit_user()
+	{
+
+		$this->template
+			->set('type', 'edit')
+			->view('form_post');
+	}
+
+	// function check_username($username)
+	// {
+	// 	if(file_exists($this->users_path.$username.'.json')) {
+	// 		$this->form_validation->set_message(__FUNCTION__, 'The username has been used. Try another username.');
+	// 		return false;
+	// 	} else
+	// 		return true;
+	// }
 
 }
