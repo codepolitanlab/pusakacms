@@ -48,22 +48,22 @@
     },
     {
         "name": "erusev/parsedown",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "1.1.0",
+        "version_normalized": "1.1.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/erusev/parsedown.git",
-            "reference": "2adb87ef4159844fa8d7db5f611a359c50891f0c"
+            "reference": "c62365adc4488e1c35a8f45ea86f7d4a22bd58a0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/erusev/parsedown/zipball/2adb87ef4159844fa8d7db5f611a359c50891f0c",
-            "reference": "2adb87ef4159844fa8d7db5f611a359c50891f0c",
+            "url": "https://api.github.com/repos/erusev/parsedown/zipball/c62365adc4488e1c35a8f45ea86f7d4a22bd58a0",
+            "reference": "c62365adc4488e1c35a8f45ea86f7d4a22bd58a0",
             "shasum": ""
         },
-        "time": "2014-10-10 18:11:23",
+        "time": "2014-09-25 23:06:16",
         "type": "library",
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-0": {
                 "Parsedown": ""

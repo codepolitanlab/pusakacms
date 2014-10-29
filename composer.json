@@ -8,6 +8,6 @@
 	"license": "MIT",
 	"require": {
         "pyrocms/lex": "2.3.*",
-        "erusev/parsedown": "dev-master"
+        "erusev/parsedown": "1.1.0"
 	}
 }
