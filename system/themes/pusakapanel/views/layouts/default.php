@@ -9,6 +9,8 @@
 		<div class="row wrapper">
 			<div class="col-md-12">		
 				<div class="content">
+					<?php get_partial('alerts'); ?>
+					
 					<?php echo $template['body']; ?>
 				</div>
 			</div>

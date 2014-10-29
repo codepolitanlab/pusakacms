@@ -15,6 +15,23 @@
 class Panel extends Admin_Controller {
 
 	var $users_path;
+	var $user_fields = array(
+		array(
+			'field'   => 'username', 
+			'label'   => 'Username', 
+			'rules'   => 'trim|required'
+			),
+		array(
+			'field'   => 'password', 
+			'label'   => 'Password', 
+			'rules'   => 'required|matches[passconf]'
+			),
+		array(
+			'field'   => 'passconf', 
+			'label'   => 'Confirm Password', 
+			'rules'   => 'required'
+			),
+		);
 
 	function __construct(){
 		parent::__construct();
@@ -70,7 +87,7 @@ class Panel extends Admin_Controller {
 		$savefile = array();
 		$validation_rules = array();
 		foreach ($config_file as $confile) {
-			$config[substr($confile, 0, -5)] = json_decode(read_file($config_path.$confile));
+			$config[substr($confile, 0, -5)] = json_decode(file_get_contents($config_path.$confile), true);
 			$savefile[substr($confile, 0, -5)] = array();
 
 			// set validation rules
@@ -114,7 +131,7 @@ class Panel extends Admin_Controller {
 
 		$users = array();
 		foreach ($users_file as $username) {
-			$users[substr($username, 0, -5)] = json_decode(read_file($this->users_path.$username));
+			$users[substr($username, 0, -5)] = json_decode(file_get_contents($this->users_path.$username), true);
 		}
 
 		$this->template
@@ -148,25 +165,7 @@ class Panel extends Admin_Controller {
 
 	function new_user()
 	{
-		$config = array(
-			array(
-				'field'   => 'username', 
-				'label'   => 'Username', 
-				'rules'   => 'trim|required'
-				),
-			array(
-				'field'   => 'password', 
-				'label'   => 'Password', 
-				'rules'   => 'required|matches[passconf]'
-				),
-			array(
-				'field'   => 'passconf', 
-				'label'   => 'Confirm Password', 
-				'rules'   => 'required'
-				),
-			);
-
-		$this->form_validation->set_rules($config);
+		$this->form_validation->set_rules($this->user_fields);
 
 		// submit if data valid
 		if($this->form_validation->run()){
@@ -188,16 +187,47 @@ class Panel extends Admin_Controller {
 		}
 
 		$this->template
-			->set('type', 'new')
-			->view('form_user');
+		->set('type', 'new')
+		->view('form_user');
 	}
 
-	function edit_user()
+	function edit_user($username = false)
 	{
+		if(! $username) redirect('panel/users');
+
+		$this->form_validation->set_rules($this->user_fields);
+
+		// submit if data valid
+		if($this->form_validation->run()){
+			$post = $this->input->post();
+			$post_json = json_encode($post, JSON_PRETTY_PRINT);
+
+			if(write_file($this->users_path.$username.'.json', $post_json)){
+				$this->session->set_flashdata('success', 'User edited.');
+	
+				// if username changed
+				if($username != $post['username'])
+					rename($this->users_path.$username.'.json', $this->users_path.$post['username'].'.json');
+			} else {
+				$this->session->set_flashdata('error', $this->users_path.' folder is not writtable.');
+			}
+
+			redirect('panel/users');
+		}
+		
+
+		if($user = file_get_contents($this->users_path.$username.'.json')) {
+			$user_json = json_decode($user, true);
+		} else {
+			$this->session->set_flashdata("error", "The user is not found so that can't be edited.\nTo create a new one, klick Add New User button.");
+			redirect('panel/users');
+		}
 
 		$this->template
-			->set('type', 'edit')
-			->view('form_post');
+		->set('type', 'edit')
+		->set('username', $username)
+		->set('user', $user_json)
+		->view('form_user');
 	}
 
 	// function check_username($username)

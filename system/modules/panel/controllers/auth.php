@@ -14,9 +14,12 @@
 
 class Auth extends Admin_Controller {
 
+	var $users_path;
+
 	function __construct(){
 		parent::__construct();
 		
+		$this->users_path = 'sites/'.SITE_SLUG.'/users/';
 	}
 
 	function index()
@@ -30,12 +33,11 @@ class Auth extends Admin_Controller {
 		if($this->session->userdata('username')) redirect('panel');
 
 		if($postdata = $this->input->post()){
-			$users_path = 'sites/'.SITE_SLUG.'/users/';
-			if($user_file = read_file($users_path.$postdata['username'])){
-				$userdata = explode("\n", trim($user_file));
-				if(trim($userdata[1]) === trim($postdata['password'])){
+			if($user_file = file_get_contents($this->users_path.$postdata['username'].'.json')){
+				$userdata = json_decode($user_file, true);
+				if(trim($userdata['password']) === trim($postdata['password'])){
 					$this->session->set_userdata('username', $postdata['username']);
-					$this->session->set_userdata('group', $userdata[0]);
+					// $this->session->set_userdata('group', $userdata[0]);
 					redirect('panel');
 				} else {
 					$this->session->set_flashdata('error', 'username and password not match.');

@@ -176,7 +176,7 @@ class Pusaka {
 				if($file != $this->navfile and $file != 'index.html')
 					$new_map[] = $this->remove_extension($file);
 
-				$json = (array) json_decode(read_file($prefix.'/'.$this->navfile));
+				$json = (array) json_decode(file_get_contents($prefix.'/'.$this->navfile));
 				$json_simpled = array_keys($json);
 
 				// add the new content to menu
@@ -272,7 +272,7 @@ class Pusaka {
 	{
 		// if post.json has been
 		if(file_exists(POST_FOLDER.'/'.$this->navfile)) {
-			$tree = (array) json_decode(read_file(POST_FOLDER.'/'.$this->navfile));
+			$tree = (array) json_decode(file_get_contents(POST_FOLDER.'/'.$this->navfile));
 
 		} else {
 			// get derectory map
@@ -315,7 +315,7 @@ class Pusaka {
 		$posts = array();
 
 		if($category){
-			$file = read_file(LABEL_FOLDER.'/'.$category.'.json');
+			$file = file_get_contents(LABEL_FOLDER.'/'.$category.'.json');
 			if(empty($file)) return false;
 			$map = (array) json_decode($file);
 			$begin = ($page - 1) * $this->post_per_page;
@@ -421,7 +421,7 @@ class Pusaka {
 			}
 		}
 
-		$file = read_file(POST_FOLDER.'/'.$filename);
+		$file = file_get_contents(POST_FOLDER.'/'.$filename);
 
 		if(!empty($file)){
 			$post = explode("{:", $file);
@@ -497,7 +497,7 @@ class Pusaka {
 			if(file_exists(PAGE_FOLDER.'/'.$prefix.$this->navfile)) {
 				$new_map = array();
 
-				$map = json_decode(read_file(PAGE_FOLDER.'/'.$prefix.$this->navfile));
+				$map = json_decode(file_get_contents(PAGE_FOLDER.'/'.$prefix.$this->navfile));
 
 				if($simple_array){
 					foreach ($map as $key => $value) {

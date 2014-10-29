@@ -986,7 +986,7 @@ class Template
 
 	private function _load_content($view, $ext, $data = array(), $parse_view = TRUE)
 	{
-		$file = read_file($view);
+		$file = file_get_contents($view);
 
 		$content_part = explode("~~~~~", $file);
 

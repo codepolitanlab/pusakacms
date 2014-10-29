@@ -1,18 +1,7 @@
-<?php if(validation_errors()): ?>
-	<div class="alert alert-danger" role="alert">
-		<?php echo validation_errors(); ?>
-	</div>
-<?php endif; ?>
-<?php if($this->session->flashdata('error')): ?>
-	<div class="alert alert-danger" role="alert">
-		<?php echo $this->session->flashdata('error'); ?>
-	</div>
-<?php endif; ?>
-
-<form action="<?php echo site_url('panel/users/new'); ?>" class="panel-form" method="POST">
+<form action="<?php echo site_url('panel/users/'.$type.'/'.$username); ?>" class="panel-form" method="POST">
 	<div class="row heading">
 		<div class="col-md-6">
-			<h1>NEW USER</h1>
+			<h1><?php echo strtoupper($type); ?> USER</h1>
 		</div>
 		<div class="col-md-6 align-right">
 			<button type="submit" class="btn btn-success"><span class="fa fa-save"></span> Save changes</button>
@@ -24,7 +13,7 @@
 		<div class="col-md-6">
 			<div class="form-group">
 				<label for="title">Username</label>
-				<input type="text" class="form-control" name="username" value="<?php echo set_value('username'); ?>">
+				<input type="text" class="form-control" name="username" value="<?php echo set_value('username', isset($user['username']) ? $user['username'] : ''); ?>">
 			</div>		
 		</div>
 	</div>

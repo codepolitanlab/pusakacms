@@ -27,10 +27,6 @@ class MY_Controller extends MX_Controller
 		if(!file_exists(($sitepath.'config/system.json'))){
 			show_error('system.json config file for your site is not found. Please create it first.');
 		}
-		
-		if(json_last_error() > 0){
-			show_error('confif file error: '. json_last_error_msg());
-		}
 
 		// get all config file
 		$config_file = array_filter(scandir($sitepath.'config'), function($user){
@@ -38,11 +34,15 @@ class MY_Controller extends MX_Controller
 		});
 
 		foreach ($config_file as $confile) {
-			$config = json_decode(read_file($sitepath.'config/'.$confile));
+			$config = json_decode(file_get_contents($sitepath.'config/'.$confile), true);
 			foreach ($config as $key => $value) {
 				$this->config->set_item($key, $value);
 				$this->data[$key] = $value;
 			}
+		}
+		
+		if(json_last_error() > 0){
+			show_error('config file error: '. json_last_error_msg());
 		}
 
 		$this->config->set_item('page_title', $this->config->item('site_name'));
