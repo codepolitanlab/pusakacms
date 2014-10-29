@@ -55,7 +55,17 @@ class Panel extends Admin_Controller {
 
 	function pages()
 	{
-		$this->template->view('pages');
+		$pages = $this->pusaka->get_nav();
+		$pagelist = $this->_page_list($pages);
+
+		$this->template
+			->set('pages', $pagelist)
+			->view('pages');
+	}
+
+	function _page_list($pages)
+	{
+		return $this->load->view('page_list', array('pages'=>$pages), true);
 	}
 
 	function posts()
