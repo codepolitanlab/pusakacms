@@ -1,7 +1,7 @@
-<form action="<?php echo site_url('panel/users/'.$type.'/'.$username); ?>" class="panel-form" method="POST">
+<form action="<?php echo site_url('panel/users/'.$type.'/'.(isset($username)?$username:'')); ?>" class="panel-form" method="POST">
 	<div class="row heading">
 		<div class="col-md-6">
-			<h1><?php echo strtoupper($type); ?> USER</h1>
+			<h1><a href="<?php echo site_url('panel/users'); ?>">USERS</a> &bull; <?php echo strtoupper($type); ?> USER</h1>
 		</div>
 		<div class="col-md-6 align-right">
 			<button type="submit" class="btn btn-success"><span class="fa fa-save"></span> Save changes</button>
@@ -13,7 +13,7 @@
 		<div class="col-md-6">
 			<div class="form-group">
 				<label for="title">Username</label>
-				<input type="text" class="form-control" name="username" value="<?php echo set_value('username', isset($user['username']) ? $user['username'] : ''); ?>">
+				<input type="text" class="form-control" name="username" value="<?php echo set_value('username', isset($user['username']) ? $user['username'] : ''); ?>" <?php if($type == 'edit') echo "disabled"; ?>>
 			</div>		
 		</div>
 	</div>
