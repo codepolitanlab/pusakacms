@@ -68,10 +68,14 @@ class Panel extends Admin_Controller {
 		return $this->load->view('page_list', array('pages'=>$pages), true);
 	}
 
-	function posts()
+	function posts($category = 'all', $page = 1)
 	{
-		
-		$this->template->view('posts');
+		$posts = $this->pusaka->get_posts($category, $page);
+		// print_r($posts);
+
+		$this->template
+			->set('posts', $posts)
+			->view('posts');
 	}
 
 	function navigation()

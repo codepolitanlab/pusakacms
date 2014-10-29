@@ -429,6 +429,14 @@ ul.content-list li {
 ul.content-list li .list-desc {
   padding: 10px 10px 0;
 }
+ul.content-list li .list-desc .labels {
+  margin-top: -8px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+ul.content-list li .list-desc .labels a .label {
+  cursor: pointer;
+}
 ul.content-list li .list-desc:hover {
   background: #f7f7f7;
 }

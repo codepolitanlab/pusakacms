@@ -314,7 +314,7 @@ class Pusaka {
 	{
 		$posts = array();
 
-		if($category){
+		if($category && $category != 'all'){
 			$file = file_get_contents(LABEL_FOLDER.'/'.$category.'.json');
 			if(empty($file)) return false;
 			$map = (array) json_decode($file);
@@ -427,7 +427,11 @@ class Pusaka {
 			$post = explode("{:", $file);
 			array_shift($post);
 			
-			$new_post = array('title' => $this->guess_name($filename, POST_TERM), 'date' => $date);			
+			$new_post = array(
+				'title' => $this->guess_name($filename, POST_TERM), 
+				'date' => $date,
+				'file' => $filename
+			);
 
 			foreach ($post as $elm) {
 				$segs = preg_split("/( :} | :}|:} |:})/", $elm, 2);
@@ -445,7 +449,7 @@ class Pusaka {
 					$new_post[trim($segs[0])] = $Parsedown->setBreaksEnabled(true)->text($segs[1]);
 				}
 				else
-					$new_post[$segs[0]] = trim($segs[1]);
+					$new_post[trim($segs[0])] = trim($segs[1]);
 
 				$new_post['url'] = $url;
 			}
