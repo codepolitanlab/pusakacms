@@ -153,6 +153,11 @@ class Panel extends Admin_Controller {
 		->view('users');
 	}
 
+	/*
+	 * FORM FUNCTIONS
+	 *
+	 */
+
 	function new_post()
 	{
 

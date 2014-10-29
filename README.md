@@ -8,7 +8,7 @@ TODO:
 - multisite (done)
 - theme per sites (done)
 - widget/snippet (done)
-- layout is choosen per page
+- layout is choosen per page (done)
 - error handling
 - admin panel
 - enable translation

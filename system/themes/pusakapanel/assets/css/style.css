@@ -122,10 +122,13 @@ p {
 .dropdown-menu {
   box-shadow: none;
   border-top: 0;
+  padding-top: 0;
 }
 .dropdown-menu>li>a {
   font-weight: 300;
-  font-size: 16px;
+  font-size: 18px;
+  padding: 10px 20px;
+  line-height: 21px;
 }
 .dropdown-menu>li>a:hover, 
 .dropdown-menu>li>a:focus {
@@ -483,6 +486,18 @@ ul.content-list ul.children {
 .form-group label small {
   color: #aaa;
   font-style: italic;
+}
+
+.btn {
+  border: 2px solid transparent;
+}
+.btn-transparent {
+  color: #444;
+  background-color: white;
+  border-color: #18BC9C;
+}
+.btn-transparent:hover {
+  color: #18BC9C;
 }
 
 .btn-tile {
