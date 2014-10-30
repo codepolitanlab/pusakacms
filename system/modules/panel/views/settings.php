@@ -4,7 +4,7 @@
 		<h1>GENERAL SETTINGS</h1>
 	</div>
 	<div class="col-md-6 align-right">
-		<button class="btn btn-lg btn-success" type="submit"><span class="fa fa-save"></span> Save settings</button>
+		<button class="btn btn-success" type="submit"><span class="fa fa-save"></span> Save settings</button>
 	</div>
 </div>
 

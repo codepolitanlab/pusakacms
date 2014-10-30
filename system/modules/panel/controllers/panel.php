@@ -160,26 +160,36 @@ class Panel extends Admin_Controller {
 
 	function new_post()
 	{
+		$layouts = $this->template->get_layouts();
 
-		$this->template->view('form_post', array('type'=>'edit'));
+		$this->template
+			->set('type', 'new')
+			->set('layouts', $layouts)
+			->view('form_post');
 	}
 
 	function edit_post()
 	{
 
-		$this->template->view('form_post', array('type'=>'edit'));
+		$this->template
+			->set('type', 'new')
+			->view('form_post');
 	}
 
 	function new_page()
 	{
 
-		$this->template->view('form_page');
+		$this->template
+			->set('type', 'new')
+			->view('form_page');
 	}
 
 	function edit_page()
 	{
 
-		$this->template->view('form_page');
+		$this->template
+			->set('type', 'edit')
+			->view('form_page');
 	}
 
 	function new_user()

@@ -1,7 +1,7 @@
 <form action="#" class="panel-form">
 	<div class="row heading">
 		<div class="col-md-6">
-			<h1>NEW PAGE</h1>
+			<h1><a href="<?php echo site_url('panel/pages'); ?>">PAGES</a> &bull; <?php echo strtoupper($type); ?> PAGE</h1>
 		</div>
 		<div class="col-md-6 align-right">
 			<button type="submit" class="btn btn-success"><span class="fa fa-save"></span> Save changes</button>
@@ -18,13 +18,13 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="title">Title <small>page title</small></label>
-						<input type="text" class="form-control" name="title">
+						<input type="text" class="form-control" name="title" id="title">
 					</div>		
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="slug">Slug <small>page url will become {{ helpers.site_title }}</small></label>
-						<input type="text" class="form-control" name="slug">
+						<input type="text" class="form-control" name="slug" id="slug">
 					</div>		
 				</div>
 			</div>
@@ -54,13 +54,7 @@
 
 			<div class="form-group">
 				<label for="content">Content</label>	
-				<textarea id="pagedownMe" class="form-control" rows="10">
-					# This is the *first* editor.
-
-					Just plain **Markdown**, except that the input is sanitized:
-
-					<marquee>I'm the ghost from the past!</marquee>
-				</textarea>
+				<textarea id="pagedownMe" class="form-control" rows="40"></textarea>
 			</div>
 		</div>
 

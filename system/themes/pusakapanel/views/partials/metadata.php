@@ -2,11 +2,6 @@
 <meta charset="utf-8">
 <title><?php echo $this->config->item('site_name'); ?></title>
 
-<script src="<?php echo get_theme_url() ?>assets/js/jquery.min.js"></script>
-<script src="<?php echo get_theme_url() ?>assets/js/bootstrap.min.js"></script>
-<script src="<?php echo get_theme_url() ?>assets/js/pagedown-bootstrap/js/jquery.pagedown-bootstrap.combined.js"></script>
-<script src="<?php echo get_theme_url() ?>assets/js/script.js"></script>
-
 <!-- Bootstrap core CSS -->
 <link href="<?php echo get_theme_url() ?>assets/css/bootstrap.min.css" rel="stylesheet">
 <link href="<?php echo get_theme_url() ?>assets/css/font-awesome.min.css" rel="stylesheet">
@@ -15,6 +10,11 @@
 <!-- Custom styles for this template -->
 <link href="<?php echo get_theme_url() ?>assets/css/style.css" rel="stylesheet">
 
+<script src="<?php echo get_theme_url() ?>assets/js/jquery.min.js"></script>
+<script src="<?php echo get_theme_url() ?>assets/js/bootstrap.min.js"></script>
+<script src="<?php echo get_theme_url() ?>assets/js/pagedown-bootstrap/js/jquery.pagedown-bootstrap.combined.js"></script>
+<script src="<?php echo get_theme_url() ?>assets/js/jquery.slugify.js"></script>
+<script src="<?php echo get_theme_url() ?>assets/js/script.js"></script>
 <script>
 	var links = document.links;
 	for (var i = 0, linksLength = links.length; i < linksLength; i++) {

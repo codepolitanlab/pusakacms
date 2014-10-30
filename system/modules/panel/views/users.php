@@ -4,7 +4,7 @@
 		<h1>USERS</h1>
 	</div>
 	<div class="col-md-6 align-right">
-		<a href="<?php echo site_url('panel/users/new'); ?>" class="btn btn-md btn-primary"><span class="fa fa-user"></span> Add New User</a>
+		<a href="<?php echo site_url('panel/users/new'); ?>" class="btn btn-transparent"><span class="fa fa-user"></span> Add New User</a>
 	</div>
 </div>
 
