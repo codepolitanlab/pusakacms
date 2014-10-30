@@ -88,7 +88,7 @@ class Panel extends Admin_Controller {
 			$json = file_get_contents(NAV_FOLDER.$file);
 			$areas[substr($file, 0, -5)] = json_decode($json, true);
 		}
-		print_r($areas);
+		
 		$this->template
 			->set('areas', $areas)
 			->view('navigation');
