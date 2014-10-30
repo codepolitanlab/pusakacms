@@ -165,7 +165,7 @@ class Panel extends Admin_Controller {
 		$this->template
 			->set('type', 'new')
 			->set('layouts', $layouts)
-			->view('form_post');
+			->view('post_form');
 	}
 
 	function edit_post()
@@ -173,7 +173,7 @@ class Panel extends Admin_Controller {
 
 		$this->template
 			->set('type', 'new')
-			->view('form_post');
+			->view('post_form');
 	}
 
 	function new_page()
@@ -181,7 +181,7 @@ class Panel extends Admin_Controller {
 
 		$this->template
 			->set('type', 'new')
-			->view('form_page');
+			->view('page_form');
 	}
 
 	function edit_page()
@@ -189,7 +189,7 @@ class Panel extends Admin_Controller {
 
 		$this->template
 			->set('type', 'edit')
-			->view('form_page');
+			->view('page_form');
 	}
 
 	function new_user()
@@ -217,7 +217,7 @@ class Panel extends Admin_Controller {
 
 		$this->template
 		->set('type', 'new')
-		->view('form_user');
+		->view('user_form');
 	}
 
 	function edit_user($username = false)
@@ -256,7 +256,7 @@ class Panel extends Admin_Controller {
 		->set('type', 'edit')
 		->set('username', $username)
 		->set('user', $user_json)
-		->view('form_user');
+		->view('user_form');
 	}
 
 	// function check_username($username)

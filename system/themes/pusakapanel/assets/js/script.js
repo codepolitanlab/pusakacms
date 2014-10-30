@@ -9,5 +9,5 @@ $(function(){
 	});
 
 	// jquery slugify
-	$('#slug').slugify('#title');
+	$('.slug').slugify('.title');
 });

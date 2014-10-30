@@ -18,13 +18,13 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="title">Title <small>page title</small></label>
-						<input type="text" class="form-control" name="title" id="title">
+						<input type="text" class="form-control title" name="title">
 					</div>		
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="slug">Slug <small>page url will become {{ helpers.site_title }}</small></label>
-						<input type="text" class="form-control" name="slug" id="slug">
+						<input type="text" class="form-control slug" name="slug">
 					</div>		
 				</div>
 			</div>

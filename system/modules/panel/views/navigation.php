@@ -3,7 +3,7 @@
 		<h1>NAVIGATION</h1>
 	</div>
 	<div class="col-md-6 align-right">
-		<div><a class="btn btn-transparent" href="{{ helpers.site_url }}panel/new_page">+ Create new area</a></div>
+		<div><button class="btn btn-transparent" data-toggle="modal" data-target="#myModal">+ Create new area</button></div>
 	</div>
 </div>
 <br>
@@ -95,4 +95,32 @@
 			</td>
 		</tr>
 	</table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<form action="<?php echo site_url('panel/navigation/add'); ?>" class="form">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="myModalLabel">Create New Navigation Area</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="area">Navigation Area Name</label>
+					<input type="text" name="area-title" class="form-control title">
+				</div>
+				<div class="form-group">
+					<label for="area">Navigation Area Slug</label>
+					<input type="text" name="area-slug" class="form-control slug">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button type="submit" class="btn btn-primary">Create</button>
+			</div>
+		</form>
+	</div>
+</div>
 </div>
