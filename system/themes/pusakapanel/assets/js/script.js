@@ -10,4 +10,9 @@ $(function(){
 
 	// jquery slugify
 	$('.slug').slugify('.title');
+
+	// confirm delete
+	$('.remove').click(function(){
+		return confirm('Are you sure want to delete this item?');
+	})
 });

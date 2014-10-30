@@ -222,7 +222,7 @@ class Panel extends Admin_Controller {
 
 	function edit_user($username = false)
 	{
-		if(! $username) redirect('panel/users');
+		if(! $username) show_404();
 
 		$this->form_validation->set_rules($this->user_fields);
 
@@ -267,5 +267,41 @@ class Panel extends Admin_Controller {
 	// 	} else
 	// 		return true;
 	// }
+
+	/*
+	 * DELETE FUNCTIONS
+	 *
+	 */
+	function delete_page($page = false)
+	{
+		
+	}
+
+	function delete_post($post = false)
+	{
+		
+	}
+
+	function delete_user($user = false)
+	{
+		if(! $user) show_404();
+
+		if(unlink($this->users_path.$user.'.json'))
+			$this->session->set_flashdata('success', 'User '.$user.' deleted successfuly.');
+		else
+			$this->session->set_flashdata('error', 'User '.$user.' fail to delete. Make sure the folder '.$this->users_path.' is writable.');
+
+		redirect('panel/users');
+	}
+
+	function delete_nav_area($area = false)
+	{
+		
+	}
+
+	function delete_link($link = false)
+	{
+		
+	}
 
 }

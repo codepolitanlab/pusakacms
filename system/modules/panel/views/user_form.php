@@ -13,7 +13,7 @@
 		<div class="col-md-6">
 			<div class="form-group">
 				<label for="title">Username</label>
-				<input type="text" class="form-control" name="username" value="<?php echo set_value('username', isset($user['username']) ? $user['username'] : ''); ?>" <?php if($type == 'edit') echo "disabled"; ?>>
+				<input type="text" class="form-control" name="username" value="<?php echo set_value('username', isset($user['username']) ? $user['username'] : ''); ?>">
 			</div>		
 		</div>
 	</div>

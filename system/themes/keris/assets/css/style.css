@@ -239,9 +239,19 @@ article.the-content {
   color: #f39c12;
 }
 
-.pusaka-features {
-  padding-top: 100px;
-  padding-bottom: 100px;
+section {
+  padding: 50px 0;
+}
+
+.pusaka-followup {
+  /*background: orange;*/
+}
+.pusaka-features h1 {
+  margin-bottom: 50px;
+}
+
+.pusaka-features .feature {
+  margin-bottom: 20px;
 }
 
 .pusaka-footer {
@@ -265,4 +275,20 @@ span.cat span a:after {
 }
 span.cat span:last-child a:after {
   content: " ";
+}
+
+.bigicon {
+  width: 100px;
+  height: 100px;
+  background: lightsteelblue;
+  color: white;
+  font-size: 48px;
+  text-align: center;
+  line-height: 100px;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+.dark {
+  background: steelblue;
+  color: white;
 }
