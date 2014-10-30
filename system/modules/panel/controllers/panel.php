@@ -80,8 +80,18 @@ class Panel extends Admin_Controller {
 
 	function navigation()
 	{
-		
-		$this->template->view('navigation');
+		$files = array_filter(scandir(NAV_FOLDER), function($file){
+			return (substr($file, -5) == '.json');
+		});
+		$areas = array();
+		foreach ($files as $file) {
+			$json = file_get_contents(NAV_FOLDER.$file);
+			$areas[substr($file, 0, -5)] = json_decode($json, true);
+		}
+		print_r($areas);
+		$this->template
+			->set('areas', $areas)
+			->view('navigation');
 	}
 
 	function media()
@@ -95,7 +105,7 @@ class Panel extends Admin_Controller {
 		// get config files
 		$config_path = 'sites/'.SITE_SLUG.'/config/';
 		$config_file = array_filter(scandir($config_path), function($user){
-			return (! in_array($user, array('.','..','index.html')));
+			return (substr($user, -5) == '.json');
 		});
 
 		$savefile = array();
@@ -140,7 +150,7 @@ class Panel extends Admin_Controller {
 	{
 		// get user files
 		$users_file = array_filter(scandir($this->users_path), function($user){
-			return (! in_array($user, array('.','..','index.html')));
+			return (substr($user, -5) == '.json');
 		});
 
 		$users = array();
@@ -259,6 +269,58 @@ class Panel extends Admin_Controller {
 		->view('user_form');
 	}
 
+	function new_nav_area()
+	{
+		if($area = $this->input->post()){
+			if(file_exists(NAV_FOLDER.$area['area-slug'].'.json'))
+				$this->session->set_flashdata('error', 'Navigation area "'.$area['area-slug'].'" has been used. Try another term.');
+			else {
+				$file = array(
+					'title' => $area['area-title'],
+					'links' => array()
+				);
+				if(write_file(NAV_FOLDER.$area['area-slug'].'.json', json_encode($file, JSON_PRETTY_PRINT)))
+					$this->session->set_flashdata('success', 'Navigation area saved.');
+				else
+					$this->session->set_flashdata('error', 'Navigation failed to save. Make sure the folder '.NAV_FOLDER.' is writable.');
+			}
+		}
+		redirect('panel/navigation');
+	}
+	
+	function edit_nav_area($slug = false)
+	{
+		if(! $slug) show_404();
+
+		if($area = $this->input->post()){
+			if(file_exists(NAV_FOLDER.$area['area-slug'].'.json'))
+				$this->session->set_flashdata('error', 'Navigation area "'.$area['area-slug'].'" has been used. Try another term.');
+			else {
+				if(! file_exists(NAV_FOLDER.$slug.'.json'))
+					$this->session->set_flashdata('error', 'Navigation area "'.$area['area-slug'].'" not found.');
+				else {
+					$file = file_get_contents(NAV_FOLDER.$slug.'.json');
+					$file_json = json_decode($file, true);
+					$new_file = array(
+						'title' => $area['area-title'],
+						'links' => $file_json['links']
+						);
+					if(write_file(NAV_FOLDER.$area['area-slug'].'.json', json_encode($new_file, JSON_PRETTY_PRINT))){
+						$this->session->set_flashdata('success', 'Navigation area updated.');
+						unlink(NAV_FOLDER.$slug.'.json');
+					} else
+					$this->session->set_flashdata('error', 'Navigation failed to save. Make sure the folder '.NAV_FOLDER.' is writable.');
+				}
+			}
+		}
+		redirect('panel/navigation');
+	}
+
+	function delete_nav_area()
+	{
+
+	}
+
 	// function check_username($username)
 	// {
 	// 	if(file_exists($this->users_path.$username.'.json')) {
@@ -292,11 +354,6 @@ class Panel extends Admin_Controller {
 			$this->session->set_flashdata('error', 'User '.$user.' fail to delete. Make sure the folder '.$this->users_path.' is writable.');
 
 		redirect('panel/users');
-	}
-
-	function delete_nav_area($area = false)
-	{
-		
 	}
 
 	function delete_link($link = false)

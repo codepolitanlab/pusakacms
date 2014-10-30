@@ -50,9 +50,11 @@ class MY_Controller extends MX_Controller
 		// set theme
 		$this->template->set_theme($this->config->item('theme'));
 
-		define('PAGE_FOLDER', $sitepath.'content/'.($this->config->item('page_folder')?$this->config->item('page_folder'):'pages'));
-		define('POST_FOLDER', $sitepath.'content/'.($this->config->item('post_folder')?$this->config->item('post_folder'):'posts'));
-		define('LABEL_FOLDER', $sitepath.'content/'.($this->config->item('label_folder')?$this->config->item('label_folder'):'labels'));
+		define('PAGE_FOLDER', $sitepath.'content/pages/');
+		define('POST_FOLDER', $sitepath.'content/posts/');
+		define('LABEL_FOLDER', $sitepath.'content/labels/');
+		define('NAV_FOLDER', $sitepath.'content/navs/');
+		define('SITE_PATH', $sitepath);
 		define('POST_TERM', $this->config->item('post_term')?$this->config->item('post_term'):'blog');
 	}
 
