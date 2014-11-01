@@ -8,12 +8,6 @@
 	</div>
 </div>
 
-<div class="notif">
-	<?php echo $this->session->flashdata('success')? '<div class="alert alert-success">'. $this->session->flashdata('success') .'</div>' : ''; ?>
-	<?php echo $this->session->flashdata('error')? '<div class="alert alert-danger">'. $this->session->flashdata('error') .'</div>' : ''; ?>
-	<?php echo validation_errors()? '<div class="alert alert-warning">'. validation_errors() .'</div>': ''; ?>
-</div>
-
 <ul class="nav nav-tabs">
 	<?php foreach ($config as $key => $value): ?>
 		<li<?php echo ($tab == $key)?' class="active"' : ''; ?>><a href="<?php echo "#".$key; ?>" role="tab" data-toggle="tab"><?php echo ucwords($key); ?></a></li>
