@@ -28,14 +28,14 @@
 					</div>		
 				</div>
 			</div>
-
+			
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="slug">Parent <small>Parent page</small></label>
 						<select class="form-control" name="parent" id="parent">
 							<option value="">--</option>
-							<?php foreach ($pagelinks as $pagelink => $cont): ?>
+							<?php foreach ($pagelinks as $pagelink): ?>
 							<option value="<?php echo $pagelink; ?>"><?php echo $pagelink; ?></option>
 							<?php endforeach; ?>
 						</select>

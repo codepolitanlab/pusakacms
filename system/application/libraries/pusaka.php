@@ -82,6 +82,23 @@ class Pusaka {
 		return $new_map;
 	}
 
+	function get_flatnav($map = array())
+	{
+		if(empty($map))
+			$map = $this->get_nav();
+
+		$new_map = array();
+
+		foreach ($map as $link => $content) {
+			if($link != '_title')
+				$new_map[$link] = $link;
+	
+			if(count($content) > 1)
+				$new_map += $this->get_flatnav($content);
+		}
+		return $new_map;
+	}
+
 	// --------------------------------------------------------------------
 
 	/**

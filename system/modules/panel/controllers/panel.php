@@ -166,7 +166,7 @@ class Panel extends Admin_Controller {
 			->set('page', '')
 			->set('url', '')
 			->set('layouts', $this->template->get_layouts())
-			->set('pagelinks', $this->pusaka->get_nav())
+			->set('pagelinks', $this->pusaka->get_flatnav())
 			->view('page_form');
 	}
 
