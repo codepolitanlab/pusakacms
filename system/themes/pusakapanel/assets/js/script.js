@@ -15,4 +15,9 @@ $(function(){
 	$('.remove').click(function(){
 		return confirm('Are you sure want to delete this item?');
 	})
+
 });
+
+setInterval(function(){
+	$('.alert').slideUp();
+}, 5000);

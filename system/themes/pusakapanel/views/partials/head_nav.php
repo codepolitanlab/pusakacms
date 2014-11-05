@@ -25,6 +25,9 @@ $links = array(
 
 <?php echo $this->pusaka->generate_nav($this->uri->segment(1), 3, "nav nav-pills nav-stacked", "list", "active"); ?>
 <ul class="nav navbar-nav">
+	<li>
+		<a href="<?php echo site_url('/'); ?>" target="_blank">Pusaka</a>
+	</li>
 	<?php foreach ($links as $url => $link): ?>
 		<?php if(is_array($link)): ?>
 			<li <?php echo ($this->uri->segment(2) == $url)? 'class="dropdown active"' : 'class="dropdown"'; ?>>

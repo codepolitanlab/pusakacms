@@ -83,6 +83,11 @@ class Panel extends Admin_Controller {
 		$this->users_path = 'sites/'. SITE_SLUG .'/users/';
 	}
 
+
+	/*********************************************
+	 * DASHBOARD
+	 **********************************************/
+
 	function index()
 	{
 
@@ -93,6 +98,10 @@ class Panel extends Admin_Controller {
 	{
 		$this->index();
 	}
+
+	/*********************************************
+	 * PAGES
+	 **********************************************/
 
 	function pages()
 	{
@@ -109,6 +118,32 @@ class Panel extends Admin_Controller {
 		return $this->load->view('page_list', array('pages'=>$pages), true);
 	}
 
+	function new_page()
+	{
+
+		$this->template
+			->set('type', 'new')
+			->view('page_form');
+	}
+
+	function edit_page()
+	{
+
+		$this->template
+			->set('type', 'edit')
+			->view('page_form');
+	}
+
+	function delete_page($page = false)
+	{
+		
+	}
+
+
+	/*********************************************
+	 * POSTS
+	 **********************************************/
+
 	function posts($category = 'all', $page = 1)
 	{
 		$posts = $this->pusaka->get_posts($category, $page);
@@ -118,96 +153,6 @@ class Panel extends Admin_Controller {
 			->set('posts', $posts)
 			->view('posts');
 	}
-
-	function navigation()
-	{
-		$files = array_filter(scandir(NAV_FOLDER), function($file){
-			return (substr($file, -5) == '.json');
-		});
-		$areas = array();
-		foreach ($files as $file) {
-			$json = file_get_contents(NAV_FOLDER.$file);
-			$areas[substr($file, 0, -5)] = json_decode($json, true);
-		}
-		
-		$this->template
-			->set('areas', $areas)
-			->view('navigation');
-	}
-
-	function media()
-	{
-		
-		$this->template->view('media');
-	}
-
-	function settings()
-	{
-		// get config files
-		$config_path = 'sites/'.SITE_SLUG.'/config/';
-		$config_file = array_filter(scandir($config_path), function($user){
-			return (substr($user, -5) == '.json');
-		});
-
-		$savefile = array();
-		$validation_rules = array();
-		foreach ($config_file as $confile) {
-			$config[substr($confile, 0, -5)] = json_decode(file_get_contents($config_path.$confile), true);
-			$savefile[substr($confile, 0, -5)] = array();
-
-			// set validation rules
-			foreach ($config[substr($confile, 0, -5)] as $key => $value) {
-				$this->form_validation->set_rules(substr($confile, 0, -5).'__'.$key, '<strong>'.substr($confile, 0, -5).'__'.$key.'</strong>', 'trim');
-			}
-		}
-
-		// submit if data valid
-		if($this->form_validation->run()){
-			$post = $this->input->post();
-			foreach ($post as $postkey => $postval) {
-				$field = explode("__", $postkey);
-				$savefile[$field[0]] += array($field[1] => $postval);
-			}
-
-			// save config to file
-			foreach ($savefile as $filekey => $fileval) {
-				if(! write_file($config_path.$filekey.'.json', json_encode($fileval, JSON_PRETTY_PRINT))){
-					$this->session->set_flashdata('error', 'unable to save '.$filekey.' settings to '.$filekey.'.json file.');
-					redirect('panel/settings');	
-				}
-			}
-
-			$this->session->set_flashdata('success', 'config saved.');
-			redirect('panel/settings');
-		}
-
-		$this->template
-		->set('tab', 'site')
-		->set('config', $config)
-		->view('settings');
-	}
-
-	function users()
-	{
-		// get user files
-		$users_file = array_filter(scandir($this->users_path), function($user){
-			return (substr($user, -5) == '.json');
-		});
-
-		$users = array();
-		foreach ($users_file as $username) {
-			$users[substr($username, 0, -5)] = json_decode(file_get_contents($this->users_path.$username), true);
-		}
-
-		$this->template
-		->set('users', $users)
-		->view('users');
-	}
-
-	/*
-	 * FORM FUNCTIONS
-	 *
-	 */
 
 	function new_post()
 	{
@@ -227,87 +172,30 @@ class Panel extends Admin_Controller {
 			->view('post_form');
 	}
 
-	function new_page()
+	function delete_post($post = false)
 	{
-
-		$this->template
-			->set('type', 'new')
-			->view('page_form');
+		
 	}
 
-	function edit_page()
+
+	/*********************************************
+	 * NAVIGATION
+	 **********************************************/	
+
+	function navigation()
 	{
-
-		$this->template
-			->set('type', 'edit')
-			->view('page_form');
-	}
-
-	function new_user()
-	{
-		$this->form_validation->set_rules($this->user_fields);
-
-		// submit if data valid
-		if($this->form_validation->run()){
-			$post = $this->input->post();
-			$post_json = json_encode($post, JSON_PRETTY_PRINT);
-
-			if(file_exists($this->users_path.$post['username'].'.json')) {
-				$this->session->set_flashdata('error', "Username '{$post['username']}' has been used. Try another username.");
-				redirect('panel/users/new');
-			}
-
-			if(write_file($this->users_path.$post['username'].'.json', $post_json)){
-				$this->session->set_flashdata('success', 'New user saved.');
-				redirect('panel/users');
-			} else {
-				$this->session->set_flashdata('error', $this->users_path.' folder is not writtable.');
-				redirect('panel/users/new');
-			}
-		}
-
-		$this->template
-		->set('type', 'new')
-		->view('user_form');
-	}
-
-	function edit_user($username = false)
-	{
-		if(! $username) show_404();
-
-		$this->form_validation->set_rules($this->user_fields);
-
-		// submit if data valid
-		if($this->form_validation->run()){
-			$post = $this->input->post();
-			$post_json = json_encode($post, JSON_PRETTY_PRINT);
-
-			if(write_file($this->users_path.$username.'.json', $post_json)){
-				$this->session->set_flashdata('success', 'User edited.');
-	
-				// if username changed
-				if($username != $post['username'])
-					rename($this->users_path.$username.'.json', $this->users_path.$post['username'].'.json');
-			} else {
-				$this->session->set_flashdata('error', $this->users_path.' folder is not writtable.');
-			}
-
-			redirect('panel/users');
+		$files = array_filter(scandir(NAV_FOLDER), function($file){
+			return (substr($file, -5) == '.json');
+		});
+		$areas = array();
+		foreach ($files as $file) {
+			$json = file_get_contents(NAV_FOLDER.$file);
+			$areas[substr($file, 0, -5)] = json_decode($json, true);
 		}
 		
-
-		if($user = file_get_contents($this->users_path.$username.'.json')) {
-			$user_json = json_decode($user, true);
-		} else {
-			$this->session->set_flashdata("error", "The user is not found so that can't be edited.\nTo create a new one, klick Add New User button.");
-			redirect('panel/users');
-		}
-
 		$this->template
-		->set('type', 'edit')
-		->set('username', $username)
-		->set('user', $user_json)
-		->view('user_form');
+			->set('areas', $areas)
+			->view('navigation');
 	}
 
 	function new_nav_area()
@@ -408,9 +296,9 @@ class Panel extends Admin_Controller {
 		redirect('panel/navigation');
 	}
 
-	function edit_link($oldarea = false, $title = false)
+	function edit_link($oldarea = false, $oldtitle = false)
 	{
-		if(! $oldarea || ! $title) show_404();
+		if(! $oldarea || ! $oldtitle) show_404();
 
 		$this->form_validation->set_rules($this->link_fields);
 
@@ -428,8 +316,8 @@ class Panel extends Admin_Controller {
 
 			print_r($area_arr);
 			// if link title changed
-			if($title != $link['link_title'])
-				unset($area_arr['links'][$title]);
+			if($oldtitle != $link['link_title'])
+				unset($area_arr['links'][$oldtitle]);
 
 			$area_arr['links'][$link['link_title']] = array(
 				'source' => $link['link_source'],
@@ -451,7 +339,7 @@ class Panel extends Admin_Controller {
 				$old_area_arr = json_decode($old_area, true);
 
 				// delete old link
-				unset($old_area_arr['links'][$title]);
+				unset($old_area_arr['links'][$oldtitle]);
 
 				if(write_file(NAV_FOLDER.$oldarea.'.json', json_encode($old_area_arr, JSON_PRETTY_PRINT)))
 					$succ_msg .= '<br>Link moved to new area.';
@@ -472,27 +360,177 @@ class Panel extends Admin_Controller {
 		redirect('panel/navigation');
 	}
 
-	// function check_username($username)
-	// {
-	// 	if(file_exists($this->users_path.$username.'.json')) {
-	// 		$this->form_validation->set_message(__FUNCTION__, 'The username has been used. Try another username.');
-	// 		return false;
-	// 	} else
-	// 		return true;
-	// }
-
-	/*
-	 * DELETE FUNCTIONS
-	 *
-	 */
-	function delete_page($page = false)
+	function delete_link($area = false, $title = false)
 	{
-		
+		if(! $area || ! $title) show_404();
+
+		if(! file_exists(NAV_FOLDER.$area.'.json')){
+			$this->session->set_flashdata('error', 'Navigation area "'.$area.'" not found.');
+			redirect('panel/navigation');
+		}
+
+		$file = file_get_contents(NAV_FOLDER.$area.'.json');
+		$nav = json_decode($file, true);
+
+		unset($nav['links'][$title]);
+
+		if(write_file(NAV_FOLDER.$area.'.json', json_encode($nav, JSON_PRETTY_PRINT)))
+			$this->session->set_flashdata('success', 'Link "'.$title.'" deleted.');
+		else
+			$this->session->set_flashdata('error', 'Link failed to delete. Make sure the folder '.NAV_FOLDER.' is writable.');
+
+		redirect('panel/navigation');
 	}
 
-	function delete_post($post = false)
+
+	/*********************************************
+	 * MEDIA
+	 **********************************************/
+
+	function media()
 	{
 		
+		$this->template->view('media');
+	}
+
+
+	/*********************************************
+	 * SETTINGS
+	 **********************************************/
+
+	function settings()
+	{
+		// get config files
+		$config_path = 'sites/'.SITE_SLUG.'/config/';
+		$config_file = array_filter(scandir($config_path), function($user){
+			return (substr($user, -5) == '.json');
+		});
+
+		$savefile = array();
+		$validation_rules = array();
+		foreach ($config_file as $confile) {
+			$config[substr($confile, 0, -5)] = json_decode(file_get_contents($config_path.$confile), true);
+			$savefile[substr($confile, 0, -5)] = array();
+
+			// set validation rules
+			foreach ($config[substr($confile, 0, -5)] as $key => $value) {
+				$this->form_validation->set_rules(substr($confile, 0, -5).'__'.$key, '<strong>'.substr($confile, 0, -5).'__'.$key.'</strong>', 'trim');
+			}
+		}
+
+		// submit if data valid
+		if($this->form_validation->run()){
+			$post = $this->input->post();
+			foreach ($post as $postkey => $postval) {
+				$field = explode("__", $postkey);
+				$savefile[$field[0]] += array($field[1] => $postval);
+			}
+
+			// save config to file
+			foreach ($savefile as $filekey => $fileval) {
+				if(! write_file($config_path.$filekey.'.json', json_encode($fileval, JSON_PRETTY_PRINT))){
+					$this->session->set_flashdata('error', 'unable to save '.$filekey.' settings to '.$filekey.'.json file.');
+					redirect('panel/settings');	
+				}
+			}
+
+			$this->session->set_flashdata('success', 'config saved.');
+			redirect('panel/settings');
+		}
+
+		$this->template
+		->set('tab', 'site')
+		->set('config', $config)
+		->view('settings');
+	}
+
+
+	/*********************************************
+	 * USERS
+	 **********************************************/	
+
+	function users()
+	{
+		// get user files
+		$users_file = array_filter(scandir($this->users_path), function($user){
+			return (substr($user, -5) == '.json');
+		});
+
+		$users = array();
+		foreach ($users_file as $username) {
+			$users[substr($username, 0, -5)] = json_decode(file_get_contents($this->users_path.$username), true);
+		}
+
+		$this->template
+		->set('users', $users)
+		->view('users');
+	}
+
+	function new_user()
+	{
+		$this->form_validation->set_rules($this->user_fields);
+
+		// submit if data valid
+		if($this->form_validation->run()){
+			$post = $this->input->post();
+			$post_json = json_encode($post, JSON_PRETTY_PRINT);
+
+			if(file_exists($this->users_path.$post['username'].'.json')) {
+				$this->session->set_flashdata('error', "Username '{$post['username']}' has been used. Try another username.");
+				redirect('panel/users/new');
+			}
+
+			if(write_file($this->users_path.$post['username'].'.json', $post_json)){
+				$this->session->set_flashdata('success', 'New user saved.');
+				redirect('panel/users');
+			} else {
+				$this->session->set_flashdata('error', $this->users_path.' folder is not writtable.');
+				redirect('panel/users/new');
+			}
+		}
+
+		$this->template
+		->set('type', 'new')
+		->view('user_form');
+	}
+
+	function edit_user($username = false)
+	{
+		if(! $username) show_404();
+
+		$this->form_validation->set_rules($this->user_fields);
+
+		// submit if data valid
+		if($this->form_validation->run()){
+			$post = $this->input->post();
+			$post_json = json_encode($post, JSON_PRETTY_PRINT);
+
+			if(write_file($this->users_path.$username.'.json', $post_json)){
+				$this->session->set_flashdata('success', 'User edited.');
+	
+				// if username changed
+				if($username != $post['username'])
+					rename($this->users_path.$username.'.json', $this->users_path.$post['username'].'.json');
+			} else {
+				$this->session->set_flashdata('error', $this->users_path.' folder is not writtable.');
+			}
+
+			redirect('panel/users');
+		}
+		
+
+		if($user = file_get_contents($this->users_path.$username.'.json')) {
+			$user_json = json_decode($user, true);
+		} else {
+			$this->session->set_flashdata("error", "The user is not found so that can't be edited.\nTo create a new one, klick Add New User button.");
+			redirect('panel/users');
+		}
+
+		$this->template
+		->set('type', 'edit')
+		->set('username', $username)
+		->set('user', $user_json)
+		->view('user_form');
 	}
 
 	function delete_user($user = false)
@@ -505,11 +543,6 @@ class Panel extends Admin_Controller {
 			$this->session->set_flashdata('error', 'User '.$user.' fail to delete. Make sure the folder '.$this->users_path.' is writable.');
 
 		redirect('panel/users');
-	}
-
-	function delete_link($link = false)
-	{
-		
 	}
 
 }

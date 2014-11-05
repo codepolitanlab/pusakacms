@@ -3,7 +3,7 @@
 		<h1>POSTS</h1>
 	</div>
 	<div class="col-md-6 align-right">
-		<div><a class="btn btn-md btn-transparent" href="{{ helpers.site_url }}panel/new_post">+ Create new posts</a></div>
+		<div><a class="btn btn-md btn-transparent" href="{{ helpers.site_url }}panel/posts/new">+ Create new posts</a></div>
 	</div>
 </div>
 
