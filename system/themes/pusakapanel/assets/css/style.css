@@ -124,6 +124,15 @@ p {
   border-top: 0;
   padding-top: 0;
 }
+.navbar-default .dropdown-menu {
+  background-color: #2C3E50;
+}
+.navbar-default .dropdown-menu a {
+  color: white;
+}
+.navbar-default .dropdown-menu a:hover {
+  background: transparent;
+}
 .dropdown-menu>li>a {
   font-weight: 300;
   font-size: 18px;

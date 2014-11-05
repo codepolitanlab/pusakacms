@@ -466,6 +466,71 @@ class Pusaka {
 	// --------------------------------------------------------------------
 
 	/**
+	 * get detail page
+	 *
+	 * @access	private
+	 * @param	string	category, null for get all
+	 * @param	int		page number
+	 * @return	array
+	 */
+	function get_page($url = null, $parse = true)
+	{
+		if(file_exists(PAGE_FOLDER.$url.'.md')) 
+			$file = file_get_contents(PAGE_FOLDER.$url.'.md');
+		elseif(file_exists(PAGE_FOLDER.$url.'/index.html')) 
+			$file = file_get_contents(PAGE_FOLDER.$url.'/index.html');
+		else
+			return false;
+
+
+		if(!empty($file)){
+			$page = explode("{:", $file);
+			array_shift($page);
+			
+			$page_arr = array('url' => $url);
+			
+			$file_segment = explode('/', $url);
+			if(count($url) > 0){
+				$page_arr['slug'] = array_pop($file_segment);
+				if(count($url) > 0)
+					$page_arr['parent'] = implode('/', $file_segment);
+			}
+
+			if($parse){	
+				foreach ($page as $elm) {
+					$segs = preg_split("/( :} | :}|:} |:})/", $elm, 2);
+
+					// set meta to config
+					if(in_array(trim($segs[0]), array('meta_keywords', 'meta_description', 'author')))
+						$this->CI->config->set_item(trim($segs[0]), trim($segs[1]));
+
+					if(trim($segs[0]) == 'labels')
+						$page_arr[trim($segs[0])] = preg_split("/(\s,\s|\s,|,\s)/", $segs[1]);
+
+					elseif(trim($segs[0]) == 'content')
+					{
+						$Parsedown = new Parsedown();
+						$page_arr[trim($segs[0])] = $Parsedown->setBreaksEnabled(true)->text($segs[1]);
+					}
+					else
+						$page_arr[trim($segs[0])] = trim($segs[1]);
+				}
+			} else {
+				foreach ($page as $elm) {
+					$segs = preg_split("/( :} | :}|:} |:})/", $elm, 2);
+					$page_arr[trim($segs[0])] = trim($segs[1]);
+				}
+			}
+
+			return $page_arr;
+		}
+
+		return false;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
 	 * get post label list
 	 *
 	 * @access	private

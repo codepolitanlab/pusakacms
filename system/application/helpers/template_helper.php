@@ -281,3 +281,14 @@ if ( ! function_exists('site_config'))
 		return $CI->config->item($key);
 	}
 }
+
+if ( ! function_exists('validate_value'))
+{
+	function validate_value($object, $key) {
+		$res = '';
+		if(isset($object[$key]))
+			$res = $object[$key];
+		
+		return $res;
+	}
+}

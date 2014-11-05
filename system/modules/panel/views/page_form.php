@@ -1,4 +1,4 @@
-<form action="<?php echo site_url('panel/pages/new'); ?>" method="POST" class="panel-form">
+<form action="<?php echo site_url('panel/pages/'.$type.'/'.$url); ?>" method="POST" class="panel-form">
 	<div class="row heading">
 		<div class="col-md-6">
 			<h1><a href="<?php echo site_url('panel/pages'); ?>">PAGES</a> &bull; <?php echo strtoupper($type); ?> PAGE</h1>
@@ -18,13 +18,13 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="title">Title <small>page title</small></label>
-						<input type="text" class="form-control title" name="title">
+						<input type="text" class="form-control title" name="title" id="title" value="<?php echo set_value('title', validate_value($page, 'title')); ?>">
 					</div>		
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="slug">Slug <small>page url will become {{ helpers.site_title }}</small></label>
-						<input type="text" class="form-control slug" name="slug">
+						<input type="text" class="form-control slug" name="slug" id="slug" value="<?php echo set_value('slug', validate_value($page, 'slug')); ?>">
 					</div>		
 				</div>
 			</div>
@@ -35,9 +35,9 @@
 						<label for="slug">Parent <small>Parent page</small></label>
 						<select class="form-control" name="parent" id="parent">
 							<option value="">--</option>
-							<option value="docs">Docs</option>
-							<option value="docs/apa-itu-pusaka">Docs > Apa itu Pusaka</option>
-							<option value="about">About</option>
+							<?php foreach ($pagelinks as $pagelink => $cont): ?>
+							<option value="<?php echo $pagelink; ?>"><?php echo $pagelink; ?></option>
+							<?php endforeach; ?>
 						</select>
 					</div>
 				</div>
@@ -46,8 +46,9 @@
 						<label for="title">Layout <small>page layout file</small></label>
 						<select class="form-control" name="layout" id="layout">
 							<option value="">Auto</option>
-							<option value="full-width">full-width</option>
-							<option value="sidebar-right">sidebar-right</option>
+							<?php foreach ($layouts as $layout): ?>
+							<option value="<?php echo $layout; ?>"><?php echo $layout; ?></option>
+							<?php endforeach; ?>
 						</select>
 					</div>
 				</div>
@@ -55,18 +56,18 @@
 
 			<div class="form-group">
 				<label for="content">Content</label>	
-				<textarea id="pagedownMe" name="content" class="form-control" rows="40"></textarea>
+				<textarea id="pagedownMe" name="content" id="content" class="form-control" rows="40"><?php echo set_value('content', validate_value($page, 'content')); ?></textarea>
 			</div>
 		</div>
 
 		<div class="tab-pane" id="optional">
 			<div class="form-group">
 				<label for="meta-desc">Meta Description <small>optional</small></label>
-				<textarea name="meta-desc" class="form-control" rows="3"></textarea>
+				<textarea name="meta-desc" id="meta-desc" class="form-control" rows="3"><?php echo set_value('meta-desc', validate_value($page, 'meta-desc')); ?></textarea>
 			</div>
 			<div class="form-group">
 				<label for="meta-keyword">Meta Keyword <small>optional</small></label>
-				<input name="meta-keyword" class="form-control">
+				<input name="meta-keyword" id="meta-keyword" class="form-control" value="<?php echo set_value('meta-keyword', validate_value($page, 'meta-keyword')); ?>">
 			</div>
 		</div>
 	</div>
@@ -74,8 +75,8 @@
 </form>
 
 <script type="text/javascript">
-	(function() {
+	$(function() {
 		$("textarea#pagedownMe").pagedownBootstrap();
 		$('.wmd-preview').addClass('well').css('display', 'none');
-	})();
+	});
 </script>

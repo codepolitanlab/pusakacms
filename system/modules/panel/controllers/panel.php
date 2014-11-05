@@ -163,14 +163,49 @@ class Panel extends Admin_Controller {
 
 		$this->template
 			->set('type', 'new')
+			->set('page', '')
+			->set('url', '')
+			->set('layouts', $this->template->get_layouts())
+			->set('pagelinks', $this->pusaka->get_nav())
 			->view('page_form');
 	}
 
 	function edit_page()
 	{
+		$uri = $this->uri->uri_string();
+		$uri_arr = explode('/', $uri, 4);
+		$url = $uri_arr[3];
+
+		$this->form_validation->set_rules($this->page_fields);
+
+		if($this->form_validation->run()){
+			$url = $this->input->post();
+			$file_content = "";
+
+			foreach ($url as $key => $value) {
+				if($value)
+					$file_content .= "{: ".$key." :} ".$value."\n";
+			}
+			
+			if(write_file(PAGE_FOLDER.$url['parent'].'/'.$url['slug'].'.md', $file_content))
+				$this->session->set_flashdata('success', 'Page saved.');
+			else
+				$this->session->set_flashdata('error', 'Page failed to save. Make sure the folder '.PAGE_FOLDER.' is writable.');
+
+			// update page index
+			$this->pusaka->sync_nav();
+
+			redirect('panel/pages');
+		}
+
+		$page = $this->pusaka->get_page($url, false);
 
 		$this->template
 			->set('type', 'edit')
+			->set('page', $page)
+			->set('url', $url)
+			->set('layouts', $this->template->get_layouts())
+			->set('pagelinks', $this->pusaka->get_nav())
 			->view('page_form');
 	}
 
