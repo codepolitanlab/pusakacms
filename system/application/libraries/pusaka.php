@@ -162,8 +162,10 @@ class Pusaka {
 			}
 
 			krsort($tree);
-			write_file(POST_FOLDER.'/'.$this->navfile, json_encode($tree, JSON_PRETTY_PRINT));
-			$output .= "post index synced.";
+			if(! write_file(POST_FOLDER.'/'.$this->navfile, json_encode($tree, JSON_PRETTY_PRINT)))
+				$output .= "unable to write ".$this->navfile."\n";
+			else
+				$output .= "post index synced.";
 			
 		} else {
 
@@ -188,7 +190,7 @@ class Pusaka {
 					}
 
 					// make sure it is writablle
-					if(! write_file($prefix.'/'.$this->navfile, json_encode($json, JSON_PRETTY_PRINT), "w")) {
+					if(! write_file($prefix.'/'.$this->navfile, json_encode($json, JSON_PRETTY_PRINT))) {
 						$output .= "please set content folder writable.\n";
 						exit;
 					}
@@ -219,7 +221,7 @@ class Pusaka {
 
 		}
 		
-		return $output;
+		echo $output;
 	}
 
 	// --------------------------------------------------------------------

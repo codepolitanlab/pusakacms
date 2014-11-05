@@ -12,6 +12,8 @@
 				<?php get_partial('sidebar'); ?>
 			</div>
 			<div class="col-md-9 the-content">
+				<h1><?php echo get_field('title'); ?></h1>
+				
 				<?php echo $template['body']; ?>
 			</div>
 		</div>

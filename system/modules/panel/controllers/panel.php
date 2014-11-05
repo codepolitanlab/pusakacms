@@ -15,6 +15,25 @@
 class Panel extends Admin_Controller {
 
 	var $users_path;
+
+	var $page_fields = array(
+		array(
+			'field'   => 'title', 
+			'label'   => 'Page Title', 
+			'rules'   => 'trim|required'
+			),
+		array(
+			'field'   => 'slug', 
+			'label'   => 'Page Slug', 
+			'rules'   => 'trim|required'
+			),
+		array(
+			'field'   => 'content', 
+			'label'   => 'Page Content', 
+			'rules'   => 'required'
+			)
+		);
+
 	var $user_fields = array(
 		array(
 			'field'   => 'username', 
@@ -30,7 +49,7 @@ class Panel extends Admin_Controller {
 			'field'   => 'passconf', 
 			'label'   => 'Confirm Password', 
 			'rules'   => 'required'
-			),
+			)
 		);
 
 	var $nav_area_fields = array(
@@ -120,6 +139,27 @@ class Panel extends Admin_Controller {
 
 	function new_page()
 	{
+		$this->form_validation->set_rules($this->page_fields);
+
+		if($this->form_validation->run()){
+			$page = $this->input->post();
+			$file_content = "";
+
+			foreach ($page as $key => $value) {
+				if($value)
+					$file_content .= "{: ".$key." :} ".$value."\n";
+			}
+			
+			if(write_file(PAGE_FOLDER.$page['parent'].'/'.$page['slug'].'.md', $file_content))
+				$this->session->set_flashdata('success', 'Page saved.');
+			else
+				$this->session->set_flashdata('error', 'Page failed to save. Make sure the folder '.PAGE_FOLDER.' is writable.');
+
+			// update page index
+			$this->pusaka->sync_nav();
+
+			redirect('panel/pages');
+		}
 
 		$this->template
 			->set('type', 'new')

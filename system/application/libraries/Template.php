@@ -55,6 +55,8 @@ class Template
 
 	private $_data = array();
 
+	private $fields = array();
+
 	/**
 	 * Constructor - Sets Preferences
 	 *
@@ -988,12 +990,13 @@ class Template
 	{
 		$file = file_get_contents($view);
 
-		$content_part = explode("~~~~~", $file);
+		$content_part = explode("{:", $file);
+		array_shift($content_part);
 
 		// if user set fields
 		if(count($content_part) > 1){
 			foreach ($content_part as $elm) {
-				$segs = preg_split("/( : | :|: |:)/", $elm, 2);
+				$segs = preg_split("/( :} | :}|:} |:})/", $elm, 2);
 
 				// set meta to config
 				if(in_array(trim($segs[0]), array('meta_keywords', 'meta_description', 'author')))
@@ -1002,14 +1005,16 @@ class Template
 				if(trim($segs[0]) == 'layout')
 					$this->set_layout(trim($segs[1]));
 
-				if(trim($segs[0]) == 'content'){
+				elseif(trim($segs[0]) == 'content'){
 					// parse content first with lex parser
 					if ($this->_parser_enabled === TRUE AND $parse_view === TRUE)
 						$content = $this->_lexparser->parse(trim($segs[1]), $data, 'Template::_lex_callback');
 
 					$Parsedown = new Parsedown();
 					$content = $Parsedown->setBreaksEnabled(true)->text($content);
-				}
+				
+				} else
+					$this->fields[trim($segs[0])] = trim($segs[1]);
 			}
 		} else {
 			// parse content first with lex parser
@@ -1071,6 +1076,13 @@ class Template
 		}
 
 		return false;
+	}
+
+	function get_fields($field = false){
+		if($field)
+			return isset($this->fields[$field]) ? $this->fields[$field] : "";
+
+		return $this->fields;
 	}
 }
 

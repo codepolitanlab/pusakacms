@@ -173,6 +173,21 @@ if ( ! function_exists('get_partial'))
 }
 
 /**
+	* get the page field
+	* 
+	* @param String $file 	name
+	* @return String filename
+	*/
+if ( ! function_exists('get_field'))
+{
+	function get_field($field = false) {
+		$CI = &get_instance();
+		return $CI->template->get_fields($field);
+	}
+}
+
+
+/**
 	* get the snippet for templating
 	* 
 	* @param String $file 	name

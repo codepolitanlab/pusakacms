@@ -1,4 +1,4 @@
-<form action="#" class="panel-form">
+<form action="<?php echo site_url('panel/pages/new'); ?>" method="POST" class="panel-form">
 	<div class="row heading">
 		<div class="col-md-6">
 			<h1><a href="<?php echo site_url('panel/pages'); ?>">PAGES</a> &bull; <?php echo strtoupper($type); ?> PAGE</h1>
@@ -33,7 +33,8 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="slug">Parent <small>Parent page</small></label>
-						<select class="form-control" name="format" id="layout">
+						<select class="form-control" name="parent" id="parent">
+							<option value="">--</option>
 							<option value="docs">Docs</option>
 							<option value="docs/apa-itu-pusaka">Docs > Apa itu Pusaka</option>
 							<option value="about">About</option>
@@ -44,17 +45,17 @@
 					<div class="form-group">
 						<label for="title">Layout <small>page layout file</small></label>
 						<select class="form-control" name="layout" id="layout">
-							<option value="auto">auto</option>
+							<option value="">Auto</option>
 							<option value="full-width">full-width</option>
 							<option value="sidebar-right">sidebar-right</option>
 						</select>
-					</div>		
+					</div>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="content">Content</label>	
-				<textarea id="pagedownMe" class="form-control" rows="40"></textarea>
+				<textarea id="pagedownMe" name="content" class="form-control" rows="40"></textarea>
 			</div>
 		</div>
 
@@ -65,7 +66,7 @@
 			</div>
 			<div class="form-group">
 				<label for="meta-keyword">Meta Keyword <small>optional</small></label>
-				<input type="meta-keyword" class="form-control">
+				<input name="meta-keyword" class="form-control">
 			</div>
 		</div>
 	</div>
