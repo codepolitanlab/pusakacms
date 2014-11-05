@@ -1,5 +1,5 @@
-# Daftar Rilis Download
-
+{: title :} Daftar Rilis Download
+{: content :}
 ##  Download versi stabil terbaru
 
 [PusakaCMS v1.0]({{ helpers.base_url }})

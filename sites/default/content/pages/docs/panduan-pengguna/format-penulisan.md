@@ -1,1 +1,2 @@
-# Format Penulisan
+{: title :} Format Penulisan
+{: content :}

@@ -1,1 +1,2 @@
-# Pengaturan Menu
+{: title :} Pengaturan Menu
+{: content :}

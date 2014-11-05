@@ -1,5 +1,5 @@
-# Membuat Halaman
-
+{: title :} Membuat Halaman
+{: content :}
 Semua file yang terkait dengan halaman disimpan di `content/pages/`. Folder ini berisi file `index.html` dan `nav.json` (untuk pengaturan navigasi).
 
 **Format penamaan folder dan file:** 	

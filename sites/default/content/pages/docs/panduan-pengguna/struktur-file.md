@@ -1,5 +1,5 @@
-# Struktur File
-
+{: title :} Struktur File
+{: content :}
 Ada **4 folder** dan **2 file** utama dalam PusakaCMS.
 
 1. `content/` - Folder penyimpanan seluruh konten website. Di dalamnya ada 3 folder yaitu `files/` untuk penyimpanan semua file yang diunggah untuk kebutuhan website, `pages/` untuk penyimpanan semua file yang berhubungan dengan halaman, dan `posts/` untuk penyimpanan semua file yang berhubungan dengan post blog. 	

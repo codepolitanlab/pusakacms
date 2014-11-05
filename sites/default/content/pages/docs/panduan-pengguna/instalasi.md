@@ -1,5 +1,5 @@
-# Instalasi
-
+{: title :} Instalasi
+{: content :}
 ## Komputer Lokal
 
 Kamu perlu komputer yang terinstal XAMPP/WAMP di Windows atau LAMP di Linux atau MAMP di MacOS, atau aplikasi web server lainnya. Intinya PusakaCMS hanya memerlukan Web server (Apache2 atau web server lain) dan PHP 5.3.x. 

@@ -1,1 +1,2 @@
-# Lisensi
+{: title :} Lisensi
+{: content :}

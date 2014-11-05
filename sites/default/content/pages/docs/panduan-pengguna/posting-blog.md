@@ -1,5 +1,5 @@
-# Memposting Blog
-
+{: title :} Memposting Blog
+{: content :}
 Semua file yang terkait dengan blog post (artikel dan kategori) disimpan di `contents/posts/`. Folder ini berisi file `index.html` dan `nav.json`. Folder ini juga berisi folder `categories/` untuk [pengaturan kategori](http://localhost/pusakacms/panduan-pengguna/mengatur-kategori) blog post.
 
 **Format penulisan nama file untuk blog post:** 	

@@ -1,5 +1,5 @@
-# Fitur
-
+{: title :} Fitur
+{: content :}
 ### v1.0
  
 - Setiap konten file merepresentasikan halaman

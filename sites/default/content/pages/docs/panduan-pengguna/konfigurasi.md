@@ -1,5 +1,5 @@
-# Konfigurasi
-
+{: title :} Konfigurasi
+{: content :}
 Penyuntingan konfigurasi website dilakukan pada file `conf.php`
 
 `$config['site_title']` - Judul website 	
