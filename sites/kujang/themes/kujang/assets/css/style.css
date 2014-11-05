@@ -1,0 +1,354 @@
+/*
+ * Author: Carlos Alvarez
+ * URL: http://alvarez.is
+ *
+ * Project Name: Feedo - Free Bootstrap Theme
+ * Version: 1.0
+ * URL: http://blacktie.co/
+ */
+ 
+/* FONTS */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Open Sans Light'), local('OpenSans-Light'), url(../fonts/OpenSans-Light.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(../fonts/OpenSans.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(../fonts/OpenSans-Semibold.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 300;
+  src: local('Open Sans Light Italic'), local('OpenSansLight-Italic'), url(../fonts/OpenSansLight-Italic.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Open Sans Italic'), local('OpenSans-Italic'), url(../fonts/OpenSans-Italic.woff) format('woff');
+}
+
+/* OVERALL ASPECT */
+
+body {
+    background-color: #fff;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #555;
+
+    -webkit-font-smoothing: antialiased;
+    -webkit-overflow-scrolling: touch;
+    
+}
+
+/* Titles */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    color: #555;
+}
+h1 a,
+h1 a,
+h2 a,
+h2 a,
+h3 a,
+h3 a,
+h4 a,
+h4 a,
+h5 a,
+h5 a,
+h6 a,
+h6 a {
+  color: #444;
+}
+h1 a:hover,
+h1 a:focus,
+h2 a:hover,
+h2 a:focus,
+h3 a:hover,
+h3 a:focus,
+h4 a:hover,
+h4 a:focus,
+h5 a:hover,
+h5 a:focus,
+h6 a:hover,
+h6 a:focus {
+  color: #555;
+}
+
+/* Paragraph & Typographic */
+p {
+    line-height: 24px;
+    margin-bottom: 25px;
+}
+
+.centered {
+    text-align: center;
+}
+
+.goleft {
+	text-align: left;
+}
+
+/* Links */
+a {
+    word-wrap: break-word;
+    font-weight: bold;
+
+    -webkit-transition: color 0.1s ease-in,
+    background 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+    transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+a:hover,
+a:focus {
+    color: #333;
+    text-decoration: none;
+    outline: 0;
+}
+
+a:before,
+a:after {
+    -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+    transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+ hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+.mb10 {
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+.centered {
+	text-align: center;
+}
+
+/* CONFIGURATION FOR Feedo */
+
+.site {
+	background: white;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	box-shadow: 5px 5px 5px #2f2f2f;
+}
+.site-title {
+	background: #7f7ea8;
+	margin-left: -15px;
+	margin-right: -15px;
+	padding: 20px;
+}
+
+.site-title h2 {
+	font-weight: 400;
+	color: white;
+	text-align: center;
+}
+
+.site-footer {
+	margin-left: -15px;
+	margin-right: -15px;
+	text-align: center;
+}
+
+.post {
+	display: block;
+	padding-top:15px;
+	padding-bottom: 15px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	border-bottom: 1px solid #ddd;
+}
+
+.post .pull-right {
+	margin-top: -15px;
+}
+
+.post .glyphicon {
+	font-size: 24px;
+	color: #7f7ea8
+}
+
+/*Helper*/
+
+.font-white{
+color:white;
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+article.the-content {
+  margin-bottom: 50px;
+  padding-bottom: 30px !important;
+  border-bottom: 2px solid #CAECE5;
+}
+article.the-content:last-child {
+  border-bottom: none;
+}
+
+.the-content ul {
+  padding: 0 20px;
+  margin-bottom: 25px;
+}
+
+.the-content ul li {
+  margin-bottom: 5px;
+}
+
+.label a {
+  color: #333;
+}
+
+.content {
+  margin: 20px 0;
+}
+
+.cat span {
+  margin-left: 3px;
+  background: #eee;
+  padding: 2px 5px;
+}
+
+.border-footer {
+  background:#479a89;
+  height:5px;
+}
+
+
+
+img {
+	max-width:100%;
+}
+
+
+/*------------------------------------------------*/
+/*---------------------[NAVBAR]-------------------*/
+/*------------------------------------------------*/
+.navbar {
+	border-bottom:0px;
+	min-height: 0;
+	padding-top:20px;
+	padding-bottom:20px;
+}
+.navbar-right {
+	line-height:45px;
+	height:45px;
+}
+.navbar-right a {
+	color:#e3f6f3;
+	text-decoration:none;
+}
+.navbar-right a:hover {
+	color:#9fcfc7;
+	text-decoration:none;
+}
+
+
+/*------------------------------------------------*/
+/*---------------------[FOOTER]-------------------*/
+/*------------------------------------------------*/
+
+  #footer-widgets { padding-top: 80px; }
+    .footer-widget { float: left; width: 225px; margin: 0 60px 50px 0; color: #fff; }
+    .last { margin-right: 0; }
+      #main-footer .et_pb_widget { margin: 0; }
+      #footer-widgets .fwidget { padding-bottom: 15px; }
+      #footer-widgets .footer-widget h4 { font-weight: 500; padding-bottom: 9px; font-size: 18px; margin-bottom: 0; }
+      #footer-widgets .footer-widget p { line-height: 24px; }
+      #footer-widgets .footer-widget li { line-height: 24px; padding: 0 0 18px 14px; position: relative; }
+      #footer-widgets .footer-widget li:before { border-color: #7EBEC5; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; border-style: solid; border-width: 3px; content: ""; left: 0; position: absolute; top: 9px; }
+        #footer-widgets .footer-widget li a { color: #fff; text-decoration: none; }
+        #footer-widgets .footer-widget li a:hover { color: rgba(255, 255, 255, 0.7); }
+#footer-bottom { background-color: #1f1f1f; background-color: rgba(0, 0, 0, 0.32); padding: 15px 0 5px; }
+  #footer-info { text-align: left; color: #666; padding-bottom: 10px; float: left; }
+    #footer-info a { font-weight: 700; color: #666; }
+
+#footer-bottom {
+  background:#2F362F !important;
+  color:#ffffff;
+  padding-bottom:20px;
+  border-top: 5px solid #479A89;
+  font-size: 13px;
+}
+#footer-bottom p { color:#ffffff; }
+#footer-bottom a { color:#CAECE5; }
+#footer-bottom a:hover { color:#fff; }
+#footer-bottom .footer-nav a { margin: 0 5px; }
+
+.codimio-nyanlogo {
+  width:250px;
+  float:right;
+}
+
+#footer-bottom #footer-info {
+  width:600px;
+  color:#b8b8b8;
+}
+#footer-bottom #footer-info h3 {
+  color:#f8f8f8;
+  margin-bottom:10px;
+}
+#footer-bottom #footer-info .copyright-text {
+  border-top:0px solid #484c48;
+  margin-top:15px;
+  padding-top:5px;
+}
+#footer-bottom #footer-info .copyright-text a { color:#78CAB7; font-weight:normal; }
+#footer-bottom #footer-info .copyright-text a:hover,
+#footer-bottom #footer-info .copyright-text a:focus { color:#78CAB7; font-weight:normal; }
+
+span.date, .cat, .comment-count {
+  background: none;
+  font-size: 12px;
+  color: #999;
+  margin-right: 10px;
+}
+
+.widget {
+  margin-bottom: 30px;
+}
+.label.label-info {
+	display:inline-block;
+	margin-right:1px;
+	margin-bottom:1px;
+	padding:0px;
+	background:#ffffff;
+}
+.label.label-info a {
+	color:#ffffff;
+	background:#279b88;
+	font-size:14px;
+	margin-bottom:5px;
+	display:inline-block;
+	padding:5px 5px;
+}

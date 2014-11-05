@@ -1,0 +1,10 @@
+{
+    "title": "Header",
+    "links": [
+        {
+            "title": "Docs",
+            "url": "www.docs.com",
+            "target": "_blank"
+        }
+    ]
+}

@@ -1,10 +1,15 @@
 {
     "title": "Header",
-    "links": [
-        {
-            "title": "Docs",
+    "links": {
+        "Blog": {
+            "source": "uri",
+            "url": "blog",
+            "target": "_self"
+        },
+        "Docs": {
+            "source": "http:\/\/",
             "url": "www.docs.com",
-            "target": "_blank"
+            "target": "_self"
         }
-    ]
+    }
 }

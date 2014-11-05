@@ -33,6 +33,47 @@ class Panel extends Admin_Controller {
 			),
 		);
 
+	var $nav_area_fields = array(
+			array(
+				'field'   => 'area-title', 
+				'label'   => 'Area Name', 
+				'rules'   => 'trim|required'
+				),
+			array(
+				'field'   => 'area-slug', 
+				'label'   => 'Area Slug', 
+				'rules'   => 'trim|required'
+				)
+			);
+
+	var $link_fields = array(
+			array(
+				'field'   => 'link_title', 
+				'label'   => 'Link Title', 
+				'rules'   => 'trim|required'
+				),
+			array(
+				'field'   => 'link_url', 
+				'label'   => 'Link URL', 
+				'rules'   => 'trim|required'
+				),
+			array(
+				'field'   => 'link_source', 
+				'label'   => 'Link Source', 
+				'rules'   => 'trim|required'
+				),
+			array(
+				'field'   => 'link_area', 
+				'label'   => 'Navigation Area', 
+				'rules'   => 'trim|required'
+				),
+			array(
+				'field'   => 'link_target', 
+				'label'   => 'Link Target', 
+				'rules'   => 'trim|required'
+				)
+			);
+
 	function __construct(){
 		parent::__construct();
 		$this->load->library('form_validation');
@@ -271,7 +312,11 @@ class Panel extends Admin_Controller {
 
 	function new_nav_area()
 	{
-		if($area = $this->input->post()){
+		$this->form_validation->set_rules($this->nav_area_fields);
+
+		// submit if data valid
+		if($this->form_validation->run()) {
+			$area = $this->input->post();
 			if(file_exists(NAV_FOLDER.$area['area-slug'].'.json'))
 				$this->session->set_flashdata('error', 'Navigation area "'.$area['area-slug'].'" has been used. Try another term.');
 			else {
@@ -284,6 +329,8 @@ class Panel extends Admin_Controller {
 				else
 					$this->session->set_flashdata('error', 'Navigation failed to save. Make sure the folder '.NAV_FOLDER.' is writable.');
 			}
+		} else {
+			$this->session->set_flashdata('error', validation_errors());
 		}
 		redirect('panel/navigation');
 	}
@@ -292,7 +339,11 @@ class Panel extends Admin_Controller {
 	{
 		if(! $slug) show_404();
 
-		if($area = $this->input->post()){
+		$this->form_validation->set_rules($this->nav_area_fields);
+
+		// submit if data valid
+		if($this->form_validation->run()) {
+			$area = $this->input->post();
 			if(file_exists(NAV_FOLDER.$area['area-slug'].'.json'))
 				$this->session->set_flashdata('error', 'Navigation area "'.$area['area-slug'].'" has been used. Try another term.');
 			else {
@@ -312,13 +363,113 @@ class Panel extends Admin_Controller {
 					$this->session->set_flashdata('error', 'Navigation failed to save. Make sure the folder '.NAV_FOLDER.' is writable.');
 				}
 			}
+		} else {
+			$this->session->set_flashdata('error', validation_errors());
 		}
+
 		redirect('panel/navigation');
 	}
 
 	function delete_nav_area()
 	{
 
+	}
+
+	function add_link()
+	{
+		$this->form_validation->set_rules($this->link_fields);
+
+		// submit if data valid
+		if($this->form_validation->run()) {
+			$link = $this->input->post();
+
+			if(! file_exists(NAV_FOLDER.$link['link_area'].'.json')){
+				$this->session->set_flashdata('error', 'Navigation area "'.$link['link_area'].'" not found. Use only area term you have made.');
+				redirect('panel/navigation');
+			}
+
+			$area = file_get_contents(NAV_FOLDER.$link['link_area'].'.json');
+			$area_arr = json_decode($area, true);
+			$area_arr['links'][$link['link_title']] = array(
+				'source' => $link['link_source'],
+				'url' => $link['link_url'],
+				'target' => $link['link_target']
+				);
+
+			if(write_file(NAV_FOLDER.$link['link_area'].'.json', json_encode($area_arr, JSON_PRETTY_PRINT)))
+				$this->session->set_flashdata('success', 'Link saved.');
+			else
+				$this->session->set_flashdata('error', 'Link failed to save. Make sure the folder '.NAV_FOLDER.' is writable.');
+		
+		} else {
+			$this->session->set_flashdata('error', validation_errors());
+		}
+
+		redirect('panel/navigation');
+	}
+
+	function edit_link($oldarea = false, $title = false)
+	{
+		if(! $oldarea || ! $title) show_404();
+
+		$this->form_validation->set_rules($this->link_fields);
+
+		// submit if data valid
+		if($this->form_validation->run()) {
+			$link = $this->input->post();
+
+			if(! file_exists(NAV_FOLDER.$link['link_area'].'.json')){
+				$this->session->set_flashdata('error', 'Navigation area "'.$link['link_area'].'" not found. Use only area term you have made.');
+				redirect('panel/navigation');
+			}
+
+			$area = file_get_contents(NAV_FOLDER.$link['link_area'].'.json');
+			$area_arr = json_decode($area, true);
+
+			print_r($area_arr);
+			// if link title changed
+			if($title != $link['link_title'])
+				unset($area_arr['links'][$title]);
+
+			$area_arr['links'][$link['link_title']] = array(
+				'source' => $link['link_source'],
+				'url' => $link['link_url'],
+				'target' => $link['link_target']
+				);
+
+			$succ_msg = "";
+			$err_msg = "";
+
+			if(write_file(NAV_FOLDER.$link['link_area'].'.json', json_encode($area_arr, JSON_PRETTY_PRINT)))
+				$succ_msg = 'Link updated.';
+			else
+				$err_msg = 'Link failed to update. Make sure the folder '.NAV_FOLDER.' is writable.';
+
+			// if area changed
+			if($oldarea != $link['link_area']){
+				$old_area = file_get_contents(NAV_FOLDER.$oldarea.'.json');
+				$old_area_arr = json_decode($old_area, true);
+
+				// delete old link
+				unset($old_area_arr['links'][$title]);
+
+				if(write_file(NAV_FOLDER.$oldarea.'.json', json_encode($old_area_arr, JSON_PRETTY_PRINT)))
+					$succ_msg .= '<br>Link moved to new area.';
+				else
+					$err_msg = '<br>Link failed to move to new area. Make sure the folder '.NAV_FOLDER.' is writable.';
+			}
+
+			if(!empty($succ_msg))
+				$this->session->set_flashdata('success', $succ_msg);
+			
+			if(!empty($err_msg))
+				$this->session->set_flashdata('error', $err_msg);
+
+		} else {
+			$this->session->set_flashdata('error', validation_errors());
+		}
+
+		redirect('panel/navigation');
 	}
 
 	// function check_username($username)
