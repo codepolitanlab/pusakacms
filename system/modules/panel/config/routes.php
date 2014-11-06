@@ -3,6 +3,7 @@
 $route['panel/pages/new']	= "panel/new_page";
 $route['panel/pages/edit']	= "panel/edit_page";
 $route['panel/pages/delete']	= "panel/delete_page";
+$route['panel/pages/sync']	= "panel/sync_page";
 
 $route['panel/posts/new']	= "panel/new_post";
 $route['panel/posts/edit/(:any)']	= "panel/edit_post/$1";

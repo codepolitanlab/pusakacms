@@ -124,7 +124,7 @@ class Panel extends Admin_Controller {
 
 	function pages()
 	{
-		$pages = $this->pusaka->get_nav();
+		$pages = $this->pusaka->get_page_tree();
 		$pagelist = $this->_page_list($pages);
 
 		$this->template
@@ -137,6 +137,12 @@ class Panel extends Admin_Controller {
 		return $this->load->view('page_list', array('pages'=>$pages), true);
 	}
 
+	function sync_page()
+	{
+		$this->pusaka->sync_nav();
+		redirect('panel/pages');
+	}
+
 	function new_page()
 	{
 		$this->form_validation->set_rules($this->page_fields);
@@ -145,9 +151,19 @@ class Panel extends Admin_Controller {
 			$page = $this->input->post();
 			$file_content = "";
 
+			// set content
 			foreach ($page as $key => $value) {
 				if($value)
 					$file_content .= "{: ".$key." :} ".$value."\n";
+			}
+
+			// if it is placed in existing content
+			if(!empty($page['parent'])) { 
+				// if parent still as standalone file (not in folder)
+				if(file_exists(PAGE_FOLDER.$page['parent'].'.md')) {
+					mkdir(PAGE_FOLDER.$page['parent'], 0775);
+					rename(PAGE_FOLDER.$page['parent'].'.md', PAGE_FOLDER.$page['parent'].'/index.md');
+				}
 			}
 			
 			if(write_file(PAGE_FOLDER.$page['parent'].'/'.$page['slug'].'.md', $file_content)){

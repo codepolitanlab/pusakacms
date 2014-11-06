@@ -47,7 +47,7 @@
 						<select class="form-control" name="layout" id="layout">
 							<option value="">Auto</option>
 							<?php foreach ($layouts as $layout): ?>
-							<option value="<?php echo $layout; ?>"><?php echo $layout; ?></option>
+							<option value="<?php echo substr($layout, 0, -4); ?>"><?php echo $layout; ?></option>
 							<?php endforeach; ?>
 						</select>
 					</div>
