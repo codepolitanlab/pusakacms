@@ -24,7 +24,7 @@ class Pusaka {
 	var $remove_index	= true;
 	var $stack			= array();
 	var $navfile		= "index.json";
-	var $allowed_ext	= array('html','md');
+	var $allowed_ext	= array('md');
 
 	var $post_per_page;
 
@@ -82,7 +82,7 @@ class Pusaka {
 		return $new_map;
 	}
 
-	function get_flatnav($map = array())
+	function get_flatnav($map = array(), $prefix = "")
 	{
 		if(empty($map))
 			$map = $this->get_nav();
@@ -91,10 +91,10 @@ class Pusaka {
 
 		foreach ($map as $link => $content) {
 			if($link != '_title')
-				$new_map[$link] = $link;
+				$new_map[$link] = $prefix.' '.$content['_title'];
 	
 			if(count($content) > 1)
-				$new_map += $this->get_flatnav($content);
+				$new_map += $this->get_flatnav($content, $prefix."—");
 		}
 		return $new_map;
 	}
@@ -174,7 +174,7 @@ class Pusaka {
 				else
 					$newkey = $this->remove_extension($file);
 
-				if($file != $this->navfile && $file != 'index.html' && $this->is_valid_ext(POST_FOLDER.'/'.$file))
+				if($file != $this->navfile && $file != 'index.md' && $this->is_valid_ext(POST_FOLDER.'/'.$file))
 					$tree[POST_TERM.'/'.$newkey] = $this->guess_name($file, POST_TERM);
 			}
 
@@ -192,10 +192,10 @@ class Pusaka {
 
 			$new_map = array();
 			foreach ($map as $file)
-				if($file != $this->navfile and $file != 'index.html')
+				if($file != $this->navfile and $file != 'index.md')
 					$new_map[] = $this->remove_extension($file);
 
-				$json = (array) json_decode(file_get_contents($prefix.'/'.$this->navfile));
+				$json = json_decode(file_get_contents($prefix.'/'.$this->navfile), true);
 				$json_simpled = array_keys($json);
 
 				// add the new content to menu
@@ -265,7 +265,7 @@ class Pusaka {
 
 		// delete all labels first
 		delete_files(LABEL_FOLDER);
-		write_file(LABEL_FOLDER.'/index.html', 'Directory access forbidden.');
+		write_file(LABEL_FOLDER.'/index.md', 'Directory access forbidden.');
 
 		// rewrite label indexes
 		$output = '';
@@ -291,7 +291,7 @@ class Pusaka {
 	{
 		// if post.json has been
 		if(file_exists(POST_FOLDER.'/'.$this->navfile)) {
-			$tree = (array) json_decode(file_get_contents(POST_FOLDER.'/'.$this->navfile));
+			$tree = json_decode(file_get_contents(POST_FOLDER.'/'.$this->navfile), true);
 
 		} else {
 			// get derectory map
@@ -308,7 +308,7 @@ class Pusaka {
 				else
 					$newkey = $this->remove_extension($file);
 
-				if($file != $this->navfile && $file != 'index.html' && $this->is_valid_ext(POST_FOLDER.'/'.$file))
+				if($file != $this->navfile && $file != 'index.md' && $this->is_valid_ext(POST_FOLDER.'/'.$file))
 					$tree[POST_TERM.'/'.$newkey] = $this->guess_name($file, POST_TERM);
 			}
 
@@ -336,7 +336,7 @@ class Pusaka {
 		if($category && $category != 'all'){
 			$file = file_get_contents(LABEL_FOLDER.'/'.$category.'.json');
 			if(empty($file)) return false;
-			$map = (array) json_decode($file);
+			$map = json_decode($file, true);
 			$begin = ($page - 1) * $this->post_per_page;
 			$limit = $this->post_per_page;
 			$new_map = ($page != 'all') ? array_slice($map, $begin, $limit) : $map;
@@ -494,8 +494,8 @@ class Pusaka {
 	{
 		if(file_exists(PAGE_FOLDER.$url.'.md')) 
 			$file = file_get_contents(PAGE_FOLDER.$url.'.md');
-		elseif(file_exists(PAGE_FOLDER.$url.'/index.html')) 
-			$file = file_get_contents(PAGE_FOLDER.$url.'/index.html');
+		elseif(file_exists(PAGE_FOLDER.$url.'/index.md')) 
+			$file = file_get_contents(PAGE_FOLDER.$url.'/index.md');
 		else
 			return false;
 
@@ -559,7 +559,7 @@ class Pusaka {
 
 		$list = array();
 		foreach ($labels as $label) {
-			if($label != 'index.html')
+			if($label != 'index.md')
 				$list[POST_TERM.'/label/'.strtolower($this->remove_extension($label))] = strtolower($this->remove_extension($label));
 		}
 		return $list;
@@ -616,7 +616,7 @@ class Pusaka {
 
 				//simpan sebagai nav.json
 				foreach ($map as $file) {
-					if($this->is_valid_ext(PAGE_FOLDER.'/'.$prefix.'/'.$file))
+					if($this->is_valid_ext(PAGE_FOLDER.'/'.$prefix.'/'.$file) && $file !== 'index.md')
 						$for_json[$this->remove_extension($file)] = $this->guess_name($file);
 				}
 

@@ -34,9 +34,9 @@
 					<div class="form-group">
 						<label for="slug">Parent <small>Parent page</small></label>
 						<select class="form-control" name="parent" id="parent">
-							<option value="">--</option>
-							<?php foreach ($pagelinks as $pagelink): ?>
-							<option value="<?php echo $pagelink; ?>"><?php echo $pagelink; ?></option>
+							<option value="">—</option>
+							<?php foreach ($pagelinks as $pagelink => $caption): ?>
+							<option value="<?php echo $pagelink; ?>" <?php echo ($pagelink==$this->input->get('parent') || $pagelink==validate_value($page, 'parent'))? "selected":''; ?>><?php echo $caption; ?></option>
 							<?php endforeach; ?>
 						</select>
 					</div>

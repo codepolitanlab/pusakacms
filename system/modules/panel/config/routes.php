@@ -1,8 +1,8 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 $route['panel/pages/new']	= "panel/new_page";
-$route['panel/pages/edit/(:any)']	= "panel/edit_page/$1";
-$route['panel/pages/delete/(:any)']	= "panel/delete_page/$1";
+$route['panel/pages/edit']	= "panel/edit_page";
+$route['panel/pages/delete']	= "panel/delete_page";
 
 $route['panel/posts/new']	= "panel/new_post";
 $route['panel/posts/edit/(:any)']	= "panel/edit_post/$1";

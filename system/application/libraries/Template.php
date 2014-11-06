@@ -55,6 +55,7 @@ class Template
 
 	private $_data = array();
 
+	private $supported_files = array('md');
 	private $fields = array();
 
 	/**
@@ -941,7 +942,6 @@ class Template
 	// search content file
 	private function _find_content($view, $data = array(), $parse_view = TRUE)
 	{
-		$supported_files = array('html', 'md');
 		$file_ext = NULL;
 
 		// check if the view has extension
@@ -954,7 +954,7 @@ class Template
 		}
 		else
 		{
-			foreach ($supported_files as $ext)
+			foreach ($this->supported_files as $ext)
 			{
 				if (file_exists($view . '.' . $ext))
 				{
@@ -967,7 +967,7 @@ class Template
 			// if not found, probably because it is a folder, not file
 			if(! $file_ext)
 			{
-				foreach ($supported_files as $ext)
+				foreach ($this->supported_files as $ext)
 				{
 					if(file_exists($view . '/index.' . $ext))
 					{

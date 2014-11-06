@@ -27,9 +27,19 @@ body {
 
 .container { max-width:980px; padding:0px; }
 
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h5 {
-	margin:0px;
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h5 {
+	margin:0 0 10px;
 	font-weight:300;
+}
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a,
+.h1 a, .h2 a, .h3 a, .h4 a, .h5 a, .h5 a {
+	font-weight: 300;
+}
+
+.navbar-header h1 {
+	margin: 0;
 }
 
 .full-width { width:100%; }
@@ -156,7 +166,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h5 {
 ** HEADER
 ** ----------------------------------- */
 header {
-	background:#30b695 url(../img/cover_4.jpg) no-repeat center top;
 	height:700px;
 }
 .header-inner {
@@ -216,6 +225,7 @@ nav ul.nav.navbar-nav li a.icon-sosmed {
 .item-skill {
 	background-color:#f4f4f4;
 	height:135px;
+	display: block;
 	background-position:center center;
 	background-repeat:no-repeat;
 }
@@ -304,6 +314,10 @@ p {
 
 .goleft {
 	text-align: left;
+}
+
+.goright {
+	text-align: right;
 }
 
 /* Links */
@@ -463,6 +477,10 @@ img {
 	min-height: 0;
 	padding-top:20px;
 	padding-bottom:20px;
+	transition: .5s;
+}
+.navbar-default {
+	padding: 5px 0; 
 }
 .navbar-right {
 	line-height:45px;
@@ -475,6 +493,10 @@ img {
 .navbar-right a:hover {
 	color:#9fcfc7;
 	text-decoration:none;
+}
+.navbar-nav>li>a {
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 

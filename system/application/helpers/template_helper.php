@@ -74,6 +74,36 @@ if ( ! function_exists('get_theme_image'))
 }
 
 /**
+	* Get image asset from current theme
+	* 
+	* @param String $file 	filename
+	* @param Bool 	$attr 	img attribute. fill it or set true to make it wrapper, false to get only url
+	* @return String css url or tag
+	*/
+if ( ! function_exists('get_image_content'))
+{
+	function get_image_content($file, $attr = true) {
+		$url =  base_url().'sites/'.SITE_SLUG.'/content/files/'.$file;
+
+		if(!$attr || $attr === 'false')
+			return $url;
+		else
+			return '<img src="'.$url.'" '.$attr.' />';
+
+
+	}
+}
+
+if ( ! function_exists('get_file_url'))
+{
+	function get_file_url($file) {
+		$url =  base_url().'sites/'.SITE_SLUG.'/content/files/'.$file;
+
+		return $url;
+	}
+}
+
+/**
 	* Get js asset from spesific module
 	* 
 	* @param String $file 	filename

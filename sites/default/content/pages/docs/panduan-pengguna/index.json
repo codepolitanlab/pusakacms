@@ -1,10 +1,10 @@
 {
-    "instalasi": "Instalasi",
-    "konfigurasi": "Konfigurasi",
-    "mengatur-navigasi": "Mengatur Navigasi",
     "posting-blog": "Posting Blog",
-    "struktur-file": "Struktur File",
-    "membuat-halaman": "Membuat Halaman",
+    "konfigurasi": "Konfigurasi",
+    "instalasi": "Instalasi",
     "format-penulisan": "Format Penulisan",
-    "mengatur-kategori": "Mengatur Kategori"
+    "mengatur-navigasi": "Mengatur Navigasi",
+    "membuat-halaman": "Membuat Halaman",
+    "mengatur-kategori": "Mengatur Kategori",
+    "struktur-file": "Struktur File"
 }

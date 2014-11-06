@@ -11,7 +11,7 @@
 			<div class="col-md-9">
 
 				<article class="the-content">
-					<h1><?php echo $post['title']; ?></h1>
+					<h2><?php echo $post['title']; ?></h2>
 
 					<span class="date"><i class="glyphicon glyphicon-calendar"></i> <?php echo date("d F Y", strtotime($post['date'])); ?></span>
 					<span class="cat">
