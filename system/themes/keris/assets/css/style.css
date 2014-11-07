@@ -208,6 +208,9 @@ article.the-content {
   padding-top: 60px;
   padding-bottom: 40px;
   background: #8ec63f url(../img/corak_batik.png) no-repeat right bottom;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-attachment: fixed;
 }
 .pusaka-header .lead {
   color: #ffffff;
