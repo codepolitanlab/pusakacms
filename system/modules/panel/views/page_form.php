@@ -1,4 +1,4 @@
-<form action="<?php echo site_url('panel/pages/'.$type.'/'.$url); ?>" method="POST" class="panel-form">
+<form action="<?php echo site_url('panel/pages/'.$type.'?page='.$url); ?>" method="POST" class="panel-form">
 	<div class="row heading">
 		<div class="col-md-6">
 			<h1><a href="<?php echo site_url('panel/pages'); ?>">PAGES</a> &bull; <?php echo strtoupper($type); ?> PAGE</h1>
@@ -39,6 +39,7 @@
 							<option value="<?php echo $pagelink; ?>" <?php echo ($pagelink==$this->input->get('parent') || $pagelink==validate_value($page, 'parent'))? "selected":''; ?>><?php echo $caption; ?></option>
 							<?php endforeach; ?>
 						</select>
+						<input type="hidden" name="prev_parent" value="<?php echo validate_value($page, 'parent'); ?>">
 					</div>
 				</div>
 				<div class="col-md-6">
@@ -47,7 +48,7 @@
 						<select class="form-control" name="layout" id="layout">
 							<option value="">Auto</option>
 							<?php foreach ($layouts as $layout): ?>
-							<option value="<?php echo substr($layout, 0, -4); ?>"><?php echo $layout; ?></option>
+							<option value="<?php echo substr($layout, 0, -4); ?>" <?php echo (substr($layout, 0, -4) == validate_value($page, 'layout')) ? "selected" : ''; ?>><?php echo $layout; ?></option>
 							<?php endforeach; ?>
 						</select>
 					</div>

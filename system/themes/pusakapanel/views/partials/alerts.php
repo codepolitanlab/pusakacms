@@ -18,3 +18,10 @@
 		<?php echo $this->session->flashdata('error'); ?>
 	</div>
 <?php endif; ?>
+
+<?php if(isset($error)): ?>
+	<div class="alert alert-danger" alert-dismissible" role="alert">
+		<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		<?php echo $error; ?>
+	</div>
+<?php endif; ?>

@@ -157,12 +157,16 @@ class Panel extends Admin_Controller {
 					$file_content .= "{: ".$key." :} ".$value."\n";
 			}
 
-			// if it is placed in existing content
+			// if it is placed as subpage
 			if(!empty($page['parent'])) { 
 				// if parent still as standalone file (not in folder)
 				if(file_exists(PAGE_FOLDER.$page['parent'].'.md')) {
+					// create folder and move the parent inside
 					mkdir(PAGE_FOLDER.$page['parent'], 0775);
 					rename(PAGE_FOLDER.$page['parent'].'.md', PAGE_FOLDER.$page['parent'].'/index.md');
+
+					// create index.html file
+					copy(PAGE_FOLDER.'index.html', PAGE_FOLDER.$page['parent'].'/index.html');
 				}
 			}
 			
@@ -175,7 +179,7 @@ class Panel extends Admin_Controller {
 				redirect('panel/pages');
 			}
 			else {
-				$this->form_validation->set_message('error', 'Page failed to save. Make sure the folder '.PAGE_FOLDER.' is writable.');
+				$this->template->set('error', 'Page failed to save. Make sure the folder '.PAGE_FOLDER.' is writable.');
 			}
 
 		}
@@ -191,23 +195,59 @@ class Panel extends Admin_Controller {
 
 	function edit_page()
 	{
-		if(!$uri = $this->input->get('page')) show_404();
+		if(!$prevslug = $this->input->get('page')) show_404();
 
 		$this->form_validation->set_rules($this->page_fields);
 
 		if($this->form_validation->run()){
-			$url = $this->input->post();
+			$page = $this->input->post();
 			$file_content = "";
 
-			foreach ($url as $key => $value) {
+			// set content
+			foreach ($page as $key => $value) {
 				if($value)
 					$file_content .= "{: ".$key." :} ".$value."\n";
 			}
+
+			// page move to another folder
+			if($page['prev_parent'] != $page['parent']) {
+				// if it is move to subpage
+				if(!empty($page['parent'])) { 
+					// if parent still as standalone file (not in folder)
+					if(file_exists(PAGE_FOLDER.$page['parent'].'.md')) {
+						// create folder and move the parent inside
+						mkdir(PAGE_FOLDER.$page['parent'], 0775);
+						rename(PAGE_FOLDER.$page['parent'].'.md', PAGE_FOLDER.$page['parent'].'/index.md');
+
+						// create index.html file
+						copy(PAGE_FOLDER.'index.html', PAGE_FOLDER.$page['parent'].'/index.html');
+					}
+				}
+			}
+
+			// move to new location
+			rename(PAGE_FOLDER.'/'.$prevslug.'.md', PAGE_FOLDER.$page['parent'].'/'.$page['slug'].'.md');
 			
-			if(write_file(PAGE_FOLDER.$url['parent'].'/'.$url['slug'].'.md', $file_content))
-				$this->session->set_flashdata('success', 'Page saved.');
+			// if file left the empty folder, not from the root
+			if(!empty($page['prev_parent']) && $filesleft = glob(PAGE_FOLDER.$page['prev_parent'].'/*')){
+				// if there are only index.html, index.md, and index.json
+				if(count($filesleft) <= 3){
+					// move to upper parent
+					$parent_subparent_arr = explode("/", $page['prev_parent']);
+					$parent_name = array_pop($parent_subparent_arr);
+					$parent_subparent = implode("/", $parent_subparent_arr);
+					rename(PAGE_FOLDER.$page['prev_parent'].'/index.md', PAGE_FOLDER.$parent_subparent.'/'.$parent_name.'.md');
+
+					unlink(PAGE_FOLDER.$page['prev_parent'].'/index.html');
+					unlink(PAGE_FOLDER.$page['prev_parent'].'/index.json');
+					rmdir(PAGE_FOLDER.$page['prev_parent']);
+				}
+			}
+
+			if(write_file(PAGE_FOLDER.$page['parent'].'/'.$page['slug'].'.md', $file_content, 'w+'))
+				$this->session->set_flashdata('success', 'Page updated.');
 			else
-				$this->session->set_flashdata('error', 'Page failed to save. Make sure the folder '.PAGE_FOLDER.' is writable.');
+				$this->session->set_flashdata('error', 'Page failed to update. Make sure the folder '.PAGE_FOLDER.' is writable.');
 
 			// update page index
 			$this->pusaka->sync_nav();
@@ -215,22 +255,34 @@ class Panel extends Admin_Controller {
 			redirect('panel/pages');
 		}
 
-		$page = $this->pusaka->get_page($uri, false);
+		$page = $this->pusaka->get_page($prevslug, false);
 
 		$this->template
 			->set('type', 'edit')
 			->set('page', $page)
-			->set('url', $uri)
+			->set('url', $prevslug)
 			->set('layouts', $this->template->get_layouts())
 			->set('pagelinks', $this->pusaka->get_flatnav())
 			->view('page_form');
-	}
+	} 
 
-	function delete_page($page = false)
+	function delete_page()
 	{
-		
+		if(!$prevslug = $this->input->get('page')) show_404();
+
+		if(unlink(PAGE_FOLDER.'/'.$prevslug.'.md'))
+			$this->session->set_flashdata('success', 'Page '.$prevslug.' deleted.');
+		else
+			$this->session->set_flashdata('error', 'Page failed to delete. Make sure the folder '.PAGE_FOLDER.' is writable.');
+
+		redirect('panel/pages');
 	}
 
+	function tesglob()
+	{
+		header("Content-Type:text/plain");
+		print_r(glob(PAGE_FOLDER.'docs/*'));
+	}
 
 	/*********************************************
 	 * POSTS
