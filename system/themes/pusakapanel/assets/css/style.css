@@ -435,11 +435,12 @@ ul.content-list .row {
 }
 ul.content-list li {
   margin-bottom: -1px;
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
 }
 ul.content-list li .list-desc {
   padding: 10px 10px 0;
+  border: 2px solid #ddd;
+  margin-bottom: 2px;
+  border-radius: 0 11px 10px 0;
 }
 ul.content-list li .list-desc .labels {
   margin-top: -8px;

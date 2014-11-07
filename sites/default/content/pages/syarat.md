@@ -1,4 +1,4 @@
 {: title :} Syarat
 {: slug :} syarat
-{: prev_parent :} docs/panduan-pengguna
+{: prev_parent :} lisensi
 {: content :} fdg df

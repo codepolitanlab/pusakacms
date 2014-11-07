@@ -4,7 +4,10 @@ foreach($pages as $uri => $content):
 if($uri != '_title'): ?>
 <li>
 	<div class="list-desc">
-		<h3><?php echo $content['_title']; ?></h3>
+		<h3>
+			<span style="color:#ddd;font-size:23px"><span class="fa fa-align-justify"></span></span>
+			<?php echo $content['_title']; ?>
+		</h3>
 		<small><a href="<?php echo site_url($uri); ?>" target="_blank"><span class="fa fa-external-link"></span> <?php echo site_url($uri); ?></a></small>
 		<div class="row">
 			<div class="col-md-6">
