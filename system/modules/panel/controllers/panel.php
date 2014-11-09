@@ -634,7 +634,7 @@ class Panel extends Admin_Controller {
 		$file = file_get_contents(NAV_FOLDER.$area.'.json');
 		$nav = json_decode($file, true);
 
-		unset($nav['links'][$title]);
+		unset($nav['links'][urldecode($title)]);
 
 		if(write_file(NAV_FOLDER.$area.'.json', json_encode($nav, JSON_PRETTY_PRINT)))
 			$this->session->set_flashdata('success', 'Link "'.$title.'" deleted.');

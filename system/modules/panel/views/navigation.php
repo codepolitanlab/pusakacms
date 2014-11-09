@@ -29,7 +29,7 @@
 							<td class="align-right">
 								<div class="option">
 									<a href="#" class="edit" data-mode="edit" data-toggle="modal" data-target="#linkModal" data-area="<?php echo $area_slug; ?>" data-title="<?php echo $link_title; ?>" data-source="<?php echo $link['source']; ?>" data-url="<?php echo $link['url']; ?>" data-linktarget="<?php echo $link['target']; ?>"><span class="fa fa-edit"></span> Edit</a>
-									<a href="<?php echo site_url('panel/navigation/delete_link/'.$area_slug.'/'.$link_title); ?>" class="remove"><span class="fa fa-times"></span> Delete</a>
+									<a href="<?php echo site_url('panel/navigation/delete_link/'.$area_slug.'/'.urlencode($link_title)); ?>" class="remove"><span class="fa fa-times"></span> Delete</a>
 								</div>
 							</td>
 						</tr>
