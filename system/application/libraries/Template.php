@@ -254,7 +254,7 @@ class Template
 			{
 				if ($this->_parser_enabled === TRUE)
 				{
-					$partial['string'] = $this->_lexparser->parse($partial['string'], $this->_data + $partial['data'], 'Template::_lex_callback');
+					$partial['string'] = $this->_lexparser->parse($partial['string'], $this->_data + $partial['data'], array($this, '_lex_callback'));
 				}
 
 				$template['partials'][$name] = $partial['string'];
@@ -908,7 +908,7 @@ class Template
 				$content = $this->_ci->load->file($override_view_path.$view.self::_ext($view), TRUE);
 
 				// parse content
-				$content = $this->_lexparser->parse($content, $data, 'Template::_lex_callback');
+				$content = $this->_lexparser->parse($content, $data, array($this, '_lex_callback'));
 			}
 
 			else
@@ -930,7 +930,7 @@ class Template
 			$content = ($this->_parser_enabled === TRUE AND $parse_view === TRUE)
 
 				// Parse that bad boy
-			? $this->_lexparser->parse($this->_ci->load->view($view, $data, true), $data, 'Template::_lex_callback')
+			? $this->_lexparser->parse($this->_ci->load->view($view, $data, true), $data, array($this, '_lex_callback'))
 
 				// None of that fancy stuff for me!
 			: $this->_ci->load->view($view, $data, TRUE);
@@ -1008,7 +1008,7 @@ class Template
 				elseif(trim($segs[0]) == 'content'){
 					// parse content first with lex parser
 					if ($this->_parser_enabled === TRUE AND $parse_view === TRUE)
-						$content = $this->_lexparser->parse(trim($segs[1]), $data, 'Template::_lex_callback');
+						$content = $this->_lexparser->parse(trim($segs[1]), $data, array($this, '_lex_callback'));
 
 					$Parsedown = new Parsedown();
 					$content = $Parsedown->setBreaksEnabled(true)->text($content);
@@ -1019,7 +1019,7 @@ class Template
 		} else {
 			// parse content first with lex parser
 			if ($this->_parser_enabled === TRUE AND $parse_view === TRUE)
-				$content = $this->_lexparser->parse($file, $data, 'Template::_lex_callback');
+				$content = $this->_lexparser->parse($file, $data, array($this, '_lex_callback'));
 
 			$Parsedown = new Parsedown();
 			$content = $Parsedown->setBreaksEnabled(true)->text($content);
@@ -1066,16 +1066,22 @@ class Template
 
 	// callback function for lex parser
 	// for this time, we use it for call helper only
-	static function _lex_callback($name, $attributes, $content)
+	function _lex_callback($name, $attributes, $content)
 	{
 		$plugin_name = explode(".", $name);
+		$return = '';
 
 		if(count($plugin_name) >= 2){
-			if($plugin_name[0] == 'func' && function_exists($plugin_name[1]))
-				return call_user_func_array($plugin_name[1], $attributes);
+			if($plugin_name[0] == 'func' && function_exists($plugin_name[1])){
+				$data = call_user_func_array($plugin_name[1], $attributes);
+				if(is_array($data))
+					$return .= $this->_lexparser->parse($content, $data, array($this, '_lex_callback'));
+				else
+					$return .= $data;
+			}
 		}
 
-		return false;
+		return ($return)?$return:false;
 	}
 
 	function get_fields($field = false){
