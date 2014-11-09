@@ -34,6 +34,24 @@ class Panel extends Admin_Controller {
 			)
 		);
 
+	var $post_fields = array(
+		array(
+			'field'   => 'title', 
+			'label'   => 'Page Title', 
+			'rules'   => 'trim|required'
+			),
+		array(
+			'field'   => 'slug', 
+			'label'   => 'Page Slug', 
+			'rules'   => 'trim|required'
+			),
+		array(
+			'field'   => 'content', 
+			'label'   => 'Page Content', 
+			'rules'   => 'required'
+			)
+		);
+
 	var $user_fields = array(
 		array(
 			'field'   => 'username', 
@@ -270,18 +288,15 @@ class Panel extends Admin_Controller {
 	{
 		if(!$prevslug = $this->input->get('page')) show_404();
 
-		if(unlink(PAGE_FOLDER.'/'.$prevslug.'.md'))
+		if(unlink(PAGE_FOLDER.'/'.$prevslug.'.md')){
 			$this->session->set_flashdata('success', 'Page '.$prevslug.' deleted.');
+			// update page index
+			$this->pusaka->sync_nav();
+		}
 		else
 			$this->session->set_flashdata('error', 'Page failed to delete. Make sure the folder '.PAGE_FOLDER.' is writable.');
 
 		redirect('panel/pages');
-	}
-
-	function tesglob()
-	{
-		header("Content-Type:text/plain");
-		print_r(glob(PAGE_FOLDER.'docs/*'));
 	}
 
 	/*********************************************
@@ -300,11 +315,36 @@ class Panel extends Admin_Controller {
 
 	function new_post()
 	{
-		$layouts = $this->template->get_layouts();
+		$this->form_validation->set_rules($this->post_fields);
+
+		if($this->form_validation->run()){
+			$post = $this->input->post();
+			$file_content = "";
+
+			// set content
+			foreach ($post as $key => $value) {
+				if($value)
+					$file_content .= "{: ".$key." :} ".$value."\n";
+			}
+			
+			if(write_file(POST_FOLDER.$post['slug'].'.md', $file_content)){
+				$this->session->set_flashdata('success', 'Post saved.');
+
+				// update post index
+				$this->pusaka->sync_nav();
+
+				redirect('panel/pages');
+			}
+			else {
+				$this->template->set('error', 'Post failed to save. Make sure the folder '.POST_FOLDER.' is writable.');
+			}
+
+		}
 
 		$this->template
 			->set('type', 'new')
-			->set('layouts', $layouts)
+			->set('post', '')
+			->set('layouts', $this->template->get_layouts())
 			->view('post_form');
 	}
 

@@ -33,10 +33,11 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label for="title">Layout <small>post layout file</small></label>
+						<label for="title">Layout <small>page layout file</small></label>
 						<select class="form-control" name="layout" id="layout">
+							<option value="">Auto</option>
 							<?php foreach ($layouts as $layout): ?>
-								<option value="<?php echo substr($layout, 0, -4); ?>" <?php echo ($layout=='default.php')?'selected':''; ?>><?php echo substr($layout, 0, -4); ?></option>
+							<option value="<?php echo substr($layout, 0, -4); ?>" <?php echo (substr($layout, 0, -4) == validate_value($post, 'layout')) ? "selected" : ''; ?>><?php echo $layout; ?></option>
 							<?php endforeach; ?>
 						</select>
 					</div>
