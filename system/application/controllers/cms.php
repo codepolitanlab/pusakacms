@@ -68,13 +68,13 @@ class CMS extends MY_Controller {
 	function sync_nav($prefix = null)
 	{
 		header("Content-Type:text/plain");
-		$this->pusaka->sync_nav($prefix);
+		echo $this->pusaka->sync_nav($prefix);
 	}
 
 	function sync_post()
 	{
 		header("Content-Type:text/plain");
-		$this->pusaka->sync_nav(POST_TERM)."\n";
+		echo $this->pusaka->sync_nav(POST_TERM)."\n";
 		echo $this->pusaka->sync_label();
 	}
 
