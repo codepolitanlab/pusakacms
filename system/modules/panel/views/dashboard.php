@@ -1,8 +1,8 @@
 <div class="panel-dashboard">
 	<div class="row">
 		<div class="col-md-12 align-center">
-			<a href="{{ helpers.site_url }}panel/posts/new" class="btn btn-lg btn-transparent btn-tile"><span class="fa fa-pencil-square"></span>New post</a>
-			<a href="{{ helpers.site_url }}panel/pages/new" class="btn btn-lg btn-transparent btn-tile"><span class="fa fa-file-text"></span>New page</a>
+			<a href="{{ func.site_url }}panel/posts/new" class="btn btn-lg btn-transparent btn-tile"><span class="fa fa-pencil-square"></span>New post</a>
+			<a href="{{ func.site_url }}panel/pages/new" class="btn btn-lg btn-transparent btn-tile"><span class="fa fa-file-text"></span>New page</a>
 			<a href="#" class="btn btn-lg btn-transparent btn-tile"><span class="fa fa-file-image-o"></span>Upload File</a>
 			<a href="#" class="btn btn-lg btn-transparent btn-tile"><span class="fa fa-refresh"></span>Sync Data</a>
 		</div>

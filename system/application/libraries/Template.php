@@ -1068,11 +1068,11 @@ class Template
 	// for this time, we use it for call helper only
 	static function _lex_callback($name, $attributes, $content)
 	{
-		$func_name = explode(".", $name);
+		$plugin_name = explode(".", $name);
 
-		if(count($func_name) == 2){
-			if($func_name[0] == 'helpers' && function_exists($func_name[1]))
-				return call_user_func_array($func_name[1], $attributes);
+		if(count($plugin_name) >= 2){
+			if($plugin_name[0] == 'func' && function_exists($plugin_name[1]))
+				return call_user_func_array($plugin_name[1], $attributes);
 		}
 
 		return false;

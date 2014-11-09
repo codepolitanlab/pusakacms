@@ -33,6 +33,10 @@
 		</div>
 	</div>
 
+	{{ func.get_posts }}
+	
+	{{ /func.get_posts }}
+
 	<?php get_partial('footer'); ?>
 </body>
 </html>

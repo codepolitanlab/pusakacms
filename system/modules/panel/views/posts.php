@@ -4,8 +4,8 @@
 	</div>
 	<div class="col-md-6 align-right">
 		<div>
-			<a class="btn btn-md btn-transparent" href="{{ helpers.site_url }}panel/posts/sync"><span class="fa fa-refresh"></span> Sync Posts</a>
-			<a class="btn btn-md btn-transparent" href="{{ helpers.site_url }}panel/posts/new"><span class="fa fa-plus-circle"></span> Create new posts</a>
+			<a class="btn btn-md btn-transparent" href="{{ func.site_url }}panel/posts/sync"><span class="fa fa-refresh"></span> Sync Posts</a>
+			<a class="btn btn-md btn-transparent" href="{{ func.site_url }}panel/posts/new"><span class="fa fa-plus-circle"></span> Create new posts</a>
 		</div>
 	</div>
 </div>

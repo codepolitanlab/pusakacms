@@ -1,14 +1,14 @@
 <div class="pusaka-header text-center">
 	<div class="header-inner">
 		<div class="container">
-			{{ helpers.get_theme_image file="kujang_logo.png" }}
+			{{ func.get_theme_image file="kujang_logo.png" }}
 			<h1 style="font-size:30px;color:darkgreen;">PusakaCMS <label class="badge">beta</label></h1>
 			<h1>Tulis, Unggah, Online</h1>
 			<p class="lead">PusakaCMS adalah Content Management System (CMS) dengan konten berbasis file sehingga tidak memerlukan instalasi database server untuk penyimpanan data. Cukup tulis kontenmu di komputer kemudian unggah, dan kontenmu bisa langsung diakses oleh seluruh dunia!</p>
-			<p><a class="btn btn-lg btn-download" href="{{ helpers.site_url }}docs/apa-itu-pusaka/rilis" role="button">Download PusakaCMS v1.0.0</a></p>
+			<p><a class="btn btn-lg btn-download" href="{{ func.site_url }}docs/apa-itu-pusaka/rilis" role="button">Download PusakaCMS v1.0.0</a></p>
 			<p class="link-wrapper">
-				<a href="{{ helpers.site_url }}docs">Documentation</a> &bull; 
-				<a href="{{ helpers.site_url }}blog">Blog</a> &bull; 
+				<a href="{{ func.site_url }}docs">Documentation</a> &bull; 
+				<a href="{{ func.site_url }}blog">Blog</a> &bull; 
 				<a href="https://github.com/nyankod/pusakacms">Github</a>
 			</p>
 		</div>

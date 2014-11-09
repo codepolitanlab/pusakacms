@@ -64,7 +64,7 @@ $autoload['libraries'] = array('template', 'pusaka','session');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('file', 'url', 'template', 'directory');
+$autoload['helper'] = array('file', 'url', 'template', 'directory', 'post');
 
 
 /*
