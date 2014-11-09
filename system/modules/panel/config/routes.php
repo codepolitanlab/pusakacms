@@ -6,8 +6,9 @@ $route['panel/pages/delete']	= "panel/delete_page";
 $route['panel/pages/sync']	= "panel/sync_page";
 
 $route['panel/posts/new']	= "panel/new_post";
-$route['panel/posts/edit/(:any)']	= "panel/edit_post/$1";
-$route['panel/posts/delete/(:any)']	= "panel/delete_post/$1";
+$route['panel/posts/edit']	= "panel/edit_post";
+$route['panel/posts/delete']	= "panel/delete_post";
+$route['panel/posts/sync']	= "panel/sync_post";
 
 $route['panel/users/new']	= "panel/new_user";
 $route['panel/users/edit/(:any)']	= "panel/edit_user/$1";

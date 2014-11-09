@@ -57,8 +57,7 @@ class MY_Controller extends MX_Controller
 		define('SITE_PATH', $sitepath);
 		define('POST_TERM', $this->config->item('post_term')?$this->config->item('post_term'):'blog');
 
-		if(! defined('JSON_PRETTY_PRINT'))
-			define('JSON_PRETTY_PRINT', 128);
+		if(! defined('JSON_PRETTY_PRINT')) define('JSON_PRETTY_PRINT', 128);
 	}
 
 }

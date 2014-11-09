@@ -49,6 +49,11 @@ class Panel extends Admin_Controller {
 			'field'   => 'content', 
 			'label'   => 'Page Content', 
 			'rules'   => 'required'
+			),
+		array(
+			'field'   => 'label',
+			'label'   => 'Labels', 
+			'rules'   => 'trim'
 			)
 		);
 
@@ -142,7 +147,7 @@ class Panel extends Admin_Controller {
 
 	function pages()
 	{
-		$pages = $this->pusaka->get_page_tree();
+		$pages = $this->pusaka->get_pages_tree();
 		$pagelist = $this->_page_list($pages);
 
 		$this->template
@@ -172,7 +177,10 @@ class Panel extends Admin_Controller {
 			// set content
 			foreach ($page as $key => $value) {
 				if($value)
-					$file_content .= "{: ".$key." :} ".$value."\n";
+					if($key == 'slug')
+						$file_content .= "{: ".$key." :} ".strtolower(url_title($value))."\n";
+					else
+						$file_content .= "{: ".$key." :} ".$value."\n";
 			}
 
 			// if it is placed as subpage
@@ -215,6 +223,8 @@ class Panel extends Admin_Controller {
 	{
 		if(!$prevslug = $this->input->get('page')) show_404();
 
+		$prevpage = $this->pusaka->get_page($prevslug, false);
+
 		$this->form_validation->set_rules($this->page_fields);
 
 		if($this->form_validation->run()){
@@ -224,11 +234,14 @@ class Panel extends Admin_Controller {
 			// set content
 			foreach ($page as $key => $value) {
 				if($value)
-					$file_content .= "{: ".$key." :} ".$value."\n";
+					if($key == 'slug')
+						$file_content .= "{: ".$key." :} ".strtolower(url_title($value))."\n";
+					else
+						$file_content .= "{: ".$key." :} ".$value."\n";
 			}
 
 			// page move to another folder
-			if($page['prev_parent'] != $page['parent']) {
+			if($prevpage['parent'] != $page['parent']) {
 				// if it is move to subpage
 				if(!empty($page['parent'])) { 
 					// if parent still as standalone file (not in folder)
@@ -247,18 +260,18 @@ class Panel extends Admin_Controller {
 			rename(PAGE_FOLDER.'/'.$prevslug.'.md', PAGE_FOLDER.$page['parent'].'/'.$page['slug'].'.md');
 			
 			// if file left the empty folder, not from the root
-			if(!empty($page['prev_parent']) && $filesleft = glob(PAGE_FOLDER.$page['prev_parent'].'/*')){
+			if(!empty($prevpage['parent']) && $filesleft = glob(PAGE_FOLDER.$prevpage['parent'].'/*')){
 				// if there are only index.html, index.md, and index.json
 				if(count($filesleft) <= 3){
 					// move to upper parent
-					$parent_subparent_arr = explode("/", $page['prev_parent']);
+					$parent_subparent_arr = explode("/", $prevpage['parent']);
 					$parent_name = array_pop($parent_subparent_arr);
 					$parent_subparent = implode("/", $parent_subparent_arr);
-					rename(PAGE_FOLDER.$page['prev_parent'].'/index.md', PAGE_FOLDER.$parent_subparent.'/'.$parent_name.'.md');
+					rename(PAGE_FOLDER.$prevpage['parent'].'/index.md', PAGE_FOLDER.$parent_subparent.'/'.$parent_name.'.md');
 
-					unlink(PAGE_FOLDER.$page['prev_parent'].'/index.html');
-					unlink(PAGE_FOLDER.$page['prev_parent'].'/index.json');
-					rmdir(PAGE_FOLDER.$page['prev_parent']);
+					unlink(PAGE_FOLDER.$prevpage['parent'].'/index.html');
+					unlink(PAGE_FOLDER.$prevpage['parent'].'/index.json');
+					rmdir(PAGE_FOLDER.$prevpage['parent']);
 				}
 			}
 
@@ -273,11 +286,10 @@ class Panel extends Admin_Controller {
 			redirect('panel/pages');
 		}
 
-		$page = $this->pusaka->get_page($prevslug, false);
 
 		$this->template
 			->set('type', 'edit')
-			->set('page', $page)
+			->set('page', $prevpage)
 			->set('url', $prevslug)
 			->set('layouts', $this->template->get_layouts())
 			->set('pagelinks', $this->pusaka->get_flatnav())
@@ -306,7 +318,6 @@ class Panel extends Admin_Controller {
 	function posts($category = 'all', $page = 1)
 	{
 		$posts = $this->pusaka->get_posts($category, $page);
-		// print_r($posts);
 
 		$this->template
 			->set('posts', $posts)
@@ -324,16 +335,22 @@ class Panel extends Admin_Controller {
 			// set content
 			foreach ($post as $key => $value) {
 				if($value)
-					$file_content .= "{: ".$key." :} ".$value."\n";
+					if($key == 'slug')
+						$file_content .= "{: ".$key." :} ".strtolower(url_title($value))."\n";
+					else
+						$file_content .= "{: ".$key." :} ".$value."\n";
 			}
+
+			$date = date("Y-m-d-");
 			
-			if(write_file(POST_FOLDER.$post['slug'].'.md', $file_content)){
+			if(write_file(POST_FOLDER.$date.$post['slug'].'.md', $file_content)){
 				$this->session->set_flashdata('success', 'Post saved.');
 
 				// update post index
-				$this->pusaka->sync_nav();
+				$this->pusaka->sync_nav(POST_TERM);
+				$this->pusaka->sync_label();
 
-				redirect('panel/pages');
+				redirect('panel/posts');
 			}
 			else {
 				$this->template->set('error', 'Post failed to save. Make sure the folder '.POST_FOLDER.' is writable.');
@@ -344,23 +361,84 @@ class Panel extends Admin_Controller {
 		$this->template
 			->set('type', 'new')
 			->set('post', '')
+			->set('url', '')
 			->set('layouts', $this->template->get_layouts())
 			->view('post_form');
 	}
 
 	function edit_post()
 	{
+		if(!$prevslug = $this->input->get('post')) show_404();
+
+		$prevpost = $this->pusaka->get_post($prevslug, false);
+		$prevpost['labels'] = implode(",", $prevpost['labels']);
+
+		$this->form_validation->set_rules($this->post_fields);
+
+		if($this->form_validation->run()){
+			$post = $this->input->post();
+			$file_content = "";
+
+			// set content
+			foreach ($post as $key => $value) {
+				if($value)
+					if($key == 'slug')
+						$file_content .= "{: ".$key." :} ".strtolower(url_title($value))."\n";
+					else
+						$file_content .= "{: ".$key." :} ".$value."\n";
+			}
+
+			$date = $prevpost['date'].'-';
+
+			// rename post first
+			if($prevpost['slug'] != $post['slug'])
+				rename(POST_FOLDER.$date.$prevpost['slug'].'.md', POST_FOLDER.$date.$post['slug'].'.md');
+			
+			if(write_file(POST_FOLDER.$date.$post['slug'].'.md', $file_content)){
+				$this->session->set_flashdata('success', 'Post updated.');
+
+				// update post index
+				$this->pusaka->sync_nav(POST_TERM);
+				$this->pusaka->sync_label();
+
+				redirect('panel/posts');
+			}
+			else {
+				$this->template->set('error', 'Post failed to update. Make sure the folder '.POST_FOLDER.' is writable.');
+			}
+
+		}
 
 		$this->template
-			->set('type', 'new')
+			->set('type', 'edit')
+			->set('url', $prevslug)
+			->set('post', $prevpost)
 			->view('post_form');
 	}
 
-	function delete_post($post = false)
+	function delete_post()
 	{
-		
+		if(!$file = $this->input->get('post')) show_404();
+
+		if(unlink(POST_FOLDER.'/'.$file)){
+			$this->session->set_flashdata('success', 'Post '.$file.' deleted.');
+
+			// update post index
+			$this->pusaka->sync_nav(POST_TERM);
+			$this->pusaka->sync_label();
+		}
+		else
+			$this->session->set_flashdata('error', 'Post failed to delete. Make sure the folder '.PAGE_FOLDER.' is writable.');
+
+		redirect('panel/posts');
 	}
 
+	function sync_post()
+	{
+		$this->pusaka->sync_nav(POST_TERM);
+		$this->pusaka->sync_label();
+		redirect('panel/posts');
+	}
 
 	/*********************************************
 	 * NAVIGATION

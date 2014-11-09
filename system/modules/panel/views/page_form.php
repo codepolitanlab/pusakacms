@@ -39,7 +39,6 @@
 							<option value="<?php echo $pagelink; ?>" <?php echo ($pagelink==$this->input->get('parent') || $pagelink==validate_value($page, 'parent'))? "selected":''; ?>><?php echo $caption; ?></option>
 							<?php endforeach; ?>
 						</select>
-						<input type="hidden" name="prev_parent" value="<?php echo validate_value($page, 'parent'); ?>">
 					</div>
 				</div>
 				<div class="col-md-6">

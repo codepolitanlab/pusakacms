@@ -3,7 +3,10 @@
 		<h1>POSTS</h1>
 	</div>
 	<div class="col-md-6 align-right">
-		<div><a class="btn btn-md btn-transparent" href="{{ helpers.site_url }}panel/posts/new">+ Create new posts</a></div>
+		<div>
+			<a class="btn btn-md btn-transparent" href="{{ helpers.site_url }}panel/posts/sync"><span class="fa fa-refresh"></span> Sync Posts</a>
+			<a class="btn btn-md btn-transparent" href="{{ helpers.site_url }}panel/posts/new"><span class="fa fa-plus-circle"></span> Create new posts</a>
+		</div>
 	</div>
 </div>
 
@@ -22,13 +25,13 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="option">
-						<a href="#"><span class="fa fa-calendar"></span> <?php echo date("d F Y", strtotime($post['date'])); ?></a>
+						<a href="#"><span class="fa fa-calendar"></span> <?php echo date("F d, Y", strtotime($post['date'])); ?></a>
 					</div>
 				</div>
-				<div class="col-md-6 align-right">			
+				<div class="col-md-6 align-right">
 					<div class="option">
-						<a href="<?php echo site_url('panel/posts/edit/'.$post['file']); ?>" class="edit"><span class="fa fa-edit"></span> Edit</a>
-						<a href="<?php echo site_url('panel/posts/delete/'.$post['file']); ?>" class="remove"><span class="fa fa-times"></span> Delete</a>
+						<a href="<?php echo site_url('panel/posts/edit?post='.$post['url']); ?>" class="edit"><span class="fa fa-edit"></span> Edit</a>
+						<a href="<?php echo site_url('panel/posts/delete?post='.$post['file']); ?>" class="remove"><span class="fa fa-times"></span> Delete</a>
 					</div>
 				</div>
 			</div>

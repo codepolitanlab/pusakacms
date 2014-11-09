@@ -57,7 +57,7 @@ class Pusaka {
 	 * @return	string
 	 */
 
-	function get_page_tree($prefix = null, $depth = 5)
+	function get_pages_tree($prefix = null, $depth = 5)
 	{
 		// init variable
 		$new_map = array();
@@ -68,14 +68,14 @@ class Pusaka {
 		return $new_map;
 	}
 
-	function get_post_tree()
+	function get_raw_posts_tree()
 	{
 		$new_map = array();
 
 		$map = directory_map(POST_FOLDER);
 		foreach ($map as $value) {
 			if($this->is_valid_ext($value))
-				$new_map[$prefix.$this->remove_extension($value)] = $this->guess_name($this->remove_date($value));
+				$new_map[$this->remove_extension($value)] = $this->guess_name($this->remove_date($value));
 		}
 
 		if ($this->remove_index === TRUE)
@@ -90,7 +90,7 @@ class Pusaka {
 	function get_flatnav($map = array(), $prefix = "")
 	{
 		if(empty($map))
-			$map = $this->get_page_tree();
+			$map = $this->get_pages_tree();
 
 		$new_map = array();
 
@@ -375,7 +375,7 @@ class Pusaka {
 	 * @access	public
 	 * @return	array
 	 */
-	function get_posts_tree()
+	function get_posts_tree($sort = 'asc')
 	{
 		// if post.json has been
 		if(file_exists(POST_FOLDER.'/'.$this->navfile)) {
@@ -400,9 +400,13 @@ class Pusaka {
 					$tree[POST_TERM.'/'.$newkey] = $this->guess_name($file, POST_TERM);
 			}
 
-			krsort($tree);
 			write_file(POST_FOLDER.'/'.$this->navfile, json_encode($tree, JSON_PRETTY_PRINT));
 		}
+
+		if($sort == 'desc')
+			krsort($tree);
+		else
+			ksort($tree);
 
 		return $tree;
 	}
@@ -417,7 +421,7 @@ class Pusaka {
 	 * @param	int		page number
 	 * @return	array
 	 */
-	function get_posts($category = null, $page = 1)
+	function get_posts($category = null, $page = 1, $sort = 'desc', $parse = true)
 	{
 		$posts = array();
 
@@ -430,18 +434,18 @@ class Pusaka {
 			$new_map = ($page != 'all') ? array_slice($map, $begin, $limit) : $map;
 
 			foreach ($new_map as $url) {
-				if($post = $this->get_post($url))
+				if($post = $this->get_post($url, $parse))
 					$posts['entries'][] = ($post);
 			}
 			$posts['total'] = count($map);
 		} else {
-			$map = $this->get_posts_tree();
+			$map = $this->get_posts_tree($sort);
 			$begin = ($page - 1) * $this->post_per_page;
 			$limit = $this->post_per_page;
 			$new_map = ($page != 'all') ? array_slice($map, $begin, $limit) : $map;
 			
 			foreach ($new_map as $url => $title) {
-				if($post = $this->get_post($url))
+				if($post = $this->get_post($url, $parse))
 					$posts['entries'][] = ($post);
 			}
 			$posts['total'] = count($map);
@@ -512,7 +516,7 @@ class Pusaka {
 	 * @param	int		page number
 	 * @return	array
 	 */
-	function get_post($url = null)
+	function get_post($url = null, $parse = true)
 	{
 		$segs = explode("/", $url);
 		array_shift($segs);
@@ -550,7 +554,7 @@ class Pusaka {
 				if(trim($segs[0]) == 'labels')
 					$new_post[trim($segs[0])] = preg_split("/(\s,\s|\s,|,\s)/", $segs[1]);
 
-				elseif(trim($segs[0]) == 'content')
+				elseif(trim($segs[0]) == 'content' && $parse)
 				{
 					$Parsedown = new Parsedown();
 					$new_post[trim($segs[0])] = $Parsedown->setBreaksEnabled(true)->text($segs[1]);

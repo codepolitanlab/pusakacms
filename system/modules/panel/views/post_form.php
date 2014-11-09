@@ -1,4 +1,4 @@
-<form action="#" class="panel-form">
+<form action="<?php echo site_url('panel/posts/'.$type.'?post='.$url); ?>" class="panel-form" method="POST">
 	<div class="row heading">
 		<div class="col-md-6">
 			<h1><a href="<?php echo site_url('panel/posts'); ?>">POSTS</a> &bull; <?php echo strtoupper($type); ?> POST</h1>
@@ -19,13 +19,13 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="title">Title <small>post title</small></label>
-						<input type="text" class="form-control title" name="title">
+						<input type="text" class="form-control title" name="title" value="<?php echo set_value('title', validate_value($post, 'title')); ?>">
 					</div>		
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="slug">Slug</label>
-						<input type="text" class="form-control slug" name="slug">
+						<input type="text" class="form-control slug" name="slug" value="<?php echo set_value('slug', validate_value($post, 'slug')); ?>">
 					</div>		
 				</div>
 			</div>
@@ -42,22 +42,28 @@
 						</select>
 					</div>
 				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="labels">Labels <small>or categories</small></label>
+						<input type="text" name="labels" id="labels" class="form-control" value="<?php echo set_value('labels', validate_value($post, 'labels')); ?>">
+					</div>
+				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="content">Content</label>	
-				<textarea id="postdownMe" class="form-control" rows="20"></textarea>
+				<textarea id="postdownMe" class="form-control" name="content" id="content" rows="20"><?php echo set_value('content', validate_value($post, 'content')); ?></textarea>
 			</div>
 		</div>
 
 		<div class="tab-pane" id="optional">
 			<div class="form-group">
 				<label for="meta-desc">Meta Description <small>optional</small></label>
-				<textarea name="meta-desc" class="form-control" rows="3"></textarea>
+				<textarea name="meta-desc" class="form-control" rows="3"><?php echo set_value('meta-desc', validate_value($post, 'meta-desc')); ?></textarea>
 			</div>
 			<div class="form-group">
 				<label for="meta-keyword">Meta Keyword <small>optional</small></label>
-				<input type="meta-keyword" class="form-control">
+				<input type="meta-keyword" class="form-control" name="meta-keyword" id="meta-keyword" value="<?php echo set_value('meta-keyword', validate_value($post, 'meta-post')); ?>">
 			</div>
 		</div>
 	</div>
