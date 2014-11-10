@@ -530,13 +530,21 @@ class Panel extends Admin_Controller {
 
 	function tes()
 	{
-		$db = new JsonDb(NAV_FOLDER);
+		$db = new \philwc\JsonDB(NAV_FOLDER);
 
-		$test = $db->getCollection('coba');
-		$something = array('foo' => 'bar');
-		$test->insert($something);
+		$data = array(
+				"title" => "Header",
+				"links" => array(
+						"source" => "uri",
+						"url" => "posts",
+						"target" => "_blank"
+					)
+			);
+		$db->update("header", "title", "Header", $data);
 
-		print_r($test->find());
+		$result = $db->selectAll("header");
+
+		print_r($result);
 	}
 
 	function add_link()

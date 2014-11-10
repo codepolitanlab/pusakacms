@@ -9,6 +9,6 @@
 	"require": {
         "pyrocms/lex": "2.3.*",
         "erusev/parsedown": "1.1.0",
-        "dav-m85/json-db": "1.0.*"
+        "philwc/jsondb": "0.1"
 	}
 }

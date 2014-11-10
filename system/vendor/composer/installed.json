@@ -88,32 +88,26 @@
         ]
     },
     {
-        "name": "dav-m85/json-db",
-        "version": "v1.0.1",
-        "version_normalized": "1.0.1.0",
+        "name": "philwc/jsondb",
+        "version": "v0.1",
+        "version_normalized": "0.1.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/dav-m85/json-db.git",
-            "reference": "7206403aee55b891dbafd23fd13735f02fdde095"
+            "url": "https://github.com/philwc/JsonDB.git",
+            "reference": "3b4ac4fb21246a7a884807365775a1f36b2835e7"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/dav-m85/json-db/zipball/7206403aee55b891dbafd23fd13735f02fdde095",
-            "reference": "7206403aee55b891dbafd23fd13735f02fdde095",
+            "url": "https://api.github.com/repos/philwc/JsonDB/zipball/3b4ac4fb21246a7a884807365775a1f36b2835e7",
+            "reference": "3b4ac4fb21246a7a884807365775a1f36b2835e7",
             "shasum": ""
         },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "3.7.*"
-        },
-        "time": "2013-11-17 18:00:45",
+        "time": "2014-05-08 14:45:45",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
-            "psr-0": {
-                "JsonDb": "lib"
+            "psr-4": {
+                "philwc\\": "src/"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -122,16 +116,16 @@
         ],
         "authors": [
             {
-                "name": "David Moreau",
-                "email": "dav.m85@gmail.com",
-                "homepage": "http://h.alfti.me",
-                "role": "Maintainer"
+                "name": "Phil Wright- Christie",
+                "email": "philwc@gmail.com",
+                "role": "Developer"
             }
         ],
-        "description": "Use a json file as a database",
-        "homepage": "http://github.com/dav-m85/json-db",
+        "description": "Database using json",
+        "homepage": "https://github.com/philwc/JsonDB",
         "keywords": [
             "database",
+            "db",
             "json"
         ]
     }
