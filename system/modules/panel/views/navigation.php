@@ -24,6 +24,7 @@
 				<table class="table">
 					<?php foreach ($area_content['links'] as $link_title => $link): ?>
 						<tr>
+							<td width="30px" style="color:#aaa;line-height:27px;"><span class="fa fa-align-justify"></span></td>
 							<td width="20%"><?php echo $link_title; ?></td>
 							<td><a href="<?php echo ($link['source'] == 'uri') ? site_url($link['url']) : $link['source'].$link['url']; ?>" target="_blank"><?php echo $link['url']; ?></a></td>
 							<td class="align-right">
