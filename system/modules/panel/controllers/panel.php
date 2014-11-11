@@ -1,5 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+use JsonDb\JsonDb;
+use JsonDb\JsonCollection;
+
 /**
  * Cms
  *
@@ -523,6 +526,17 @@ class Panel extends Admin_Controller {
 	function delete_nav_area()
 	{
 
+	}
+
+	function tes()
+	{
+		$db = new JsonDb(NAV_FOLDER);
+
+		$test = $db->getCollection('coba');
+		$something = array('foo' => 'bar');
+		$test->insert($something);
+
+		print_r($test->find());
 	}
 
 	function add_link()

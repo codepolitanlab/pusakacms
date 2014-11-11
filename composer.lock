@@ -4,8 +4,54 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ad0985a4a3ec3137d6d3c75c7dbda63b",
+    "hash": "cf905441486001f085fc91234b938083",
     "packages": [
+        {
+            "name": "dav-m85/json-db",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dav-m85/json-db.git",
+                "reference": "7206403aee55b891dbafd23fd13735f02fdde095"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dav-m85/json-db/zipball/7206403aee55b891dbafd23fd13735f02fdde095",
+                "reference": "7206403aee55b891dbafd23fd13735f02fdde095",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "JsonDb": "lib"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Moreau",
+                    "email": "dav.m85@gmail.com",
+                    "homepage": "http://h.alfti.me",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Use a json file as a database",
+            "homepage": "http://github.com/dav-m85/json-db",
+            "keywords": [
+                "database",
+                "json"
+            ],
+            "time": "2013-11-17 18:00:45"
+        },
         {
             "name": "erusev/parsedown",
             "version": "1.1.0",
@@ -44,53 +90,6 @@
                 "parser"
             ],
             "time": "2014-09-25 23:06:16"
-        },
-        {
-            "name": "fire015/flintstone",
-            "version": "v1.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fire015/flintstone.git",
-                "reference": "48ec89b634fb78a73d49655b8d064454d5abf194"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/fire015/flintstone/zipball/48ec89b634fb78a73d49655b8d064454d5abf194",
-                "reference": "48ec89b634fb78a73d49655b8d064454d5abf194",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Flintstone\\": "src/Flintstone/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jason M",
-                    "email": "emailfire@gmail.com"
-                }
-            ],
-            "description": "A key/value database store using flat files for PHP",
-            "homepage": "http://www.xeweb.net/flintstone/",
-            "keywords": [
-                "cache",
-                "database",
-                "files",
-                "flintstone",
-                "memory"
-            ],
-            "time": "2014-10-15 12:35:36"
         },
         {
             "name": "pyrocms/lex",
