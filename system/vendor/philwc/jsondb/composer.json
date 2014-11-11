@@ -1,0 +1,23 @@
+{
+    "name": "philwc/jsondb",
+    "description": "Database using json",
+    "keywords": ["database", "db", "json"],
+    "homepage": "https://github.com/philwc/JsonDB",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Phil Wright- Christie",
+            "email": "philwc@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "philwc\\": "src/"
+        }
+    }
+
+}
+

@@ -86,5 +86,47 @@
             "markdown",
             "parser"
         ]
+    },
+    {
+        "name": "philwc/jsondb",
+        "version": "v0.1",
+        "version_normalized": "0.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/philwc/JsonDB.git",
+            "reference": "3b4ac4fb21246a7a884807365775a1f36b2835e7"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/philwc/JsonDB/zipball/3b4ac4fb21246a7a884807365775a1f36b2835e7",
+            "reference": "3b4ac4fb21246a7a884807365775a1f36b2835e7",
+            "shasum": ""
+        },
+        "time": "2014-05-08 14:45:45",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "philwc\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Phil Wright- Christie",
+                "email": "philwc@gmail.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "Database using json",
+        "homepage": "https://github.com/philwc/JsonDB",
+        "keywords": [
+            "database",
+            "db",
+            "json"
+        ]
     }
 ]
