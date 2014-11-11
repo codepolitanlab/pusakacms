@@ -9,6 +9,6 @@
 	"require": {
         "pyrocms/lex": "2.3.*",
         "erusev/parsedown": "1.1.0",
-        "philwc/jsondb": "0.1"
+        "fire015/flintstone": "1.*"
 	}
 }

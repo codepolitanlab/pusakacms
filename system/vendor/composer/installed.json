@@ -88,26 +88,32 @@
         ]
     },
     {
-        "name": "philwc/jsondb",
-        "version": "v0.1",
-        "version_normalized": "0.1.0.0",
+        "name": "fire015/flintstone",
+        "version": "v1.8.0",
+        "version_normalized": "1.8.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/philwc/JsonDB.git",
-            "reference": "3b4ac4fb21246a7a884807365775a1f36b2835e7"
+            "url": "https://github.com/fire015/flintstone.git",
+            "reference": "48ec89b634fb78a73d49655b8d064454d5abf194"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/philwc/JsonDB/zipball/3b4ac4fb21246a7a884807365775a1f36b2835e7",
-            "reference": "3b4ac4fb21246a7a884807365775a1f36b2835e7",
+            "url": "https://api.github.com/repos/fire015/flintstone/zipball/48ec89b634fb78a73d49655b8d064454d5abf194",
+            "reference": "48ec89b634fb78a73d49655b8d064454d5abf194",
             "shasum": ""
         },
-        "time": "2014-05-08 14:45:45",
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.0"
+        },
+        "time": "2014-10-15 12:35:36",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "philwc\\": "src/"
+                "Flintstone\\": "src/Flintstone/"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -116,17 +122,18 @@
         ],
         "authors": [
             {
-                "name": "Phil Wright- Christie",
-                "email": "philwc@gmail.com",
-                "role": "Developer"
+                "name": "Jason M",
+                "email": "emailfire@gmail.com"
             }
         ],
-        "description": "Database using json",
-        "homepage": "https://github.com/philwc/JsonDB",
+        "description": "A key/value database store using flat files for PHP",
+        "homepage": "http://www.xeweb.net/flintstone/",
         "keywords": [
+            "cache",
             "database",
-            "db",
-            "json"
+            "files",
+            "flintstone",
+            "memory"
         ]
     }
 ]

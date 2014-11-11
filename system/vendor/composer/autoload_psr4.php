@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
-    'philwc\\' => array($vendorDir . '/philwc/jsondb/src'),
+    'Flintstone\\' => array($vendorDir . '/fire015/flintstone/src/Flintstone'),
 );
