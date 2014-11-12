@@ -13,24 +13,24 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<div class="row">
-					<div class="col-md-6"><?php echo $area_content['title']; ?></div>
+					<div class="col-md-6"><?php echo $area_slug; ?></div>
 					<div class="col-md-6 align-right">
-						<a href="#" data-toggle="modal" data-target="#areaModal" class="btn btn-xs btn-info" data-title="<?php echo $area_content['title']; ?>" data-slug="<?php echo $area_slug; ?>" data-mode="edit"><span class="fa fa-edit"></span> Edit Area</a>
+						<a href="#" data-toggle="modal" data-target="#areaModal" class="btn btn-xs btn-info" data-title="<?php echo $area_slug; ?>" data-slug="<?php echo $area_slug; ?>" data-mode="edit"><span class="fa fa-edit"></span> Edit Area</a>
 						<a href="#" data-toggle="modal" data-target="#linkModal" data-area="<?php echo $area_slug; ?>" class="btn btn-xs btn-primary" data-slug="<?php echo $area_slug; ?>"><span class="fa fa-plus-circle"></span> Add link</a>
 					</div>
 				</div>
 			</div>
-			<?php if($area_content['links']): ?>
+			<?php if($area_content): ?>
 				<table class="table">
-					<?php foreach ($area_content['links'] as $link_title => $link): ?>
+					<?php foreach ($area_content as $link): ?>
 						<tr>
 							<td width="30px" style="color:#aaa;line-height:27px;"><span class="fa fa-align-justify"></span></td>
-							<td width="20%"><?php echo $link_title; ?></td>
+							<td width="20%"><?php echo $link['title']; ?></td>
 							<td><a href="<?php echo ($link['source'] == 'uri') ? site_url($link['url']) : $link['source'].$link['url']; ?>" target="_blank"><?php echo $link['url']; ?></a></td>
 							<td class="align-right">
 								<div class="option">
-									<a href="#" class="edit" data-mode="edit" data-toggle="modal" data-target="#linkModal" data-area="<?php echo $area_slug; ?>" data-title="<?php echo $link_title; ?>" data-source="<?php echo $link['source']; ?>" data-url="<?php echo $link['url']; ?>" data-linktarget="<?php echo $link['target']; ?>"><span class="fa fa-edit"></span> Edit</a>
-									<a href="<?php echo site_url('panel/navigation/delete_link/'.$area_slug.'/'.urlencode($link_title)); ?>" class="remove"><span class="fa fa-times"></span> Delete</a>
+									<a href="#" class="edit" data-mode="edit" data-toggle="modal" data-target="#linkModal" data-area="<?php echo $area_slug; ?>" data-title="<?php echo $link['title']; ?>" data-source="<?php echo $link['source']; ?>" data-url="<?php echo $link['url']; ?>" data-linktarget="<?php echo $link['target']; ?>"><span class="fa fa-edit"></span> Edit</a>
+									<a href="<?php echo site_url('panel/navigation/delete_link/'.$area_slug.'/'.urlencode($link['title'])); ?>" class="remove"><span class="fa fa-times"></span> Delete</a>
 								</div>
 							</td>
 						</tr>
@@ -55,11 +55,7 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="area">Navigation Area Name</label>
-						<input type="text" name="area-title" id="area-title" class="form-control title">
-					</div>
-					<div class="form-group">
-						<label for="area">Navigation Area Slug</label>
-						<input type="text" name="area-slug" id="area-slug" class="form-control slug">
+						<input type="text" name="area-title" id="area-title" class="form-control">
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -107,8 +103,9 @@
 							<div class="form-group">
 								<label for="area">Navigation Area</label>
 								<select name="link_area" id="link_area" class="form-control">
-									<option value="header">Header</option>
-									<option value="sidebar">Sidebar</option>
+									<?php foreach ($areas as $area_title => $area_content): ?>
+									<option value="<?php echo $area_title; ?>"><?php echo $area_title; ?></option>
+									<?php endforeach; ?>
 								</select>
 							</div>
 							<div class="form-group">
