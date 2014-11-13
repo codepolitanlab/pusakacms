@@ -33,13 +33,6 @@
 		</div>
 	</div>
 
-	<div class="container">
-	{{ func.get_posts }}
-		<h1>{{ title }}</h1>
-		<h2>{{ attribute.version }}</h2>
-	{{ /func.get_posts }}
-	</div>
-
 	<?php get_partial('footer'); ?>
 </body>
 </html>
