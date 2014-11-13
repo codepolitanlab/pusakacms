@@ -3,14 +3,14 @@
 <title><?php echo $this->config->item('site_name'); ?></title>
 
 <!-- Bootstrap core CSS -->
-<link href="<?php echo get_theme_url() ?>/assets/css/bootstrap.css" rel="stylesheet">
+<link href="<?php echo get_theme_url() ?>assets/css/bootstrap.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="<?php echo get_theme_url() ?>/assets/css/font-awesome.min.css" rel="stylesheet">
-<link href="<?php echo get_theme_url() ?>/assets/css/style.css" rel="stylesheet">
+<link href="<?php echo get_theme_url() ?>assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="<?php echo get_theme_url() ?>assets/css/style.css" rel="stylesheet">
 
-<link rel="shortcut icon" href="<?php echo get_theme_url() ?>/assets/img/favicon.ico" type="image/x-icon">
-<link rel="icon" href="<?php echo get_theme_url() ?>/assets/img/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="<?php echo get_theme_url() ?>assets/img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="<?php echo get_theme_url() ?>assets/img/favicon.ico" type="image/x-icon">
 
 <script>
 	var links = document.links;
