@@ -317,3 +317,67 @@ span.cat span:last-child a:after {
   background: #89b847;
   border-color: #89b847;
 }
+
+
+
+
+/* DOC */
+.navbar-inverse {
+  background: #f7f9f3;
+  border-bottom: 1px solid #f0f4e9;
+}
+.navbar-inverse .navbar-brand {
+  color: #7bac37;
+}
+.navbar-inverse .navbar-brand:hover {
+  color: #89b847;
+}
+.navbar-inverse .navbar-nav li a {
+  color: #7bac37;
+}
+.navbar-inverse .navbar-nav li a:hover {
+  background: #e0ead2;
+  color: #7bac37;
+}
+.navbar-inverse .navbar-nav li.active a {
+  background: #8ec63f;
+  border-color: #8ec63f;
+  color: #ffffff;
+}
+.navbar-inverse .navbar-nav li.active a:hover {
+  background: #89b847;
+  border-color: #89b847;
+  color: #ffffff;
+}
+
+
+
+.sidebar {
+  background: #fbfbfb;
+  background: #ffffff
+}
+.sidebar .nav li {
+  border-color: #f0f4e9;
+  font-size: 14px;
+  margin-top:3px;
+  margin-bottom: 3px;
+}
+.sidebar .nav li a {
+  color: #78826a;
+}
+.sidebar .nav li a:hover {
+  background: #f0f4e9;
+}
+
+.sidebar .nav li.active a.active {
+  color: #7bac37;
+  background: #ffffff
+}
+.sidebar .nav li.active {
+  border-color: #8ec63f;
+}
+
+
+a {
+  color: #7bac37;
+}
