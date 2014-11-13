@@ -204,7 +204,7 @@ article.the-content {
 
 
 .pusaka-header {
-   color: #ffffff;
+  color: #ffffff;
   padding-top: 60px;
   padding-bottom: 40px;
   background: #8ec63f url(../img/corak_batik.png) no-repeat right bottom;
@@ -380,4 +380,30 @@ span.cat span:last-child a:after {
 
 a {
   color: #7bac37;
+}
+
+
+
+
+/* BLOG */
+.pusaka-blog-header {
+  color: #ffffff;
+  padding-top: 60px;
+  padding-bottom: 40px;
+  background: #8ec63f url(../img/corak_batik.png) no-repeat right bottom;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-attachment: fixed;
+}
+
+.content-wrapper {
+  padding:50px 0px;
+}
+
+article.the-content {
+  border-bottom: 1px solid #f0f4e9;
+}
+.footer-link a {
+  margin: 0px 10px;
+  font-size: 14px;
 }
