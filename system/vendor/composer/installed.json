@@ -89,28 +89,25 @@
     },
     {
         "name": "nyankod/jsonfiledb",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "v0.2.2",
+        "version_normalized": "0.2.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/nyankod/JsonFileDB.git",
-            "reference": "4f4596c761ede5fb8701d015076f5283897e414a"
+            "reference": "2c6652489251774babc6c5a9a6cc64240426b47a"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/nyankod/JsonFileDB/zipball/4f4596c761ede5fb8701d015076f5283897e414a",
-            "reference": "4f4596c761ede5fb8701d015076f5283897e414a",
+            "url": "https://api.github.com/repos/nyankod/JsonFileDB/zipball/2c6652489251774babc6c5a9a6cc64240426b47a",
+            "reference": "2c6652489251774babc6c5a9a6cc64240426b47a",
             "shasum": ""
         },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "time": "2014-11-12 10:05:25",
+        "time": "2014-11-13 07:07:56",
         "type": "library",
         "installation-source": "source",
         "autoload": {
-            "psr-0": {
-                "nyankod": "src/"
+            "psr-4": {
+                "Nyankod\\": "src/"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -123,6 +120,12 @@
                 "email": "toha.samba@gmail.com"
             }
         ],
-        "description": "json database library for PHP"
+        "description": "json database library for PHP",
+        "homepage": "https://github.com/nyankod/JsonFileDB",
+        "keywords": [
+            "database",
+            "db",
+            "json"
+        ]
     }
 ]

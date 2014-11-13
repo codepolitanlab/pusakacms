@@ -15,8 +15,9 @@
 				<div class="row">
 					<div class="col-md-6"><?php echo $area_slug; ?></div>
 					<div class="col-md-6 align-right">
-						<a href="#" data-toggle="modal" data-target="#areaModal" class="btn btn-xs btn-info" data-title="<?php echo $area_slug; ?>" data-slug="<?php echo $area_slug; ?>" data-mode="edit"><span class="fa fa-edit"></span> Edit Area</a>
-						<a href="#" data-toggle="modal" data-target="#linkModal" data-area="<?php echo $area_slug; ?>" class="btn btn-xs btn-primary" data-slug="<?php echo $area_slug; ?>"><span class="fa fa-plus-circle"></span> Add link</a>
+						<a href="#" data-toggle="modal" data-target="#linkModal" data-area="<?php echo $area_slug; ?>" class="btn btn-xs btn-primary" data-slug="<?php echo $area_slug; ?>"><span class="fa fa-link"></span> Add link</a>
+						<a href="#" data-toggle="modal" data-target="#areaModal" class="btn btn-xs btn-info" data-title="<?php echo $area_slug; ?>" data-slug="<?php echo $area_slug; ?>" data-mode="edit" title="Edit Area"><span class="fa fa-pencil"></span></a>
+						<a href="<?php echo site_url('panel/navigation/delete_area/'.$area_slug); ?>" class="btn btn-xs btn-danger remove" title="Delete Area"><span class="fa fa-times"></span></a>
 					</div>
 				</div>
 			</div>
@@ -24,7 +25,7 @@
 				<table class="table">
 					<?php foreach ($area_content as $link): ?>
 						<tr>
-							<td width="30px" style="color:#aaa;line-height:27px;"><span class="fa fa-align-justify"></span></td>
+							<td width="30px"><span class="fa fa-align-justify" style="color:#aaa;line-height:27px;"></span></td>
 							<td width="20%"><?php echo $link['title']; ?></td>
 							<td><a href="<?php echo ($link['source'] == 'uri') ? site_url($link['url']) : $link['source'].$link['url']; ?>" target="_blank"><?php echo $link['url']; ?></a></td>
 							<td class="align-right">

@@ -6,7 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
-    'nyankod' => array($vendorDir . '/nyankod/jsonfiledb/src'),
     'Parsedown' => array($vendorDir . '/erusev/parsedown'),
     'Lex' => array($vendorDir . '/pyrocms/lex/lib'),
 );

@@ -9,6 +9,6 @@
 	"require": {
         "pyrocms/lex": "2.3.*",
         "erusev/parsedown": "1.1.0",
-        "nyankod/jsonfiledb": "dev-master"
+        "nyankod/jsonfiledb": "0.2.*"
 	}
 }

@@ -6,4 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
+    'Nyankod\\' => array($vendorDir . '/nyankod/jsonfiledb/src'),
 );

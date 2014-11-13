@@ -1,8 +1,8 @@
 [
     {
-        "title": "Docs",
-        "url": "docs",
+        "title": "Privacy",
         "source": "uri",
+        "url": "privacy",
         "target": "_self"
     }
 ]

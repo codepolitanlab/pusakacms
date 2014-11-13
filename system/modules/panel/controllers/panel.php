@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// use nyankod\JsonDB;
+// use Nyankod\JsonFileDB;
 
 /**
  * Cms
@@ -16,7 +16,8 @@
 
 class Panel extends Admin_Controller {
 
-	var $users_path;
+	public $users_path;
+	public $nav_db;
 
 	var $page_fields = array(
 		array(
@@ -118,6 +119,8 @@ class Panel extends Admin_Controller {
 		$this->load->library('form_validation');
 		
 		if(! $this->session->userdata('username')) redirect('panel/login');
+
+		$this->nav_db = new Nyankod\JsonFileDB(NAV_FOLDER);
 
 		$this->users_path = 'sites/'. SITE_SLUG .'/users/';
 	}
@@ -447,15 +450,17 @@ class Panel extends Admin_Controller {
 			return (substr($file, -5) == '.json');
 		});
 
-		$db = new JsonDB(NAV_FOLDER);
 		$areas = array();
 
-		foreach ($files as $file) {
-			$areas[substr($file, 0, -5)] = $db->selectAll(substr($file, 0, -5));
-			if($areas[substr($file, 0, -5)][0] === 0)
-				$areas[substr($file, 0, -5)] = array();
-		}
-		
+		if(! empty($files))
+			foreach ($files as $file) {
+				$this->nav_db->setTable(substr($file, 0, -5));
+				$areas[substr($file, 0, -5)] = $this->nav_db->selectAll();
+
+				if(! $areas[substr($file, 0, -5)])
+					$areas[substr($file, 0, -5)] = false;
+			}
+
 		$this->template
 			->set('areas', $areas)
 			->view('navigation');
@@ -471,9 +476,7 @@ class Panel extends Admin_Controller {
 			if(file_exists(NAV_FOLDER.$area.'.json'))
 				$this->session->set_flashdata('error', 'Navigation area "'.$area.'" has been used. Try another term.');
 			else {
-				$db = new JsonDB(NAV_FOLDER);
-				$file = array('empty'=>true);
-				if($db->insert($area, $file))
+				if($this->nav_db->setTable($area))
 					$this->session->set_flashdata('success', 'Navigation area saved.');
 				else
 					$this->session->set_flashdata('error', 'Navigation failed to save. Make sure the folder '.NAV_FOLDER.' is writable.');
@@ -499,11 +502,8 @@ class Panel extends Admin_Controller {
 				if(! file_exists(NAV_FOLDER.$slug.'.json'))
 					$this->session->set_flashdata('error', 'Navigation area "'.$area.'" not found.');
 				else {
-					$db = new JsonDB(NAV_FOLDER);
-					$new_file = $db->selectAll($slug);
-					if(write_file(NAV_FOLDER.$area.'.json', json_encode($new_file, JSON_PRETTY_PRINT))){
+					if(rename(NAV_FOLDER.$slug.'.json', NAV_FOLDER.$area.'.json')) {
 						$this->session->set_flashdata('success', 'Navigation area updated.');
-						unlink(NAV_FOLDER.$slug.'.json');
 					} else
 					$this->session->set_flashdata('error', 'Navigation failed to save. Make sure the folder '.NAV_FOLDER.' is writable.');
 				}
@@ -515,23 +515,16 @@ class Panel extends Admin_Controller {
 		redirect('panel/navigation');
 	}
 
-	function delete_nav_area()
+	function delete_nav_area($area = false)
 	{
+		if(!$area) show_404();
 
-	}
+		if(unlink(NAV_FOLDER.$area.'.json'))
+			$this->session->set_flashdata('success', 'Navigation area '.$area.' deleted.');
+		else
+			$this->session->set_flashdata('else', 'Navigation area fail to delete. Make sure the '.NAV_FOLDER.' writable.');
 
-	function tes()
-	{
-		$db = new JsonDB(NAV_FOLDER);
-		// $db->setPrettyOutput('header', true);
-		$data = array(
-			'title' => 'Docs',
-			'url' => 'uri'
-			);
-		// print_r($db->select('header', 'title', 'Blog'));
-		// print_r($db->selectAll('header'));
-		// print_r($db->insert('header', $data));
-		print_r($db->deleteAll('header'));
+		redirect('panel/navigation');
 	}
 
 	function add_link()
@@ -547,7 +540,7 @@ class Panel extends Admin_Controller {
 				redirect('panel/navigation');
 			}
 
-			$db = new JsonDB(NAV_FOLDER);
+			$this->nav_db->setTable($link['link_area']);
 			$new_link = array(
 				'title' => $link['link_title'],
 				'source' => $link['link_source'],
@@ -555,7 +548,7 @@ class Panel extends Admin_Controller {
 				'target' => $link['link_target']
 				);
 
-			if($db->insert($link['link_area'], $new_link))
+			if($this->nav_db->insert($new_link))
 				$this->session->set_flashdata('success', 'Link saved.');
 			else
 				$this->session->set_flashdata('error', 'Link failed to save. Make sure the folder '.NAV_FOLDER.' is writable.');
@@ -582,40 +575,35 @@ class Panel extends Admin_Controller {
 				redirect('panel/navigation');
 			}
 
-			$area = file_get_contents(NAV_FOLDER.$link['link_area'].'.json');
-			$area_arr = json_decode($area, true);
+			$succ_msg = "";
+			$err_msg = "";
+			$this->nav_db->setTable($link['link_area']);
 
-			print_r($area_arr);
-			// if link title changed
-			if($oldtitle != $link['link_title'])
-				unset($area_arr['links'][$oldtitle]);
-
-			$area_arr['links'][$link['link_title']] = array(
+			$area_arr = array(
+				'title' => $link['link_title'],
 				'source' => $link['link_source'],
 				'url' => $link['link_url'],
 				'target' => $link['link_target']
 				);
 
-			$succ_msg = "";
-			$err_msg = "";
-
-			if(write_file(NAV_FOLDER.$link['link_area'].'.json', json_encode($area_arr, JSON_PRETTY_PRINT)))
-				$succ_msg = 'Link updated.';
-			else
-				$err_msg = 'Link failed to update. Make sure the folder '.NAV_FOLDER.' is writable.';
-
 			// if area changed
-			if($oldarea != $link['link_area']){
-				$old_area = file_get_contents(NAV_FOLDER.$oldarea.'.json');
-				$old_area_arr = json_decode($old_area, true);
+			if($oldarea == $link['link_area']){
+				// update link
+				if($this->nav_db->update('title', $oldtitle, $area_arr))
+					$succ_msg .= 'Link updated.';
+				else
+					$err_msg .= 'Link failed to update. Make sure the folder '.NAV_FOLDER.' is writable.';
 
-				// delete old link
-				unset($old_area_arr['links'][$oldtitle]);
+			} else {
+				// insert link to new area
+				$this->nav_db->insert($area_arr);
 
-				if(write_file(NAV_FOLDER.$oldarea.'.json', json_encode($old_area_arr, JSON_PRETTY_PRINT)))
+				// delete link from old area
+				$this->nav_db->setTable($oldarea);
+				if($this->nav_db->delete('title', $oldtitle))
 					$succ_msg .= '<br>Link moved to new area.';
 				else
-					$err_msg = '<br>Link failed to move to new area. Make sure the folder '.NAV_FOLDER.' is writable.';
+					$err_msg .= '<br>Link failed to move to new area. Make sure the folder '.NAV_FOLDER.' is writable.';
 			}
 
 			if(!empty($succ_msg))
@@ -640,12 +628,9 @@ class Panel extends Admin_Controller {
 			redirect('panel/navigation');
 		}
 
-		$file = file_get_contents(NAV_FOLDER.$area.'.json');
-		$nav = json_decode($file, true);
+		$this->nav_db->setTable($area);
 
-		unset($nav['links'][urldecode($title)]);
-
-		if(write_file(NAV_FOLDER.$area.'.json', json_encode($nav, JSON_PRETTY_PRINT)))
+		if($this->nav_db->delete('title', $title))
 			$this->session->set_flashdata('success', 'Link "'.$title.'" deleted.');
 		else
 			$this->session->set_flashdata('error', 'Link failed to delete. Make sure the folder '.NAV_FOLDER.' is writable.');

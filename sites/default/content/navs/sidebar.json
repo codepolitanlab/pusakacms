@@ -1,8 +1,8 @@
 [
     {
-        "title": "Docs",
-        "url": "docs",
+        "title": "News",
         "source": "uri",
+        "url": "news",
         "target": "_self"
     }
 ]
