@@ -4,5 +4,11 @@
         "url": "docs",
         "source": "uri",
         "target": "_self"
+    },
+    {
+        "title": "Blog",
+        "source": "uri",
+        "url": "blog",
+        "target": "_self"
     }
 ]

@@ -528,3 +528,18 @@ table a:not(.btn),
 .table a:not(.btn) {
   text-decoration: none;
 }
+
+ul.navlist {
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+}
+ul.navlist li {
+  padding: 5px;
+  background: #fafafa;
+  margin-bottom: 5px;
+}
+ul.navlist div {
+  display: inline-block;
+  margin-left: 10px;
+}
