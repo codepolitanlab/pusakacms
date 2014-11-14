@@ -627,7 +627,7 @@ ul.navlist div {
 
 
 /* NEW DASHBOARD PANEL STYLE */
-.panel-dashboard {
+.panel-dashboard-wrapper {
   background: #f9f9f9;
 }
 .navbar.navbar-default {
@@ -676,5 +676,64 @@ ul.navlist div {
   background: #2b2e28;
 }
 .navbar.navbar-default .collapse.navbar-collapse .nav.navbar-nav li .dropdown-menu {
-  background: #2b2e28;
+  background: #2e312b;
+}
+
+
+
+
+.panel-dashboard-wrapper .content {
+  padding: 70px 0px;
+}
+
+.panel-dashboard {
+  padding: 0px;
+}
+.panel-dashboard .panel-stat.red {
+  background: #f75b49;
+  color: #ffffff;
+}
+.panel-dashboard .panel-stat.dark {
+  background: #605958;
+  color: #bcb0ad;
+}
+.panel-dashboard .panel-stat .stat-title {
+  padding: 10px 40px;
+  margin: 0px; 
+}
+.panel-dashboard .panel-stat.red .stat-title {
+  background: #d44434;
+}
+.panel-dashboard .panel-stat.dark .stat-title {
+  background: #4d4645;
+  color: #bcb0ad;
+}
+.panel-dashboard .panel-stat .stat-body {
+  padding: 40px 30px;
+}
+.panel-dashboard .panel-stat .number {
+  font-size: 70px;
+  line-height: 70px;
+  font-weight: 300;
+}
+
+
+.panel-dashboard .btn-dashboard {
+  background: #f0f5f8;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  border: 1px solid #e3ebf0;
+  color: #ffffff;
+  background: #8ec63f;
+  border-color: #8ec63f;
+}
+.panel-dashboard .btn-dashboard:hover,
+.panel-dashboard .btn-dashboard:focus {
+  background: #89b847;
+  border-color: #89b847;
+  color: #ffffff;
+}
+.btn-icon {
+  font-size: 40px;
+  margin-bottom: 5px;
 }
