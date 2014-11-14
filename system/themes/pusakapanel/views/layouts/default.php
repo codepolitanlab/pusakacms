@@ -3,7 +3,7 @@
 <head>
 	<?php get_partial('metadata'); ?>
 </head>
-<body>
+<body class="panel-dashboard">
 	<?php get_partial('header'); ?>
 	<div class="container">
 		<div class="row wrapper">

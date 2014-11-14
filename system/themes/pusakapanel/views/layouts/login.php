@@ -31,7 +31,7 @@
 			<div class="form-group">
 				<div class="input-group">
 					<input type="password" class="form-control" placeholder="Password" name="password" autocomplete="off">
-					<div class="input-group-addon"><i class="fa fa-user"></i></div>
+					<div class="input-group-addon"><i class="fa fa-lock"></i></div>
 				</div>
 			</div>
 			<button type="submit" class="btn btn-primary btn-login">Login</button>

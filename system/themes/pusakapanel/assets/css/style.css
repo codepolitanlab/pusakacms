@@ -550,7 +550,7 @@ ul.navlist div {
 
 
 
-/* NEW PANEL STYLE */
+/* NEW FORM LOGIN PANEL STYLE */
 .panel-bg-login {
   background: #2b2e28;
 }
@@ -620,4 +620,57 @@ ul.navlist div {
     width: 100%;
   }
 
+}
+
+
+
+
+
+/* NEW DASHBOARD PANEL STYLE */
+.panel-dashboard {
+  background: #f9f9f9;
+}
+.navbar.navbar-default {
+  background: #2b2e28;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.navbar.navbar-default .navbar-header {
+  padding: 0px;
+  margin: 0px;
+} 
+.navbar.navbar-default .navbar-header .navbar-brand {
+  padding: 0px;
+  margin: 0px;
+  font-size: 26px !important;
+  margin-bottom: 0px;
+  height: auto;
+  line-height: 60px !important;
+  margin-right: 30px;
+}
+.navbar.navbar-default .collapse.navbar-collapse .nav.navbar-nav {
+  padding: 0px;
+  margin: 0px;
+}
+.navbar.navbar-default .collapse.navbar-collapse .nav.navbar-nav li {
+  padding: 0px;
+  margin: 0px;
+}
+.navbar.navbar-default .collapse.navbar-collapse .nav.navbar-nav li a {
+  font-size: 16px;
+  height: 60px;
+  line-height: 60px;
+  padding: 0px 20px;
+  color: #748166;
+}
+.navbar.navbar-default .collapse.navbar-collapse .nav.navbar-nav li a:hover {
+  background: #353832;
+  color: #a0cf5d;
+}
+.navbar.navbar-default .collapse.navbar-collapse .nav.navbar-nav li.active a {
+  color: #a0cf5d;
+  background: #2b2e28;
+}
+.navbar.navbar-default .collapse.navbar-collapse .nav.navbar-nav li .dropdown-menu {
+  background: #2b2e28;
 }

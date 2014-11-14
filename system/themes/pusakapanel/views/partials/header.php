@@ -7,11 +7,11 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-<!-- 		
+		
 			<a class="navbar-brand" href="<?php echo site_url(); ?>" target="_blank">
-				<img src="<?php echo get_theme_image('kujang_logo.png', false); ?>">
+				PusakaCMS
 			</a>
- -->		
+ 	
  		</div>
 		<div class="collapse navbar-collapse">
 			<?php get_partial('head_nav'); ?>
