@@ -50,12 +50,12 @@ class MY_Controller extends MX_Controller
 		// set theme
 		$this->template->set_theme($this->config->item('theme'));
 
-		define('PAGE_FOLDER', $sitepath.'content/pages/');
-		define('POST_FOLDER', $sitepath.'content/posts/');
-		define('LABEL_FOLDER', $sitepath.'content/labels/');
-		define('NAV_FOLDER', $sitepath.'content/navs/');
-		define('SITE_PATH', $sitepath);
-		define('POST_TERM', $this->config->item('post_term')?$this->config->item('post_term'):'blog');
+		if(! defined('PAGE_FOLDER')) define('PAGE_FOLDER', $sitepath.'content/pages/');
+		if(! defined('POST_FOLDER')) define('POST_FOLDER', $sitepath.'content/posts/');
+		if(! defined('LABEL_FOLDER')) define('LABEL_FOLDER', $sitepath.'content/labels/');
+		if(! defined('NAV_FOLDER')) define('NAV_FOLDER', $sitepath.'content/navs/');
+		if(! defined('SITE_PATH')) define('SITE_PATH', $sitepath);
+		if(! defined('POST_TERM')) define('POST_TERM', $this->config->item('post_term')?$this->config->item('post_term'):'blog');
 
 		if(! defined('JSON_PRETTY_PRINT')) define('JSON_PRETTY_PRINT', 128);
 	}

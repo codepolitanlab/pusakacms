@@ -45,24 +45,36 @@ class CMS extends MY_Controller {
 		$segments = array_values($segments);
 		
 		// if it is STREAM POST
-		if($segments[0] == $this->config->item('post_term'))
+		if($segments[0] == POST_TERM)
 		{
 			return call_user_func_array(array($this, 'post'), $params);
 		}
 		// if it is a PAGE
 		else 
 		{
-			$file_path = PAGE_FOLDER.'/'.implode('/', $segments);
-			
-			// check if there is a custom layout for this page
-			if($this->template->layout_exists('pages/'.implode("/",$segments)))
-				$this->template->set_layout('pages/'.implode("/",$segments));
-			// check if there is a custom layout for this page and its children
-			elseif($this->template->layout_exists('pages/'.$segments[0]))
-				$this->template->set_layout('pages/'.$segments[0]);
-
-			$this->template->view_content($file_path, $this->data);
+			$this->_page($segments);
 		}
+	}
+
+	function _page($segments)
+	{
+		$file_path = PAGE_FOLDER.implode('/', $segments);
+
+		if(! file_exists($file_path.'.md') && ! file_exists($file_path.'/index.md')) show_404();
+
+		// check if there is a custom layout for this page
+		if($this->template->layout_exists('pages/'.implode("/",$segments)))
+			$this->template->set_layout('pages/'.implode("/",$segments));
+		
+		// check if there is a custom layout for this page and its children
+		elseif($this->template->layout_exists('pages/'.$segments[0]))
+			$this->template->set_layout('pages/'.$segments[0]);
+		
+		// else
+		// 	$this->template->set_layout('pages/'.$segments[0]);
+
+		$this->template->view_content($file_path, $this->data);
+		// show_404();
 	}
 
 	function sync_nav($prefix = null)
