@@ -34,10 +34,10 @@
 					<div class="input-group-addon"><i class="fa fa-user"></i></div>
 				</div>
 			</div>
-			<button type="submit" class="btn btn-primary">Login</button>
+			<button type="submit" class="btn btn-primary btn-login">Login</button>
 		</form>
 
-		<div class="panel-login-form-forgot text-right">
+		<div class="panel-login-form-forgot">
 			<a href="#"> Forgot your password?</a>
 		</div>
 		
