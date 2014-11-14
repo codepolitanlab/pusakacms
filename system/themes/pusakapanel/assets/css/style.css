@@ -543,3 +543,69 @@ ul.navlist div {
   display: inline-block;
   margin-left: 10px;
 }
+
+
+
+
+
+
+
+/* NEW PANEL STYLE */
+.panel-bg-login {
+  background: #2b2e28;
+}
+.panel-login-header {
+  background: #83b73a;
+  padding: 60px 0px;
+}
+.panel-login-form {
+  padding: 60px 0px;
+  color: #eaf4dd;
+  width: 490px;
+  margin: auto;
+}
+@media (max-width: 767px) {
+  .panel-login-form {
+    padding: 60px 20px;
+    width: 100%;
+  }
+
+}
+
+.panel-login-form a {
+  color: #e6b509;
+  text-decoration: none;
+}
+.panel-login-form a:hover,
+.panel-login-form a:focus {
+  color: #f4c212;
+  text-decoration: none;
+}
+
+.panel-login-form .form-text {
+  margin-top: 0px;
+  margin-bottom: 30px;
+  font-size: 26px;
+}
+.panel-login-form .input-group .form-control {
+  background: #eaf4dd;
+  width: 160px;
+  border-color: #eaf4dd;
+}
+.panel-login-form .input-group-addon {
+  background: #eaf4dd;
+}
+
+.panel-login-form .panel-login-form-forgot {
+  margin-top: 20px;
+}
+
+.btn-primary {
+  background: #e6b509;
+  border-color: #e6b509;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  background: #d9ac0e;
+  border-color: #d9ac0e;
+}
