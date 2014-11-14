@@ -24,13 +24,13 @@
 		<form class="form-inline" role="form" action="<?php echo site_url('panel/auth/login'); ?>" method="POST">
 			<div class="form-group">
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Username" name="username">
+					<input type="text" class="form-control" placeholder="Username" name="username" autocomplete="off">
 					<div class="input-group-addon"><i class="fa fa-user"></i></div>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="input-group">
-					<input type="password" class="form-control" placeholder="Password" name="password">
+					<input type="password" class="form-control" placeholder="Password" name="password" autocomplete="off">
 					<div class="input-group-addon"><i class="fa fa-user"></i></div>
 				</div>
 			</div>
