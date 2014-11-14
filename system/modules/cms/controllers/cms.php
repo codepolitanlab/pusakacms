@@ -11,7 +11,7 @@
  * @license		http://nyankod.com/license
  * @link		http://nyankod.com/pusakacms
  */
-class CMS extends MY_Controller {
+class CMS extends Public_Controller {
 
 	/**
 	 * Main CMS Function
@@ -69,9 +69,6 @@ class CMS extends MY_Controller {
 		// check if there is a custom layout for this page and its children
 		elseif($this->template->layout_exists('pages/'.$segments[0]))
 			$this->template->set_layout('pages/'.$segments[0]);
-		
-		// else
-		// 	$this->template->set_layout('pages/'.$segments[0]);
 
 		$this->template->view_content($file_path, $this->data);
 		// show_404();

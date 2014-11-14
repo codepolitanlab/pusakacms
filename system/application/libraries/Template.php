@@ -510,6 +510,8 @@ class Template
 			if ($this->_theme AND file_exists($location.$this->_theme))
 			{
 				$this->_theme_path = rtrim($location.$this->_theme.'/');
+				if(! defined('THEME_PATH')) 
+					define('THEME_PATH', $this->_theme_path);
 				break;
 			}
 		}

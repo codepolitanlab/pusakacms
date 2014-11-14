@@ -47,9 +47,6 @@ class MY_Controller extends MX_Controller
 
 		$this->config->set_item('page_title', $this->config->item('site_name'));
 
-		// set theme
-		$this->template->set_theme($this->config->item('theme'));
-
 		if(! defined('PAGE_FOLDER')) define('PAGE_FOLDER', $sitepath.'content/pages/');
 		if(! defined('POST_FOLDER')) define('POST_FOLDER', $sitepath.'content/posts/');
 		if(! defined('LABEL_FOLDER')) define('LABEL_FOLDER', $sitepath.'content/labels/');
