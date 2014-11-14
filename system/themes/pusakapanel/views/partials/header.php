@@ -9,7 +9,7 @@
 			</button>
 		
 			<a class="navbar-brand" href="<?php echo site_url(); ?>" target="_blank">
-				PusakaCMS
+				<img src="<?php echo get_theme_image('kujang_logo_panel.png', false); ?>">
 			</a>
  	
  		</div>
