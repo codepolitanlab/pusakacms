@@ -709,7 +709,7 @@ class Panel extends Admin_Controller {
 	{
 		// get user files
 		$users_file = array_filter(scandir($this->users_path), function($user){
-			return (substr($user, -5) == '.json');
+			return (substr($user, -5) == '.json' && $user != '_blueprint.json');
 		});
 
 		$users = array();
