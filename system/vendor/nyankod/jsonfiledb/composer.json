@@ -1,0 +1,19 @@
+{
+    "name": "nyankod/jsonfiledb",
+    "description": "json database library for PHP",
+    "keywords": ["database", "db", "json"],
+    "homepage": "https://github.com/nyankod/JsonFileDB",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Toni Haryanto",
+            "email": "toha.samba@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Nyankod\\": "src/"
+        }
+    }
+}
