@@ -104,7 +104,7 @@
         },
         "time": "2014-11-13 07:07:56",
         "type": "library",
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-4": {
                 "Nyankod\\": "src/"
