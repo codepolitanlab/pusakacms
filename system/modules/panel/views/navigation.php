@@ -22,12 +22,12 @@
 				</div>
 			</div>
             <div class="panel-body">
-                
-            <?php if($area_content): ?>
-                <?php echo Modules::run('panel/navigation_list', $area_slug, $area_content); ?>
-            <?php else: ?>
-                <p class="align-center">No link yet.</p>
-            <?php endif; ?>
+
+                <?php if($area_content): ?>
+                    <?php echo Modules::run('panel/navigation/navigation_list', $area_slug, $area_content); ?>
+                <?php else: ?>
+                    <p class="align-center">No link yet.</p>
+                <?php endif; ?>
             </div>
         </div>
     <?php endforeach; ?>
@@ -37,7 +37,7 @@
 <div class="modal fade" id="areaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
-			<form action="<?php echo site_url('panel/navigation/add_area'); ?>" class="form" id="area-form" method="POST">
+			<form action="<?php echo site_url('panel/navigation/create_area'); ?>" class="form" id="area-form" method="POST">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 					<h4 class="modal-title" id="areaModalLabel">New Navigation Area</h4>
@@ -61,62 +61,78 @@
 <div class="modal fade" id="linkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form action="<?php echo site_url('panel/navigation/add_link'); ?>" id="link-form" class="form" method="POST">
+			<form action="<?php echo site_url('panel/navigation/create_link'); ?>" id="link-form" class="form" method="POST">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 					<h4 class="modal-title" id="linkModalLabel">Add new link</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
-						<div class="col-md-8">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label for="area">Link title</label>
 								<input type="text" name="link_title" id="link_title" class="form-control">
 							</div>
-							<div class="form-group">
-								<label for="area">Link URL</label>
-								<div class="row">
-									<div class="col-md-5">
-										<select name="link_source" id="link_source" class="form-control">
-											<option value="http://">http://</option>
-											<option value="https://">https://</option>
-											<option value="uri">URI</option>
-										</select>
-									</div>
-									<div class="col-md-7">
-										<input type="text" name="link_url" id="link_url" class="form-control">
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="area">Navigation Area</label>
-								<select name="link_area" id="link_area" class="form-control">
-									<?php foreach ($areas as $area_title => $area_content): ?>
-										<option value="<?php echo $area_title; ?>"><?php echo $area_title; ?></option>
-									<?php endforeach; ?>
-								</select>
-							</div>
-							<div class="form-group">
-								<label for="area">Link Target</label>
-								<select name="link_target" id="link_target" class="form-control">
-									<option value="_self">_self</option>
-									<option value="_blank">_blank</option>
-									<option value="_parent">_parent</option>
-									<option value="_top">_top</option>
-								</select>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-					<button type="submit" id="btn-submit-link-form" class="btn btn-primary">Add Link</button>
-				</div>
-			</form>
-		</div>
-	</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="area">Navigation Area</label>
+                                <select name="link_area" id="link_area" class="form-control">
+                                    <?php foreach ($areas as $area_title => $area_content): ?>
+                                        <option value="<?php echo $area_title; ?>"><?php echo $area_title; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="area">Link Parent</label>
+                                <select name="link_parent" id="link_parent" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="area">Link Target</label>
+                                <select name="link_target" id="link_target" class="form-control">
+                                    <option value="_self">_self</option>
+                                    <option value="_blank">_blank</option>
+                                    <option value="_parent">_parent</option>
+                                    <option value="_top">_top</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="area">Link URL</label>
+                                <select name="link_source" id="link_source" class="form-control">
+                                    <option value="http://">http://</option>
+                                    <option value="https://">https://</option>
+                                    <option value="uri">URI</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="">&nbsp;</label>
+                                <input type="text" name="link_url" id="link_url" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" id="btn-submit-link-form" class="btn btn-primary">Add Link</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -133,7 +149,7 @@
 				$('#btn-submit-area-form').html('Edit');
 				$('#areaModalLabel').html('Edit Navigation Area');
 			} else {
-				$('#area-form').attr('action', base_url + 'panel/navigation/add_area');
+				$('#area-form').attr('action', base_url + 'panel/navigation/create_area');
 				$('#btn-submit-area-form').html('Create');
 				$('#areaModalLabel').html('New Navigation Area');				
 			}
@@ -142,11 +158,14 @@
 		// nav link modals
 		$('#linkModal').on('show.bs.modal', function (e) {
 			var mode = $(e.relatedTarget).data('mode');
-			var link_area = $(e.relatedTarget).data('area');
-			var link_title = $(e.relatedTarget).data('title');
-			var link_source = $(e.relatedTarget).data('source');
-			var link_url = $(e.relatedTarget).data('url');
-			var link_target = $(e.relatedTarget).data('linktarget');
+            var link_area = $(e.relatedTarget).data('area');
+            var link_title = $(e.relatedTarget).data('title');
+            var link_source = $(e.relatedTarget).data('source');
+            var link_url = $(e.relatedTarget).data('url');
+            var link_target = $(e.relatedTarget).data('linktarget');
+
+            set_parent_dropdown(link_area);
+
 			$('#link_area').val(link_area);
 			$('#link_title').val(link_title);
 			$('#link_source').val(link_source);
@@ -157,10 +176,17 @@
 				$('#btn-submit-link-form').html('Edit');
 				$('#linkModalLabel').html('Edit Link');
 			} else {
-				$('#area-form').attr('action', base_url + 'panel/navigation/add_link');
+				$('#area-form').attr('action', base_url + 'panel/navigation/create_link');
 				$('#btn-submit-area-form').html('Create');
 				$('#linkModalLabel').html('Add New Link');				
 			}
-		}) 
+		})
+
+        var set_parent_dropdown = function(area)
+        {
+            $.get("<?php echo site_url('panel/get_nav_parent_option'); ?>/" + area, function(data){
+                $('#link_parent').html(data);
+            });
+        }
 	})
 </script>

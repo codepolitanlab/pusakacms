@@ -1,6 +1,6 @@
 <?php
 $links = array(
-	'dashboard' => '<span class="fa fa-dashboard"></span><span class="nav-tooltip">Dashboard</span>',
+	'/' => '<span class="fa fa-dashboard"></span><span class="nav-tooltip">Dashboard</span>',
 	'content' => array(
 		'#' => '<span class="fa fa-file-text-o"></span><span class="nav-tooltip">Content</span>',
 		'pages' => '<span class="fa fa-file-text"></span> Pages',

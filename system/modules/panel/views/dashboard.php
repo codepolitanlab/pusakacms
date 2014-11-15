@@ -19,13 +19,13 @@
 			<div class="panel-button-wrapper">
 				<div class="row">
 					<div class="col-sm-3 col-xs-6">
-						<a href="{{ func.site_url }}panel/posts/new" class="btn btn-block btn-dashboard">
+						<a href="{{ func.site_url }}panel/posts/create" class="btn btn-block btn-dashboard">
 							<div class="btn-icon"><span class="fa fa-pencil"></span></div>
 							<div class="btn-label">New Post</div>
 						</a>
 					</div>
 					<div class="col-sm-3 col-xs-6">
-						<a href="{{ func.site_url }}panel/pages/new" class="btn btn-block btn-dashboard">
+						<a href="{{ func.site_url }}panel/pages/create" class="btn btn-block btn-dashboard">
 							<div class="btn-icon"><span class="fa fa-file-text"></span></div>
 							<div class="btn-label">New page</div>
 						</a>

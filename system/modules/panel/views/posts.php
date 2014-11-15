@@ -5,7 +5,7 @@
 	<div class="col-md-6 align-right">
 		<div>
 			<a class="btn btn-md btn-transparent" href="{{ func.site_url }}panel/posts/sync"><span class="fa fa-refresh"></span> Sync Posts</a>
-			<a class="btn btn-md btn-transparent" href="{{ func.site_url }}panel/posts/new"><span class="fa fa-plus-circle"></span> Create new posts</a>
+			<a class="btn btn-md btn-transparent" href="{{ func.site_url }}panel/posts/create"><span class="fa fa-plus-circle"></span> Create new posts</a>
 		</div>
 	</div>
 </div>
@@ -19,7 +19,7 @@
 			<small><a href="<?php echo site_url($post['url']); ?>" target="_blank"><span class="fa fa-external-link"></span> <?php echo site_url($post['url']); ?></a></small>
 			<div class="labels">
 				<?php foreach ($post['labels'] as $label): ?>
-					<a href="<?php echo site_url('panel/posts/'.$label); ?>"><label class="label label-success"><?php echo $label; ?></label></a>
+					<a href="<?php echo site_url('panel/posts/index/'.$label); ?>"><label class="label label-success"><?php echo $label; ?></label></a>
 				<?php endforeach; ?>
 			</div>
 			<div class="row">

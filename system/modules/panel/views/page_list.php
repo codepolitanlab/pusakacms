@@ -20,7 +20,7 @@ if($uri != '_title'): ?>
 			<div class="col-md-6 align-right">			
 				<div class="option">
 					<a href="<?php echo site_url('panel/pages/edit?page='.$uri); ?>" class="edit"><span class="fa fa-edit"></span> Edit</a>
-					<a href="<?php echo site_url('panel/pages/new?parent='.$uri); ?>" class="add"><span class="fa fa-plus"></span> Create subpage</a>
+					<a href="<?php echo site_url('panel/pages/create?parent='.$uri); ?>" class="add"><span class="fa fa-plus"></span> Create subpage</a>
 					<a href="<?php echo site_url('panel/pages/delete?page='.$uri); ?>" class="remove"><span class="fa fa-times"></span> Delete</a>
 				</div>
 			</div>

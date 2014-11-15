@@ -14,24 +14,28 @@
  * @link		http://nyankod.com/pusakacms
  */
 
-class Panel extends Admin_Controller {
+class Media extends Admin_Controller {
 
-	public function __construct(){
+	public $users_path;
+	public $nav_db;
 
+	function __construct(){
 		parent::__construct();
 
 		if(! $this->session->userdata('username')) redirect('panel/login');
+
+		$this->users_path = 'sites/'. SITE_SLUG .'/users/';
 	}
 
 
 	/*********************************************
-	 * DASHBOARD
+	 * MEDIA
 	 **********************************************/
 
 	function index()
 	{
-
-		$this->template->view('dashboard');
+		
+		$this->template->view('media');
 	}
 
 }

@@ -99,7 +99,7 @@ class Pusaka {
 				$new_map[$link] = $prefix.' '.$content['_title'];
 	
 			if(count($content) > 1)
-				$new_map += $this->get_flatnav($content, $prefix."—");
+				$new_map += $this->get_flatnav($content, $prefix.'—');
 		}
 		return $new_map;
 	}
