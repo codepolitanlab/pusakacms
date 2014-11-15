@@ -157,11 +157,13 @@ a {
   -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
   -o-transition: color 0.1s ease-in, background 0.1s ease-in;
   transition: color 0.1s ease-in, background 0.1s ease-in;
+
+  color: #7bac37;
 }
 
 a:hover,
 a:focus {
-  color: #2C3E50;
+  color: #5f842d;
   text-decoration: none;
   outline: 0;
 }
@@ -634,6 +636,7 @@ ul.navlist li ul {
 
 
 /* NEW DASHBOARD PANEL STYLE */
+/* NAVBAR */
 .panel-dashboard-wrapper {
   background: #f9f9f9;
 }
@@ -689,9 +692,13 @@ ul.navlist li ul {
 
 
 
-
+/* DASHBOARD CONTENT */
 .panel-dashboard-wrapper .content {
   padding: 70px 0px;
+}
+
+.panel-dashboard-wrapper h1 {
+  color: #6a6a6a;
 }
 
 .panel-dashboard {
@@ -726,6 +733,8 @@ ul.navlist li ul {
 }
 
 
+
+/* BUTTON */
 .panel-dashboard .btn-dashboard {
   background: #f0f5f8;
   padding-top: 25px;
@@ -741,10 +750,13 @@ ul.navlist li ul {
   border-color: #89b847;
   color: #ffffff;
 }
+
+
 .btn-icon {
   font-size: 40px;
   margin-bottom: 5px;
 }
+
 
 .btn-success {
   color: #ffffff;
@@ -756,4 +768,16 @@ ul.navlist li ul {
   background: #89b847;
   border-color: #89b847;
   color: #ffffff;
+}
+
+
+.btn-transparent {
+  background: transparent;
+  border-color: #878787;
+  color: #878787;
+}
+.btn-transparent:hover,
+.btn-transparent:focus {
+  color: #89b847;
+  border-color: #89b847;
 }
