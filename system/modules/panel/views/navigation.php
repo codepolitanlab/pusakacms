@@ -21,27 +21,16 @@
 					</div>
 				</div>
 			</div>
-			<?php if($area_content): ?>
-				<ul class="navlist">
-					<?php foreach ($area_content as $link): ?>
-						<li>
-							<div><span class="fa fa-align-justify" style="color:#aaa;line-height:27px;"></span></div>
-							<div><?php echo $link['title']; ?></div>
-							<div><a href="<?php echo ($link['source'] == 'uri') ? site_url($link['url']) : $link['source'].$link['url']; ?>" target="_blank"><?php echo $link['url']; ?></a></div>
-							<div class="align-right pull-right">
-								<div class="option">
-									<a href="#" class="edit" data-mode="edit" data-toggle="modal" data-target="#linkModal" data-area="<?php echo $area_slug; ?>" data-title="<?php echo $link['title']; ?>" data-source="<?php echo $link['source']; ?>" data-url="<?php echo $link['url']; ?>" data-linktarget="<?php echo $link['target']; ?>"><span class="fa fa-edit"></span> Edit</a>
-									<a href="<?php echo site_url('panel/navigation/delete_link/'.$area_slug.'/'.urlencode($link['title'])); ?>" class="remove"><span class="fa fa-times"></span> Delete</a>
-								</div>
-							</div>
-						</li>
-					<?php endforeach; ?>
-				</table>
-			<?php else: ?>
-				<p class="align-center">No link yet.</p>
-			<?php endif; ?>
-		</div>
-	<?php endforeach; ?>
+            <div class="panel-body">
+                
+            <?php if($area_content): ?>
+                <?php echo Modules::run('panel/navigation_list', $area_slug, $area_content); ?>
+            <?php else: ?>
+                <p class="align-center">No link yet.</p>
+            <?php endif; ?>
+            </div>
+        </div>
+    <?php endforeach; ?>
 <?php endif; ?>
 
 <!-- Area form Modal -->
@@ -105,7 +94,7 @@
 								<label for="area">Navigation Area</label>
 								<select name="link_area" id="link_area" class="form-control">
 									<?php foreach ($areas as $area_title => $area_content): ?>
-									<option value="<?php echo $area_title; ?>"><?php echo $area_title; ?></option>
+										<option value="<?php echo $area_title; ?>"><?php echo $area_title; ?></option>
 									<?php endforeach; ?>
 								</select>
 							</div>

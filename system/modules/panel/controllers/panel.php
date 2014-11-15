@@ -466,6 +466,11 @@ class Panel extends Admin_Controller {
 			->view('navigation');
 	}
 
+	function navigation_list($area, $links = array())
+	{
+		return $this->load->view('navigation_list', array('area' => $area, 'links' => $links), true);
+	}
+
 	function new_nav_area()
 	{
 		$this->form_validation->set_rules($this->nav_area_fields);

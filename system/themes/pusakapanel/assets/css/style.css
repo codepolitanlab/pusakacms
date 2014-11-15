@@ -529,19 +529,26 @@ table a:not(.btn),
   text-decoration: none;
 }
 
+.panel-body {
+  padding: 10px;
+}
 ul.navlist {
   list-style: none;
-  padding: 10px;
+  padding: 0;
   margin: 0;
 }
-ul.navlist li {
+ul.navlist li .link {
+  display: block;
   padding: 5px;
   background: #fafafa;
   margin-bottom: 5px;
 }
-ul.navlist div {
+ul.navlist li .link div {
   display: inline-block;
   margin-left: 10px;
+}
+ul.navlist li ul {
+  padding-left: 20px;
 }
 
 

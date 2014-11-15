@@ -3,12 +3,40 @@
         "title": "Docs",
         "url": "docs",
         "source": "uri",
-        "target": "_self"
+        "target": "_self",
+        "children": [
+            {
+                "title": "Apa itu Pusaka?",
+                "url": "docs\/apa-itu-pusaka",
+                "source": "uri",
+                "target": "_self"
+            },
+            {
+                "title": "Kenapa Pusaka?",
+                "url": "docs\/kenapa-pusaka",
+                "source": "uri",
+                "target": "_self",
+                "children": [
+                    {
+                        "title": "News",
+                        "source": "uri",
+                        "url": "news",
+                        "target": "_self"
+                    }
+                ]
+            }
+        ]
     },
     {
         "title": "Blog",
         "source": "uri",
         "url": "blog",
+        "target": "_self"
+    },
+    {
+        "title": "About",
+        "source": "uri",
+        "url": "about",
         "target": "_self"
     }
 ]
