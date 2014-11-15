@@ -645,8 +645,9 @@ ul.navlist div {
   font-size: 26px !important;
   margin-bottom: 0px;
   height: auto;
-  line-height: 60px !important;
+  line-height: 50px !important;
   margin-right: 30px;
+  margin-left: 15px;
 }
 .navbar.navbar-default .collapse.navbar-collapse .nav.navbar-nav {
   padding: 0px;
