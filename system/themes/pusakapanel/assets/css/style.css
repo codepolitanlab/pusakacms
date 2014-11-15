@@ -704,6 +704,10 @@ ul.navlist li ul {
 .panel-dashboard {
   padding: 0px;
 }
+.panel-dashboard .panel-stat .stat-title {
+  padding: 15px 30px;
+  margin: 0px; 
+}
 .panel-dashboard .panel-stat.red {
   background: #f75b49;
   color: #ffffff;
@@ -712,9 +716,14 @@ ul.navlist li ul {
   background: #605958;
   color: #bcb0ad;
 }
-.panel-dashboard .panel-stat .stat-title {
-  padding: 10px 40px;
-  margin: 0px; 
+.panel-dashboard .panel-stat.blue {
+  background: #00cacc;
+  color: #c0eeee;
+}
+.panel-dashboard .panel-stat.white {
+  background: #f8fcfc;
+  color: #817b7b;
+  border: 2px solid #e6e0e0;
 }
 .panel-dashboard .panel-stat.red .stat-title {
   background: #d44434;
@@ -723,8 +732,16 @@ ul.navlist li ul {
   background: #4d4645;
   color: #bcb0ad;
 }
+.panel-dashboard .panel-stat.blue .stat-title {
+  background: #04aeb0;
+  color: #c0eeee;
+}
+.panel-dashboard .panel-stat.white .stat-title {
+  background: #f8fcfc;
+  color: #817b7b;
+}
 .panel-dashboard .panel-stat .stat-body {
-  padding: 40px 30px;
+  padding: 30px 30px;
 }
 .panel-dashboard .panel-stat .number {
   font-size: 70px;
@@ -743,6 +760,7 @@ ul.navlist li ul {
   color: #ffffff;
   background: #8ec63f;
   border-color: #8ec63f;
+  margin-bottom: 30px;
 }
 .panel-dashboard .btn-dashboard:hover,
 .panel-dashboard .btn-dashboard:focus {
@@ -750,7 +768,6 @@ ul.navlist li ul {
   border-color: #89b847;
   color: #ffffff;
 }
-
 
 .btn-icon {
   font-size: 40px;
@@ -780,4 +797,10 @@ ul.navlist li ul {
 .btn-transparent:focus {
   color: #89b847;
   border-color: #89b847;
+}
+
+
+
+.form-control:focus {
+  border-color: #a7aeb5;
 }
