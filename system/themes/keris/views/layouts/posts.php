@@ -9,11 +9,14 @@
 	<div class="container">		
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
-				<?php if($label): ?>
-					<h1>Post dengan label "<?php echo $label; ?>"</h1><hr>
-				<?php endif; ?>
 				
 				<div class="content-wrapper">
+
+					<?php if($label): ?>
+						<div class="label-title-wrapper">Post dengan label "<?php echo $label; ?>"</div>
+					<?php endif; ?>
+
+
 					<?php if(isset($posts['entries']) && !empty($posts['entries'])): ?>
 						
 						<?php foreach ($posts['entries'] as $post): ?>

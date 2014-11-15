@@ -400,6 +400,13 @@ a {
   padding:50px 0px;
 }
 
+.content-wrapper .label-title-wrapper {
+   border-bottom: 1px solid #f0f4e9;
+   font-size: 20px;
+   padding: 20px 20px;
+   margin-bottom: 30px;
+}
+
 article.the-content {
   border-bottom: 1px solid #f0f4e9;
 }
