@@ -61,6 +61,7 @@ class Posts extends Admin_Controller {
 
 		$this->template
 			->set('posts', $posts)
+			->set('label', $category)
 			->view('posts');
 	}
 

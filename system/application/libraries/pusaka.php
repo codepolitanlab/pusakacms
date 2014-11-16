@@ -37,10 +37,6 @@ class Pusaka {
 	public function __construct()
 	{
 		$this->CI =& get_instance();
-
-		$this->post_per_page = $this->CI->config->item('post_per_page')
-								? $this->CI->config->item('post_per_page')
-								: 10;
 	}
 
 	// --------------------------------------------------------------------
@@ -423,6 +419,9 @@ class Pusaka {
 	 */
 	function get_posts($category = null, $page = 1, $sort = 'desc', $parse = true)
 	{
+		// I don't know why this line of code cannot affected if put in __construct
+		$this->set_post_per_page();
+
 		$posts = array();
 
 		if($category && $category != 'all'){
@@ -454,18 +453,40 @@ class Pusaka {
 		return $posts;
 	}
 
-	function pagination($total, $label = false, $layout_options = array())
+	function set_post_per_page($post_per_page = false)
 	{
+		$this->post_per_page = $this->CI->config->item('post_per_page')
+								? $this->CI->config->item('post_per_page')
+								: 10;
+
+		if($post_per_page)
+			$this->post_per_page = $post_per_page;
+
+		return $this->post_per_page;
+	}
+
+	function post_pagination($total, $label = false, $uri = false, $page_segment = 3, $layout_options = array())
+	{
+		// I don't know why this line of code cannot affected if put in __construct
+		$this->set_post_per_page();
+
 		// create pagination
 		$this->CI->load->library('pagination');
-		
-		if($label){
-			$config['base_url'] = site_url(POST_TERM.'/label/'.$label);
-			$config['uri_segment'] = 4;
-		}
-		else {
-			$config['base_url'] = site_url(POST_TERM.'/p/');
-			$config['uri_segment'] = 3;
+
+		// if $uri not set, assume it is for default frontend post
+		if(! $uri){
+			$config['base_url'] = site_url(POST_TERM);
+			
+			if($label)
+				$config['base_url'] .= '/label/'.$label;
+			else
+				$config['base_url'] .= '/p/';
+
+			$config['uri_segment'] = ($label) ? $page_segment + 1 : $page_segment;
+
+		} else {
+			$config['base_url'] = site_url($uri);
+			$config['uri_segment'] = $page_segment;
 		}
 
 

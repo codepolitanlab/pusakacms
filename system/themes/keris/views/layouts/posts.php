@@ -37,7 +37,7 @@
 
 							</article>
 						<?php endforeach; ?>
-					
+
 					<?php else: ?>
 						<article>
 							<p>Belum ada posting.</p>
@@ -45,11 +45,11 @@
 					<?php endif; ?>
 				</div>
 
-					<ul class="pagination">
-						<?php echo $this->pusaka->pagination($posts['total'], $label); ?>
-					</ul>
+				<ul class="pagination">
+				<?php echo $this->pusaka->post_pagination($posts['total'], $label); ?>
+				</ul>
 
-				</div>
+			</div>
 
 				<!--<div class="col-md-3">
 					<?php /*get_partial('post_sidebar'); */ ?>
