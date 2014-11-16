@@ -550,7 +550,7 @@ ul.navlist li .link div {
   margin-left: 10px;
 }
 ul.navlist li ul {
-  padding-left: 20px;
+  padding-left: 30px;
 }
 
 
@@ -803,4 +803,35 @@ ul.navlist li ul {
 
 .form-control:focus {
   border-color: #a7aeb5;
+}
+
+/*jQuery Sortable*/
+body.dragging, body.dragging * {
+  cursor: move !important;
+}
+
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+
+li.placeholder {
+  position: relative;
+  /** More li styles **/
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+li.placeholder:before {
+  position: absolute;
+  /** Define arrowhead **/
+  content: "";
+  width: 100%;
+  height: 0;
+  margin-top: -5px;
+  border-top: 5px solid #64C1FF;
+}
+.dragpanel {
+  cursor: move;
 }

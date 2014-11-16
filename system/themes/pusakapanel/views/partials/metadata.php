@@ -10,20 +10,6 @@
 <!-- Custom styles for this template -->
 <link href="<?php echo get_theme_url() ?>assets/css/style.css" rel="stylesheet">
 
-<script src="<?php echo get_theme_url() ?>assets/js/jquery.min.js"></script>
-<script src="<?php echo get_theme_url() ?>assets/js/bootstrap.min.js"></script>
-<script src="<?php echo get_theme_url() ?>assets/js/pagedown-bootstrap/js/jquery.pagedown-bootstrap.combined.js"></script>
-<script src="<?php echo get_theme_url() ?>assets/js/jquery.slugify.js"></script>
-<script src="<?php echo get_theme_url() ?>assets/js/script.js"></script>
-<script>
-	var base_url = "<?php echo site_url(); ?>";
-	var links = document.links;
-	for (var i = 0, linksLength = links.length; i < linksLength; i++) {
-		if (links[i].hostname != window.location.hostname) {
-			links[i].target = '_blank';
-		} 
-	}
-</script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

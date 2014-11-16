@@ -91,9 +91,9 @@ class Navigation extends Admin_Controller {
 			->view('navigation');
 	}
 
-	function navigation_list($area, $links = array())
+	function navigation_list($area, $links = array(), $root = false)
 	{
-		return $this->load->view('navigation_list', array('area' => $area, 'links' => $links), true);
+		return $this->load->view('navigation_list', array('area' => $area, 'links' => $links, 'root' => $root), true);
 	}
 
 	function get_flatnav($area = false, $arr = null, $prefix = '', $return = true)

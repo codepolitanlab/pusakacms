@@ -43,5 +43,6 @@
 		
 	</div>
 
+	<?php get_partial('scripts'); ?>
 </body>
 </html>
