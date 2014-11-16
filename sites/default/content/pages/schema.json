@@ -17,19 +17,23 @@
                     },
                     {
                         "title": "Instalasi",
-                        "url": "docs\/panduan-pengguna\/instalasi"
-                    },
-                    {
-                        "title": "Format Penulisan",
-                        "url": "docs\/panduan-pengguna\/format-penulisan"
-                    },
-                    {
-                        "title": "Mengatur Navigasi",
-                        "url": "docs\/panduan-pengguna\/mengatur-navigasi"
-                    },
-                    {
-                        "title": "Membuat Halaman",
-                        "url": "docs\/panduan-pengguna\/membuat-halaman"
+                        "url": "docs\/panduan-pengguna\/instalasi",
+                        "children": [
+                            {
+                                "title": "Format Penulisan",
+                                "url": "docs\/panduan-pengguna\/format-penulisan",
+                                "children": [
+                                    {
+                                        "title": "Mengatur Navigasi",
+                                        "url": "docs\/panduan-pengguna\/mengatur-navigasi"
+                                    },
+                                    {
+                                        "title": "Membuat Halaman",
+                                        "url": "docs\/panduan-pengguna\/membuat-halaman"
+                                    }
+                                ]
+                            }
+                        ]
                     },
                     {
                         "title": "Mengatur Kategori",

@@ -1,24 +1,44 @@
 [
     {
+        "title": "Blog",
+        "slug": "blog",
+        "url": "blog",
+        "source": "uri",
+        "target": "_self",
+        "children": [
+            {
+                "title": "About",
+                "slug": "about",
+                "url": "about",
+                "source": "uri",
+                "target": "_self"
+            }
+        ]
+    },
+    {
         "title": "Docs",
+        "slug": "docs",
         "url": "docs",
         "source": "uri",
         "target": "_self",
         "children": [
             {
                 "title": "Apa itu Pusaka?",
+                "slug": "apa-itu-pusaka",
                 "url": "docs\/apa-itu-pusaka",
                 "source": "uri",
                 "target": "_self",
                 "children": [
                     {
                         "title": "News",
+                        "slug": "news",
                         "url": "news",
                         "source": "uri",
                         "target": "_self",
                         "children": [
                             {
                                 "title": "Kenapa Pusaka?",
+                                "slug": "kenapa-pusaka",
                                 "url": "docs\/kenapa-pusaka",
                                 "source": "uri",
                                 "target": "_self"
@@ -26,20 +46,6 @@
                         ]
                     }
                 ]
-            }
-        ]
-    },
-    {
-        "title": "Blog",
-        "url": "blog",
-        "source": "uri",
-        "target": "_self",
-        "children": [
-            {
-                "title": "About",
-                "url": "about",
-                "source": "uri",
-                "target": "_self"
             }
         ]
     }

@@ -34,6 +34,11 @@ class Navigation extends Admin_Controller {
 				'rules'   => 'trim|required'
 				),
 			array(
+				'field'   => 'link_slug', 
+				'label'   => 'Link Slug',
+				'rules'   => 'trim|required'
+				),
+			array(
 				'field'   => 'link_url', 
 				'label'   => 'Link URL', 
 				'rules'   => 'trim|required'
@@ -198,9 +203,15 @@ class Navigation extends Admin_Controller {
 				redirect('panel/navigation');
 			}
 
+			if(! is_writable(NAV_FOLDER.$link['link_area'].'.json')){
+				$this->session->set_flashdata('error', 'Navigation area "'.$area.'" file is not writtable. Give it write permision first.');
+				redirect('panel/navigation');
+			}
+
 			$this->nav_db->setTable($link['link_area']);
 			$new_link = array(
 				'title' => $link['link_title'],
+				'slug' => $link['link_slug'],
 				'source' => $link['link_source'],
 				'url' => $link['link_url'],
 				'target' => $link['link_target']
@@ -218,9 +229,9 @@ class Navigation extends Admin_Controller {
 		redirect('panel/navigation');
 	}
 
-	function edit_link($oldarea = false, $oldtitle = false)
+	function edit_link($oldarea = false, $oldslug = false)
 	{
-		if(! $oldarea || ! $oldtitle) show_404();
+		if(! $oldarea || ! $oldslug) show_404();
 
 		$this->form_validation->set_rules($this->link_fields);
 
@@ -233,12 +244,18 @@ class Navigation extends Admin_Controller {
 				redirect('panel/navigation');
 			}
 
+			if(! is_writable(NAV_FOLDER.$link['link_area'].'.json')){
+				$this->session->set_flashdata('error', 'Navigation area "'.$link['link_area'].'" file is not writtable. Give it write permision first.');
+				redirect('panel/navigation');
+			}
+
 			$succ_msg = "";
 			$err_msg = "";
 			$this->nav_db->setTable($link['link_area']);
 
 			$area_arr = array(
 				'title' => $link['link_title'],
+				'slug' => $link['link_slug'],
 				'source' => $link['link_source'],
 				'url' => $link['link_url'],
 				'target' => $link['link_target']
@@ -247,7 +264,7 @@ class Navigation extends Admin_Controller {
 			// if area changed
 			if($oldarea == $link['link_area']){
 				// update link
-				if($this->nav_db->update('title', $oldtitle, $area_arr))
+				if($this->nav_db->update('slug', $oldslug, $area_arr))
 					$succ_msg .= 'Link updated.';
 				else
 					$err_msg .= 'Link failed to update. Make sure the folder '.NAV_FOLDER.' is writable.';
@@ -258,7 +275,7 @@ class Navigation extends Admin_Controller {
 
 				// delete link from old area
 				$this->nav_db->setTable($oldarea);
-				if($this->nav_db->delete('title', $oldtitle))
+				if($this->nav_db->delete('slug', $oldslug))
 					$succ_msg .= '<br>Link moved to new area.';
 				else
 					$err_msg .= '<br>Link failed to move to new area. Make sure the folder '.NAV_FOLDER.' is writable.';
@@ -277,19 +294,24 @@ class Navigation extends Admin_Controller {
 		redirect('panel/navigation');
 	}
 
-	function delete_link($area = false, $title = false)
+	function delete_link($area = false, $slug = false)
 	{
-		if(! $area || ! $title) show_404();
+		if(! $area || ! $slug) show_404();
 
 		if(! file_exists(NAV_FOLDER.$area.'.json')){
 			$this->session->set_flashdata('error', 'Navigation area "'.$area.'" not found.');
 			redirect('panel/navigation');
 		}
 
+		if(! is_writable(NAV_FOLDER.$area.'.json')){
+			$this->session->set_flashdata('error', 'Navigation area "'.$area.'" file is not writtable. Give it write permision first.');
+			redirect('panel/navigation');
+		}
+
 		$this->nav_db->setTable($area);
 
-		if($this->nav_db->delete('title', $title))
-			$this->session->set_flashdata('success', 'Link "'.$title.'" deleted.');
+		if($this->nav_db->delete('slug', $slug))
+			$this->session->set_flashdata('success', 'Link "'.$slug.'" deleted.');
 		else
 			$this->session->set_flashdata('error', 'Link failed to delete. Make sure the folder '.NAV_FOLDER.' is writable.');
 

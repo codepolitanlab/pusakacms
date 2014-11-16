@@ -39,19 +39,23 @@ $(function(){
 		var mode = $(e.relatedTarget).data('mode');
 		var link_area = $(e.relatedTarget).data('area');
 		var link_title = $(e.relatedTarget).data('title');
+		var link_slug = $(e.relatedTarget).data('slug');
 		var link_source = $(e.relatedTarget).data('source');
 		var link_url = $(e.relatedTarget).data('url');
 		var link_target = $(e.relatedTarget).data('linktarget');
+
+		console.log(link_title + ' ' + link_slug);
 
 		set_parent_dropdown(link_area);
 
 		$('#link_area').val(link_area);
 		$('#link_title').val(link_title);
+		$('#link_slug').val(link_slug);
 		$('#link_source').val(link_source);
 		$('#link_url').val(link_url);
 		$('#link_target').val(link_target);
 		if(mode == 'edit'){
-			$('#link-form').attr('action', base_url + 'panel/navigation/edit_link/' + link_area + '/' + link_title);
+			$('#link-form').attr('action', base_url + 'panel/navigation/edit_link/' + link_area + '/' + link_slug);
 			$('#btn-submit-link-form').html('Edit');
 			$('#linkModalLabel').html('Edit Link');
 		} else {

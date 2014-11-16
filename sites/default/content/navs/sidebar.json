@@ -1,24 +1,3 @@
 [
-    {
-        "title": "Sepoy",
-        "url": "anginsepoy",
-        "source": "uri",
-        "target": "_self",
-        "children": [
-            {
-                "title": "Angin",
-                "url": "sepoyangin",
-                "source": "uri",
-                "target": "_self",
-                "children": [
-                    {
-                        "title": "Nipong",
-                        "url": "pasamalagu",
-                        "source": "uri",
-                        "target": "_parent"
-                    }
-                ]
-            }
-        ]
-    }
+
 ]

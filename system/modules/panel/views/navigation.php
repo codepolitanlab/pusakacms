@@ -24,7 +24,7 @@
             <div class="panel-body">
                 <?php if($area_content): ?>
                     <div class="dd" id="<?php echo $area_slug; ?>">
-                        <ol class="dd-list" id="<?php echo $area_slug; ?>">
+                        <ol class="dd-list">
                             <?php echo Modules::run('panel/navigation/navigation_list', $area_slug, $area_content, true); ?>
                         </ol>
                     </div>
@@ -71,10 +71,16 @@
 				</div>
 				<div class="modal-body">
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-6">
+                            <div class="form-group">
+                                <label for="area">Link title</label>
+                                <input type="text" name="link_title" id="link_title" class="form-control title">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
 							<div class="form-group">
-								<label for="area">Link title</label>
-								<input type="text" name="link_title" id="link_title" class="form-control">
+								<label for="area">Link slug</label>
+								<input type="text" name="link_slug" id="link_slug" class="form-control slug">
 							</div>
                         </div>
                     </div>
