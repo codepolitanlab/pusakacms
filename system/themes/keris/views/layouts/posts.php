@@ -26,8 +26,8 @@
 								<span class="date"><i class="glyphicon glyphicon-calendar"></i> <?php echo date("d F Y", strtotime($post['date'])); ?></span>
 								<span class="cat">
 									<i class="glyphicon glyphicon-tags"></i>
-									<?php foreach ($post['labels'] as $label): ?>
-										<span><?php echo anchor(POST_TERM.'/label/'.$label, $label); ?></span>
+									<?php foreach ($post['labels'] as $postlabel): ?>
+										<span><?php echo anchor(POST_TERM.'/label/'.$postlabel, $postlabel); ?></span>
 									<?php endforeach; ?>
 								</span>
 
