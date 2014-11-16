@@ -692,7 +692,7 @@ class Pusaka {
 					if(uri_string() == $prefix.$newkey) $active = true;
 
 					// set active for upper link
-					if(strstr(uri_string(), $prefix.$newkey)) $active = true;
+					if(strstr(uri_string(), '/'.$prefix.$newkey)) $active = true;
 
 					if (array_key_exists('_title', $value)) {
 						$li .= "<a href='".site_url($prefix.$newkey)."/' ".($active ? "class='".$this->current_class."'" : "").">${value['_title']}</a>";
@@ -720,7 +720,7 @@ class Pusaka {
 					if(uri_string() == $prefix.$key) $active = true;
 
 					// set active for upper link
-					if(strstr(uri_string(), $prefix.$key)) $active = true;
+					if(strstr(uri_string(), $prefix.$key.'/')) $active = true;
 
 					if (array_key_exists('_title', $value)) {
 						// don't use index term
