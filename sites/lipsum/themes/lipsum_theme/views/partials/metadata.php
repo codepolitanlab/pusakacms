@@ -13,12 +13,12 @@
 <meta property="og:description" content="<?php echo site_config('meta_description'); ?>" />
 <meta property="og:site_name" content="<?php echo site_config('site_title'); ?>" />
 
-<link rel="shortcut icon" href="<?php echo get_theme_url() ?>/assets/img/favicon.ico" type="image/x-icon">
-<link rel="icon" href="<?php echo get_theme_url() ?>/assets/img/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="<?php echo get_theme_url() ?>assets/img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="<?php echo get_theme_url() ?>assets/img/favicon.ico" type="image/x-icon">
 
 <!-- Bootstrap core CSS -->
-<link href="<?php echo get_theme_url() ?>/assets/plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="<?php echo get_theme_url() ?>/assets/plugin/awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="<?php echo get_theme_url() ?>assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?php echo get_theme_url() ?>assets/vendor/awesome/css/font-awesome.min.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="<?php echo get_theme_url() ?>/assets/css/main_style.css" rel="stylesheet">
+<link href="<?php echo get_theme_url() ?>assets/css/main_style.css" rel="stylesheet">
