@@ -1,23 +1,5 @@
 [
     {
-        "title": "Blog",
-        "url": "blog",
-        "source": "uri",
-        "target": "_self",
-        "children": [
-
-        ]
-    },
-    {
-        "title": "About",
-        "url": "about",
-        "source": "uri",
-        "target": "_self",
-        "children": [
-
-        ]
-    },
-    {
         "title": "Docs",
         "url": "docs",
         "source": "uri",
@@ -39,15 +21,24 @@
                                 "title": "Kenapa Pusaka?",
                                 "url": "docs\/kenapa-pusaka",
                                 "source": "uri",
-                                "target": "_self",
-                                "children": [
-
-                                ]
+                                "target": "_self"
                             }
                         ]
                     }
                 ]
             }
         ]
+    },
+    {
+        "title": "Blog",
+        "url": "blog",
+        "source": "uri",
+        "target": "_self"
+    },
+    {
+        "title": "About",
+        "url": "about",
+        "source": "uri",
+        "target": "_self"
     }
 ]

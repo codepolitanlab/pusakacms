@@ -10,6 +10,7 @@
 <!-- Custom styles for this template -->
 <link href="<?php echo get_theme_url() ?>assets/css/style.css" rel="stylesheet">
 
+<script src="<?php echo get_theme_url() ?>assets/js/jquery.min.js"></script>
 <script>
 	var BASE_URL = "<?php echo site_url(); ?>";
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

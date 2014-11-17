@@ -23,9 +23,11 @@
 			</div>
             <div class="panel-body">
                 <?php if($area_content): ?>
-                    <ul class="navlist draggable" id="<?php echo $area_slug; ?>">
-                        <?php echo Modules::run('panel/navigation/navigation_list', $area_slug, $area_content, true); ?>
-                    </ul>
+                    <div class="dd" id="<?php echo $area_slug; ?>">
+                        <ol class="dd-list" id="<?php echo $area_slug; ?>">
+                            <?php echo Modules::run('panel/navigation/navigation_list', $area_slug, $area_content, true); ?>
+                        </ol>
+                    </div>
                 <?php else: ?>
                     <p class="align-center">No link yet.</p>
                 <?php endif; ?>
@@ -69,12 +71,15 @@
 				</div>
 				<div class="modal-body">
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-12">
 							<div class="form-group">
 								<label for="area">Link title</label>
 								<input type="text" name="link_title" id="link_title" class="form-control">
 							</div>
                         </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="area">Navigation Area</label>
@@ -84,15 +89,10 @@
                                     <?php endforeach; ?>
                                 </select>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="area">Link Parent</label>
                                 <select name="link_parent" id="link_parent" class="form-control"></select>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -137,5 +137,25 @@
 </div>
 
 <script>
-	
+    $(function(){
+    <?php if($areas): $group = 0; foreach ($areas as $area_slug => $area_content): ?>
+    $('#<?php echo $area_slug; ?>').nestable({group: <?php echo $group; ?>}).on('change', updateSort);
+    <?php $group++; endforeach; endif; ?>
+    })
+
+    // callback to update arrange navigation
+    var updateSort = function(e)
+    {
+        var list   = e.length ? e : $(e.target);
+        var area = list.attr('id');
+        if (window.JSON) {
+            var newmap = window.JSON.stringify(list.nestable('serialize'));
+            $.post(BASE_URL+'panel/navigation/sort/'+area, {newmap : newmap})
+            .done(function(data){
+                console.log(data);
+            });
+        } else {
+            output.val('JSON browser support required for this demo.');
+        }
+    };
 </script>

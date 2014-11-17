@@ -98,13 +98,13 @@ class Navigation extends Admin_Controller {
 
 	function get_flatnav($area = false, $arr = null, $prefix = '', $return = true)
 	{
-		if(!$arr)
+		if(empty($arr))
 			$arr = json_decode(file_get_contents(NAV_FOLDER.$area.'.json'), true);
 
 		$flat = array();
 		foreach($arr as $link){
 			$flat[$link['url']] = $prefix.' '.$link['title'];
-			if(isset($link['children']))
+			if(isset($link['children']) && ! empty($link['children']))
 				$flat += $this->get_flatnav($area, $link['children'], $prefix.'—');
 		}
 

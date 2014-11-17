@@ -12,8 +12,10 @@
 
 <div class="panel panel-default">
 	<div class="panel-body">
-		<ul class="navlist draggable">
-			<?php echo $pages; ?>
-		</ul>
+		<div class="draggable dd">
+			<ul class="navlist dd-list">
+				<?php echo $pages; ?>
+			</ul>
+		</div>
 	</div>
 </div>
