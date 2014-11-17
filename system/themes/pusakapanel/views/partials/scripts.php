@@ -19,6 +19,6 @@
         lineNumbers: true,
         lineWrapping: true,
         styleActiveLine: true,
-        theme: "elegant"
+        theme: "mbo"
       });
 </script>

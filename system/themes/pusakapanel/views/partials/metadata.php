@@ -10,7 +10,7 @@
 <!-- Custom styles for this template -->
 <link href="<?php echo get_theme_url() ?>assets/css/style.css" rel="stylesheet">
 <link href="<?php echo get_plugin_url('codemirror') ?>lib/codemirror.css" rel="stylesheet">
-<link href="<?php echo get_plugin_url('codemirror') ?>theme/elegant.css" rel="stylesheet">
+<link href="<?php echo get_plugin_url('codemirror') ?>theme/mbo.css" rel="stylesheet">
 
 <!-- codemirror assets -->
 <script src="<?php echo get_plugin_url('codemirror') ?>lib/codemirror.js"></script>
