@@ -838,3 +838,17 @@ li.placeholder:before {
 small, .small {
   font-size: 67%;
 }
+
+
+.content-list li .list-desc {
+  background: #fcfcfc;
+  -webkit-border-radius: 0px !important;
+  -moz-border-radius: 0px !important;
+  -ms-border-radius: 0px !important;
+  -o-border-radius: 0px !important;
+  border-radius: 0px !important;
+}
+.content-list li .list-desc:hover,
+.content-list li .list-desc:focus {
+  background: #fefefe !important;
+}

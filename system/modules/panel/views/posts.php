@@ -17,15 +17,17 @@
 				<div class="list-desc">
 					<h3><a><?php echo $post['title']; ?></a></h3>
 					<small><a href="<?php echo site_url($post['url']); ?>" target="_blank"><span class="fa fa-external-link"></span> <?php echo site_url($post['url']); ?></a></small>
-					<div class="labels">
-					<?php foreach ($post['labels'] as $postlabel): ?>
-						<a href="<?php echo site_url('panel/posts/'.$postlabel); ?>"><label class="label label-success"><?php echo $postlabel; ?></label></a>
-						<?php endforeach; ?>
-					</div>
+					
 					<div class="row">
 						<div class="col-md-6">
 							<div class="option">
 								<a href="#"><span class="fa fa-calendar"></span> <?php echo date("F d, Y", strtotime($post['date'])); ?></a>
+
+								
+									<?php foreach ($post['labels'] as $postlabel): ?>
+									<a href="<?php echo site_url('panel/posts/'.$postlabel); ?>"><label class="label label-success"><?php echo $postlabel; ?></label></a>
+									<?php endforeach; ?>
+								
 							</div>
 						</div>
 						<div class="col-md-6 align-right">

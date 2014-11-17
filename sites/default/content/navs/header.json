@@ -1,45 +1,45 @@
 [
     {
-        "title": "Blog",
+        "target": "_self",
+        "source": "uri",
         "url": "blog",
-        "source": "uri",
-        "target": "_self",
+        "title": "Blog",
         "children": [
 
         ]
     },
     {
-        "title": "About",
+        "target": "_self",
+        "source": "uri",
         "url": "about",
-        "source": "uri",
-        "target": "_self",
+        "title": "About",
         "children": [
 
         ]
     },
     {
-        "title": "Docs",
-        "url": "docs",
-        "source": "uri",
         "target": "_self",
+        "source": "uri",
+        "url": "docs",
+        "title": "Docs",
         "children": [
             {
-                "title": "Apa itu Pusaka?",
-                "url": "docs\/apa-itu-pusaka",
-                "source": "uri",
                 "target": "_self",
+                "source": "uri",
+                "url": "docs\/apa-itu-pusaka",
+                "title": "Apa itu Pusaka?",
                 "children": [
                     {
-                        "title": "News",
-                        "url": "news",
-                        "source": "uri",
                         "target": "_self",
+                        "source": "uri",
+                        "url": "news",
+                        "title": "News",
                         "children": [
                             {
-                                "title": "Kenapa Pusaka?",
-                                "url": "docs\/kenapa-pusaka",
-                                "source": "uri",
                                 "target": "_self",
+                                "source": "uri",
+                                "url": "docs\/kenapa-pusaka",
+                                "title": "Kenapa Pusaka?",
                                 "children": [
 
                                 ]
