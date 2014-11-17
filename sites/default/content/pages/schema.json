@@ -1,0 +1,130 @@
+[
+    {
+        "title": "Docs",
+        "url": "docs",
+        "children": [
+            {
+                "title": "Panduan Pengguna",
+                "url": "docs\/panduan-pengguna",
+                "children": [
+                    {
+                        "title": "Posting Blog",
+                        "url": "docs\/panduan-pengguna\/posting-blog"
+                    },
+                    {
+                        "title": "Konfigurasi",
+                        "url": "docs\/panduan-pengguna\/konfigurasi"
+                    },
+                    {
+                        "title": "Instalasi",
+                        "url": "docs\/panduan-pengguna\/instalasi"
+                    },
+                    {
+                        "title": "Format Penulisan",
+                        "url": "docs\/panduan-pengguna\/format-penulisan"
+                    },
+                    {
+                        "title": "Mengatur Navigasi",
+                        "url": "docs\/panduan-pengguna\/mengatur-navigasi"
+                    },
+                    {
+                        "title": "Membuat Halaman",
+                        "url": "docs\/panduan-pengguna\/membuat-halaman"
+                    },
+                    {
+                        "title": "Mengatur Kategori",
+                        "url": "docs\/panduan-pengguna\/mengatur-kategori"
+                    },
+                    {
+                        "title": "Struktur File",
+                        "url": "docs\/panduan-pengguna\/struktur-file"
+                    }
+                ]
+            },
+            {
+                "title": "Apa Itu Pusaka",
+                "url": "docs\/apa-itu-pusaka",
+                "children": [
+                    {
+                        "title": "Kontribusi",
+                        "url": "docs\/apa-itu-pusaka\/kontribusi"
+                    },
+                    {
+                        "title": "Showcase",
+                        "url": "docs\/apa-itu-pusaka\/showcase"
+                    },
+                    {
+                        "title": "Lisensi",
+                        "url": "docs\/apa-itu-pusaka\/lisensi"
+                    },
+                    {
+                        "title": "Download",
+                        "url": "docs\/apa-itu-pusaka\/download"
+                    },
+                    {
+                        "title": "Fitur",
+                        "url": "docs\/apa-itu-pusaka\/fitur"
+                    },
+                    {
+                        "title": "Changelog",
+                        "url": "docs\/apa-itu-pusaka\/changelog"
+                    }
+                ]
+            },
+            {
+                "title": "Panduan Pengembang",
+                "url": "docs\/panduan-pengembang",
+                "children": [
+                    {
+                        "title": "Library",
+                        "url": "docs\/panduan-pengembang\/library",
+                        "children": [
+                            {
+                                "title": "Textile",
+                                "url": "docs\/panduan-pengembang\/library\/textile"
+                            },
+                            {
+                                "title": "Pusaka",
+                                "url": "docs\/panduan-pengembang\/library\/pusaka"
+                            },
+                            {
+                                "title": "Markdown",
+                                "url": "docs\/panduan-pengembang\/library\/markdown"
+                            },
+                            {
+                                "title": "Template",
+                                "url": "docs\/panduan-pengembang\/library\/template"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Helper",
+                        "url": "docs\/panduan-pengembang\/helper",
+                        "children": [
+                            {
+                                "title": "Template",
+                                "url": "docs\/panduan-pengembang\/helper\/template"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Membuat Modul",
+                        "url": "docs\/panduan-pengembang\/membuat-modul"
+                    },
+                    {
+                        "title": "Membuat Template",
+                        "url": "docs\/panduan-pengembang\/membuat-template"
+                    },
+                    {
+                        "title": "Kemampuan Minimum",
+                        "url": "docs\/panduan-pengembang\/kemampuan-minimum"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Blog",
+        "url": "blog"
+    }
+]
