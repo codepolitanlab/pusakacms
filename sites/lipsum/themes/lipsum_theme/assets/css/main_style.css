@@ -15,7 +15,7 @@ html, body {
 body {
 	font-size:14px;
 	font-family: 'Open Sans', sans-serif;
-	font-weight: 300;
+	font-weight: 400;
 	color:#4f4f4f;
 }
 
@@ -186,7 +186,8 @@ header.homepage {
 ** ----------------------------------- */
 .features {
 	background: #53978b;
-	padding: 100px 0px;
+	padding-top: 30px;
+	padding-bottom: 150px;
 	color: #ffffff;
 }
 .features-icon {
@@ -204,4 +205,17 @@ header.homepage {
 	border-radius: 75px;
 	color: #cce9e4;
 	margin-bottom: 20px;
+}
+
+
+
+
+
+.features-show {
+	background: #f9fafa url(../img/feature_1.png) no-repeat right bottom;
+	padding: 120px 0px;
+}
+.features-show .inner-wrapper {
+	font-size: 16px;
+	line-height: 25px;
 }
