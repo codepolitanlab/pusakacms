@@ -296,4 +296,18 @@ class Navigation extends Admin_Controller {
 		redirect('panel/navigation');
 	}
 
+	function sort($area = false)
+	{
+		if($area){
+			$stringvar = str_replace(array("[[","]]"), array("[","]"), $this->input->post('newmap'));
+			$testvar = json_decode($stringvar, true);
+
+			if(write_file(NAV_FOLDER.$area.'.json', json_encode($testvar, JSON_PRETTY_PRINT)))
+				echo "menu rearranged.";
+			else
+				echo "error. file not writable.";
+		} else
+			echo "error. area not specified.";
+	}
+
 }

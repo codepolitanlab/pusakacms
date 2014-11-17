@@ -22,9 +22,8 @@
 				</div>
 			</div>
             <div class="panel-body">
-
                 <?php if($area_content): ?>
-                    <ul class="navlist draggable">
+                    <ul class="navlist draggable" id="<?php echo $area_slug; ?>">
                         <?php echo Modules::run('panel/navigation/navigation_list', $area_slug, $area_content, true); ?>
                     </ul>
                 <?php else: ?>

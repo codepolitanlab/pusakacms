@@ -1,5 +1,5 @@
 <?php foreach ($links as $link): ?>
-    <li>
+    <li data-title="<?php echo $link['title']; ?>" data-url="<?php echo $link['url']; ?>" data-source="<?php echo $link['source']; ?>" data-target="<?php echo $link['target']; ?>">
         <div class="link">
             <div class="dragpanel" title="klik and drag to rearrange"><span class="fa fa-align-justify" style="color:#aaa;line-height:27px;"></span></div>
             <div><?php echo $link['title']; ?></div>
