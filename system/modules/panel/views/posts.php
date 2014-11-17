@@ -25,7 +25,7 @@
 
 								
 								<?php foreach ($post['labels'] as $postlabel): ?>
-									<a href="<?php echo site_url('panel/posts/'.$postlabel); ?>" class="tag"><label class="label label-success"><?php echo $postlabel; ?></label></a>
+									<a href="<?php echo site_url('panel/posts/index/'.$postlabel); ?>" class="tag"><label class="label label-success"><?php echo $postlabel; ?></label></a>
 								<?php endforeach; ?>
 								
 							</div>
@@ -46,5 +46,5 @@
 <?php endif; ?>
 
 <ul class="pagination">
-<?php echo $this->pusaka->post_pagination($posts['total'], null, 'panel/posts/'.$label, 4); ?>
+<?php echo $this->pusaka->post_pagination($posts['total'], null, 'panel/posts/index/'.$label, 5); ?>
 </ul>
