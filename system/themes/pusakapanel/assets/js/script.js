@@ -20,6 +20,7 @@ $(function(){
 	var oldContainer
 	$("ul.draggable").sortable({
 		group: 'nested',
+		handle: '.dragpanel',
 		afterMove: function (placeholder, container) {
 			if(oldContainer != container){
 				if(oldContainer)

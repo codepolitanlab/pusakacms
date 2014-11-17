@@ -449,6 +449,9 @@ ul.content-list li .list-desc .labels {
   margin-bottom: 10px;
   font-size: 14px;
 }
+ul.content-list li .list-desc h3 {
+  display: inline-block;
+}
 ul.content-list li .list-desc .labels a .label {
   cursor: pointer;
 }
@@ -492,7 +495,6 @@ ul.content-list h3 a {
 
 ul.content-list ul.children {
   border-left: 30px solid #eee;
-  display: none;
 }
 
 .form-group label small {
@@ -552,8 +554,6 @@ ul.navlist li .link div {
 ul.navlist li ul {
   padding-left: 30px;
 }
-
-
 
 
 
@@ -834,4 +834,7 @@ li.placeholder:before {
 }
 .dragpanel {
   cursor: move;
+}
+small, .small {
+  font-size: 67%;
 }

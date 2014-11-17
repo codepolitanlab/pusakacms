@@ -10,6 +10,10 @@
 	</div>
 </div>
 
-<ul class="content-list nav">
-	<?php echo $pages; ?>
-</ul>
+<div class="panel panel-default">
+	<div class="panel-body">
+		<ul class="navlist draggable">
+			<?php echo $pages; ?>
+		</ul>
+	</div>
+</div>
