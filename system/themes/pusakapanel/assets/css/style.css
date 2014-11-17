@@ -850,7 +850,7 @@ small, .small {
 }
 .content-list li .list-desc:hover,
 .content-list li .list-desc:focus {
-  background: #fdfdfd !important;
+  background: #fefefe !important;
 }
 .content-list li .list-desc .link:hover {
   color: #5a8918;
@@ -859,7 +859,11 @@ small, .small {
 
 .content-list li .list-desc .option .date {
   font-size: 12px;
-  margin-right: 10px;
+  margin-right: 15px;
+}
+.content-list li .list-desc .option .tag {
+  margin: 0px;
+  margin-right: 3px;
 }
 
 .label.label-success {

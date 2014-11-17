@@ -25,7 +25,7 @@
 
 								
 								<?php foreach ($post['labels'] as $postlabel): ?>
-									<a href="<?php echo site_url('panel/posts/'.$postlabel); ?>"><label class="label label-success"><?php echo $postlabel; ?></label></a>
+									<a href="<?php echo site_url('panel/posts/'.$postlabel); ?>" class="tag"><label class="label label-success"><?php echo $postlabel; ?></label></a>
 								<?php endforeach; ?>
 								
 							</div>
