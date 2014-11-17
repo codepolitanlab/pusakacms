@@ -1,0 +1,7 @@
+{
+    "theme": "lipsum_theme",
+    "admin_theme": "pusakapanel",
+    "post_as_home": "",
+    "post_term": "blog",
+    "post_per_page": "10"
+}
