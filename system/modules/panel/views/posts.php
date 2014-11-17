@@ -15,18 +15,18 @@
 		<?php foreach ($posts['entries'] as $post): ?>
 			<li>
 				<div class="list-desc">
-					<h3><a><?php echo $post['title']; ?></a></h3>
-					<small><a href="<?php echo site_url($post['url']); ?>" target="_blank"><span class="fa fa-external-link"></span> <?php echo site_url($post['url']); ?></a></small>
+					<h3><a href="<?php echo site_url('panel/posts/edit?post='.$post['url']); ?>"><?php echo $post['title']; ?></a></h3>
+					<small><a href="<?php echo site_url($post['url']); ?>" target="_blank" class="link"><span class="fa fa-external-link"></span> <?php echo site_url($post['url']); ?></a></small>
 					
 					<div class="row">
 						<div class="col-md-6">
 							<div class="option">
-								<a href="#"><span class="fa fa-calendar"></span> <?php echo date("F d, Y", strtotime($post['date'])); ?></a>
+								<span class="date"><span class="fa fa-calendar"></span> <?php echo date("F d, Y", strtotime($post['date'])); ?></span>
 
 								
-									<?php foreach ($post['labels'] as $postlabel): ?>
+								<?php foreach ($post['labels'] as $postlabel): ?>
 									<a href="<?php echo site_url('panel/posts/'.$postlabel); ?>"><label class="label label-success"><?php echo $postlabel; ?></label></a>
-									<?php endforeach; ?>
+								<?php endforeach; ?>
 								
 							</div>
 						</div>

@@ -850,5 +850,43 @@ small, .small {
 }
 .content-list li .list-desc:hover,
 .content-list li .list-desc:focus {
-  background: #fefefe !important;
+  background: #fdfdfd !important;
+}
+.content-list li .list-desc .link:hover {
+  color: #5a8918;
+}
+
+
+.content-list li .list-desc .option .date {
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+.label.label-success {
+  color: #ffffff;
+  background: #8ec63f;
+  cursor: hand;
+  cursor: pointer;
+}
+.label.label-success:hover,
+.label.label-success:focus {
+  background: #89b847;
+  color: #ffffff;
+}
+
+
+.pagination li a {
+  color: #ffffff;
+  background: #8ec63f;
+}
+.pagination li a:hover,
+.pagination li a:focus {
+  background: #89b847;
+  color: #ffffff;
+}
+
+.pagination li a.active,
+.pagination li.active a,
+.pagination li.active a:hover {
+  background: #6a9829;
 }
