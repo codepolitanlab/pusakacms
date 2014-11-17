@@ -410,7 +410,33 @@ a {
 article.the-content {
   border-bottom: 1px solid #f0f4e9;
 }
+.footer-link {
+    padding-top: 50px;
+}
 .footer-link a {
   margin: 0px 10px;
   font-size: 14px;
+}
+
+
+
+.pagination li a {
+  border: 1px solid #e1e1e1;
+  background: #ffffff;
+}
+.pagination li a:hover,
+.pagination li a:focus {
+  border-color: #8ec63f;
+  background: #ffffff;
+}
+.pagination li.active a {
+  background: #8ec63f;
+  border-color: #8ec63f;
+  color: #ffffff;
+}
+.pagination li.active a:hover,
+.pagination li.active a:focus {
+  background: #89b847;
+  border-color: #89b847;
+  color: #ffffff;
 }
