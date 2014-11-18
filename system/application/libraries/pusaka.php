@@ -272,6 +272,9 @@ class Pusaka {
 
 			if(!$prefix) $prefix = PAGE_FOLDER;
 
+			if(!is_writable($prefix))
+				$output = array('status' => 'error', 'message' => "Page folder is not writable. Make it writable first.\n");
+
 			$map = directory_map($prefix, 1);
 
 			$new_map = array();

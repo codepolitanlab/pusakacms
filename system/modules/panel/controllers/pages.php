@@ -65,10 +65,13 @@ class Pages extends Admin_Controller {
 		return $this->load->view('page_list', array('pages'=>$pages), true);
 	}
 
-	function sync()
+	function sync($redirect = true)
 	{
-		$this->pusaka->sync_nav();
-		redirect('panel/pages');
+		$nav = $this->pusaka->sync_nav();
+		$this->session->set_flashdata($nav['status'], $nav['message']);
+
+		if($redirect)
+			redirect('panel/pages');
 	}
 
 	function create()
@@ -105,7 +108,7 @@ class Pages extends Admin_Controller {
 				$this->session->set_flashdata('success', 'Page saved.');
 
 				// update page index
-				$this->pusaka->sync_nav();
+				$this->sync(false);
 
 				redirect('panel/pages');
 			}
@@ -147,7 +150,7 @@ class Pages extends Admin_Controller {
 
 			// page move to another folder
 			if($prevpage['parent'] != $page['parent']) {
-				// if it is move to subpage
+				// if it is move to subpage, not to root
 				if(!empty($page['parent'])) { 
 					// if parent still as standalone file (not in folder)
 					if(file_exists(PAGE_FOLDER.$page['parent'].'.md')) {
@@ -186,7 +189,7 @@ class Pages extends Admin_Controller {
 				$this->session->set_flashdata('error', 'Page failed to update. Make sure the folder '.PAGE_FOLDER.' is writable.');
 
 			// update page index
-			$this->pusaka->sync_nav();
+			$this->sync(false);
 
 			redirect('panel/pages');
 		}
@@ -208,7 +211,7 @@ class Pages extends Admin_Controller {
 		if(unlink(PAGE_FOLDER.'/'.$prevslug.'.md')){
 			$this->session->set_flashdata('success', 'Page '.$prevslug.' deleted.');
 			// update page index
-			$this->pusaka->sync_nav();
+			$this->sync(false);
 		}
 		else
 			$this->session->set_flashdata('error', 'Page failed to delete. Make sure the folder '.PAGE_FOLDER.' is writable.');
