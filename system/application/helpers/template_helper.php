@@ -251,6 +251,19 @@ if ( ! function_exists('get_theme_url'))
 }
 
 /**
+	* set and get plugin url + url of asset in theme
+	* 
+	* @param String $url 	url of asset in theme
+	* @return String url
+	*/
+if ( ! function_exists('get_plugin_url'))
+{
+	function get_plugin_url($plugin = '') {
+		return base_url().'system/plugins/'.$plugin.'/';		
+	}
+}
+
+/**
 	* set and get theme url + url of asset in theme
 	* 
 	* @param String $url 	url of asset

@@ -36,7 +36,7 @@
 						<select class="form-control" name="parent" id="parent">
 							<option value="">—</option>
 							<?php foreach ($pagelinks as $pagelink => $caption): ?>
-							<option value="<?php echo $pagelink; ?>" <?php echo ($pagelink==$this->input->get('parent') || $pagelink==validate_value($page, 'parent'))? "selected":''; ?>><?php echo $caption; ?></option>
+								<option value="<?php echo $pagelink; ?>" <?php echo ($pagelink==$this->input->get('parent') || $pagelink==validate_value($page, 'parent'))? "selected":''; ?>><?php echo $caption; ?></option>
 							<?php endforeach; ?>
 						</select>
 					</div>
@@ -47,7 +47,7 @@
 						<select class="form-control" name="layout" id="layout">
 							<option value="">Auto</option>
 							<?php foreach ($layouts as $layout): ?>
-							<option value="<?php echo substr($layout, 0, -4); ?>" <?php echo (substr($layout, 0, -4) == validate_value($page, 'layout')) ? "selected" : ''; ?>><?php echo $layout; ?></option>
+								<option value="<?php echo substr($layout, 0, -4); ?>" <?php echo (substr($layout, 0, -4) == validate_value($page, 'layout')) ? "selected" : ''; ?>><?php echo $layout; ?></option>
 							<?php endforeach; ?>
 						</select>
 					</div>
@@ -56,7 +56,7 @@
 
 			<div class="form-group">
 				<label for="content">Content</label>	
-				<textarea id="pagedownMe" name="content" id="content" class="form-control" rows="40"><?php echo set_value('content', validate_value($page, 'content')); ?></textarea>
+				<textarea id="pagedownMe" name="content" class="form-control cm-textarea" rows="40"><?php echo set_value('content', validate_value($page, 'content')); ?></textarea>
 			</div>
 		</div>
 
@@ -74,9 +74,9 @@
 
 </form>
 
-<script type="text/javascript">
-	$(function() {
-		$("textarea#pagedownMe").pagedownBootstrap();
-		$('.wmd-preview').addClass('well').css('display', 'none');
-	});
+<script>
+	// $(function() {
+	// 	$("textarea#pagedownMe").pagedownBootstrap();
+	// 	$('.wmd-preview').addClass('well').css('display', 'none');
+	// });
 </script>

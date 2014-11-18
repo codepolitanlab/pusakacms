@@ -9,8 +9,22 @@
 
 <!-- Custom styles for this template -->
 <link href="<?php echo get_theme_url() ?>assets/css/style.css" rel="stylesheet">
+<link href="<?php echo get_plugin_url('codemirror') ?>lib/codemirror.css" rel="stylesheet">
+<link href="<?php echo get_plugin_url('codemirror') ?>theme/elegant.css" rel="stylesheet">
+
+<!-- codemirror assets -->
+<script src="<?php echo get_plugin_url('codemirror') ?>lib/codemirror.js"></script>
+<script src="<?php echo get_plugin_url('codemirror') ?>addon/edit/closetag.js"></script>
+<script src="<?php echo get_plugin_url('codemirror') ?>addon/fold/xml-fold.js"></script>
+<script src="<?php echo get_plugin_url('codemirror') ?>addon/selection/active-line.js"></script>
+<script src="<?php echo get_plugin_url('codemirror') ?>mode/javascript/javascript.js"></script>
+<script src="<?php echo get_plugin_url('codemirror') ?>mode/xml/xml.js"></script>
+<script src="<?php echo get_plugin_url('codemirror') ?>mode/css/css.js"></script>
+<script src="<?php echo get_plugin_url('codemirror') ?>mode/htmlmixed/htmlmixed.js"></script>
+<script src="<?php echo get_plugin_url('codemirror') ?>mode/markdown/markdown.js"></script>
 
 <script src="<?php echo get_theme_url() ?>assets/js/jquery.min.js"></script>
+
 <script>
 	var BASE_URL = "<?php echo site_url(); ?>";
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
