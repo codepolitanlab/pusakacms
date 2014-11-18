@@ -49,6 +49,36 @@ h1 {
 
 .full-width { width:100%; }
 
+a {
+	color: #3e9ba6;
+	text-decoration: none;
+}
+a:hover, a:focus {
+	color: #237d87;
+	text-decoration: none;
+}
+
+
+
+/* -----------------------------------
+** BUTTON
+** ----------------------------------- */
+.btn {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+}
+.btn-default {
+	background: transparent;
+	border: 2px solid #3e9ba6;
+}
+.btn-default:hover,
+.btn-default:focus {
+	background: rgba(255,255,255,0.3);
+	border: 2px solid #237d87;
+}
 
 
 
@@ -84,4 +114,31 @@ h1 {
 	padding-top:330px;
 	color: #ffffff;
 	padding-bottom: 30px;
+}
+
+
+
+/* -----------------------------------
+** NAVBAR
+** ----------------------------------- */
+.navbar {
+	-webkit-transition: background-color 300ms ease-out 0.1s;
+    -moz-transition: background-color 300ms ease-out 0.1s;
+    -o-transition: background-color 300ms ease-out 0.1s;
+    transition: background-color 300ms ease-out 0.1s;
+    height: 50px;
+    padding: 0px;
+}
+.navbar .navbar-brand {
+	font-size: 30px;
+	line-height: 50px;
+	padding: 0px;
+	height: 50px;
+}
+.navbar .navbar-nav li a:hover {
+	background: #e0f1f5;
+}
+.navbar-default {
+	background: #ebf7fa;
+	border-bottom: 0px;
 }

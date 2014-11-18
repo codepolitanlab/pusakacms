@@ -1,6 +1,6 @@
 <base href="<?php echo base_url() ?>" />
 <meta charset="utf-8">
-<title><?php echo site_config('site_title'); echo uri_string() ? '' : ' - '.$this->config->item('site_slogan'); ?></title>
+<title><?php echo site_config('site_name'); echo uri_string() ? '' : ' - '.$this->config->item('site_slogan'); ?></title>
 
 <meta name="description" content="<?php echo site_config('meta_description'); ?>" />
 <meta name="keywords" content="<?php echo site_config('meta_keywords'); ?>" />
