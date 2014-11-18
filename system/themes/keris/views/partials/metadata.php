@@ -12,6 +12,8 @@
 <link rel="shortcut icon" href="<?php echo get_theme_url() ?>assets/img/favicon.ico" type="image/x-icon">
 <link rel="icon" href="<?php echo get_theme_url() ?>assets/img/favicon.ico" type="image/x-icon">
 
+<script src="<?php echo get_theme_url() ?>assets/js/jquery.min.js"></script>
+<script src="<?php echo get_theme_url() ?>assets/js/bootstrap.min.js"></script>
 <script>
 	var links = document.links;
 	for (var i = 0, linksLength = links.length; i < linksLength; i++) {

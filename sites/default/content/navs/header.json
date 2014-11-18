@@ -9,33 +9,31 @@
             {
                 "title": "Apa itu Pusaka?",
                 "slug": "apa-itu-pusaka",
-                "url": "apa-itu-pusaka",
                 "source": "uri",
+                "url": "docs\/apa-itu-pusaka",
+                "target": "_self"
+            },
+            {
+                "title": "Panduan Pengguna",
+                "slug": "panduan-pengguna",
+                "source": "uri",
+                "url": "docs\/panduan-pengguna",
+                "target": "_self"
+            },
+            {
+                "title": "Panduan Pengembang",
+                "slug": "panduan-pengembang",
+                "source": "uri",
+                "url": "docs\/panduan-pengembang",
                 "target": "_self"
             }
         ]
     },
     {
-        "title": "Blogs",
-        "slug": "blogs",
+        "title": "Blog",
+        "slug": "blog",
+        "source": "uri",
         "url": "blog",
-        "source": "https:\/\/",
-        "target": "_self",
-        "children": [
-            {
-                "title": "Alpha Rilis",
-                "slug": "alpha-rilis",
-                "url": "alpha-rilis",
-                "source": "uri",
-                "target": "_self"
-            },
-            {
-                "title": "Download",
-                "slug": "download",
-                "url": "github.com\/nyankod\/pusaka",
-                "source": "https:\/\/",
-                "target": "_self"
-            }
-        ]
+        "target": "_self"
     }
 ]

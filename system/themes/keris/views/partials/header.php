@@ -6,7 +6,9 @@
 					<a class="navbar-brand" href="<?php echo site_url(); ?>"><?php echo $this->config->item('site_name'); ?></a>
 				</div>
 
-				<?php echo $this->pusaka->generate_nav(null, 1, "nav navbar-nav navbar-right", null, "active"); ?>
+				<ul class="nav navbar-nav navbar-right">
+					<?php echo generate_nav('header', array('has_children_li_class'=>'dropdown')); ?>
+				</ul>
 			</div>
 		</div>
 	</div>

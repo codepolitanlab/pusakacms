@@ -338,10 +338,7 @@ class Navigation extends Admin_Controller {
 
 	function tes()
 	{
-		$this->nav_db->setTable('header');
-		$data = $this->nav_db->select_children('slug', 'download');
-
-		print_r($data);
+		print_r(get_nav('header'));
 	}
 
 	function removeKey($key, $categories = array())
