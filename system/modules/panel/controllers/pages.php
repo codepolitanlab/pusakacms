@@ -221,10 +221,10 @@ class Pages extends Admin_Controller {
 		$stringvar = str_replace(array("[[","]]"), array("[","]"), $this->input->post('newmap'));
 		$testvar = json_decode($stringvar, true);
 
-		if(write_file(PAGE_FOLDER.'schema.json', json_encode($testvar, JSON_PRETTY_PRINT)))
-			echo "menu rearranged.";
-		else
-			echo "error. file not writable.";
+		// if(write_file(PAGE_FOLDER.'schema.json', json_encode($testvar, JSON_PRETTY_PRINT)))
+		// 	echo "menu rearranged.";
+		// else
+		// 	echo "error. file not writable.";
 	}
 
 }

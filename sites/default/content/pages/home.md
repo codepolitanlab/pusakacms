@@ -1,3 +1,6 @@
+{: title :} Home
+{: slug :} home
+{: content :} 
 <div class="pusaka-header text-center">
 	<div class="header-inner">
 		<div class="container">
