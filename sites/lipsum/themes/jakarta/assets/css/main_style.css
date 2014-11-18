@@ -25,6 +25,7 @@ body {
 }
 
 .container { max-width:980px; padding:0px; }
+.row { margin-left: 0px; margin-right: 0px;}
 
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h5 {
@@ -37,8 +38,8 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a,
 	font-weight: 300;
 }
 
-.navbar-header h1 {
-	margin: 0;
+h1 {
+	margin-bottom: 35px;
 }
 
 .full-width { width:100%; }
@@ -162,11 +163,11 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a,
 
 
 /* -----------------------------------
-** HEADER
+** HOMEPAGE
 ** ----------------------------------- */
-header.homepage {
-	height:700px;
-	background: #cce9e4 url(../img/bg_header.png) no-repeat center bottom;
+.home-header {
+	height:550px;
+	background: #d7eef3 url(../img/bg_jakarta_city.png) no-repeat left bottom;
 	padding: 100px 0px;
 }
 .jumbo-lead {
@@ -179,43 +180,11 @@ header.homepage {
 }
 
 
-
-
-/* -----------------------------------
-** FEATURES
-** ----------------------------------- */
-.features {
-	background: #53978b;
-	padding-top: 30px;
+.home-content {
+	background: #655f66;
+	padding-top: 150px;
 	padding-bottom: 150px;
 	color: #ffffff;
-}
-.features-icon {
-	font-size: 80px;
-	background: #318072;
-	width: 150px;
-	height: 150px;
-	line-height: 150px;
-	text-align: center;
-	display: inline-block;
-	-webkit-border-radius: 75px;
-	-moz-border-radius: 75px;
-	-ms-border-radius: 75px;
-	-o-border-radius: 75px;
-	border-radius: 75px;
-	color: #cce9e4;
-	margin-bottom: 20px;
-}
-
-
-
-
-
-.features-show {
-	background: #f9fafa url(../img/feature_1.png) no-repeat right bottom;
-	padding: 120px 0px;
-}
-.features-show .inner-wrapper {
 	font-size: 16px;
-	line-height: 25px;
 }
+

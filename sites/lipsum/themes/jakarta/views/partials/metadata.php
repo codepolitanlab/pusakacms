@@ -19,6 +19,7 @@
 <!-- Bootstrap core CSS -->
 <link href="<?php echo get_theme_url() ?>assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="<?php echo get_theme_url() ?>assets/vendor/awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="<?php echo get_theme_url() ?>assets/vendor/selaksa/selaksa.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
 <link href="<?php echo get_theme_url() ?>assets/css/main_style.css" rel="stylesheet">
