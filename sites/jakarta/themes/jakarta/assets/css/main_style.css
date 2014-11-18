@@ -1,0 +1,87 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,700,500,300);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+
+
+
+/* -----------------------------------
+** GENERAL
+** ----------------------------------- */
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-size:14px;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 400;
+	color:#4f4f4f;
+}
+
+.main-wrapper {
+	min-height:100%;
+	position:relative;
+}
+
+.container { max-width:980px; padding:0px; }
+
+@media (max-width: 767px) {
+	.container { padding:0px 15px; }
+}
+
+.row { margin-left: 0px; margin-right: 0px;}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h5 {
+	margin:0 0 10px;
+	font-weight:300;
+}
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a,
+.h1 a, .h2 a, .h3 a, .h4 a, .h5 a, .h5 a {
+	font-weight: 300;
+}
+
+h1 {
+	margin-bottom: 35px;
+}
+
+.full-width { width:100%; }
+
+
+
+
+/* -----------------------------------
+** HOMEPAGE
+** ----------------------------------- */
+.home-header {
+	height:550px;
+	background: #d7eef3 url(../img/bg_jakarta_city.png) no-repeat left bottom;
+	padding: 100px 0px;
+}
+.jumbo-lead {
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+.jumbo-lead h1 {
+	font-size: 30px;
+	line-height: 38px;
+}
+
+
+.home-content {
+	background: #655f66;
+	padding-top: 150px;
+	padding-bottom: 50px;
+	color: #ffffff;
+	font-size: 16px;
+}
+
+
+.home-footer {
+	background: #655f66 url(../img/bg_footer.png) no-repeat center bottom;
+	padding-top:330px;
+	color: #ffffff;
+	padding-bottom: 30px;
+}
