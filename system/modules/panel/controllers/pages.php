@@ -43,6 +43,11 @@ class Pages extends Admin_Controller {
 		if(! $this->session->userdata('username')) redirect('panel/login');
 
 		$this->users_path = 'sites/'. SITE_SLUG .'/users/';
+
+		if(! is_writable(PAGE_FOLDER)){
+			$this->session->set_flashdata("error", PAGE_FOLDER." is not writable. Please make it writable first.");
+			// redirect('panel/pages');
+		}
 	}
 
 
@@ -148,41 +153,10 @@ class Pages extends Admin_Controller {
 						$file_content .= "{: ".$key." :} ".$value."\n";
 			}
 
-			// page move to another folder
-			if($prevpage['parent'] != $page['parent']) {
-				// if it is move to subpage, not to root
-				if(!empty($page['parent'])) { 
-					// if parent still as standalone file (not in folder)
-					if(file_exists(PAGE_FOLDER.$page['parent'].'.md')) {
-						// create folder and move the parent inside
-						mkdir(PAGE_FOLDER.$page['parent'], 0775);
-						rename(PAGE_FOLDER.$page['parent'].'.md', PAGE_FOLDER.$page['parent'].'/index.md');
+			// move page
+			$this->_move_page($prevslug, $page['slug'], $prevpage['parent'], $page['parent']);
 
-						// create index.html file
-						copy(PAGE_FOLDER.'index.html', PAGE_FOLDER.$page['parent'].'/index.html');
-					}
-				}
-			}
-
-			// move to new location
-			rename(PAGE_FOLDER.'/'.$prevslug.'.md', PAGE_FOLDER.$page['parent'].'/'.$page['slug'].'.md');
-			
-			// if file left the empty folder, not from the root
-			if(!empty($prevpage['parent']) && $filesleft = glob(PAGE_FOLDER.$prevpage['parent'].'/*')){
-				// if there are only index.html, index.md, and index.json
-				if(count($filesleft) <= 3){
-					// move to upper parent
-					$parent_subparent_arr = explode("/", $prevpage['parent']);
-					$parent_name = array_pop($parent_subparent_arr);
-					$parent_subparent = implode("/", $parent_subparent_arr);
-					rename(PAGE_FOLDER.$prevpage['parent'].'/index.md', PAGE_FOLDER.$parent_subparent.'/'.$parent_name.'.md');
-
-					unlink(PAGE_FOLDER.$prevpage['parent'].'/index.html');
-					unlink(PAGE_FOLDER.$prevpage['parent'].'/index.json');
-					rmdir(PAGE_FOLDER.$prevpage['parent']);
-				}
-			}
-
+			// update page content
 			if(write_file(PAGE_FOLDER.$page['parent'].'/'.$page['slug'].'.md', $file_content, 'w+'))
 				$this->session->set_flashdata('success', 'Page updated.');
 			else
@@ -227,7 +201,55 @@ class Pages extends Admin_Controller {
 		$source = implode("/", $source_arr);
 		$dest = $this->input->post('dest');
 
+		$this->_move_page($source.'/'.$page, $page, $source, $dest);
+		
+		// update page index
+		$this->sync(false);
+
 		echo json_encode(array('page' => $page, 'source' => $source, 'dest' => $dest));
+	}
+
+	function _move_page($prevslug, $slug, $source, $dest)
+	{
+		// page move to another folder
+		if($source != $dest) {
+			// if it is move to subpage, not to root
+			if(!empty($dest)) { 
+				// if parent still as standalone file (not in folder)
+				if(file_exists(PAGE_FOLDER.$dest.'.md')) {
+					// create folder and move the parent inside
+					mkdir(PAGE_FOLDER.$dest, 0775);
+					rename(PAGE_FOLDER.$dest.'.md', PAGE_FOLDER.$dest.'/index.md');
+
+					// create index.html file and index.json
+					copy(PAGE_FOLDER.'index.html', PAGE_FOLDER.$dest.'/index.html');
+					write_file(PAGE_FOLDER.$dest.'/index.json', '');
+				}
+			}
+		}
+
+		// move to new location
+		if(is_dir(PAGE_FOLDER.$prevslug))
+			rename(PAGE_FOLDER.$prevslug, PAGE_FOLDER.$dest.'/'.$slug);
+		else
+			rename(PAGE_FOLDER.$prevslug.'.md', PAGE_FOLDER.$dest.'/'.$slug.'.md');
+
+
+		// if file left the empty folder, not from the root
+		if(!empty($source) && $filesleft = glob(PAGE_FOLDER.$source.'/*')){
+			// if there are only index.html, index.md, and index.json
+			if(count($filesleft) <= 3){
+				// move to upper parent
+				$parent_subparent_arr = explode("/", $source);
+				$parent_name = array_pop($parent_subparent_arr);
+				$parent_subparent = implode("/", $parent_subparent_arr);
+				rename(PAGE_FOLDER.$source.'/index.md', PAGE_FOLDER.$parent_subparent.'/'.$parent_name.'.md');
+
+				unlink(PAGE_FOLDER.$source.'/index.html');
+				unlink(PAGE_FOLDER.$source.'/index.json');
+				rmdir(PAGE_FOLDER.$source);
+			}
+		}
 	}
 
 }
