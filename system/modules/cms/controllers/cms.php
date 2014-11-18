@@ -35,7 +35,7 @@ class CMS extends Public_Controller {
 		if (empty($segments))
 		{
 			$is_home = TRUE;
-			$segments = array('index');
+			$segments = array('home');
 
 			if($this->config->item('post_as_home'))
 				return call_user_func_array(array($this, 'post'), $params);
