@@ -28,10 +28,19 @@
 		<!-- END: HEADER -->
 
 
-
+		<!-- MAIN CONTENT -->
 		<div class="home-content">
 			<div class="container">
 				<?php echo $template['body']; ?>
+			</div>
+		</div>
+		<!-- END: MAIN CONTENT -->
+
+
+
+		<footer class="home-footer text-center">
+			<div class="container">
+				Copyright &copy; Nyankod. Powered by PusakaCMS. All rights reserved. 
 			</div>
 		</div>
 

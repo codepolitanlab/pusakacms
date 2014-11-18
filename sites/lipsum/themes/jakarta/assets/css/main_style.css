@@ -183,8 +183,15 @@ h1 {
 .home-content {
 	background: #655f66;
 	padding-top: 150px;
-	padding-bottom: 150px;
+	padding-bottom: 50px;
 	color: #ffffff;
 	font-size: 16px;
 }
 
+
+.home-footer {
+	background: #655f66 url(../img/bg_footer.png) no-repeat center bottom;
+	padding-top:330px;
+	color: #ffffff;
+	padding-bottom: 30px;
+}
