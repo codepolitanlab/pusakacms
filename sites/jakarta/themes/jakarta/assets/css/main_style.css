@@ -70,6 +70,7 @@ a:hover, a:focus {
 	-o-border-radius: 5px;
 	border-radius: 5px;
 }
+
 .btn-default {
 	background: transparent;
 	border: 2px solid #3e9ba6;
@@ -79,6 +80,58 @@ a:hover, a:focus {
 	background: rgba(255,255,255,0.3);
 	border: 2px solid #237d87;
 }
+
+.btn-primary {
+	background: #61bbc6;
+	border-color: #61bbc6;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+	background: #54abb5;
+	border-color: #54abb5;
+}
+
+.btn-success {
+	background: #a3cf76;
+	border-color: #a3cf76;
+}
+.btn-success:hover,
+.btn-success:focus {
+	background: #98c26c;
+	border-color: #98c26c;
+}
+
+.btn-info {
+	background: #a8d8de;
+	border-color: #a8d8de;
+}
+.btn-info:hover,
+.btn-info:focus {
+	background: #90c1c7;
+	border-color: #90c1c7;
+}
+
+.btn-warning {
+	background: #f0ad4e;
+	border-color: #f0ad4e;
+}
+.btn-warning:hover,
+.btn-warning:focus {
+	background: #e5a345;
+	border-color: #e5a345;
+}
+
+.btn-danger {
+	background: #d44434;
+	border-color: #d44434;
+}
+.btn-danger:hover,
+.btn-danger:focus {
+	background: #c03b2c;
+	border-color: #c03b2c;
+}
+
+
 
 
 
