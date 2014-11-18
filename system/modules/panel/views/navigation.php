@@ -154,11 +154,21 @@
     {
         var list   = e.length ? e : $(e.target);
         var area = list.attr('id');
+        
+        //clear timeout
+        $('.alert').fadeOut(100);
+        clearTimeout(timeout);
+
         if (window.JSON) {
             var newmap = window.JSON.stringify(list.nestable('serialize'));
             $.post(BASE_URL+'panel/navigation/sort/'+area, {newmap : newmap})
             .done(function(data){
-                console.log(data);
+                var res = JSON.parse(data);
+                $('#alert-'+res.status).children('span').html(res.message);
+                $('#alert-'+res.status).fadeIn(300);
+                timeout = setTimeout(function(){
+                    $('.alert').fadeOut(300);
+                }, 5000)
             });
         } else {
             output.val('JSON browser support required for this demo.');

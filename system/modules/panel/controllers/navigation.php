@@ -325,11 +325,11 @@ class Navigation extends Admin_Controller {
 			$testvar = json_decode($stringvar, true);
 
 			if(write_file(NAV_FOLDER.$area.'.json', json_encode($testvar, JSON_PRETTY_PRINT)))
-				echo "menu rearranged.";
+				echo '{ "status": "success", "message" : "menu rearranged." }';
 			else
-				echo "error. file not writable.";
+				echo '{ "status": "error", "message" : "Navigation file '.$area.' not writable. Make it writable first." }';
 		} else
-			echo "error. area not specified.";
+			echo '{ "status": "error", "message" : "area not specified." }';
 	}
 
 }

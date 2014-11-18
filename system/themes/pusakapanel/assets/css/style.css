@@ -315,6 +315,12 @@ hr {
 }
 
 /*Helper*/
+.alert {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  width: 100%;
+}
 
 .font-white{
   color:white;

@@ -66,8 +66,9 @@ $(function(){
 	})
 });
 
-setInterval(function(){
-	$('.alert').slideUp();
+// define timeout
+var timeout = setTimeout(function(){
+	$('.alert').fadeOut();
 }, 5000);
 
 var set_parent_dropdown = function(area)
