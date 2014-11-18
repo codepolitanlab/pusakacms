@@ -310,10 +310,12 @@ class Navigation extends Admin_Controller {
 
 		$this->nav_db->setTable($area);
 
-		if($this->nav_db->delete('slug', $slug))
+		if($this->nav_db->delete_children('slug', $slug))
 			$this->session->set_flashdata('success', 'Link "'.$slug.'" deleted.');
 		else
 			$this->session->set_flashdata('error', 'Link failed to delete. Make sure the folder '.NAV_FOLDER.' is writable.');
+
+		// print_r($newar);
 
 		redirect('panel/navigation');
 	}
@@ -330,6 +332,43 @@ class Navigation extends Admin_Controller {
 				echo '{ "status": "error", "message" : "Navigation file '.$area.' not writable. Make it writable first." }';
 		} else
 			echo '{ "status": "error", "message" : "area not specified." }';
+	}
+
+	function tes()
+	{
+		$array = json_decode(file_get_contents(NAV_FOLDER.'header.json'), true);
+
+		print_r($array);
+		echo "\n\n<br><br>\n\n";
+
+		$new_array = $this->removeKey('docs', $array);
+
+		print_r($new_array);
+		echo json_encode($new_array, JSON_PRETTY_PRINT);
+	}
+
+	function removeKey($key, $categories = array())
+	{
+		$new_cat = $categories;
+
+		foreach($new_cat as $i => &$category){
+			if($category['slug'] == $key){
+				print_r($new_cat[$i]);
+				// $new_cat[$i] = array();
+				unset($new_cat[$i]);
+				echo "\n<br><br>\n";
+				break;
+			}
+
+			if(!empty($category['children'])){
+				$category['children'] = $this->removeKey($key, $category['children']);
+
+				if(count($category['children']) < 1)
+					unset($category['children']);
+			}
+		}
+
+		return array_values($new_cat);
 	}
 
 }

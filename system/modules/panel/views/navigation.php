@@ -63,25 +63,44 @@
 <!-- link form Modal -->
 <div class="modal fade" id="linkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-		<div class="modal-content">
-			<form action="<?php echo site_url('panel/navigation/create_link'); ?>" id="link-form" class="form" method="POST">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-					<h4 class="modal-title" id="linkModalLabel">Add new link</h4>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-md-6">
+        <div class="modal-content">
+            <form action="<?php echo site_url('panel/navigation/create_link'); ?>" id="link-form" class="form" method="POST">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="linkModalLabel">Add new link</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="area">Link title</label>
                                 <input type="text" name="link_title" id="link_title" class="form-control title">
                             </div>
                         </div>
                         <div class="col-md-6">
-							<div class="form-group">
-								<label for="area">Link slug</label>
-								<input type="text" name="link_slug" id="link_slug" class="form-control slug">
-							</div>
+                            <div class="form-group">
+                                <label for="area">Link slug</label>
+                                <input type="text" name="link_slug" id="link_slug" class="form-control slug">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="area">Link URL</label>
+                                <select name="link_source" id="link_source" class="form-control">
+                                    <option value="http://">http://</option>
+                                    <option value="https://">https://</option>
+                                    <option value="uri">URI</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="">&nbsp;</label>
+                                <input type="text" name="link_url" id="link_url" class="form-control">
+                            </div>
                         </div>
                     </div>
 
@@ -113,24 +132,6 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="area">Link URL</label>
-                                <select name="link_source" id="link_source" class="form-control">
-                                    <option value="http://">http://</option>
-                                    <option value="https://">https://</option>
-                                    <option value="uri">URI</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <label for="">&nbsp;</label>
-                                <input type="text" name="link_url" id="link_url" class="form-control">
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="modal-footer">

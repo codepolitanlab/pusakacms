@@ -1,9 +1,3 @@
 [
-    {
-        "title": "News",
-        "slug": "news",
-        "source": "uri",
-        "url": "news",
-        "target": "_self"
-    }
+
 ]

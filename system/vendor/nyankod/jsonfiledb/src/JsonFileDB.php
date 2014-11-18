@@ -347,6 +347,34 @@ class JsonFileDB
         return $result;
     }
 
+    public function delete_children($key, $val, $array = false)
+    {
+        if(!$array)
+            $new_array = $this->fileData;
+        else
+            $new_array = $array;
+
+        foreach($new_array as $i => &$arr){
+            if($arr[$key] == $val){
+                unset($new_array[$i]);
+                break;
+            }
+
+            if(!empty($arr['children'])){
+                $arr['children'] = $this->delete_children($key, $val, $arr['children']);
+
+                if(count($arr['children']) < 1)
+                    unset($arr['children']);
+            }
+        }
+
+        if(!$array){
+            $this->fileData = array_values($new_array);
+            return $this->save();
+        } else
+            return array_values($new_array);
+    }
+
     public function createTable($tablePath) {
         if(is_array($tablePath)) $tablePath = $tablePath[0];
 
