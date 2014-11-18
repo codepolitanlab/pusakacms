@@ -3,6 +3,7 @@
         <div class="dd-handle dd3-handle" title="klik and drag to rearrange"><span class="fa fa-align-justify" style="color:#aaa;line-height:27px;"></span></div>
         <div class="dd3-content">
             <?php echo $link['title']; ?>
+            <small>(<?php echo $link['slug']; ?>)</small>
             <small><a href="<?php echo ($link['source'] == 'uri') ? site_url($link['url']) : $link['source'].$link['url']; ?>" target="_blank"><?php echo $link['url']; ?></a></small>
             <div class="align-right pull-right">
                 <div class="option">

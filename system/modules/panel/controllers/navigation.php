@@ -251,8 +251,8 @@ class Navigation extends Admin_Controller {
 
 			$succ_msg = "";
 			$err_msg = "";
-			$this->nav_db->setTable($link['link_area']);
-
+			$this->nav_db->setTable($oldarea);
+			
 			$area_arr = array(
 				'title' => $link['link_title'],
 				'slug' => $link['link_slug'],
@@ -261,24 +261,26 @@ class Navigation extends Admin_Controller {
 				'target' => $link['link_target']
 				);
 
+			// update link
+			if($this->nav_db->update_children('slug', $oldslug, $area_arr))
+				$succ_msg .= 'Link updated. ';
+			else
+				$err_msg .= 'Link failed to update. Make sure the folder '.NAV_FOLDER.' is writable. ';
+
 			// if area changed
-			if($oldarea == $link['link_area']){
-				// update link
-				if($this->nav_db->update('slug', $oldslug, $area_arr))
-					$succ_msg .= 'Link updated.';
-				else
-					$err_msg .= 'Link failed to update. Make sure the folder '.NAV_FOLDER.' is writable.';
+			if($oldarea != $link['link_area']){
+				// get the updated link
+				$updated = $data = $this->nav_db->select_children('slug', $link['link_slug']);
 
-			} else {
+				// then delete it from old area
+				$this->nav_db->delete_children('slug', $link['link_slug']);
+
 				// insert link to new area
-				$this->nav_db->insert($area_arr);
-
-				// delete link from old area
-				$this->nav_db->setTable($oldarea);
-				if($this->nav_db->delete('slug', $oldslug))
-					$succ_msg .= '<br>Link moved to new area.';
+				$this->nav_db->setTable($link['link_area']);
+				if($this->nav_db->insert($updated))
+					$succ_msg .= 'Link moved to new area.';
 				else
-					$err_msg .= '<br>Link failed to move to new area. Make sure the folder '.NAV_FOLDER.' is writable.';
+					$err_msg .= 'Link failed to move to new area. Make sure the folder '.NAV_FOLDER.' is writable.';
 			}
 
 			if(!empty($succ_msg))
@@ -336,15 +338,10 @@ class Navigation extends Admin_Controller {
 
 	function tes()
 	{
-		$array = json_decode(file_get_contents(NAV_FOLDER.'header.json'), true);
+		$this->nav_db->setTable('header');
+		$data = $this->nav_db->select_children('slug', 'download');
 
-		print_r($array);
-		echo "\n\n<br><br>\n\n";
-
-		$new_array = $this->removeKey('docs', $array);
-
-		print_r($new_array);
-		echo json_encode($new_array, JSON_PRETTY_PRINT);
+		print_r($data);
 	}
 
 	function removeKey($key, $categories = array())
