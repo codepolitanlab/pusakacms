@@ -1,50 +1,12 @@
 [
     {
+        "title": "Home",
+        "url": "home"
+    },
+    {
         "title": "Docs",
         "url": "docs",
         "children": [
-            {
-                "title": "Panduan Pengguna",
-                "url": "docs\/panduan-pengguna",
-                "children": [
-                    {
-                        "title": "Posting Blog",
-                        "url": "docs\/panduan-pengguna\/posting-blog"
-                    },
-                    {
-                        "title": "Konfigurasi",
-                        "url": "docs\/panduan-pengguna\/konfigurasi"
-                    },
-                    {
-                        "title": "Instalasi",
-                        "url": "docs\/panduan-pengguna\/instalasi",
-                        "children": [
-                            {
-                                "title": "Format Penulisan",
-                                "url": "docs\/panduan-pengguna\/format-penulisan",
-                                "children": [
-                                    {
-                                        "title": "Mengatur Navigasi",
-                                        "url": "docs\/panduan-pengguna\/mengatur-navigasi"
-                                    },
-                                    {
-                                        "title": "Membuat Halaman",
-                                        "url": "docs\/panduan-pengguna\/membuat-halaman"
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        "title": "Mengatur Kategori",
-                        "url": "docs\/panduan-pengguna\/mengatur-kategori"
-                    },
-                    {
-                        "title": "Struktur File",
-                        "url": "docs\/panduan-pengguna\/struktur-file"
-                    }
-                ]
-            },
             {
                 "title": "Apa Itu Pusaka",
                 "url": "docs\/apa-itu-pusaka",
@@ -72,6 +34,44 @@
                     {
                         "title": "Changelog",
                         "url": "docs\/apa-itu-pusaka\/changelog"
+                    }
+                ]
+            },
+            {
+                "title": "Panduan Pengguna",
+                "url": "docs\/panduan-pengguna",
+                "children": [
+                    {
+                        "title": "Posting Blog",
+                        "url": "docs\/panduan-pengguna\/posting-blog"
+                    },
+                    {
+                        "title": "Konfigurasi",
+                        "url": "docs\/panduan-pengguna\/konfigurasi"
+                    },
+                    {
+                        "title": "Instalasi",
+                        "url": "docs\/panduan-pengguna\/instalasi"
+                    },
+                    {
+                        "title": "Format Penulisan",
+                        "url": "docs\/panduan-pengguna\/format-penulisan"
+                    },
+                    {
+                        "title": "Mengatur Navigasi",
+                        "url": "docs\/panduan-pengguna\/mengatur-navigasi"
+                    },
+                    {
+                        "title": "Membuat Halaman",
+                        "url": "docs\/panduan-pengguna\/membuat-halaman"
+                    },
+                    {
+                        "title": "Mengatur Kategori",
+                        "url": "docs\/panduan-pengguna\/mengatur-kategori"
+                    },
+                    {
+                        "title": "Struktur File",
+                        "url": "docs\/panduan-pengguna\/struktur-file"
                     }
                 ]
             },
