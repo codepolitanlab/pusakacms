@@ -241,7 +241,7 @@ class Pusaka {
 	 */
 	function sync_nav($prefix = null)
 	{
-		$output = '';
+		$output = array('status' => 'success', 'message' => 'Everything already synced.');
 
 		if($prefix == POST_TERM){
 			// get derectory map
@@ -264,9 +264,9 @@ class Pusaka {
 
 			krsort($tree);
 			if(! write_file(POST_FOLDER.'/'.$this->navfile, json_encode($tree, JSON_PRETTY_PRINT)))
-				$output .= "unable to write ".$this->navfile."\n";
+				$output = array('status' => 'error', 'message' => "Post index file ".$this->navfile." is not writable. Make it writable first.\n");
 			else
-				$output .= "post index synced.";
+				$output = array('status' => 'success', 'message' => "post index synced.\n");
 			
 		} else {
 
@@ -287,12 +287,12 @@ class Pusaka {
 				if(count($diff) > 0){
 					foreach ($diff as $value){	
 						$json += array($this->remove_extension($value) => $this->guess_name($value));
-						$output .= "menu synced for new content $prefix/$value\n";
+						$output = array('status' => 'success', 'message' => "Page index synced.\n");
 					}
 
 					// make sure it is writablle
 					if(! write_file($prefix.'/'.$this->navfile, json_encode($json, JSON_PRETTY_PRINT))) {
-						$output .= "please set content folder writable.\n";
+						$output = array('status' => 'error', 'message' => "Page index file ".$this->navfile." is not writable. Make it writable first.\n");
 						exit;
 					}
 				}
@@ -308,17 +308,17 @@ class Pusaka {
 
 				// make sure it is writablle
 					if(! write_file($prefix.'/'.$this->navfile, json_encode($new_json, JSON_PRETTY_PRINT), "w")){
-						$output .= "please set content folder writable.\n";
+						$output = array('status' => 'error', 'message' => "Page index file ".$this->navfile." is not writable. Make it writable first.\n");
 						exit;
 					}
 					else
-						$output .= "menu updated for folder $prefix/\n";
+						$output = array('status' => 'success', 'message' => "Page index synced.\n");
 				}
 
 			// do for the child folders
 			foreach ($new_map as $folder)
 				if(is_dir($prefix.'/'.$folder))
-					$output .= $this->sync_nav($prefix.'/'.$folder);
+					$output = $this->sync_nav($prefix.'/'.$folder);
 
 		}
 		
@@ -352,12 +352,12 @@ class Pusaka {
 		write_file(LABEL_FOLDER.'/index.md', 'Directory access forbidden.');
 
 		// rewrite label indexes
-		$output = '';
+		$output = array();
 		foreach ($labels as $label => $url) {
 			if(write_file(LABEL_FOLDER.'/'.$label.'.json', json_encode($url, JSON_PRETTY_PRINT)))
-				$output .= "Label $label list updated.\n";
+				$output = array('status' => 'success', 'message' => "Label list updated.\n");
 			else
-				$output .= "Label $label fail update. Please make content/labels/ folder writtable.\n";
+				$output = array('status' => 'error', 'message' => "Some labels failed to update. Please make content/labels/ folder writable.\n");
 		}
 
 		return $output;

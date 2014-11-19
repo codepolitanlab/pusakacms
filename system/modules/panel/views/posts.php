@@ -24,9 +24,11 @@
 								<span class="date"><span class="fa fa-calendar"></span> <?php echo date("F d, Y", strtotime($post['date'])); ?></span>
 
 								
-								<?php foreach ($post['labels'] as $postlabel): ?>
-									<a href="<?php echo site_url('panel/posts/index/'.$postlabel); ?>" class="tag"><label class="label label-success"><?php echo $postlabel; ?></label></a>
-								<?php endforeach; ?>
+								<?php if(isset($post['labels'])): ?>
+									<?php foreach ($post['labels'] as $postlabel): ?>
+										<a href="<?php echo site_url('panel/posts/index/'.$postlabel); ?>" class="tag"><label class="label label-success"><?php echo $postlabel; ?></label></a>
+									<?php endforeach; ?>
+								<?php endif; ?>
 								
 							</div>
 						</div>
@@ -46,5 +48,5 @@
 <?php endif; ?>
 
 <ul class="pagination">
-<?php echo $this->pusaka->post_pagination($posts['total'], null, 'panel/posts/index/'.$label, 5); ?>
+	<?php echo $this->pusaka->post_pagination($posts['total'], null, 'panel/posts/index/'.$label, 5); ?>
 </ul>

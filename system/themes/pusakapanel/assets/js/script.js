@@ -69,7 +69,7 @@ $(function(){
 // define timeout
 var timeout = setTimeout(function(){
 	$('.alert').fadeOut();
-}, 5000);
+}, 8000);
 
 var set_parent_dropdown = function(area)
 {

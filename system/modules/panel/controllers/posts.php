@@ -88,8 +88,7 @@ class Posts extends Admin_Controller {
 				$this->session->set_flashdata('success', 'Post saved.');
 
 				// update post index
-				$this->pusaka->sync_nav(POST_TERM);
-				$this->pusaka->sync_label();
+				$this->sync(false);
 
 				redirect('panel/posts');
 			}
@@ -112,7 +111,7 @@ class Posts extends Admin_Controller {
 		if(!$prevslug = $this->input->get('post')) show_404();
 
 		$prevpost = $this->pusaka->get_post($prevslug, false);
-		$prevpost['labels'] = implode(",", $prevpost['labels']);
+		$prevpost['labels'] = (!empty($prevpost['labels']))? implode(",", $prevpost['labels']) : '';
 
 		$this->form_validation->set_rules($this->post_fields);
 
@@ -139,8 +138,7 @@ class Posts extends Admin_Controller {
 				$this->session->set_flashdata('success', 'Post updated.');
 
 				// update post index
-				$this->pusaka->sync_nav(POST_TERM);
-				$this->pusaka->sync_label();
+				$this->sync(false);
 
 				redirect('panel/posts');
 			}
@@ -165,8 +163,7 @@ class Posts extends Admin_Controller {
 			$this->session->set_flashdata('success', 'Post '.$file.' deleted.');
 
 			// update post index
-			$this->pusaka->sync_nav(POST_TERM);
-			$this->pusaka->sync_label();
+			$this->sync(false);
 		}
 		else
 			$this->session->set_flashdata('error', 'Post failed to delete. Make sure the folder '.PAGE_FOLDER.' is writable.');
@@ -174,11 +171,19 @@ class Posts extends Admin_Controller {
 		redirect('panel/posts');
 	}
 
-	function sync()
+	function sync($redirect = true)
 	{
-		$this->pusaka->sync_nav(POST_TERM);
-		$this->pusaka->sync_label();
-		redirect('panel/posts');
+		$nav = $this->pusaka->sync_nav(POST_TERM);
+		$label = $this->pusaka->sync_label();
+		if($nav['status'] == $label['status'])
+			$this->session->set_flashdata($label['status'], $nav['message'] . $label['message']);
+		else {
+			$this->session->set_flashdata($nav['status'], $nav['message']);
+			$this->session->set_flashdata($label['status'], $label['message']);
+		}
+
+		if($redirect)
+			redirect('panel/posts');
 	}
 
 }

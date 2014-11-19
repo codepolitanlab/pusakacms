@@ -77,14 +77,22 @@ class CMS extends Public_Controller {
 	function sync_nav($prefix = null)
 	{
 		header("Content-Type:text/plain");
-		echo $this->pusaka->sync_nav($prefix);
+		$report = $this->pusaka->sync_nav($prefix);
+		echo "Sync ".$report['status'].":\n";
+		echo $report['message']."\n";
 	}
 
 	function sync_post()
 	{
 		header("Content-Type:text/plain");
-		echo $this->pusaka->sync_nav(POST_TERM)."\n";
-		echo $this->pusaka->sync_label();
+
+		$nav = $this->pusaka->sync_nav(POST_TERM);
+		echo "Sync ".$nav['status'].":\n";
+		echo $nav['message']."\n";
+
+		$label = $this->pusaka->sync_label();
+		echo "Sync ".$label['status'].":\n";
+		echo $label['message']."\n";
 	}
 
 	function post()
