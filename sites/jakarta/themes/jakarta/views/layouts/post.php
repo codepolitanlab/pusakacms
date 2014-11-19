@@ -5,7 +5,16 @@
 </head>
 <body>
 
-	<?php get_partial('header'); ?>
+	<header class="blog-detail-header">
+		<div class="blog-nav">
+			<div class="nav-left">
+				<a href="<?php echo site_url(); ?>blog/" class="btn btn-border-grey"><span class="fa fa-long-arrow-left"></span> Back</a>
+			</div>
+			<div class="nav-right">
+				<a href="<?php echo site_url(); ?>" class="blog-detail-logo-btn"><?php echo site_config('site_name'); ?></a>
+			</div>
+		</div>
+	</header>
 
 
 	<div class="blog-content blog-detail">

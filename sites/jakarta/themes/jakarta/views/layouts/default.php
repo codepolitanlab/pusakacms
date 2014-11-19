@@ -6,13 +6,17 @@
 <body>
 	<?php get_partial('header'); ?>
 
-	<div class="container">		
-		<div class="row">
-			<div class="col-md-3">
-				<?php get_partial('sidebar'); ?>
-			</div>
-			<div class="col-md-9 the-content">
-				<?php echo $template['body']; ?>
+	<div class="blog-content blog-detail">
+		<div class="container">		
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1">
+
+					<article class="the-content">
+						<?php echo $template['body']; ?>
+					</article>
+
+				</div>
+			
 			</div>
 		</div>
 	</div>
