@@ -12,7 +12,7 @@
 
 <div class="panel panel-default">
 	<div class="panel-body">
-		<div class="dd">
+		<div class="dd" id="root">
             <ol class="dd-list">
 				<?php echo $pages; ?>
 			</ol>
@@ -22,22 +22,39 @@
 
 <script>
     $(function(){
-	    $('.dd').nestable({group: 1}).on('change', updateSort);
-    })
 
-    // callback to update arrange navigation
-    var updateSort = function(e)
-    {
-        var list   = e.length ? e : $(e.target);
-        var area = list.attr('id');
-        if (window.JSON) {
-            var newmap = window.JSON.stringify(list.nestable('serialize'));
-            $.post(BASE_URL+'panel/pages/sort/'+area, {newmap : newmap})
+        $('.dd').nestable({
+            getRootCallback:false
+        }).on('change', '.dd-item', function(e) {
+            e.stopPropagation();
+            var elm = $(this),
+            source = elm.data('url'),
+            dest = $(this).parents('.dd-item').data('url');
+            console.log(elm);
+
+            $.post(BASE_URL+'panel/pages/sort/', {source : source, dest : dest})
             .done(function(data){
                 console.log(data);
+                var res = JSON.parse(data);
+                change_attributes(elm, res);
             });
-        } else {
-            output.val('JSON browser support required for this demo.');
+        });
+
+        // change important attribute of moved element
+        var change_attributes = function(e, d){
+            e.data('url', d.dest+'/'+d.page);
+            e.children('.dd3-content').children('small').children('.page-url')
+            .attr('href', BASE_URL+d.dest+'/'+d.page).html(d.dest+'/'+d.page);
+
+            // if element has children, do the same thing
+            if(e.children('.dd-list').length > 0){
+                $.each(e.children('.dd-list').children('.dd-item'), function(key, value){
+                    var p = $(value).data('url').split("/");
+
+                    var dd = {page:p[p.length-1], dest:e.data('url')};
+                    change_attributes($(value), dd);
+                });
+            }
         }
-    };
+    });
 </script>

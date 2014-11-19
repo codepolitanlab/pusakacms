@@ -38,15 +38,13 @@
         "slug": "blog",
         "url": "blog",
         "source": "uri",
-        "target": "_self",
-        "children": [
-            {
-                "title": "About",
-                "slug": "about",
-                "url": "about",
-                "source": "uri",
-                "target": "_self"
-            }
-        ]
+        "target": "_self"
+    },
+    {
+        "title": "About",
+        "slug": "about",
+        "url": "about",
+        "source": "uri",
+        "target": "_self"
     }
 ]

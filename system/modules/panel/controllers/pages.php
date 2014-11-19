@@ -218,13 +218,13 @@ class Pages extends Admin_Controller {
 
 	function sort()
 	{
-		$stringvar = str_replace(array("[[","]]"), array("[","]"), $this->input->post('newmap'));
-		$testvar = json_decode($stringvar, true);
+		$source_arr = explode("/", $this->input->post('source'));
 
-		// if(write_file(PAGE_FOLDER.'schema.json', json_encode($testvar, JSON_PRETTY_PRINT)))
-		// 	echo "menu rearranged.";
-		// else
-		// 	echo "error. file not writable.";
+		$page = array_pop($source_arr);
+		$source = implode("/", $source_arr);
+		$dest = $this->input->post('dest');
+
+		echo json_encode(array('page' => $page, 'source' => $source, 'dest' => $dest));
 	}
 
 }
