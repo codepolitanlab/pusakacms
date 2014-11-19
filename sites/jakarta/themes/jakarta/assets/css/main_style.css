@@ -50,11 +50,11 @@ h1 {
 .full-width { width:100%; }
 
 a {
-	color: #3e9ba6;
+	color: #61bbc6;
 	text-decoration: none;
 }
 a:hover, a:focus {
-	color: #237d87;
+	color: #54abb5;
 	text-decoration: none;
 }
 
@@ -134,43 +134,6 @@ a:hover, a:focus {
 
 
 
-
-/* -----------------------------------
-** HOMEPAGE
-** ----------------------------------- */
-.home-header {
-	height:550px;
-	background: #d7eef3 url(../img/bg_jakarta_city.png) no-repeat left bottom;
-	padding: 100px 0px;
-}
-.jumbo-lead {
-	margin-top: 40px;
-	margin-bottom: 40px;
-}
-.jumbo-lead h1 {
-	font-size: 30px;
-	line-height: 38px;
-}
-
-
-.home-content {
-	background: #655f66;
-	padding-top: 150px;
-	padding-bottom: 50px;
-	color: #ffffff;
-	font-size: 16px;
-}
-
-
-.home-footer {
-	background: #655f66 url(../img/bg_footer.png) no-repeat center bottom;
-	padding-top:330px;
-	color: #ffffff;
-	padding-bottom: 30px;
-}
-
-
-
 /* -----------------------------------
 ** NAVBAR
 ** ----------------------------------- */
@@ -195,3 +158,65 @@ a:hover, a:focus {
 	background: #ebf7fa;
 	border-bottom: 0px;
 }
+
+
+
+
+
+/* -----------------------------------
+** HOMEPAGE
+** ----------------------------------- */
+.home-header {
+	height:550px;
+	background: #d7eef3 url(../img/bg_jakarta_city.png) no-repeat left bottom;
+	padding: 100px 0px;
+}
+.jumbo-lead {
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+.jumbo-lead h1 {
+	font-size: 30px;
+	line-height: 38px;
+}
+
+.home-content {
+	background: #655f66;
+	padding-top: 150px;
+	padding-bottom: 50px;
+	color: #ffffff;
+	font-size: 16px;
+}
+
+.home-footer {
+	background: #655f66 url(../img/bg_footer.png) no-repeat center bottom;
+	padding-top:330px;
+	color: #ffffff;
+	padding-bottom: 30px;
+}
+
+
+
+
+/* -----------------------------------
+** BLOG
+** ----------------------------------- */
+.blog-header {
+	background: #655f66;
+	padding: 120px 0px;
+	text-align: center;
+	color: #e9f6f8;
+	position: relative;
+}
+.blog-header h1 {
+	font-size: 80px;
+}
+.blog-header .blog-desc {
+	font-size: 20px;
+}
+.blog-header .nav-right {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+

@@ -4,11 +4,19 @@
 	<?php get_partial('metadata'); ?>
 </head>
 <body>
-	<?php get_partial('header'); ?>
+	
+	<header class="blog-header">
+		<div class="nav-right">
+			<a href="#" class="btn btn-primary">Contact</a>
+		</div>
+		<h1><a href="#"><?php echo site_config('site_name'); ?></a></h1>
+		<div class="blog-desc">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam</div>
+	</header>
 
 	<div class="container">		
 		<div class="row">
-			<div class="col-md-9">
+			<div class="col-md-10 col-md-offset-1">
+
 				<?php if($label): ?>
 				<h2>Post dengan label "<?php echo $label; ?>"</h2><hr>
 				<?php endif; ?>
@@ -33,30 +41,12 @@
 				</article>
 				<?php endforeach; ?>
 
-				<ul class="pagination">
-					<?php echo $this->pusaka->pagination($posts['total'], $label); ?>
-				</ul>
-			</div>
-
-			<div class="col-md-3">
-				<?php get_partial('post_sidebar'); ?>
 			</div>
 		</div>
 	</div>
 
 	<?php get_partial('footer'); ?>
 
-<script type="text/javascript">
-/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-var disqus_shortname = 'nyankodpublish'; // required: replace example with your forum shortname
 
-/* * * DON'T EDIT BELOW THIS LINE * * */
-(function () {
-var s = document.createElement('script'); s.async = true;
-s.type = 'text/javascript';
-s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
-(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-}());
-</script>
 </body>
 </html>
