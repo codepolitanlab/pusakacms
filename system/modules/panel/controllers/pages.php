@@ -119,7 +119,7 @@ class Pages extends Admin_Controller {
 			->set('type', 'create')
 			->set('page', '')
 			->set('url', '')
-			->set('layouts', $this->template->get_layouts())
+			->set('layouts', $this->pusaka->get_layouts($this->config->item('theme')))
 			->set('pagelinks', $this->pusaka->get_flatnav())
 			->view('page_form');
 	}
@@ -196,7 +196,7 @@ class Pages extends Admin_Controller {
 			->set('type', 'edit')
 			->set('page', $prevpage)
 			->set('url', $prevslug)
-			->set('layouts', $this->template->get_layouts())
+			->set('layouts', $this->pusaka->get_layouts($this->config->item('theme')))
 			->set('pagelinks', $this->pusaka->get_flatnav())
 			->view('page_form');
 	} 

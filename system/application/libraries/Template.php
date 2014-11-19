@@ -741,11 +741,11 @@ class Template
 	 * @param	 string	$view
 	 * @return	array
 	 */
-	public function get_layouts()
+	public function get_layouts($theme = false)
 	{
 		$layouts = array();
 
-		foreach(glob(self::_find_view_folder().$this->_layout_folder.'*.*') as $layout)
+		foreach(glob(self::_find_view_folder($theme).$this->_layout_folder.'*.*') as $layout)
 		{
 			$layouts[] = pathinfo($layout, PATHINFO_BASENAME);
 		}
@@ -829,7 +829,7 @@ class Template
 	}
 
 	// find layout files, they could be mobile or web
-	private function _find_view_folder()
+	private function _find_view_folder($theme = false)
 	{
 		if ($this->_ci->load->get_var('template_views'))
 		{
@@ -839,10 +839,22 @@ class Template
 		// Base view folder
 		$view_folder = APPPATH.'views/';
 
-		// Using a theme? Put the theme path in before the view folder
-		if ( ! empty($this->_theme))
-		{
-			$view_folder = $this->_theme_path.'views/';
+		if(!$theme){	
+			// Using a theme? Put the theme path in before the view folder
+			if ( ! empty($this->_theme))
+			{
+				$view_folder = $this->_theme_path.'views/';
+			}
+		} else {
+			// this used only to get view folder with specified theme
+			foreach ($this->_theme_locations as $location)
+			{
+				if (file_exists($location.$theme))
+				{
+					$view_folder = rtrim($location.$theme.'/').'views/';
+					break;
+				}
+			}
 		}
 
 		// Would they like the mobile version?
@@ -865,7 +877,9 @@ class Template
 		}
 
 		// If using themes store this for later, available to all views
-		$this->_ci->load->vars('template_views', $view_folder);
+		// otherwise we only want to get list of layouts
+		if(! $theme)
+			$this->_ci->load->vars('template_views', $view_folder);
 		
 		return $view_folder;
 	}

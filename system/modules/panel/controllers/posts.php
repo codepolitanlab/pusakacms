@@ -102,7 +102,7 @@ class Posts extends Admin_Controller {
 			->set('type', 'create')
 			->set('post', '')
 			->set('url', '')
-			->set('layouts', $this->template->get_layouts())
+			->set('layouts', $this->pusaka->get_layouts($this->config->item('theme')))
 			->view('post_form');
 	}
 
@@ -152,6 +152,7 @@ class Posts extends Admin_Controller {
 			->set('type', 'edit')
 			->set('url', $prevslug)
 			->set('post', $prevpost)
+			->set('layouts', $this->pusaka->get_layouts($this->config->item('theme')))
 			->view('post_form');
 	}
 

@@ -363,6 +363,18 @@ class Pusaka {
 		return $output;
 	}
 
+	public function get_layouts($theme = false)
+	{
+		$layouts = $this->CI->template->get_layouts($theme);
+		$list = array();
+		foreach ($layouts as $layout) {
+			if(substr($layout, 0, 1) == "_")
+				array_push($list, $layout);
+		}
+
+		return $list;
+	}
+
 	// --------------------------------------------------------------------
 
 	/**
