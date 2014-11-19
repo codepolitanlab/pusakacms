@@ -109,7 +109,7 @@ class CMS extends Public_Controller {
 
 			$this->data['posts'] = $this->pusaka->get_posts();
 
-			$this->template->view('layouts/posts', $this->data);
+			$this->template->view('layouts/post-loop', $this->data);
 		}
 		else {
 			// if it is a post list with page number
@@ -117,7 +117,7 @@ class CMS extends Public_Controller {
 				$this->config->set_item('page_title', $this->config->item('post_term').' - '.$this->config->item('page_title'));
 
 				$this->data['posts'] = $this->pusaka->get_posts(null, isset($segments[2]) ? $segments[2] : 1);
-				$this->template->view('layouts/posts', $this->data);
+				$this->template->view('layouts/post-loop', $this->data);
 			}
 
 			// if it is a blog label
@@ -128,7 +128,7 @@ class CMS extends Public_Controller {
 
 				$this->data['label'] = $segments[2];
 				$this->data['posts'] = $this->pusaka->get_posts($segments[2], isset($segments[3]) ? $segments[3] : 1);
-				$this->template->view('layouts/posts', $this->data);
+				$this->template->view('layouts/post-loop', $this->data);
 			}
 			
 			// then it is a detail post
