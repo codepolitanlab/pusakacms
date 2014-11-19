@@ -52,7 +52,7 @@
 
 			<div class="form-group">
 				<label for="content">Content</label>	
-				<textarea id="postdownMe" class="form-control" name="content" id="content" rows="20"><?php echo set_value('content', validate_value($post, 'content')); ?></textarea>
+				<textarea id="pagedownMe" class="form-control" name="content" id="content" rows="20"><?php echo set_value('content', validate_value($post, 'content')); ?></textarea>
 			</div>
 		</div>
 

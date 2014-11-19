@@ -1,15 +1,13 @@
-<header>
-
-	<nav class="navbar navbar-default" role="navigation">
-		<div class="container">		
-			<div class="row">
-				<div class="col-md-7">
-					<div class="navbar-header">
-						<h1><a href="<?php echo site_url(); ?>">{{ site_name }}</a></h1>
-					</div>
-				</div>
-			</div>
+<header class="blog-header">
+	<div class="blog-nav">
+		<div class="nav-left">
+			<a href="#" class="btn btn-border"><span class="fa fa-home"></span></a>
 		</div>
-	</nav>
-	
+		<div class="nav-right">
+			<a href="#" class="btn btn-border">Contact</a>
+		</div>
+	</div>
+
+	<h1><a href="#"><?php echo site_config('site_name'); ?></a></h1>
+	<div class="blog-desc"><?php echo site_config('site_slogan'); ?></div>
 </header>
