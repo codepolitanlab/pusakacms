@@ -555,6 +555,11 @@ class Pusaka {
 	function get_post($url = null, $parse = true)
 	{
 		$segs = explode("/", $url);
+
+		// url must have 4 segment (yyyy/mm/dd/slug)
+		if(count($segs) != 5)
+			return false;
+
 		array_shift($segs);
 		$date = $segs[0].'-'.$segs[1].'-'.$segs[2];
 		$filename = implode("-", $segs);
@@ -568,6 +573,10 @@ class Pusaka {
 			}
 		}
 
+		// check if file exist
+		if(! file_exists(POST_FOLDER.'/'.$filename))
+			return false;
+		
 		$file = file_get_contents(POST_FOLDER.'/'.$filename);
 
 		if(!empty($file)){
