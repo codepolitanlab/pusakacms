@@ -1,31 +1,31 @@
 [
     {
-        "title": "Docs",
-        "slug": "docs",
-        "url": "docs",
-        "source": "uri",
         "target": "_self",
+        "source": "uri",
+        "url": "docs",
+        "slug": "docs",
+        "title": "Docs",
         "children": [
             {
-                "title": "Apa itu Pusaka?",
-                "slug": "apa-itu-pusaka",
-                "url": "docs\/apa-itu-pusaka",
-                "source": "uri",
                 "target": "_self",
+                "source": "uri",
+                "url": "docs\/apa-itu-pusaka",
+                "slug": "apa-itu-pusaka",
+                "title": "Apa itu Pusaka?",
                 "children": [
                     {
-                        "title": "News",
-                        "slug": "news",
-                        "url": "news",
-                        "source": "uri",
                         "target": "_self",
+                        "source": "uri",
+                        "url": "news",
+                        "slug": "news",
+                        "title": "News",
                         "children": [
                             {
-                                "title": "Kenapa Pusaka?",
-                                "slug": "kenapa-pusaka",
-                                "url": "docs\/kenapa-pusaka",
+                                "target": "_self",
                                 "source": "uri",
-                                "target": "_self"
+                                "url": "docs\/kenapa-pusaka",
+                                "slug": "kenapa-pusaka",
+                                "title": "Kenapa Pusaka?"
                             }
                         ]
                     }
@@ -34,18 +34,18 @@
         ]
     },
     {
-        "title": "Blog",
-        "slug": "blog",
-        "url": "blog",
-        "source": "uri",
         "target": "_self",
+        "source": "uri",
+        "url": "blog",
+        "slug": "blog",
+        "title": "Blog",
         "children": [
             {
-                "title": "About",
-                "slug": "about",
-                "url": "about",
+                "target": "_self",
                 "source": "uri",
-                "target": "_self"
+                "url": "about",
+                "slug": "about",
+                "title": "About"
             }
         ]
     }
