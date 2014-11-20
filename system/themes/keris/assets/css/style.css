@@ -409,6 +409,8 @@ a {
 
 article.the-content {
   border-bottom: 1px solid #f0f4e9;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 .footer-link {
     padding-top: 50px;
