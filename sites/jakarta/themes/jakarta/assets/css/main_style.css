@@ -178,8 +178,16 @@ a:hover, a:focus {
 	padding: 0px;
 	height: 50px;
 }
-.navbar .navbar-nav li a:hover {
+.navbar .navbar-nav li a {
+	color: #61bbc6;
+	text-decoration: none;
+}
+.navbar .navbar-nav li a:hover,
+.navbar .navbar-nav li a:focus {
 	background: #e0f1f5;
+}
+.navbar .navbar-nav li.active a {
+	color: #d44434;
 }
 .navbar-default {
 	background: #ebf7fa;

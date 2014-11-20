@@ -963,3 +963,8 @@ small, .small {
 .pagination li.active a:hover {
   background: #6a9829;
 }
+
+
+.dash-title {
+  margin-bottom: 40px;
+}

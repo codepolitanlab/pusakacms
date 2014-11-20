@@ -1,52 +1,23 @@
 [
     {
-        "target": "_self",
+        "title": "Home",
+        "slug": "home",
         "source": "uri",
-        "url": "docs",
-        "slug": "docs",
-        "title": "Docs",
-        "children": [
-            {
-                "target": "_self",
-                "source": "uri",
-                "url": "docs\/apa-itu-pusaka",
-                "slug": "apa-itu-pusaka",
-                "title": "Apa itu Pusaka?",
-                "children": [
-                    {
-                        "target": "_self",
-                        "source": "uri",
-                        "url": "news",
-                        "slug": "news",
-                        "title": "News",
-                        "children": [
-                            {
-                                "target": "_self",
-                                "source": "uri",
-                                "url": "docs\/kenapa-pusaka",
-                                "slug": "kenapa-pusaka",
-                                "title": "Kenapa Pusaka?"
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
+        "url": "home",
+        "target": "_self"
     },
     {
         "target": "_self",
         "source": "uri",
         "url": "blog",
         "slug": "blog",
-        "title": "Blog",
-        "children": [
-            {
-                "target": "_self",
-                "source": "uri",
-                "url": "about",
-                "slug": "about",
-                "title": "About"
-            }
-        ]
+        "title": "Blog"
+    },
+    {
+        "title": "Lipsum",
+        "slug": "lipsum",
+        "source": "uri",
+        "url": "lipsum",
+        "target": "_self"
     }
 ]
