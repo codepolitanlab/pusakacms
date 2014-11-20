@@ -210,7 +210,7 @@ a:hover, a:focus {
 .home-content {
 	background: #655f66;
 	padding-top: 150px;
-	padding-bottom: 50px;
+	padding-bottom: 0px;
 	color: #ffffff;
 	font-size: 16px;
 }
@@ -274,9 +274,11 @@ a:hover, a:focus {
 }
 .blog-content .the-content .date {
 	color: #a7a7a7;
-	border-right: 1px solid #f0f0f0;
-	padding-right: 15px;
-	margin-right: 15px;
+}
+.blog-content .the-content .cat {
+	border-left: 1px solid #f0f0f0;
+	padding-left: 15px;
+	margin-left: 15px;
 }
 .blog-content .the-content .cat a {
 	background: #f9fbfb;
@@ -299,6 +301,31 @@ a:hover, a:focus {
 
 
 
+
+/* -----------------------------------
+** PAGINATION
+** ----------------------------------- */
+.pagination li a {
+	color: #cccccc;
+	background: #ffffff;
+}
+.pagination li a:hover,
+.pagination li a:focus {
+	color: #b9baba;
+	background: #f4f9fa;
+}
+.pagination li.active a,
+.pagination li.active a:hover {
+	background: #61bbc6;
+	border-color: #61bbc6;
+}
+
+
+
+
+/* -----------------------------------
+** BLOG DETAIL
+** ----------------------------------- */
 .blog-detail-header {
 	position: relative;
 	height: 100px;

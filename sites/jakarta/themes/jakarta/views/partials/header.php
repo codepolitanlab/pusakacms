@@ -4,7 +4,7 @@
 			<a href="<?php echo site_url(); ?>" class="btn btn-border"><span class="fa fa-home"></span></a>
 		</div>
 		<div class="nav-right">
-			<a href="<?php echo site_url(); ?>contact/" class="btn btn-border">Contact</a>
+			<a href="<?php echo site_url(); ?>blog/" class="btn btn-border">Blog</a>
 		</div>
 	</div>
 
