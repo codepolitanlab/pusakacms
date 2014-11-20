@@ -45,7 +45,7 @@
 						<?php else: ?>
 
 							<article>
-								<p>Belum ada posting.</p>
+								<p>No article here Jou..</p>
 							</article>
 
 						<?php endif; ?>

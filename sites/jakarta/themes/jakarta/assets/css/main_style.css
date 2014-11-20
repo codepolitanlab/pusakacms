@@ -354,3 +354,24 @@ a:hover, a:focus {
 	font-size: 20px;
 	line-height: 30px;
 }
+
+
+
+
+/* -----------------------------------
+** 404
+** ----------------------------------- */
+.notfound-wrapper {
+	background: #807d81 url(../img/bg_jakarta_city.png) no-repeat left bottom;
+	color: #e9f6f8;
+}
+.notfound-inner {
+	padding: 150px 0px;
+}
+.notfound-inner h1 {
+	font-size: 60px;
+}
+.notfound-inner .text-wrapper {
+	font-size: 25px;
+	margin-bottom: 50px;
+}
