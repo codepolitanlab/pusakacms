@@ -1,4 +1,4 @@
-/* Dark Blue */
+/* Siang */
 
 
 /* -----------------------------------
@@ -32,15 +32,6 @@ a:hover, a:focus { color: #54abb5; }
 .btn-border:focus {
 	border-color: #54abb5;
 	color: #54abb5;
-}
-.btn-primary {
-	background: #61bbc6;
-	border-color: #61bbc6;
-}
-.btn-primary:hover,
-.btn-primary:focus {
-	background: #54abb5;
-	border-color: #54abb5;
 }
 
 

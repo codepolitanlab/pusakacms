@@ -23,8 +23,4 @@
 
 <!-- Custom styles for this template -->
 <link href="<?php echo get_theme_url() ?>assets/css/main_style.css" rel="stylesheet">
-<<<<<<< HEAD
 <link href="<?php echo get_theme_url() ?>assets/css/color-hijau.css" rel="stylesheet">
-=======
-<link href="<?php echo get_theme_url() ?>assets/css/dark_blue.css" rel="stylesheet">
->>>>>>> parent of 458e726... siang & senja style
