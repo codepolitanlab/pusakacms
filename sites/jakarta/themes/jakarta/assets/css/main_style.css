@@ -16,7 +16,6 @@ body {
 	font-size:14px;
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 400;
-	color:#4f4f4f;
 }
 
 .main-wrapper {
@@ -50,11 +49,9 @@ h1 {
 .full-width { width:100%; }
 
 a {
-	color: #61bbc6;
 	text-decoration: none;
 }
 a:hover, a:focus {
-	color: #54abb5;
 	text-decoration: none;
 }
 
@@ -74,25 +71,21 @@ a:hover, a:focus {
 
 .btn-default {
 	background: transparent;
-	border: 2px solid #3e9ba6;
-	color: #3e9ba6;
+	border-width: 2px;
 }
 .btn-default:hover,
 .btn-default:focus {
 	background: transparent;
-	border: 2px solid #237d87;
-	color: #237d87;
 }
 
 .btn-border {
 	background: transparent;
-	border: 2px solid #61bbc6;
+	border-width: 2px;
 	color: #61bbc6;
 }
 .btn-border:hover,
 .btn-border:focus {
 	background: transparent;
-	border: 2px solid #54abb5;
 	color: #54abb5;
 }
 
@@ -169,7 +162,6 @@ a:hover, a:focus {
     transition: background-color 300ms ease-out 0.1s;
     height: 50px;
     padding: 0px;
-    background: #d7eef3;
     margin-bottom: 0px;
 }
 .navbar .navbar-brand {
@@ -179,18 +171,9 @@ a:hover, a:focus {
 	height: 50px;
 }
 .navbar .navbar-nav li a {
-	color: #61bbc6;
 	text-decoration: none;
 }
-.navbar .navbar-nav li a:hover,
-.navbar .navbar-nav li a:focus {
-	background: #e0f1f5;
-}
-.navbar .navbar-nav li.active a {
-	color: #d44434;
-}
 .navbar-default {
-	background: #ebf7fa;
 	border-bottom: 0px;
 }
 
@@ -203,7 +186,6 @@ a:hover, a:focus {
 ** ----------------------------------- */
 .home-header {
 	height:550px;
-	background: #d7eef3 url(../img/bg_jakarta_city.png) no-repeat left bottom;
 	padding: 100px 0px;
 }
 .jumbo-lead {
@@ -214,19 +196,13 @@ a:hover, a:focus {
 	font-size: 30px;
 	line-height: 38px;
 }
-
 .home-content {
-	background: #655f66;
 	padding-top: 150px;
 	padding-bottom: 0px;
-	color: #ffffff;
 	font-size: 16px;
 }
-
 .home-footer {
-	background: #655f66 url(../img/bg_footer.png) no-repeat center bottom;
 	padding-top:330px;
-	color: #ffffff;
 	padding-bottom: 30px;
 }
 
@@ -237,10 +213,8 @@ a:hover, a:focus {
 ** BLOG
 ** ----------------------------------- */
 .blog-header {
-	background: #655f66;
 	padding: 120px 0px;
 	text-align: center;
-	color: #e9f6f8;
 	position: relative;
 }
 .blog-header h1 {
@@ -280,16 +254,12 @@ a:hover, a:focus {
 	font-size: 16px;
 	line-height: 25px;
 }
-.blog-content .the-content .date {
-	color: #a7a7a7;
-}
 .blog-content .the-content .cat {
 	border-left: 1px solid #f0f0f0;
 	padding-left: 15px;
 	margin-left: 15px;
 }
 .blog-content .the-content .cat a {
-	background: #f9fbfb;
 	padding-left: 5px;
 	padding-right: 5px;
 	-webkit-border-radius: 3px;
@@ -298,11 +268,6 @@ a:hover, a:focus {
 	-o-border-radius: 3px;
 	border-radius: 3px;
 }
-.blog-content .the-content .cat a:focus,
-.blog-content .the-content .cat a:hover {
-	background: #f2f8f9;
-}
-
 .blog-footer {
 	padding: 20px 0px;
 }
@@ -369,10 +334,6 @@ a:hover, a:focus {
 /* -----------------------------------
 ** 404
 ** ----------------------------------- */
-.notfound-wrapper {
-	background: #807d81 url(../img/bg_jakarta_city.png) no-repeat left bottom;
-	color: #e9f6f8;
-}
 .notfound-inner {
 	padding: 150px 0px;
 }
