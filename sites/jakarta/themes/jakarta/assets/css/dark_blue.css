@@ -33,15 +33,6 @@ a:hover, a:focus { color: #54abb5; }
 	border-color: #54abb5;
 	color: #54abb5;
 }
-.btn-primary {
-	background: #61bbc6;
-	border-color: #61bbc6;
-}
-.btn-primary:hover,
-.btn-primary:focus {
-	background: #54abb5;
-	border-color: #54abb5;
-}
 
 
 
@@ -68,7 +59,7 @@ a:hover, a:focus { color: #54abb5; }
 	color: #ffffff;
 }
 .home-footer {
-	background: #655f66 url(../img/bg_footer_blue.png) no-repeat center bottom;
+	background: #655f66 url(../img/bg_footer.png) no-repeat center bottom;
 	color: #ffffff;
 }
 
