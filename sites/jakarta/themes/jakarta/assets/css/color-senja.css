@@ -1,4 +1,4 @@
-/* Dark Blue */
+/* Senja */
 
 
 /* -----------------------------------
@@ -6,8 +6,8 @@
 ** ----------------------------------- */
 body { color:#4f4f4f; }
 
-a { color: #61bbc6; }
-a:hover, a:focus { color: #54abb5; }
+a { color: #d44434; }
+a:hover, a:focus { color: #b93729; }
 
 
 
@@ -15,32 +15,32 @@ a:hover, a:focus { color: #54abb5; }
 ** BUTTON
 ** ----------------------------------- */
 .btn-default {
-	border-color: #3e9ba6;
-	color: #3e9ba6;
+	border-color:  #d44434;
+	color: #d44434;
 }
 .btn-default:hover,
 .btn-default:focus {
-	border-color:  #237d87;
-	color: #237d87;
+	border-color: #b93729;
+	color: #b93729;
 }
 
 .btn-border {
-	border-color:  #61bbc6;
-	color: #61bbc6;
+	border-color:  #d44434;
+	color: #d44434;
 }
 .btn-border:hover,
 .btn-border:focus {
-	border-color: #54abb5;
-	color: #54abb5;
+	border-color: #b93729;
+	color: #b93729;
 }
 .btn-primary {
-	background: #61bbc6;
-	border-color: #61bbc6;
+	background: #d44434;
+	border-color: #d44434;
 }
 .btn-primary:hover,
 .btn-primary:focus {
-	background: #54abb5;
-	border-color: #54abb5;
+	background: #c03b2c;
+	border-color: #c03b2c;
 }
 
 
@@ -48,27 +48,28 @@ a:hover, a:focus { color: #54abb5; }
 /* -----------------------------------
 ** NAVBAR
 ** ----------------------------------- */
-.navbar { background: #d7eef3; }
-.navbar .navbar-nav li a { color: #61bbc6; }
+.navbar { background: #fedfc0; }
+.navbar .navbar-nav li a { color: #d44434; }
 .navbar .navbar-nav li a:hover,
 .navbar .navbar-nav li a:focus {
-	background: #e0f1f5;
+	background: #f6d7b8;
 }
 .navbar .navbar-nav li.active a { color: #d44434; }
-.navbar-default { background: #ebf7fa; }
+.navbar-default { background: #fedfc0; }
+
 
 
 
 /* -----------------------------------
 ** HOMEPAGE
 ** ----------------------------------- */
-.home-header { background: #d7eef3 url(../img/bg_jakarta_city.png) no-repeat left bottom; }
+.home-header { background: #fedfc0 url(../img/bg_jakarta_city_dark.png) no-repeat left bottom; }
 .home-content {
-	background: #655f66;
+	background: #4d4645;
 	color: #ffffff;
 }
 .home-footer {
-	background: #655f66 url(../img/bg_footer_blue.png) no-repeat center bottom;
+	background: #4d4645 url(../img/bg_footer_red.png) no-repeat center bottom;
 	color: #ffffff;
 }
 
@@ -79,8 +80,8 @@ a:hover, a:focus { color: #54abb5; }
 ** BLOG
 ** ----------------------------------- */
 .blog-header {
-	background: #655f66;
-	color: #e9f6f8;
+	background: #4d4645;
+	color: #f8e9ed;
 }
 .blog-content .the-content { border-color: #f5f5f5; }
 .blog-content .the-content .date { color: #a7a7a7; }
@@ -106,8 +107,8 @@ a:hover, a:focus { color: #54abb5; }
 }
 .pagination li.active a,
 .pagination li.active a:hover {
-	background: #61bbc6;
-	border-color: #61bbc6;
+	background: #d44434;
+	border-color: #d44434;
 }
 
 
@@ -117,6 +118,6 @@ a:hover, a:focus { color: #54abb5; }
 ** 404
 ** ----------------------------------- */
 .notfound-wrapper {
-	background: #807d81 url(../img/bg_jakarta_city.png) no-repeat left bottom;
-	color: #e9f6f8;
+	background: #605d5d url(../img/bg_jakarta_city_dark.png) no-repeat left bottom;
+	color: #f8e9ed;
 }
