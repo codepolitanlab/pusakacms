@@ -43,11 +43,6 @@ class Pages extends Admin_Controller {
 		if(! $this->session->userdata('username')) redirect('panel/login');
 
 		$this->users_path = 'sites/'. SITE_SLUG .'/users/';
-
-		if(! is_writable(PAGE_FOLDER)){
-			$this->session->set_flashdata("error", PAGE_FOLDER." is not writable. Please make it writable first.");
-			// redirect('panel/pages');
-		}
 	}
 
 
