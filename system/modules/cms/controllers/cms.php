@@ -74,10 +74,10 @@ class CMS extends Public_Controller {
 		// show_404();
 	}
 
-	function sync_nav($prefix = null)
+	function sync_page($prefix = null)
 	{
 		header("Content-Type:text/plain");
-		$report = $this->pusaka->sync_nav($prefix);
+		$report = $this->pusaka->sync_page($prefix);
 		echo "Sync ".$report['status'].":\n";
 		echo $report['message']."\n";
 	}
@@ -86,7 +86,7 @@ class CMS extends Public_Controller {
 	{
 		header("Content-Type:text/plain");
 
-		$nav = $this->pusaka->sync_nav(POST_TERM);
+		$nav = $this->pusaka->sync_page(POST_TERM);
 		echo "Sync ".$nav['status'].":\n";
 		echo $nav['message']."\n";
 

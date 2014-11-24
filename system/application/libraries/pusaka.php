@@ -53,6 +53,38 @@ class Pusaka {
 	 * @return	string
 	 */
 
+	function scan_pages($map = false, $prefix = '')
+	{
+		if(!$map)
+			$map = directory_map(PAGE_FOLDER, 5);
+	
+		// print_r($map);
+		
+		$new_map = array();
+		foreach ($map as $folder => $file)
+		if($file != 'index.json' && $file != 'index.md' && $file != 'index.html'){	
+			if(is_string($file)){
+				$slug = $this->remove_extension($file);
+				$content = array(
+					'title' => $this->guess_name($file),
+					'url' => $prefix.$slug
+					);
+			}
+			else {
+				$slug = $this->remove_extension($folder);
+				$content = array(
+					'title' => $this->guess_name($folder),
+					'url' => $prefix.$slug,
+					'children' => $this->scan_pages($file, $prefix.$slug.'/')
+					);
+			}
+
+			$new_map[$slug] = $content;
+		}
+
+		return $new_map;
+	}
+
 	function get_pages_tree($prefix = null, $depth = 5)
 	{
 		// init variable
@@ -239,7 +271,7 @@ class Pusaka {
 	 * @param	string	starting folder
 	 * @return	void
 	 */
-	function sync_nav($prefix = null)
+	function sync_page($prefix = null)
 	{
 		$output = array('status' => 'success', 'message' => 'Everything already synced.');
 
@@ -275,53 +307,25 @@ class Pusaka {
 			if(!is_writable($prefix))
 				$output = array('status' => 'error', 'message' => "Page folder is not writable. Make it writable first.\n");
 
-			$map = directory_map($prefix, 1);
+			// get current directory map
+			$map = $this->scan_pages();
 
-			$new_map = array();
-			foreach ($map as $file)
-				if($file != $this->navfile && $file != 'index.md' && $file != 'index.html')
-					$new_map[] = $this->remove_extension($file);
+			// get the old page index
+			$from_file = json_decode(file_get_contents(PAGE_FOLDER.'/'.$this->navfile), true);
+			
+			// add new item to index
+			$merge_diff = array_merge_recursive($from_file, $map);
 
-				$json = json_decode(file_get_contents($prefix.'/'.$this->navfile), true);
-				$json_simpled = array_keys($json);
+			// remove unused item from index
+			$new_index = array_intersect_assoc_recursive($merge_diff, $map);
 
-				// add the new content to menu
-				$diff = array_diff($new_map, $json_simpled);
-				if(count($diff) > 0){
-					foreach ($diff as $value){	
-						$json += array($this->remove_extension($value) => $this->guess_name($value));
-						$output = array('status' => 'success', 'message' => "Page index synced.\n");
-					}
-
-					// make sure it is writablle
-					if(! write_file($prefix.'/'.$this->navfile, json_encode($json, JSON_PRETTY_PRINT))) {
-						$output = array('status' => 'error', 'message' => "Page index file ".$this->navfile." is not writable. Make it writable first.\n");
-						exit;
-					}
-				}
-
-			// remove the deleted content to menu
-			$new_map = array_merge($new_map, array('index', POST_TERM)); // set the undelete
-			$rev_diff = array_diff($json_simpled, $new_map);
-			$new_json = array();
-			if(count($rev_diff) > 0){
-				foreach ($json as $key => $value)
-					if(! in_array($key, $rev_diff))
-						$new_json += array($key => $value);
-
-				// make sure it is writablle
-					if(! write_file($prefix.'/'.$this->navfile, json_encode($new_json, JSON_PRETTY_PRINT), "w")){
-						$output = array('status' => 'error', 'message' => "Page index file ".$this->navfile." is not writable. Make it writable first.\n");
-						exit;
-					}
-					else
-						$output = array('status' => 'success', 'message' => "Page index synced.\n");
-				}
-
-			// do for the child folders
-			foreach ($new_map as $folder)
-				if(is_dir($prefix.'/'.$folder))
-					$output = $this->sync_nav($prefix.'/'.$folder);
+			// make sure it is writablle
+			if(! write_file(PAGE_FOLDER.'/'.$this->navfile, json_encode($new_index, JSON_PRETTY_PRINT), "w")){
+				$output = array('status' => 'error', 'message' => "Page index file ".$this->navfile." is not writable. Make it writable first.\n");
+				exit;
+			}
+			else
+				$output = array('status' => 'success', 'message' => "Page index synced.\n");
 
 		}
 		
@@ -827,13 +831,15 @@ class Pusaka {
 	 */
 	public function remove_extension($file)
 	{
-		$segs = explode('.', $file, 2);
-
-		if(count($segs) > 1)
-		{
-			array_pop($segs);
-			$file = implode('.', $segs);
+		if(is_string($file)){
+			$segs = explode('.', $file, 2);
+			if(count($segs) > 1)
+			{
+				array_pop($segs);
+				$file = implode('.', $segs);
+			}
 		}
+
 
 		return $file;
 	}

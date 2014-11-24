@@ -17,7 +17,7 @@
 class Pages extends Admin_Controller {
 
 	public $users_path;
-	public $nav_db;
+	public $page_db;
 
 	var $page_fields = array(
 		array(
@@ -43,6 +43,10 @@ class Pages extends Admin_Controller {
 		if(! $this->session->userdata('username')) redirect('panel/login');
 
 		$this->users_path = 'sites/'. SITE_SLUG .'/users/';
+
+		// set page index file
+		$this->page_db = new Nyankod\JsonFileDB(PAGE_FOLDER);
+		$this->page_db->setTable('index');
 	}
 
 
@@ -52,7 +56,8 @@ class Pages extends Admin_Controller {
 
 	function index()
 	{
-		$pages = $this->pusaka->get_pages_tree();
+		// $pages = $this->pusaka->get_pages_tree();
+		$pages = $this->page_db->selectAll();
 		$pagelist = $this->_page_list($pages);
 
 		$this->template
@@ -67,7 +72,7 @@ class Pages extends Admin_Controller {
 
 	function sync($redirect = true)
 	{
-		$nav = $this->pusaka->sync_nav();
+		$nav = $this->pusaka->sync_page();
 		$this->session->set_flashdata($nav['status'], $nav['message']);
 
 		if($redirect)
@@ -196,11 +201,13 @@ class Pages extends Admin_Controller {
 		$source = implode("/", $source_arr);
 		$dest = $this->input->post('dest');
 
-		$this->_move_page($source.'/'.$page, $page, $source, $dest);
+		// $this->_move_page($source.'/'.$page, $page, $source, $dest);
 		
-		// update page index
-		$this->sync(false);
+		// // update page index
+		// $this->sync(false);
 
+		// $newmap = json_decode($this->input->post('newmap'), true);
+		// write_file(PAGE_FOLDER.'schema.json', json_encode($newmap, JSON_PRETTY_PRINT));
 		echo json_encode(array('page' => $page, 'source' => $source, 'dest' => $dest));
 	}
 
@@ -245,6 +252,24 @@ class Pages extends Admin_Controller {
 				rmdir(PAGE_FOLDER.$source);
 			}
 		}
+	}
+
+	function cek()
+	{
+		$a = array('a' => 'a', 'b' => 'b', 'd' => 'd', 'c' => 'c', 'e' => 'e', 'f' => 'f', 'g' => 'g', 'h' => 'h');
+		$b = array('a' => 'a', 'b' => 'b', 'c' => 'c', 'd' => 'd', 'i' => 'i');
+
+		$c = array_intersect_assoc($a, $b);
+		print_r($c);
+
+		$d = array_merge($b, $a);
+		print_r($d);
+	}
+
+	function cobalagi()
+	{
+		$map = $this->pusaka->scan_pages();
+		write_file(PAGE_FOLDER.'/index.json', json_encode($map, JSON_PRETTY_PRINT));
 	}
 
 }

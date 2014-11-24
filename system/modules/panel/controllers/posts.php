@@ -174,7 +174,7 @@ class Posts extends Admin_Controller {
 
 	function sync($redirect = true)
 	{
-		$nav = $this->pusaka->sync_nav(POST_TERM);
+		$nav = $this->pusaka->sync_page(POST_TERM);
 		$label = $this->pusaka->sync_label();
 		if($nav['status'] == $label['status'])
 			$this->session->set_flashdata($label['status'], $nav['message'] . $label['message']);

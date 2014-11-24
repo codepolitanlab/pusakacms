@@ -41,7 +41,7 @@
 $route['default_controller']	= "cms";
 $route['404_override'] 			= "cms";
 
-$route['sync_nav'] 				= "cms/sync_nav";
+$route['sync_page'] 				= "cms/sync_page";
 $route['sync_post'] 			= "cms/sync_post";
 $route['update_domain/(:any)']	= "cms/update_domain/$1";
 

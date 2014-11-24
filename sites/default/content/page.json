@@ -19,10 +19,18 @@
                         "title": "Membuat Template",
                         "url": "docs\/panduan-pengembang\/membuat-template"
                     },
+                    "kemampuan-minimum": {
+                        "title": "Kemampuan Minimum",
+                        "url": "docs\/panduan-pengembang\/kemampuan-minimum"
+                    },
                     "library": {
                         "title": "Library",
                         "url": "docs\/panduan-pengembang\/library",
                         "children": {
+                            "markdown": {
+                                "title": "Markdown",
+                                "url": "docs\/panduan-pengembang\/library\/markdown"
+                            },
                             "textile": {
                                 "title": "Textile",
                                 "url": "docs\/panduan-pengembang\/library\/textile"
@@ -30,10 +38,6 @@
                             "template": {
                                 "title": "Template",
                                 "url": "docs\/panduan-pengembang\/library\/template"
-                            },
-                            "markdown": {
-                                "title": "Markdown",
-                                "url": "docs\/panduan-pengembang\/library\/markdown"
                             },
                             "pusaka": {
                                 "title": "Pusaka",
@@ -50,6 +54,10 @@
                                 "url": "docs\/panduan-pengembang\/helper\/template"
                             }
                         }
+                    },
+                    "membuat-modul": {
+                        "title": "Membuat Modul",
+                        "url": "docs\/panduan-pengembang\/membuat-modul"
                     }
                 }
             },
