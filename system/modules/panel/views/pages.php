@@ -32,11 +32,14 @@
             dest = $(this).parents('.dd-item').data('url');
             console.log(elm);
 
-            $.post(BASE_URL+'panel/pages/sort/', {source : source, dest : dest})
+            $.post(BASE_URL+'panel/pages/move_page/', {source : source, dest : dest})
             .done(function(data){
                 console.log(data);
                 var res = JSON.parse(data);
                 change_attributes(elm, res);
+
+                var newmap = JSON.stringify($('.dd').nestable('serialize'));
+                $.post(BASE_URL+'panel/pages/sort/', {newmap : newmap});
 
                 $('.alert-'+res.status).fadeIn().children('span').html(res.message);
             });

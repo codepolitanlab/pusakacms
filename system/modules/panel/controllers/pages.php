@@ -198,6 +198,12 @@ class Pages extends Admin_Controller {
 
 	function sort()
 	{
+		$map = $this->input->post('newmap');
+		
+	}
+
+	function move_page()
+	{
 		$source_arr = explode("/", $this->input->post('source'));
 
 		$page = array_pop($source_arr);
@@ -209,8 +215,6 @@ class Pages extends Admin_Controller {
 		// update page index
 		$msg = $this->sync(false);
 
-		// $newmap = json_decode($this->input->post('newmap'), true);
-		// write_file(PAGE_FOLDER.'schema.json', json_encode($newmap, JSON_PRETTY_PRINT));
 		echo json_encode(array('page' => $page, 'source' => $source, 'dest' => $dest) + $msg);
 	}
 
