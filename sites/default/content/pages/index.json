@@ -1,42 +1,18 @@
 {
     "home": {
         "title": "Home",
-        "url": "home"
+        "url": "home",
+        "children": {
+            "blog": {
+                "title": "Blog",
+                "url": "home\/blog"
+            }
+        }
     },
     "docs": {
         "title": "Docs",
         "url": "docs",
         "children": {
-            "apa-itu-pusaka": {
-                "title": "Apa Itu Pusaka",
-                "url": "docs\/apa-itu-pusaka",
-                "children": {
-                    "changelog": {
-                        "title": "Changelog",
-                        "url": "docs\/apa-itu-pusaka\/changelog"
-                    },
-                    "showcase": {
-                        "title": "Showcase",
-                        "url": "docs\/apa-itu-pusaka\/showcase"
-                    },
-                    "fitur": {
-                        "title": "Fitur",
-                        "url": "docs\/apa-itu-pusaka\/fitur"
-                    },
-                    "download": {
-                        "title": "Download",
-                        "url": "docs\/apa-itu-pusaka\/download"
-                    },
-                    "kontribusi": {
-                        "title": "Kontribusi",
-                        "url": "docs\/apa-itu-pusaka\/kontribusi"
-                    },
-                    "lisensi": {
-                        "title": "Lisensi",
-                        "url": "docs\/apa-itu-pusaka\/lisensi"
-                    }
-                }
-            },
             "panduan-pengguna": {
                 "title": "Panduan Pengguna",
                 "url": "docs\/panduan-pengguna",
@@ -116,11 +92,37 @@
                         }
                     }
                 }
+            },
+            "apa-itu-pusaka": {
+                "title": "Apa Itu Pusaka",
+                "url": "docs\/apa-itu-pusaka",
+                "children": {
+                    "changelog": {
+                        "title": "Changelog",
+                        "url": "docs\/apa-itu-pusaka\/changelog"
+                    },
+                    "fitur": {
+                        "title": "Fitur",
+                        "url": "docs\/apa-itu-pusaka\/fitur"
+                    },
+                    "showcase": {
+                        "title": "Showcase",
+                        "url": "docs\/apa-itu-pusaka\/showcase"
+                    },
+                    "lisensi": {
+                        "title": "Lisensi",
+                        "url": "docs\/apa-itu-pusaka\/lisensi"
+                    },
+                    "download": {
+                        "title": "Download",
+                        "url": "docs\/apa-itu-pusaka\/download"
+                    },
+                    "kontribusi": {
+                        "title": "Kontribusi",
+                        "url": "docs\/apa-itu-pusaka\/kontribusi"
+                    }
+                }
             }
         }
-    },
-    "blog": {
-        "title": "Blog",
-        "url": "blog"
     }
 }

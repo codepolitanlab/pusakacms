@@ -31,21 +31,26 @@
             source = elm.data('url'),
             dest = $(this).parents('.dd-item').data('url');
             console.log(elm);
-            var newmap = JSON.stringify($('.dd').nestable('serialize'));
 
-            $.post(BASE_URL+'panel/pages/sort/', {source : source, dest : dest, newmap : newmap})
+            $.post(BASE_URL+'panel/pages/sort/', {source : source, dest : dest})
             .done(function(data){
                 console.log(data);
                 var res = JSON.parse(data);
                 change_attributes(elm, res);
+
+                $('.alert-'+res.status).fadeIn().children('span').html(res.message);
             });
         });
 
         // change important attribute of moved element
         var change_attributes = function(e, d){
             e.data('url', d.dest+'/'+d.page);
-            e.children('.dd3-content').children('small').children('.page-url')
-            .attr('href', BASE_URL+d.dest+'/'+d.page).html(d.dest+'/'+d.page);
+            if(d.dest)
+                e.children('.dd3-content').children('small').children('.page-url')
+                .attr('href', BASE_URL+d.dest+'/'+d.page).html(d.dest+'/'+d.page);
+            else
+                e.children('.dd3-content').children('small').children('.page-url')
+                .attr('href', BASE_URL+d.page).html(d.page);
 
             // if element has children, do the same thing
             if(e.children('.dd-list').length > 0){

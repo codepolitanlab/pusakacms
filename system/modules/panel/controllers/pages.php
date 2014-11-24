@@ -73,10 +73,13 @@ class Pages extends Admin_Controller {
 	function sync($redirect = true)
 	{
 		$nav = $this->pusaka->sync_page();
-		$this->session->set_flashdata($nav['status'], $nav['message']);
 
-		if($redirect)
+		if($redirect){
+			$this->session->set_flashdata($nav['status'], $nav['message']);
 			redirect('panel/pages');
+		}
+
+		return $nav;
 	}
 
 	function create()
@@ -201,14 +204,14 @@ class Pages extends Admin_Controller {
 		$source = implode("/", $source_arr);
 		$dest = $this->input->post('dest');
 
-		// $this->_move_page($source.'/'.$page, $page, $source, $dest);
+		$this->_move_page($source.'/'.$page, $page, $source, $dest);
 		
-		// // update page index
-		// $this->sync(false);
+		// update page index
+		$msg = $this->sync(false);
 
 		// $newmap = json_decode($this->input->post('newmap'), true);
 		// write_file(PAGE_FOLDER.'schema.json', json_encode($newmap, JSON_PRETTY_PRINT));
-		echo json_encode(array('page' => $page, 'source' => $source, 'dest' => $dest));
+		echo json_encode(array('page' => $page, 'source' => $source, 'dest' => $dest) + $msg);
 	}
 
 	function _move_page($prevslug, $slug, $source, $dest)
@@ -252,24 +255,6 @@ class Pages extends Admin_Controller {
 				rmdir(PAGE_FOLDER.$source);
 			}
 		}
-	}
-
-	function cek()
-	{
-		$a = array('a' => 'a', 'b' => 'b', 'd' => 'd', 'c' => 'c', 'e' => 'e', 'f' => 'f', 'g' => 'g', 'h' => 'h');
-		$b = array('a' => 'a', 'b' => 'b', 'c' => 'c', 'd' => 'd', 'i' => 'i');
-
-		$c = array_intersect_assoc($a, $b);
-		print_r($c);
-
-		$d = array_merge($b, $a);
-		print_r($d);
-	}
-
-	function cobalagi()
-	{
-		$map = $this->pusaka->scan_pages();
-		write_file(PAGE_FOLDER.'/index.json', json_encode($map, JSON_PRETTY_PRINT));
 	}
 
 }
