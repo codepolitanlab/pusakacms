@@ -1,4 +1,4 @@
-<h1 class="dash-title">Wellcome, <?php echo $this->session->userdata('username'); ?></h1>
+<h1 class="dash-title">Welcome, <?php echo $this->session->userdata('username'); ?></h1>
 
 <div class="panel-dashboard">
 
@@ -53,7 +53,7 @@
 					<div class="col-sm-2 col-xs-6">
 						<a href="{{ func.site_url }}panel/settings" class="btn btn-block btn-dashboard">
 							<div class="btn-icon"><span class="fa fa-cog"></span></div>
-							<div class="btn-label">Setting</div>
+							<div class="btn-label">Settings</div>
 						</a>
 					</div>
 				</div>

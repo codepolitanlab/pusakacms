@@ -38,22 +38,30 @@
                 var res = JSON.parse(data);
                 change_attributes(elm, res);
 
-                var newmap = JSON.stringify($('.dd').nestable('serialize'));
-                $.post(BASE_URL+'panel/pages/sort/', {newmap : newmap});
-
                 $('.alert-'+res.status).fadeIn().children('span').html(res.message);
+
+                var newmap = JSON.stringify($('.dd').nestable('serialize'));
+                $.post(BASE_URL+'panel/pages/sort/', {newmap : newmap})
+                .done(function(sorted){
+                    console.log(sorted);
+                    // var ed = JSON.parse(sorted);
+
+                    // $('.alert-'+ed.status).fadeIn().children('span').html(ed.message);
+                });
             });
         });
 
         // change important attribute of moved element
         var change_attributes = function(e, d){
-            e.data('url', d.dest+'/'+d.page);
-            if(d.dest)
+            if(d.dest){
+                e.data('url', d.dest+'/'+d.page);
                 e.children('.dd3-content').children('small').children('.page-url')
                 .attr('href', BASE_URL+d.dest+'/'+d.page).html(d.dest+'/'+d.page);
-            else
-                e.children('.dd3-content').children('small').children('.page-url')
+            } else {
+                e.data('url', d.page);
+                e.children('.dd3-content').children('small').children('.page-url')   
                 .attr('href', BASE_URL+d.page).html(d.page);
+            }
 
             // if element has children, do the same thing
             if(e.children('.dd-list').length > 0){

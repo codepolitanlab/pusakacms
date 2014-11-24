@@ -1,38 +1,50 @@
 {
     "home": {
         "title": "Home",
-        "url": "home",
-        "children": {
-            "blog": {
-                "title": "Blog",
-                "url": "home\/blog"
-            }
-        }
+        "url": "home"
+    },
+    "blog": {
+        "url": "blog",
+        "title": "Blog"
     },
     "docs": {
         "title": "Docs",
         "url": "docs",
         "children": {
+            "apa-itu-pusaka": {
+                "title": "Apa Itu Pusaka",
+                "url": "docs\/apa-itu-pusaka",
+                "children": {
+                    "fitur": {
+                        "title": "Fitur",
+                        "url": "docs\/apa-itu-pusaka\/fitur"
+                    },
+                    "download": {
+                        "title": "Download",
+                        "url": "docs\/apa-itu-pusaka\/download"
+                    },
+                    "showcase": {
+                        "title": "Showcase",
+                        "url": "docs\/apa-itu-pusaka\/showcase"
+                    },
+                    "kontribusi": {
+                        "title": "Kontribusi",
+                        "url": "docs\/apa-itu-pusaka\/kontribusi"
+                    },
+                    "lisensi": {
+                        "title": "Lisensi",
+                        "url": "docs\/apa-itu-pusaka\/lisensi"
+                    },
+                    "changelog": {
+                        "title": "Changelog",
+                        "url": "docs\/apa-itu-pusaka\/changelog"
+                    }
+                }
+            },
             "panduan-pengguna": {
                 "title": "Panduan Pengguna",
                 "url": "docs\/panduan-pengguna",
                 "children": {
-                    "format-penulisan": {
-                        "title": "Format Penulisan",
-                        "url": "docs\/panduan-pengguna\/format-penulisan"
-                    },
-                    "membuat-halaman": {
-                        "title": "Membuat Halaman",
-                        "url": "docs\/panduan-pengguna\/membuat-halaman"
-                    },
-                    "struktur-file": {
-                        "title": "Struktur File",
-                        "url": "docs\/panduan-pengguna\/struktur-file"
-                    },
-                    "mengatur-navigasi": {
-                        "title": "Mengatur Navigasi",
-                        "url": "docs\/panduan-pengguna\/mengatur-navigasi"
-                    },
                     "instalasi": {
                         "title": "Instalasi",
                         "url": "docs\/panduan-pengguna\/instalasi"
@@ -41,13 +53,29 @@
                         "title": "Konfigurasi",
                         "url": "docs\/panduan-pengguna\/konfigurasi"
                     },
-                    "mengatur-kategori": {
-                        "title": "Mengatur Kategori",
-                        "url": "docs\/panduan-pengguna\/mengatur-kategori"
+                    "struktur-file": {
+                        "title": "Struktur File",
+                        "url": "docs\/panduan-pengguna\/struktur-file"
+                    },
+                    "membuat-halaman": {
+                        "title": "Membuat Halaman",
+                        "url": "docs\/panduan-pengguna\/membuat-halaman"
                     },
                     "posting-blog": {
                         "title": "Posting Blog",
                         "url": "docs\/panduan-pengguna\/posting-blog"
+                    },
+                    "mengatur-kategori": {
+                        "title": "Mengatur Kategori",
+                        "url": "docs\/panduan-pengguna\/mengatur-kategori"
+                    },
+                    "mengatur-navigasi": {
+                        "title": "Mengatur Navigasi",
+                        "url": "docs\/panduan-pengguna\/mengatur-navigasi"
+                    },
+                    "format-penulisan": {
+                        "title": "Format Penulisan",
+                        "url": "docs\/panduan-pengguna\/format-penulisan"
                     }
                 }
             },
@@ -63,21 +91,17 @@
                         "title": "Library",
                         "url": "docs\/panduan-pengembang\/library",
                         "children": {
+                            "pusaka": {
+                                "title": "Pusaka",
+                                "url": "docs\/panduan-pengembang\/library\/pusaka"
+                            },
                             "markdown": {
                                 "title": "Markdown",
                                 "url": "docs\/panduan-pengembang\/library\/markdown"
                             },
-                            "textile": {
-                                "title": "Textile",
-                                "url": "docs\/panduan-pengembang\/library\/textile"
-                            },
                             "template": {
                                 "title": "Template",
                                 "url": "docs\/panduan-pengembang\/library\/template"
-                            },
-                            "pusaka": {
-                                "title": "Pusaka",
-                                "url": "docs\/panduan-pengembang\/library\/pusaka"
                             }
                         }
                     },
@@ -90,36 +114,6 @@
                                 "url": "docs\/panduan-pengembang\/helper\/template"
                             }
                         }
-                    }
-                }
-            },
-            "apa-itu-pusaka": {
-                "title": "Apa Itu Pusaka",
-                "url": "docs\/apa-itu-pusaka",
-                "children": {
-                    "changelog": {
-                        "title": "Changelog",
-                        "url": "docs\/apa-itu-pusaka\/changelog"
-                    },
-                    "fitur": {
-                        "title": "Fitur",
-                        "url": "docs\/apa-itu-pusaka\/fitur"
-                    },
-                    "showcase": {
-                        "title": "Showcase",
-                        "url": "docs\/apa-itu-pusaka\/showcase"
-                    },
-                    "lisensi": {
-                        "title": "Lisensi",
-                        "url": "docs\/apa-itu-pusaka\/lisensi"
-                    },
-                    "download": {
-                        "title": "Download",
-                        "url": "docs\/apa-itu-pusaka\/download"
-                    },
-                    "kontribusi": {
-                        "title": "Kontribusi",
-                        "url": "docs\/apa-itu-pusaka\/kontribusi"
                     }
                 }
             }

@@ -196,14 +196,13 @@ class Pages extends Admin_Controller {
 		redirect('panel/pages');
 	}
 
-	function sort()
-	{
-		$map = $this->input->post('newmap');
-		
-	}
-
 	function move_page()
 	{
+		if(!is_writable(PAGE_FOLDER.'/index.json')) {
+			echo '{"status":"error", "message":"Page failed to move. Make sure '.PAGE_FOLDER.'/index.json file writable."}';
+			exit;
+		}
+
 		$source_arr = explode("/", $this->input->post('source'));
 
 		$page = array_pop($source_arr);
@@ -258,6 +257,31 @@ class Pages extends Admin_Controller {
 				unlink(PAGE_FOLDER.$source.'/index.json');
 				rmdir(PAGE_FOLDER.$source);
 			}
+		}
+	}
+
+	function sort($arr = false)
+	{
+		if(! $arr)
+			$map = json_decode($this->input->post('newmap'), true);
+		else
+			$map = $arr;
+
+		$newmap = array();
+		foreach ($map as $value) {
+			$newmap[$value['slug']] = $value;
+			
+			if(isset($value['children']))
+				$newmap[$value['slug']]['children'] = $this->sort($value['children']);
+
+			unset($newmap[$value['slug']]['slug']);
+		}
+
+		if($arr){
+			return $newmap;
+		} else {
+			if(! write_file(PAGE_FOLDER.'/index.json', json_encode($newmap, JSON_PRETTY_PRINT)))
+				echo '{"status":"error", "message":"Page failed to rearranged. Make sure '.PAGE_FOLDER.'/index.json writable."}';
 		}
 	}
 

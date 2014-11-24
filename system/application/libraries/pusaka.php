@@ -121,22 +121,21 @@ class Pusaka {
 		if(!is_writable(PAGE_FOLDER))
 			$output = array('status' => 'error', 'message' => "Page folder is not writable. Make it writable first.\n");
 
-			// get current directory map
+		// get current directory map
 		$map = $this->scan_pages();
 
-			// get the old page index
+		// get the old page index
 		$from_file = json_decode(file_get_contents(PAGE_FOLDER.'/'.$this->navfile), true);
 
-			// add new item to index
+		// add new item to index
 		$merge_diff = array_merge_recursive($from_file, $map);
 
-			// remove unused item from index
+		// remove unused item from index
 		$new_index = array_intersect_assoc_recursive($merge_diff, $map);
 
-			// make sure it is writablle
+		// make sure it is writablle
 		if(! write_file(PAGE_FOLDER.'/'.$this->navfile, json_encode($new_index, JSON_PRETTY_PRINT), "w")){
 			$output = array('status' => 'error', 'message' => "Page index file ".$this->navfile." is not writable. Make it writable first.\n");
-			exit;
 		}
 		else
 			$output = array('status' => 'success', 'message' => "Page index synced.\n");
