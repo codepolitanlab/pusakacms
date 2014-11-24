@@ -21,6 +21,7 @@ class Pusaka {
 	var $current_class 	= 'active';
 	var $start 			= '/';
 	var $depth 			= 2;
+	var $curr_depth		= 2;
 	var $remove_index	= true;
 	var $stack			= array();
 	var $navfile		= "index.json";
@@ -42,23 +43,18 @@ class Pusaka {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Generate Navigation
+	 * scan page folders
 	 *
 	 * @access	public
-	 * @param	string	starting folder
-	 * @param	int 	navigation depth
-	 * @param	string 	ul class
-	 * @param	string 	li class
-	 * @param	string 	active class applied in active li and a
-	 * @return	string
+	 * @param	array	array of page map, used for recursive
+	 * @param	string 	parent url
+	 * @return	array 	structured page map
 	 */
 
-	function scan_pages($map = false, $prefix = '')
+	function scan_pages($map = false, $prefix = '', $depth = 5)
 	{
 		if(!$map)
-			$map = directory_map(PAGE_FOLDER, 5);
-	
-		// print_r($map);
+			$map = directory_map(PAGE_FOLDER, $depth);
 		
 		$new_map = array();
 		foreach ($map as $folder => $file)
@@ -85,16 +81,70 @@ class Pusaka {
 		return $new_map;
 	}
 
-	function get_pages_tree($prefix = null, $depth = 5)
-	{
-		// init variable
-		$new_map = array();
+	// --------------------------------------------------------------------
 
-		$new_map = $this->_dig_navfile($prefix, $depth, 1, true);
+	/**
+	 * get pages tree form page index file
+	 *
+	 * @access	public
+	 * @param	array	array of page map, used for recursive
+	 * @param	string 	parent url
+	 * @return	array 	structured page map
+	 */
+
+	function get_pages_tree($prefix = false)
+	{
+		if(! file_exists(PAGE_FOLDER.'/'.$this->navfile))
+			$this->sync_page();
+
+		$map = json_decode(file_get_contents(PAGE_FOLDER.'/'.$this->navfile), true);
 
 		// bulid the list
-		return $new_map;
+		return $map;
 	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Sync page index
+	 *
+	 * @access	public
+	 * @return	array 	message
+	 */
+	function sync_page()
+	{
+		if(! file_exists(PAGE_FOLDER.'/'.$this->navfile))
+			write_file(PAGE_FOLDER.'/'.$this->navfile, json_encode(array(), JSON_PRETTY_PRINT));
+
+		$output = array('status' => 'success', 'message' => 'Everything already synced.');
+
+		if(!is_writable(PAGE_FOLDER))
+			$output = array('status' => 'error', 'message' => "Page folder is not writable. Make it writable first.\n");
+
+			// get current directory map
+		$map = $this->scan_pages();
+
+			// get the old page index
+		$from_file = json_decode(file_get_contents(PAGE_FOLDER.'/'.$this->navfile), true);
+
+			// add new item to index
+		$merge_diff = array_merge_recursive($from_file, $map);
+
+			// remove unused item from index
+		$new_index = array_intersect_assoc_recursive($merge_diff, $map);
+
+			// make sure it is writablle
+		if(! write_file(PAGE_FOLDER.'/'.$this->navfile, json_encode($new_index, JSON_PRETTY_PRINT), "w")){
+			$output = array('status' => 'error', 'message' => "Page index file ".$this->navfile." is not writable. Make it writable first.\n");
+			exit;
+		}
+		else
+			$output = array('status' => 'success', 'message' => "Page index synced.\n");
+
+		return $output;
+	}
+
+	// --------------------------------------------------------------------
 
 	function get_raw_posts_tree()
 	{
@@ -115,6 +165,8 @@ class Pusaka {
 		return $new_map;
 	}
 
+	// --------------------------------------------------------------------
+
 	function get_flatnav($map = array(), $prefix = "")
 	{
 		if(empty($map))
@@ -123,11 +175,10 @@ class Pusaka {
 		$new_map = array();
 
 		foreach ($map as $link => $content) {
-			if($link != '_title')
-				$new_map[$link] = $prefix.' '.$content['_title'];
+			$new_map[$content['url']] = $prefix.' '.$content['title'];
 	
-			if(count($content) > 1)
-				$new_map += $this->get_flatnav($content, $prefix.'—');
+			if(isset($content['children']))
+				$new_map += $this->get_flatnav($content['children'], $prefix.'—');
 		}
 		return $new_map;
 	}
@@ -146,7 +197,7 @@ class Pusaka {
 	 * @return	string
 	 */
 
-	function generate_nav($prefix = null, $depth = 3, $ul_class = null, $li_class = null, $active_class = null)
+	function generate_nav($prefix = null, $ul_class = null, $li_class = null, $active_class = null)
 	{
 		// set variable
 		$folder = PAGE_FOLDER.'/'.$prefix;
@@ -155,26 +206,11 @@ class Pusaka {
 		if($li_class) $this->li_class = $li_class;
 		if($active_class) $this->active_class = $active_class;
 
-		$new_map = array();
-
-		// sort by newest post for posts entry
-		if($prefix == POST_TERM){
-			$map = directory_map($folder);
-			foreach ($map as $value) {
-				if($this->is_valid_ext($value))
-					$new_map[$this->remove_extension($value)]['_title'] = $this->guess_name($this->remove_date($value));
-			}
-
-			if ($this->remove_index === TRUE AND isset($new_map['index']))
-					unset($new_map['index']);
-
-			asort($new_map);
-		} else
-			$new_map = $this->_dig_navfile($prefix, $depth);
+		$new_map = $this->get_pages_tree($prefix);
 
 		// bulid the list
 		if(!empty($new_map))
-			return $this->_build_list($new_map, ($prefix)? $prefix.'/' : '');
+			return $this->_build_list($new_map, ($prefix)? $prefix : '');
 
 		return false;
 	}
@@ -182,84 +218,47 @@ class Pusaka {
 	// --------------------------------------------------------------------
 
 	/**
-	 * dig navigation json file
+	 * build html list
 	 *
 	 * @access	private
+	 * @param	array	array tree
 	 * @param	string	starting folder
-	 * @param	int		navigation depth
-	 * @param	int		current nav level
-	 * @return	array
+	 * @return	string
 	 */
-	function _dig_navfile($prefix = null, $depth = 9, $level = 1, $simple_array = false)
+	function _build_list($tree, $prefix = false)
 	{
-		if($prefix) $prefix .= '/';
+		$ul = '';
 
-		if($level <= $depth){
+		if($prefix)
+			$arr = $tree[$prefix]['children'];
+		else
+			$arr = $tree;
 
-			if(file_exists(PAGE_FOLDER.'/'.$prefix.$this->navfile)) {
-				$new_map = array();
+		foreach ($arr as $slug => $page)
+		{
+			$li = '';
+			$active = false;
 
-				$map = json_decode(file_get_contents(PAGE_FOLDER.'/'.$prefix.$this->navfile));
+				// echo uri_string().' > '.$prefix.$slug."<br>\n\n";
 
-				if($simple_array){
-					foreach ($map as $key => $value) {
-						if(is_dir(PAGE_FOLDER.'/'.$prefix.$key))
-							$new_map[$prefix.$key] = $this->_dig_navfile($prefix.$key, $depth, $level+1, $simple_array);
+			if (is_array($page))
+			{
+					// set active for match link
+				if(uri_string() == $page['url']) $active = true;
 
-						$new_map[$prefix.$key]['_title'] = $value;
-					}
-				} else {	
-					foreach ($map as $key => $value) {
-						if(is_dir(PAGE_FOLDER.'/'.$prefix.$key))
-							$new_map[$key] = $this->_dig_navfile($prefix.$key, $depth, $level+1);
+					// set active for upper link
+				if(strstr(uri_string(), $page['url'].'/')) $active = true;
 
-						$new_map[$key]['_title'] = $value;
-					}
-				}
+				$li .= "<a href='".site_url($page['url'])."' ".($active ? "class='".$this->current_class."'" : "").">{$page['title']}</a>";
 
-				return $new_map;
+				if(isset($page['children']))
+					$li .= $this->_build_list($page['children']);
 
-			} else {
-				// get derectory map
-				$map = directory_map(FCPATH.PAGE_FOLDER.'/'.$prefix, 1);
-
-				if(!$map) return false;
-
-				$for_json = array();
-				$new_map = array();
-
-				//simpan sebagai nav.json
-				foreach ($map as $file) {
-					if($this->is_valid_ext(PAGE_FOLDER.'/'.$prefix.'/'.$file) && $file !== 'index.md')
-						$for_json[$this->remove_extension($file)] = $this->guess_name($file);
-				}
-
-				if ($this->remove_index === TRUE AND isset($for_json['index']))
-					unset($for_json['index']);
-
-				write_file(PAGE_FOLDER.'/'.$prefix.'/'.$this->navfile, json_encode($for_json, JSON_PRETTY_PRINT));
-
-				if($simple_array){
-					foreach ($for_json as $key => $value) {
-						if(is_dir(PAGE_FOLDER.'/'.$prefix.$key))
-							$new_map[$prefix.$key] = $this->_dig_navfile($prefix.$key, $depth, $level+1, $simple_array);
-
-						$new_map[$prefix.$key]['_title'] = $value;
-					}
-				} else {
-					foreach ($for_json as $key => $value) {
-						if(is_dir(PAGE_FOLDER.'/'.$prefix.$key))
-							$new_map[$key] = $this->_dig_navfile($prefix.$key, $depth, $level+1);
-
-						$new_map[$key]['_title'] = $value;
-					}
-				}
-
-				return $new_map;
+				$ul .= strlen($li) ? "<li".($active ? " class='".$this->current_class."'" : "").">$li</li>" : '';
 			}
 		}
 
-		return false;
+		return strlen($ul) ? "<ul class='".$this->ul_class."'>$ul</ul>" : '';
 	}
 
 	// --------------------------------------------------------------------
@@ -271,64 +270,34 @@ class Pusaka {
 	 * @param	string	starting folder
 	 * @return	void
 	 */
-	function sync_page($prefix = null)
+	function sync_post()
 	{
 		$output = array('status' => 'success', 'message' => 'Everything already synced.');
 
-		if($prefix == POST_TERM){
 			// get derectory map
-			$map = directory_map(POST_FOLDER, 1);
+		$map = directory_map(POST_FOLDER, 1);
 
-			$tree = array();
+		$tree = array();
 
 			//simpan sebagai nav.json
-			foreach ($map as $file) {
+		foreach ($map as $file) {
 				// change dash in date to slash
-				$segs = explode("-", $file, 4);
-				if(count($segs) > 3)
-					$newkey = $this->remove_extension(implode("/", $segs));
-				else
-					$newkey = $this->remove_extension($file);
-
-				if($file != $this->navfile && $file != 'index.html' && $this->is_valid_ext(POST_FOLDER.'/'.$file))
-					$tree[POST_TERM.'/'.$newkey] = $this->guess_name($file, POST_TERM);
-			}
-
-			krsort($tree);
-			if(! write_file(POST_FOLDER.'/'.$this->navfile, json_encode($tree, JSON_PRETTY_PRINT)))
-				$output = array('status' => 'error', 'message' => "Post index file ".$this->navfile." is not writable. Make it writable first.\n");
+			$segs = explode("-", $file, 4);
+			if(count($segs) > 3)
+				$newkey = $this->remove_extension(implode("/", $segs));
 			else
-				$output = array('status' => 'success', 'message' => "post index synced.\n");
-			
-		} else {
+				$newkey = $this->remove_extension($file);
 
-			if(!$prefix) $prefix = PAGE_FOLDER;
-
-			if(!is_writable($prefix))
-				$output = array('status' => 'error', 'message' => "Page folder is not writable. Make it writable first.\n");
-
-			// get current directory map
-			$map = $this->scan_pages();
-
-			// get the old page index
-			$from_file = json_decode(file_get_contents(PAGE_FOLDER.'/'.$this->navfile), true);
-			
-			// add new item to index
-			$merge_diff = array_merge_recursive($from_file, $map);
-
-			// remove unused item from index
-			$new_index = array_intersect_assoc_recursive($merge_diff, $map);
-
-			// make sure it is writablle
-			if(! write_file(PAGE_FOLDER.'/'.$this->navfile, json_encode($new_index, JSON_PRETTY_PRINT), "w")){
-				$output = array('status' => 'error', 'message' => "Page index file ".$this->navfile." is not writable. Make it writable first.\n");
-				exit;
-			}
-			else
-				$output = array('status' => 'success', 'message' => "Page index synced.\n");
-
+			if($file != $this->navfile && $file != 'index.html' && $this->is_valid_ext(POST_FOLDER.'/'.$file))
+				$tree[POST_TERM.'/'.$newkey] = $this->guess_name($file, POST_TERM);
 		}
-		
+
+		krsort($tree);
+		if(! write_file(POST_FOLDER.'/'.$this->navfile, json_encode($tree, JSON_PRETTY_PRINT)))
+			$output = array('status' => 'error', 'message' => "Post index file ".$this->navfile." is not writable. Make it writable first.\n");
+		else
+			$output = array('status' => 'success', 'message' => "post index synced.\n");
+
 		return $output;
 	}
 
@@ -706,88 +675,6 @@ class Pusaka {
 		return $list;
 	}
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * build html list
-	 *
-	 * @access	private
-	 * @param	array	array tree
-	 * @param	string	starting folder
-	 * @return	string
-	 */
-	function _build_list($tree, $prefix = '')
-	{
-		$ul = '';
-
-		if($prefix == POST_TERM.'/')
-		{
-			foreach ($tree as $key => $value)
-			{
-				$li = '';
-				$active = false;
-
-				if (is_array($value))
-				{
-
-					// change dash in date to slash
-					$segs = explode("-", $key, 4);
-					if(count($segs) > 3)
-						$newkey = implode("/", $segs);
-					else
-						$newkey = $key;
-
-					// set active for match link
-					if(uri_string() == $prefix.$newkey) $active = true;
-
-					// set active for upper link
-					if(strstr(uri_string(), '/'.$prefix.$newkey)) $active = true;
-
-					if (array_key_exists('_title', $value)) {
-						$li .= "<a href='".site_url($prefix.$newkey)."/' ".($active ? "class='".$this->current_class."'" : "").">${value['_title']}</a>";
-					} else {
-						$li .= "$prefix$newkey/";
-					}
-
-					$li .= $this->_build_list($value, "$prefix$newkey/");
-					$ul .= strlen($li) ? "<li".($active ? " class='".$this->current_class."'" : "").">$li</li>" : '';
-				}
-			}
-		}
-		else {
-
-			foreach ($tree as $key => $value)
-			{
-				$li = '';
-				$active = false;
-
-				// echo uri_string().' > '.$prefix.$key."<br>\n\n";
-
-				if (is_array($value))
-				{
-					// set active for match link
-					if(uri_string() == $prefix.$key) $active = true;
-
-					// set active for upper link
-					if(strstr(uri_string(), $prefix.$key.'/')) $active = true;
-
-					if (array_key_exists('_title', $value)) {
-						// don't use index term
-						$newkey = ($key == 'index')? 'index/' : $key.'/';
-
-						$li .= "<a href='".site_url($prefix.$newkey)."' ".($active ? "class='".$this->current_class."'" : "").">${value['_title']}</a>";
-					} else {
-						$li .= "$prefix$key/";
-					}
-
-					$li .= $this->_build_list($value, "$prefix$key/");
-					$ul .= strlen($li) ? "<li".($active ? " class='".$this->current_class."'" : "").">$li</li>" : '';
-				}
-			}
-		}
-
-		return strlen($ul) ? "<ul class='".$this->ul_class."'>$ul</ul>" : '';
-	}
 
 	// --------------------------------------------------------------------------
 

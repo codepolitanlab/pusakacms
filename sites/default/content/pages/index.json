@@ -11,48 +11,6 @@
         "title": "Docs",
         "url": "docs",
         "children": {
-            "panduan-pengembang": {
-                "title": "Panduan Pengembang",
-                "url": "docs\/panduan-pengembang",
-                "children": {
-                    "membuat-template": {
-                        "title": "Membuat Template",
-                        "url": "docs\/panduan-pengembang\/membuat-template"
-                    },
-                    "library": {
-                        "title": "Library",
-                        "url": "docs\/panduan-pengembang\/library",
-                        "children": {
-                            "textile": {
-                                "title": "Textile",
-                                "url": "docs\/panduan-pengembang\/library\/textile"
-                            },
-                            "template": {
-                                "title": "Template",
-                                "url": "docs\/panduan-pengembang\/library\/template"
-                            },
-                            "markdown": {
-                                "title": "Markdown",
-                                "url": "docs\/panduan-pengembang\/library\/markdown"
-                            },
-                            "pusaka": {
-                                "title": "Pusaka",
-                                "url": "docs\/panduan-pengembang\/library\/pusaka"
-                            }
-                        }
-                    },
-                    "helper": {
-                        "title": "Helper",
-                        "url": "docs\/panduan-pengembang\/helper",
-                        "children": {
-                            "template": {
-                                "title": "Template",
-                                "url": "docs\/panduan-pengembang\/helper\/template"
-                            }
-                        }
-                    }
-                }
-            },
             "apa-itu-pusaka": {
                 "title": "Apa Itu Pusaka",
                 "url": "docs\/apa-itu-pusaka",
@@ -63,13 +21,7 @@
                     },
                     "showcase": {
                         "title": "Showcase",
-                        "url": "docs\/apa-itu-pusaka\/showcase",
-                        "children": {
-                            "lisensi": {
-                                "title": "Lisensi",
-                                "url": "docs\/apa-itu-pusaka\/showcase\/lisensi"
-                            }
-                        }
+                        "url": "docs\/apa-itu-pusaka\/showcase"
                     },
                     "fitur": {
                         "title": "Fitur",
@@ -82,6 +34,10 @@
                     "kontribusi": {
                         "title": "Kontribusi",
                         "url": "docs\/apa-itu-pusaka\/kontribusi"
+                    },
+                    "lisensi": {
+                        "title": "Lisensi",
+                        "url": "docs\/apa-itu-pusaka\/lisensi"
                     }
                 }
             },
@@ -120,6 +76,48 @@
                     "posting-blog": {
                         "title": "Posting Blog",
                         "url": "docs\/panduan-pengguna\/posting-blog"
+                    }
+                }
+            },
+            "panduan-pengembang": {
+                "title": "Panduan Pengembang",
+                "url": "docs\/panduan-pengembang",
+                "children": {
+                    "membuat-template": {
+                        "title": "Membuat Template",
+                        "url": "docs\/panduan-pengembang\/membuat-template"
+                    },
+                    "library": {
+                        "title": "Library",
+                        "url": "docs\/panduan-pengembang\/library",
+                        "children": {
+                            "markdown": {
+                                "title": "Markdown",
+                                "url": "docs\/panduan-pengembang\/library\/markdown"
+                            },
+                            "textile": {
+                                "title": "Textile",
+                                "url": "docs\/panduan-pengembang\/library\/textile"
+                            },
+                            "template": {
+                                "title": "Template",
+                                "url": "docs\/panduan-pengembang\/library\/template"
+                            },
+                            "pusaka": {
+                                "title": "Pusaka",
+                                "url": "docs\/panduan-pengembang\/library\/pusaka"
+                            }
+                        }
+                    },
+                    "helper": {
+                        "title": "Helper",
+                        "url": "docs\/panduan-pengembang\/helper",
+                        "children": {
+                            "template": {
+                                "title": "Template",
+                                "url": "docs\/panduan-pengembang\/helper\/template"
+                            }
+                        }
                     }
                 }
             }
