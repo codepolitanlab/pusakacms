@@ -23,4 +23,4 @@
 
 <!-- Custom styles for this template -->
 <link href="<?php echo get_theme_url() ?>assets/css/main_style.css" rel="stylesheet">
-<link href="<?php echo get_theme_url() ?>assets/css/color-orange.css" rel="stylesheet">
+<link href="<?php echo get_theme_url() ?>assets/css/color-blue.css" rel="stylesheet">
