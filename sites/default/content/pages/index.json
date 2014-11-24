@@ -3,10 +3,6 @@
         "title": "Home",
         "url": "home"
     },
-    "blog": {
-        "title": "Blog",
-        "url": "blog"
-    },
     "docs": {
         "title": "Docs",
         "url": "docs",
@@ -122,5 +118,9 @@
                 }
             }
         }
+    },
+    "blog": {
+        "title": "Blog",
+        "url": "blog"
     }
 }
