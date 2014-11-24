@@ -263,46 +263,6 @@ class Pusaka {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Sync navigation from content
-	 *
-	 * @access	public
-	 * @param	string	starting folder
-	 * @return	void
-	 */
-	function sync_post()
-	{
-		$output = array('status' => 'success', 'message' => 'Everything already synced.');
-
-			// get derectory map
-		$map = directory_map(POST_FOLDER, 1);
-
-		$tree = array();
-
-			//simpan sebagai nav.json
-		foreach ($map as $file) {
-				// change dash in date to slash
-			$segs = explode("-", $file, 4);
-			if(count($segs) > 3)
-				$newkey = $this->remove_extension(implode("/", $segs));
-			else
-				$newkey = $this->remove_extension($file);
-
-			if($file != $this->navfile && $file != 'index.html' && $this->is_valid_ext(POST_FOLDER.'/'.$file))
-				$tree[POST_TERM.'/'.$newkey] = $this->guess_name($file, POST_TERM);
-		}
-
-		krsort($tree);
-		if(! write_file(POST_FOLDER.'/'.$this->navfile, json_encode($tree, JSON_PRETTY_PRINT)))
-			$output = array('status' => 'error', 'message' => "Post index file ".$this->navfile." is not writable. Make it writable first.\n");
-		else
-			$output = array('status' => 'success', 'message' => "post index synced.\n");
-
-		return $output;
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
 	 * Sync post label
 	 *
 	 * @access	public
@@ -360,36 +320,10 @@ class Pusaka {
 	 */
 	function get_posts_tree($sort = 'asc')
 	{
-		// if post.json has been
-		if(file_exists(POST_FOLDER.'/'.$this->navfile)) {
-			$tree = json_decode(file_get_contents(POST_FOLDER.'/'.$this->navfile), true);
+		if(! file_exists(POST_FOLDER.'/'.$this->navfile))
+			$this->sync_post();
 
-		} else {
-			// get derectory map
-			$map = directory_map(POST_FOLDER, 1);
-
-			$tree = array();
-
-			//simpan sebagai nav.json
-			foreach ($map as $file) {
-				// change dash in date to slash
-				$segs = explode("-", $file, 4);
-				if(count($segs) > 3)
-					$newkey = $this->remove_extension(implode("/", $segs));
-				else
-					$newkey = $this->remove_extension($file);
-
-				if($file != $this->navfile && $file != 'index.md' && $this->is_valid_ext(POST_FOLDER.'/'.$file))
-					$tree[POST_TERM.'/'.$newkey] = $this->guess_name($file, POST_TERM);
-			}
-
-			write_file(POST_FOLDER.'/'.$this->navfile, json_encode($tree, JSON_PRETTY_PRINT));
-		}
-
-		if($sort == 'desc')
-			krsort($tree);
-		else
-			ksort($tree);
+		$tree = json_decode(file_get_contents(POST_FOLDER.'/'.$this->navfile), true);
 
 		return $tree;
 	}
@@ -411,6 +345,7 @@ class Pusaka {
 
 		$posts = array();
 
+		// get post list from label index
 		if($category && $category != 'all'){
 			$file = file_get_contents(LABEL_FOLDER.'/'.$category.'.json');
 			if(empty($file)) return false;
@@ -424,21 +359,134 @@ class Pusaka {
 					$posts['entries'][] = ($post);
 			}
 			$posts['total'] = count($map);
+
+		// get post list from post index
 		} else {
 			$map = $this->get_posts_tree($sort);
 			$begin = ($page - 1) * $this->post_per_page;
 			$limit = $this->post_per_page;
 			$new_map = ($page != 'all') ? array_slice($map, $begin, $limit) : $map;
 			
-			foreach ($new_map as $url => $title) {
-				if($post = $this->get_post($url, $parse))
-					$posts['entries'][] = ($post);
+			foreach ($new_map as $postlist) {
+				if($post = $this->get_post($postlist['url'], $parse))
+					$posts['entries'][] = $post;
 			}
 			$posts['total'] = count($map);
 		}
 
 		return $posts;
 	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * get detail blog post
+	 *
+	 * @access	private
+	 * @param	string	category, null for get all
+	 * @param	int		page number
+	 * @return	array
+	 */
+	function get_post($url = null, $parse = true)
+	{
+		$segs = explode("/", $url);
+
+		// url must have 4 segment (blog/yyyy/mm/dd/slug)
+		if(count($segs) != 5)
+			return false;
+
+		$post_db = new Nyankod\JsonFileDB(POST_FOLDER);
+		$post_db->setTable('index');
+		$the_post = $post_db->select('url', $url);
+
+		if(empty($the_post))
+			return false;
+
+		$file = file_get_contents(POST_FOLDER.'/'.$the_post[0]['filename']);
+		if(!empty($file)){
+			$post = explode("{:", $file);
+			array_shift($post);
+			
+			$new_post = array(
+				'date' => $the_post[0]['date'],
+				'file' => $the_post[0]['filename']
+			);
+
+			foreach ($post as $elm) {
+				$segs = preg_split("/( :} | :}|:} |:})/", $elm, 2);
+
+				// set meta to config
+				if(in_array(trim($segs[0]), array('meta_keywords', 'meta_description', 'author')))
+					$this->CI->config->set_item(trim($segs[0]), trim($segs[1]));
+
+				if(trim($segs[0]) == 'labels')
+					$new_post[trim($segs[0])] = preg_split("/(\s,\s|\s,|,\s|,)/", $segs[1]);
+
+				elseif(trim($segs[0]) == 'content' && $parse)
+				{
+					$Parsedown = new Parsedown();
+					$new_post[trim($segs[0])] = $Parsedown->setBreaksEnabled(true)->text($segs[1]);
+				}
+				else
+					$new_post[trim($segs[0])] = trim($segs[1]);
+
+				$new_post['url'] = $url;
+			}
+
+			// print_r($new_post);
+			return $new_post;
+		}
+
+		return false;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Sync post index
+	 *
+	 * @access	public
+	 * @param	string	starting folder
+	 * @return	void
+	 */
+	function sync_post()
+	{
+		if(! file_exists(POST_FOLDER.'/'.$this->navfile))
+			write_file(POST_FOLDER.'/'.$this->navfile, json_encode(array(), JSON_PRETTY_PRINT));
+
+		$output = array('status' => 'success', 'message' => 'Everything already synced.');
+
+		// get derectory map
+		$map = directory_map(POST_FOLDER, 1);
+
+		$tree = array();
+		foreach ($map as $file) {
+			// change dash in date to slash
+			$segs = explode("-", $file, 6);
+			$date = $segs[0].'-'.$segs[1].'-'.$segs[2].'-'.$segs[3].'-'.$segs[4];
+
+			if(count($segs) > 5)
+				$newkey = $this->remove_extension(implode("/", $segs));
+			else
+				$newkey = $this->remove_extension($file);
+
+			if($file != $this->navfile && $file != 'index.html' && $this->is_valid_ext(POST_FOLDER.'/'.$file))
+				$tree[$date] = array(
+					"filename" => $file,
+					"url" => POST_TERM.'/'.$this->remove_extension($segs[0].'/'.$segs[1].'/'.$segs[2].'/'.$segs[5]),
+					"date" => $segs[0].'-'.$segs[1].'-'.$segs[2].' '.$segs[3].':'.$segs[4]
+					);
+		}
+		krsort($tree);
+
+		if(! write_file(POST_FOLDER.'/'.$this->navfile, json_encode($tree, JSON_PRETTY_PRINT)))
+			$output = array('status' => 'error', 'message' => "Post index file ".$this->navfile." is not writable. Make it writable first.\n");
+		else
+			$output = array('status' => 'success', 'message' => "post index synced.\n");
+
+		return $output;
+	}
+
 
 	function set_post_per_page($post_per_page = false)
 	{
@@ -512,81 +560,6 @@ class Pusaka {
 
 		$this->CI->pagination->initialize($config); 
 		return $this->CI->pagination->create_links();
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * get detail blog post
-	 *
-	 * @access	private
-	 * @param	string	category, null for get all
-	 * @param	int		page number
-	 * @return	array
-	 */
-	function get_post($url = null, $parse = true)
-	{
-		$segs = explode("/", $url);
-
-		// url must have 4 segment (yyyy/mm/dd/slug)
-		if(count($segs) != 5)
-			return false;
-
-		array_shift($segs);
-		$date = $segs[0].'-'.$segs[1].'-'.$segs[2];
-		$filename = implode("-", $segs);
-		$ext = 'html';
-
-		foreach ($this->allowed_ext as $the_ext) {
-			if(is_file(POST_FOLDER.'/'.$filename.'.'.$the_ext)){
-				$filename .= '.'.$the_ext;
-				$ext = $the_ext;
-				break;
-			}
-		}
-
-		// check if file exist
-		if(! file_exists(POST_FOLDER.'/'.$filename))
-			return false;
-		
-		$file = file_get_contents(POST_FOLDER.'/'.$filename);
-
-		if(!empty($file)){
-			$post = explode("{:", $file);
-			array_shift($post);
-			
-			$new_post = array(
-				'title' => $this->guess_name($filename, POST_TERM), 
-				'date' => $date,
-				'file' => $filename
-			);
-
-			foreach ($post as $elm) {
-				$segs = preg_split("/( :} | :}|:} |:})/", $elm, 2);
-
-				// set meta to config
-				if(in_array(trim($segs[0]), array('meta_keywords', 'meta_description', 'author')))
-					$this->CI->config->set_item(trim($segs[0]), trim($segs[1]));
-
-				if(trim($segs[0]) == 'labels')
-					$new_post[trim($segs[0])] = preg_split("/(\s,\s|\s,|,\s)/", $segs[1]);
-
-				elseif(trim($segs[0]) == 'content' && $parse)
-				{
-					$Parsedown = new Parsedown();
-					$new_post[trim($segs[0])] = $Parsedown->setBreaksEnabled(true)->text($segs[1]);
-				}
-				else
-					$new_post[trim($segs[0])] = trim($segs[1]);
-
-				$new_post['url'] = $url;
-			}
-
-			// print_r($new_post);
-			return $new_post;
-		}
-
-		return false;
 	}
 
 	// --------------------------------------------------------------------

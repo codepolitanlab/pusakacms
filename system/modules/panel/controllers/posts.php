@@ -82,7 +82,7 @@ class Posts extends Admin_Controller {
 						$file_content .= "{: ".$key." :} ".$value."\n";
 			}
 
-			$date = date("Y-m-d-");
+			$date = date("Y-m-d-H-i-");
 			
 			if(write_file(POST_FOLDER.$date.$post['slug'].'.md', $file_content)){
 				$this->session->set_flashdata('success', 'Post saved.');
@@ -128,7 +128,7 @@ class Posts extends Admin_Controller {
 						$file_content .= "{: ".$key." :} ".$value."\n";
 			}
 
-			$date = $prevpost['date'].'-';
+			$date = date("Y-m-d-H-i", strtotime($prevpost['date'])).'-';
 
 			// rename post first
 			if($prevpost['slug'] != $post['slug'])
@@ -174,8 +174,9 @@ class Posts extends Admin_Controller {
 
 	function sync($redirect = true)
 	{
-		$nav = $this->pusaka->sync_page(POST_TERM);
+		$nav = $this->pusaka->sync_post();
 		$label = $this->pusaka->sync_label();
+
 		if($nav['status'] == $label['status'])
 			$this->session->set_flashdata($label['status'], $nav['message'] . $label['message']);
 		else {
@@ -186,5 +187,4 @@ class Posts extends Admin_Controller {
 		if($redirect)
 			redirect('panel/posts');
 	}
-
 }

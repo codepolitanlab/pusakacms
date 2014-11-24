@@ -1,13 +1,67 @@
 {
-    "blog\/2014\/11\/15\/artikel-9": "artikel 9",
-    "blog\/2014\/11\/15\/artikel-8": "artikel 8",
-    "blog\/2014\/11\/15\/artikel-7": "artikel 7",
-    "blog\/2014\/11\/15\/artikel-6": "artikel 6",
-    "blog\/2014\/11\/15\/artikel-5": "artikel 5",
-    "blog\/2014\/11\/15\/artikel-4": "artikel 4",
-    "blog\/2014\/11\/15\/artikel-3": "artikel 3",
-    "blog\/2014\/11\/15\/artikel-11": "artikel 11",
-    "blog\/2014\/11\/15\/artikel-10": "artikel 10",
-    "blog\/2014\/11\/13\/lorem-ipsum": "lorem ipsum",
-    "blog\/2014\/10\/10\/hello-world": "hello world"
+    "2014-11-24-23-50": {
+        "filename": "2014-11-24-23-50-blog-post-baru-gue-diedit.md",
+        "url": "blog\/2014\/11\/24\/blog-post-baru-gue-diedit",
+        "date": "2014-11-24 23:50"
+    },
+    "2014-11-24-22-00": {
+        "filename": "2014-11-24-22-00-artikel-selanjutnya.md",
+        "url": "blog\/2014\/11\/24\/artikel-selanjutnya",
+        "date": "2014-11-24 22:00"
+    },
+    "2014-11-24-21-00": {
+        "filename": "2014-11-24-21-00-coba-artikel-baru.md",
+        "url": "blog\/2014\/11\/24\/coba-artikel-baru",
+        "date": "2014-11-24 21:00"
+    },
+    "2014-11-24-20-00": {
+        "filename": "2014-11-24-20-00-sekarang-baru-dia.md",
+        "url": "blog\/2014\/11\/24\/sekarang-baru-dia",
+        "date": "2014-11-24 20:00"
+    },
+    "2014-11-15-10-00": {
+        "filename": "2014-11-15-10-00-artikel-10.md",
+        "url": "blog\/2014\/11\/15\/artikel-10",
+        "date": "2014-11-15 10:00"
+    },
+    "2014-11-15-09-00": {
+        "filename": "2014-11-15-09-00-artikel-8.md",
+        "url": "blog\/2014\/11\/15\/artikel-8",
+        "date": "2014-11-15 09:00"
+    },
+    "2014-11-15-08-00": {
+        "filename": "2014-11-15-08-00-artikel-7.md",
+        "url": "blog\/2014\/11\/15\/artikel-7",
+        "date": "2014-11-15 08:00"
+    },
+    "2014-11-15-07-00": {
+        "filename": "2014-11-15-07-00-artikel-6.md",
+        "url": "blog\/2014\/11\/15\/artikel-6",
+        "date": "2014-11-15 07:00"
+    },
+    "2014-11-15-06-00": {
+        "filename": "2014-11-15-06-00-artikel-5.md",
+        "url": "blog\/2014\/11\/15\/artikel-5",
+        "date": "2014-11-15 06:00"
+    },
+    "2014-11-15-05-00": {
+        "filename": "2014-11-15-05-00-artikel-4.md",
+        "url": "blog\/2014\/11\/15\/artikel-4",
+        "date": "2014-11-15 05:00"
+    },
+    "2014-11-15-04-00": {
+        "filename": "2014-11-15-04-00-artikel-3.md",
+        "url": "blog\/2014\/11\/15\/artikel-3",
+        "date": "2014-11-15 04:00"
+    },
+    "2014-11-13-03-00": {
+        "filename": "2014-11-13-03-00-lorem-ipsum.md",
+        "url": "blog\/2014\/11\/13\/lorem-ipsum",
+        "date": "2014-11-13 03:00"
+    },
+    "2014-10-10-02-00": {
+        "filename": "2014-10-10-02-00-hello-world.md",
+        "url": "blog\/2014\/10\/10\/hello-world",
+        "date": "2014-10-10 02:00"
+    }
 }
