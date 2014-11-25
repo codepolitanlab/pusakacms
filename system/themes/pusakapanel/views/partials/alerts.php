@@ -34,6 +34,20 @@
 		</div>
 	<?php endif; ?>
 
+	<?php if(isset($warning)): ?>
+		<div class="alert alert-warning alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			<?php echo $warning; ?>
+		</div>
+	<?php endif; ?>
+
+	<?php if(isset($info)): ?>
+		<div class="alert alert-info alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			<?php echo $info; ?>
+		</div>
+	<?php endif; ?>
+
 	<div class="alert alert-danger alert-dismissible" id="alert-error" role="alert" style="display:none">
 		<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 		<span>error message</span>

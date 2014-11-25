@@ -968,3 +968,6 @@ small, .small {
 .dash-title {
   margin-bottom: 40px;
 }
+span.code {
+  font-family: 'Courier New', sans-serif;
+}
