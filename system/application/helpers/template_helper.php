@@ -184,7 +184,7 @@ if ( ! function_exists('get_module_asset'))
 {
 	function get_module_asset($module, $file) {
 		$CI = &get_instance();
-		return base_url().$CI->module->module_asset_location($module, 'assets/img/'.$file);
+		return base_url().'system/modules/'.$module.'/assets/'.$file;
 	}
 }
 

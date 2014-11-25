@@ -16,15 +16,14 @@
 
 class Media extends Admin_Controller {
 
-	public $users_path;
-	public $nav_db;
+	public $files_path;
 
 	function __construct(){
 		parent::__construct();
 
 		if(! $this->session->userdata('username')) redirect('panel/login');
 
-		$this->users_path = 'sites/'. SITE_SLUG .'/users/';
+		$this->files_path = 'sites/'. SITE_SLUG .'/content/files';
 	}
 
 
@@ -36,6 +35,23 @@ class Media extends Admin_Controller {
 	{
 		
 		$this->template->view('media');
+	}
+
+	function elfinder_init()
+	{
+		$this->load->helper('path');
+		$opts = array(
+    		// 'debug' => true, 
+			'roots' => array(
+				array( 
+					'driver' => 'LocalFileSystem', 
+					'path'   => set_realpath($this->files_path), 
+					'URL'    => site_url($this->files_path) . '/'
+        			// more elFinder options here
+					) 
+				)
+			);
+		$this->load->library('elfinder_lib', $opts);
 	}
 
 }

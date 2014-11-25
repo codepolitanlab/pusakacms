@@ -4,4 +4,14 @@
 	</div>
 </div>
 <br>
-<iframe width="100%" scrolling="no" allowtransparency="true" frameborder="0" class="autoHeight" src="<?php echo base_url('system/modules/panel/assets/filemanager/dialog.php?type=2&editor=mce_0&lang=eng&fldr=')?>" style="height:650px; border:0px solid #cccccc;"></iframe>
+
+<script type="text/javascript" charset="utf-8">
+	jQuery(document).ready(function(){
+		jQuery('#elfinder').elfinder({
+			url: '<?php echo site_url('panel/media/elfinder_init'); ?>',
+		}).elfinder('instance');
+	});
+</script>
+
+<!-- Element where elFinder will be created (REQUIRED) -->
+<div id="elfinder"></div>
