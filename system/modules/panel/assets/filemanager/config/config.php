@@ -25,10 +25,10 @@ $base_url =
 	'://'.
 	// Get domain portion
 	$_SERVER['HTTP_HOST']; // DON'T TOUCH (base url (only domain) of site (without final /)).
-$upload_dir = '/sites/default/content/files/'; // path from base_url to base of upload folder (with start and final /)
-$current_path = '../../../../../../sites/default/content/files/'; // relative path from filemanager folder to upload folder (with final /)
+$upload_dir = '/sites/default/content/media/files/'; // path from base_url to base of upload folder (with start and final /)
+$current_path = '../../../../../sites/default/content/media/files/'; // relative path from filemanager folder to upload folder (with final /)
 //thumbs folder can't put inside upload folder
-$thumbs_base_path = '../../../../../../sites/default/content/files/thumbs/'; // relative path from filemanager folder to thumbs folder (with final /)
+$thumbs_base_path = '../../../../../sites/default/content/media/thumbs/'; // relative path from filemanager folder to thumbs folder (with final /)
 
 // OPTIONAL SECURITY
 // if set to true only those will access RF whose url contains the access key(akey) like: 
@@ -138,13 +138,13 @@ $edit_text_files 	= TRUE; // eg.: txt, log etc.
 $create_text_files 	= TRUE; // only create files with exts. defined in $editable_text_file_exts
 
 // you can preview these type of files if $preview_text_files is true
-$previewable_text_file_exts = array('txt', 'log', 'xml');
+$previewable_text_file_exts = array('txt', 'log', 'xml', 'json');
 
 // you can edit these type of files if $edit_text_files is true (only text based files)
 // you can create these type of files if $create_text_files is true (only text based files)
 // if you want you can add html,css etc. 
 // but for security reasons it's NOT RECOMMENDED!
-$editable_text_file_exts = array('txt', 'log', 'xml');
+$editable_text_file_exts = array('txt', 'log', 'xml', 'json');
 
 // defines size limit for paste in MB / operation
 // set 'FALSE' for no limit
@@ -157,11 +157,11 @@ $copy_cut_max_count = 200;
 //**********************
 //Allowed extensions (lowercase insert)
 //**********************
-$ext_img 	= array('jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'svg'); //Images
-$ext_file 	= array('doc', 'docx','rtf', 'pdf', 'xls', 'xlsx', 'txt', 'csv','html','xhtml','psd','sql','log','fla','xml','ade','adp','mdb','accdb','ppt','pptx','odt','ots','ott','odb','odg','otp','otg','odf','ods','odp','css','ai'); //Files
-$ext_video 	= array('mov', 'mpeg', 'm4v', 'mp4', 'avi', 'mpg','wma',"flv","webm"); //Video 
-$ext_music 	= array('mp3', 'm4a', 'ac3', 'aiff', 'mid','ogg','wav'); //Audio
-$ext_misc 	= array('zip', 'rar','gz','tar','iso','dmg'); //Archives
+$ext_img 	= array('jpg','jpeg','png','gif','bmp','tiff','svg'); //Images
+$ext_file 	= array('doc','docx','rtf','pdf','xls','xlsx','txt','csv','html','xhtml','psd','sql','log','fla','xml','ade','adp','mdb','accdb','ppt','pptx','odt','ots','ott','odb','odg','otp','otg','odf','ods','odp','css','ai'); //Files
+$ext_video 	= array('mov','mpeg','m4v','mp4','avi','mpg','wma',"flv","webm","3gp"); //Video 
+$ext_music 	= array('mp3','m4a','ac3','aiff','mid','ogg','wav'); //Audio
+$ext_misc 	= array('zip','rar','gz','tar','iso','dmg'); //Archives
 
 $ext = array_merge($ext_img, $ext_file, $ext_misc, $ext_video,$ext_music); //allowed extensions
 
@@ -169,8 +169,8 @@ $ext = array_merge($ext_img, $ext_file, $ext_misc, $ext_video,$ext_music); //all
  * AVIARY config
 *******************/
 $aviary_active 	= TRUE;
-$aviary_key 	= "dvh8qudbp6yx2bnp";
-$aviary_secret	= "m6xaym5q42rpw433";
+$aviary_key 	= "dvh8qudbp6yx2bn";
+$aviary_secret	= "m6xaym5q42rpw43";
 $aviary_version	= 3;
 $aviary_language= 'en';
 
@@ -186,7 +186,7 @@ $file_number_limit_js = 500;
 // set the names of any folders you want hidden (eg "hidden_folder1", "hidden_folder2" ) Remember all folders with these names will be hidden (you can set any exceptions in config.php files on folders)
 $hidden_folders = array();
 // set the names of any files you want hidden. Remember these names will be hidden in all folders (eg "this_document.pdf", "that_image.jpg" )
-$hidden_files = array('config.php');
+$hidden_files = array('config.php','index.html');
 
 /*******************
  * JAVA upload
