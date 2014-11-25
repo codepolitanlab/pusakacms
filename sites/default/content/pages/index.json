@@ -12,8 +12,8 @@
         "url": "docs",
         "children": {
             "apa-itu-pusaka": {
-                "title": "Apa Itu Pusaka",
                 "url": "docs\/apa-itu-pusaka",
+                "title": "Apa Itu Pusaka",
                 "children": {
                     "fitur": {
                         "title": "Fitur",
@@ -24,8 +24,8 @@
                         "url": "docs\/apa-itu-pusaka\/download"
                     },
                     "showcase": {
-                        "title": "Showcase",
-                        "url": "docs\/apa-itu-pusaka\/showcase"
+                        "url": "docs\/apa-itu-pusaka\/showcase",
+                        "title": "Showcase"
                     },
                     "kontribusi": {
                         "title": "Kontribusi",
@@ -42,8 +42,8 @@
                 }
             },
             "panduan-pengguna": {
-                "url": "docs\/panduan-pengguna",
                 "title": "Panduan Pengguna",
+                "url": "docs\/panduan-pengguna",
                 "children": {
                     "instalasi": {
                         "title": "Instalasi",
@@ -70,8 +70,8 @@
                         "url": "docs\/panduan-pengguna\/mengatur-kategori"
                     },
                     "mengatur-navigasi": {
-                        "url": "docs\/panduan-pengguna\/mengatur-navigasi",
-                        "title": "Mengatur Navigasi"
+                        "title": "Mengatur Navigasi",
+                        "url": "docs\/panduan-pengguna\/mengatur-navigasi"
                     },
                     "format-penulisan": {
                         "title": "Format Penulisan",
@@ -95,13 +95,13 @@
                                 "title": "Pusaka",
                                 "url": "docs\/panduan-pengembang\/library\/pusaka"
                             },
-                            "markdown": {
-                                "title": "Markdown",
-                                "url": "docs\/panduan-pengembang\/library\/markdown"
-                            },
                             "template": {
                                 "title": "Template",
                                 "url": "docs\/panduan-pengembang\/library\/template"
+                            },
+                            "markdown": {
+                                "title": "Markdown",
+                                "url": "docs\/panduan-pengembang\/library\/markdown"
                             }
                         }
                     },

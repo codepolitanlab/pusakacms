@@ -46,12 +46,20 @@ class Media extends Admin_Controller {
 				array( 
 					'driver' => 'LocalFileSystem', 
 					'path'   => set_realpath($this->files_path), 
-					'URL'    => site_url($this->files_path) . '/'
-        			// more elFinder options here
+					'URL'    => site_url($this->files_path) . '/',
+        			'attributes' => array(
+					        array(
+					            'pattern' => '/index.html/',
+					            'hidden'  => true
+					        ),
+					        array(
+					            'pattern' => '/.tmb/',
+					            'hidden'  => true
+					        )
+					    )
 					) 
 				)
 			);
 		$this->load->library('elfinder_lib', $opts);
 	}
-
 }
