@@ -36,7 +36,6 @@ class Media extends Admin_Controller {
 
 	function index()
 	{
-		
 		$this->template->view('media');
 	}
 
@@ -49,7 +48,7 @@ class Media extends Admin_Controller {
 				array( 
 					'driver' => 'LocalFileSystem', 
 					'path'   => set_realpath($this->files_path), 
-					'URL'    => site_url($this->files_path) . '/',
+					'URL'    => base_url($this->files_path) . '/',
         			'attributes' => array(
 					        array(
 					            'pattern' => '/index.html/',
