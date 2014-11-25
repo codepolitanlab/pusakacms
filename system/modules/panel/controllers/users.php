@@ -17,7 +17,6 @@
 class Users extends Admin_Controller {
 
 	public $users_path;
-	public $nav_db;
 
 	var $user_fields = array(
 		array(
@@ -43,6 +42,9 @@ class Users extends Admin_Controller {
 		if(! $this->session->userdata('username')) redirect('panel/login');
 
 		$this->users_path = 'sites/'. SITE_SLUG .'/users/';
+
+		if(!is_readable($this->users_path) || !is_writable($this->users_path))
+			show_error('Set folder '.$this->users_path.' and its contents readable and writable first.');
 	}
 
 

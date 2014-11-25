@@ -16,15 +16,17 @@
 
 class Settings extends Admin_Controller {
 
-	public $users_path;
-	public $nav_db;
+	public $config_path;
 
 	function __construct(){
 		parent::__construct();
 		
 		if(! $this->session->userdata('username')) redirect('panel/login');
 
-		$this->users_path = 'sites/'. SITE_SLUG .'/users/';
+		$this->config_path = 'sites/'.SITE_SLUG.'/config/';
+
+		if(!is_readable($this->config_path) || !is_writable($this->config_path))
+			show_error('Set folder '.$this->config_path.' and its contents readable and writable first.');
 	}
 
 
@@ -35,15 +37,14 @@ class Settings extends Admin_Controller {
 	function index()
 	{
 		// get config files
-		$config_path = 'sites/'.SITE_SLUG.'/config/';
-		$config_file = array_filter(scandir($config_path), function($user){
+		$config_file = array_filter(scandir($this->config_path), function($user){
 			return (substr($user, -5) == '.json');
 		});
 
 		$savefile = array();
 		$validation_rules = array();
 		foreach ($config_file as $confile) {
-			$config[substr($confile, 0, -5)] = json_decode(file_get_contents($config_path.$confile), true);
+			$config[substr($confile, 0, -5)] = json_decode(file_get_contents($this->config_path.$confile), true);
 			$savefile[substr($confile, 0, -5)] = array();
 
 			// set validation rules
@@ -62,7 +63,7 @@ class Settings extends Admin_Controller {
 
 			// save config to file
 			foreach ($savefile as $filekey => $fileval) {
-				if(! write_file($config_path.$filekey.'.json', json_encode($fileval, JSON_PRETTY_PRINT))){
+				if(! write_file($this->config_path.$filekey.'.json', json_encode($fileval, JSON_PRETTY_PRINT))){
 					$this->session->set_flashdata('error', 'unable to save '.$filekey.' settings to '.$filekey.'.json file.');
 					redirect('panel/settings');	
 				}

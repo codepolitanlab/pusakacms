@@ -16,7 +16,6 @@
 
 class Navigation extends Admin_Controller {
 
-	public $users_path;
 	public $nav_db;
 
 	var $nav_area_fields = array(
@@ -65,9 +64,10 @@ class Navigation extends Admin_Controller {
 
 		if(! $this->session->userdata('username')) redirect('panel/login');
 
-		$this->nav_db = new Nyankod\JsonFileDB(NAV_FOLDER);
+		if(!is_readable(NAV_FOLDER) || !is_writable(NAV_FOLDER))
+			show_error('Set folder '.NAV_FOLDER.' and its contents readable and writable first.');
 
-		$this->users_path = 'sites/'. SITE_SLUG .'/users/';
+		$this->nav_db = new Nyankod\JsonFileDB(NAV_FOLDER);
 	}
 
 	/*********************************************

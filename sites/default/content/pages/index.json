@@ -4,16 +4,16 @@
         "url": "home"
     },
     "blog": {
-        "title": "Blog",
-        "url": "blog"
+        "url": "blog",
+        "title": "Blog"
     },
     "docs": {
         "title": "Docs",
         "url": "docs",
         "children": {
             "apa-itu-pusaka": {
-                "url": "docs\/apa-itu-pusaka",
                 "title": "Apa Itu Pusaka",
+                "url": "docs\/apa-itu-pusaka",
                 "children": {
                     "fitur": {
                         "title": "Fitur",
@@ -24,8 +24,8 @@
                         "url": "docs\/apa-itu-pusaka\/download"
                     },
                     "showcase": {
-                        "url": "docs\/apa-itu-pusaka\/showcase",
-                        "title": "Showcase"
+                        "title": "Showcase",
+                        "url": "docs\/apa-itu-pusaka\/showcase"
                     },
                     "kontribusi": {
                         "title": "Kontribusi",

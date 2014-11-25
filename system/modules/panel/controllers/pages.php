@@ -16,7 +16,6 @@
 
 class Pages extends Admin_Controller {
 
-	public $users_path;
 	public $page_db;
 
 	var $page_fields = array(
@@ -42,11 +41,12 @@ class Pages extends Admin_Controller {
 		
 		if(! $this->session->userdata('username')) redirect('panel/login');
 
-		$this->users_path = 'sites/'. SITE_SLUG .'/users/';
+		if(!is_readable(PAGE_FOLDER) || !is_writable(PAGE_FOLDER))
+			show_error('Set folder '.PAGE_FOLDER.' readable and writable first.');
 
 		// set page index file
 		$this->page_db = new Nyankod\JsonFileDB(PAGE_FOLDER);
-		$this->page_db->setTable('index');
+		$this->page_db->setTable('index');			
 	}
 
 

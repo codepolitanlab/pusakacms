@@ -16,7 +16,6 @@
 
 class Posts extends Admin_Controller {
 
-	public $users_path;
 	public $nav_db;
 
 	var $post_fields = array(
@@ -47,7 +46,8 @@ class Posts extends Admin_Controller {
 		
 		if(! $this->session->userdata('username')) redirect('panel/login');
 
-		$this->users_path = 'sites/'. SITE_SLUG .'/users/';
+		if(!is_readable(POST_FOLDER) || !is_writable(POST_FOLDER))
+			show_error('Set folder '.POST_FOLDER.' and its contents readable and writable first.');
 	}
 
 
