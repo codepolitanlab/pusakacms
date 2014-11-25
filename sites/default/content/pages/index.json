@@ -4,8 +4,8 @@
         "url": "home"
     },
     "blog": {
-        "url": "blog",
-        "title": "Blog"
+        "title": "Blog",
+        "url": "blog"
     },
     "docs": {
         "title": "Docs",
@@ -42,8 +42,8 @@
                 }
             },
             "panduan-pengguna": {
-                "title": "Panduan Pengguna",
                 "url": "docs\/panduan-pengguna",
+                "title": "Panduan Pengguna",
                 "children": {
                     "instalasi": {
                         "title": "Instalasi",
@@ -70,8 +70,8 @@
                         "url": "docs\/panduan-pengguna\/mengatur-kategori"
                     },
                     "mengatur-navigasi": {
-                        "title": "Mengatur Navigasi",
-                        "url": "docs\/panduan-pengguna\/mengatur-navigasi"
+                        "url": "docs\/panduan-pengguna\/mengatur-navigasi",
+                        "title": "Mengatur Navigasi"
                     },
                     "format-penulisan": {
                         "title": "Format Penulisan",
