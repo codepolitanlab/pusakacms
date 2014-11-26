@@ -1,5 +1,14 @@
 {
-    "blog": "Blog",
-    "home": "Home",
-    "lipsum": "Lipsum"
+    "blog": {
+        "title": "Blog",
+        "url": "blog"
+    },
+    "home": {
+        "title": "Home",
+        "url": "home"
+    },
+    "lipsum": {
+        "title": "Lipsum",
+        "url": "lipsum"
+    }
 }
