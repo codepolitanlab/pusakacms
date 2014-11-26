@@ -23,4 +23,26 @@
 
 <!-- Custom styles for this template -->
 <link href="<?php echo get_theme_url() ?>assets/css/main_style.css" rel="stylesheet">
-<link href="<?php echo get_theme_url() ?>assets/css/color-blue.css" rel="stylesheet">
+<?php
+switch ($this->config->item("theme_option")) {
+    case "blue":
+        $theme_option = 'color-blue.css';
+        break;
+
+    case "green":
+       	$theme_option = 'color-green.css';
+        break;
+
+    case "orange":
+       	$theme_option = 'color-orange.css';
+        break;
+
+    case "red":
+       	$theme_option = 'color-red.css';
+        break;
+
+    default:
+        $theme_option = 'color-blue.css';
+} 
+?>
+<link href="<?php echo get_theme_url() ?>assets/css/<?php echo $theme_option; ?>" rel="stylesheet">

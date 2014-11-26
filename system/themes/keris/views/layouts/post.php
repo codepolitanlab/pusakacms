@@ -16,12 +16,14 @@
 						<h1><?php echo $post['title']; ?></h1>
 
 						<span class="date"><i class="glyphicon glyphicon-calendar"></i> <?php echo date("d F Y", strtotime($post['date'])); ?></span>
+						<?php if(isset($post['labels'])): ?>
 						<span class="cat">
 							<i class="glyphicon glyphicon-tags"></i>
 							<?php foreach ($post['labels'] as $label): ?>
 								<span><?php echo anchor(POST_TERM.'/label/'.$label, $label); ?></span>
 							<?php endforeach; ?>
 						</span>
+						<?php endif; ?>
 
 						<div class="content">
 							<?php echo $post['content']; ?>

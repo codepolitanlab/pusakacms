@@ -277,9 +277,10 @@ class Pusaka {
 
 		// get all labels for each post
 		foreach ($posts['entries'] as $post) {
-			foreach ($post['labels'] as $label) {
-				$labels[trim($label)][] = $post['url'];
-			}
+			if(isset($post['labels']))
+				foreach ($post['labels'] as $label) {
+					$labels[trim($label)][] = $post['url'];
+				}
 		}
 
 		// delete all labels first
@@ -461,6 +462,8 @@ class Pusaka {
 
 		$tree = array();
 		foreach ($map as $file) {
+			if(in_array($file, array('index.json', 'index.html'))) continue;
+
 			// change dash in date to slash
 			$segs = explode("-", $file, 6);
 			$date = $segs[0].'-'.$segs[1].'-'.$segs[2].'-'.$segs[3].'-'.$segs[4];
@@ -480,7 +483,7 @@ class Pusaka {
 		krsort($tree);
 
 		if(! write_file(POST_FOLDER.'/'.$this->navfile, json_encode($tree, JSON_PRETTY_PRINT)))
-			$output = array('status' => 'error', 'message' => "Post index file ".$this->navfile." is not writable. Make it writable first.\n");
+			$output = array('status' => 'error', 'message' => "Post index file ".$this->navfile." is not writable. Make it writable first then sync post index.\n");
 		else
 			$output = array('status' => 'success', 'message' => "post index synced.\n");
 
