@@ -33,14 +33,21 @@ class Auth extends Admin_Controller {
 		if($this->session->userdata('username')) redirect('panel');
 
 		if($postdata = $this->input->post()){
-			if($user_file = file_get_contents($this->users_path.$postdata['username'].'.json')){
-				$userdata = json_decode($user_file, true);
-				if(trim($userdata['password']) === trim($postdata['password'])){
-					$this->session->set_userdata('username', $postdata['username']);
-					// $this->session->set_userdata('group', $userdata[0]);
-					redirect('panel');
+			
+			// check user file exist first, for prevent "file_get_contents" file not found.
+			if (file_exists($this->users_path.$postdata['username'].'.json')) {	
+				if($user_file = file_get_contents($this->users_path.$postdata['username'].'.json')){
+					$userdata = json_decode($user_file, true);
+					if(trim($userdata['password']) === trim($postdata['password'])){
+						$this->session->set_userdata('username', $postdata['username']);
+						// $this->session->set_userdata('group', $userdata[0]);
+						redirect('panel');
+					} else {
+						$this->session->set_flashdata('error', 'username and password not match.');
+						redirect('panel/login');
+					}
 				} else {
-					$this->session->set_flashdata('error', 'username and password not match.');
+					$this->session->set_flashdata('error', 'username not found.');
 					redirect('panel/login');
 				}
 			} else {
