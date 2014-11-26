@@ -32,12 +32,12 @@
 							<div class="btn-label">New page</div>
 						</a>
 					</div>
-					<div class="col-sm-2 col-xs-6">
+					<!-- <div class="col-sm-2 col-xs-6">
 						<a href="{{ func.site_url }}panel/media" class="btn btn-block btn-dashboard">
 							<div class="btn-icon"><span class="fa fa-image"></span></div>
 							<div class="btn-label">Media</div>
 						</a>
-					</div>
+					</div> -->
 					<div class="col-sm-2 col-xs-6">
 						<a href="{{ func.site_url }}panel/navigation" class="btn btn-block btn-dashboard">
 							<div class="btn-icon"><span class="fa fa-list"></span></div>
