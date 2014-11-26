@@ -71,7 +71,6 @@ class CMS extends Public_Controller {
 			$this->template->set_layout('pages/'.$segments[0]);
 
 		$this->template->view_content($file_path, $this->data);
-		// show_404();
 	}
 
 	function sync_page($prefix = null)

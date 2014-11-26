@@ -315,7 +315,7 @@ class Template
 		{
 			$this->_title = $this->_guess_title();
 		}
-
+		
 		// Output template variables to the template
 		$template['title']       = $this->_title;
 		$template['breadcrumbs'] = $this->_breadcrumbs;
@@ -1013,6 +1013,9 @@ class Template
 		if(count($content_part) > 1){
 			foreach ($content_part as $elm) {
 				$segs = preg_split("/( :} | :}|:} |:})/", $elm, 2);
+
+				if(trim($segs[0]) == 'title')
+					$this->_ci->config->set_item('page_title', trim($segs[1]).' - '.$this->_ci->config->item('page_title'));
 
 				// set meta to config
 				if(in_array(trim($segs[0]), array('meta_keywords', 'meta_description', 'author')))
