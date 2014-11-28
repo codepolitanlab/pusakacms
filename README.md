@@ -14,7 +14,7 @@ Pusaka CMS is a file-based Content Management System built on top of CodeIgniter
 - Based on CodeIgniter
 - HMVC ready
 - Intuitive and simple admin panel
-- Export to static HTML
+- Export to static HTML (in v1.0.0 stable version)
 
 ## Version
 
