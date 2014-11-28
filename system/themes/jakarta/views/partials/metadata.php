@@ -22,27 +22,30 @@
 <link href="<?php echo get_theme_url() ?>assets/vendor/selaksa/selaksa.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="<?php echo get_theme_url() ?>assets/css/main_style.css" rel="stylesheet">
+<?php echo get_theme_css('main_style.css'); ?>
+
 <?php
 switch ($this->config->item("theme_option")) {
-    case "blue":
-        $theme_option = 'color-blue.css';
-        break;
+	case "blue":
+	$theme_option = 'color-blue.css';
+	break;
 
-    case "green":
-       	$theme_option = 'color-green.css';
-        break;
+	case "green":
+	$theme_option = 'color-green.css';
+	break;
 
-    case "orange":
-       	$theme_option = 'color-orange.css';
-        break;
+	case "orange":
+	$theme_option = 'color-orange.css';
+	break;
 
-    case "red":
-       	$theme_option = 'color-red.css';
-        break;
+	case "red":
+	$theme_option = 'color-red.css';
+	break;
 
-    default:
-        $theme_option = 'color-blue.css';
+	default:
+	$theme_option = 'color-blue.css';
 } 
+
+// echo custom color css
+echo get_theme_css($theme_option);
 ?>
-<link href="<?php echo get_theme_url() ?>assets/css/<?php echo $theme_option; ?>" rel="stylesheet">
