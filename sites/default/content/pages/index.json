@@ -1,14 +1,14 @@
 {
-    "home": {
-        "url": "home",
-        "title": "Home"
-    },
     "blog": {
-        "title": "Blog",
-        "url": "blog"
+        "url": "blog",
+        "title": "Blog"
+    },
+    "home": {
+        "url": "Home",
+        "title": "home"
     },
     "lipsum": {
-        "title": "Lipsum",
-        "url": "lipsum"
+        "url": "lipsum",
+        "title": "Lipsum"
     }
 }
