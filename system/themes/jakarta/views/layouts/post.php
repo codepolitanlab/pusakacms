@@ -26,11 +26,13 @@
 						<h1><?php echo $post['title']; ?></h1>
 
 						<span class="date"><?php echo date("d F Y", strtotime($post['date'])); ?></span>
-						<span class="cat">
-							<?php foreach ($post['labels'] as $post_label): ?>
-								<span><?php echo anchor(POST_TERM.'/label/'.$post_label, $post_label); ?></span>
-							<?php endforeach; ?>
-						</span>
+						<?php if(isset($post['labels'])): ?>
+							<span class="cat">
+								<?php foreach ($post['labels'] as $post_label): ?>
+									<span><?php echo anchor(POST_TERM.'/label/'.$post_label, $post_label); ?></span>
+								<?php endforeach; ?>
+							</span>
+						<?php endif; ?>
 
 						<div class="content">
 							<?php echo $post['content']; ?>
