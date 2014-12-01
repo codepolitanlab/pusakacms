@@ -153,6 +153,7 @@ class Posts extends Admin_Controller {
 		}
 
 		$this->template
+			->enable_parser_body(false)
 			->set('type', 'edit')
 			->set('url', $prevslug)
 			->set('post', $prevpost)

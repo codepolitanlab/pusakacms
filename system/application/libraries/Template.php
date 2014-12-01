@@ -254,7 +254,8 @@ class Template
 			{
 				if ($this->_parser_enabled === TRUE)
 				{
-					$partial['string'] = $this->_lexparser->parse($partial['string'], $this->_data + $partial['data'], array($this, '_lex_callback'));
+					// $partial['string'] = $this->_lexparser->parse($partial['string'], $this->_data + $partial['data'], array($this, '_lex_callback'));
+					$partial['string'] = $partial['string'];
 				}
 
 				$template['partials'][$name] = $partial['string'];

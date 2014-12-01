@@ -175,6 +175,7 @@ class Pages extends Admin_Controller {
 
 
 		$this->template
+			->enable_parser_body(false)
 			->set('type', 'edit')
 			->set('page', $prevpage)
 			->set('url', $prevslug)
