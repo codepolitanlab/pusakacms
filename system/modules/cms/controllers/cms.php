@@ -143,7 +143,7 @@ class CMS extends Public_Controller {
 					$this->config->set_item('meta_description', $this->data['post']['meta_description']);
 				
 				if(isset($this->data['post']['meta_keywords']) && !empty($this->data['post']['meta_keywords']))
-					$this->config->set_item('meta_keywords', $this->data['post']['meta_keywords']);
+					$this->config->set_item('meta_keywords', $this->data['post']['meta_keywords'].', '.$this->config->item('meta_keywords'));
 
 				$this->template->view('layouts/post', $this->data);
 				

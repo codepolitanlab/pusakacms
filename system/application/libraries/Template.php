@@ -1018,8 +1018,10 @@ class Template
 					$this->_ci->config->set_item('page_title', trim($segs[1]).' - '.$this->_ci->config->item('page_title'));
 
 				// set meta to config
-				if(in_array(trim($segs[0]), array('meta_keywords', 'meta_description', 'author')))
+				if(in_array(trim($segs[0]), array('meta_description', 'author')))
 					$this->_ci->config->set_item(trim($segs[0]), trim($segs[1]));
+				if(in_array(trim($segs[0]), array('meta_keywords')))
+					$this->_ci->config->set_item(trim($segs[0]), trim($segs[1]) . ', '.$this->_ci->config->item('meta_keywords'));
 
 				if(trim($segs[0]) == 'layout')
 					$this->set_layout(trim($segs[1]));
