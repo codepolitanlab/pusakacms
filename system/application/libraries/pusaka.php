@@ -520,7 +520,7 @@ class Pusaka {
 
 		// if $uri not set, assume it is for default frontend post
 		if(! $uri){
-			$config['base_url'] = site_url(POST_TERM);
+			$config['base_url'] = site_url().POST_TERM;
 			
 			if($label)
 				$config['base_url'] .= '/label/'.$label;

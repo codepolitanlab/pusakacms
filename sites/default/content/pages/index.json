@@ -9,6 +9,18 @@
     },
     "lipsum": {
         "url": "lipsum",
-        "title": "Lipsum"
+        "title": "Lipsum",
+        "children": {
+            "subpage": {
+                "title": "Subpage",
+                "url": "lipsum\/subpage",
+                "children": {
+                    "subsubpage": {
+                        "title": "Subsubpage",
+                        "url": "lipsum\/subpage\/subsubpage"
+                    }
+                }
+            }
+        }
     }
 }
