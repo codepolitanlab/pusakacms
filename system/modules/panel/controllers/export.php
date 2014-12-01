@@ -25,6 +25,13 @@ class Export extends Admin_Controller {
 		if(!file_exists($this->export_location))
 			mkdir($this->export_location, 0775);
 
+		// sync post first
+		$this->pusaka->sync_post();
+		$this->pusaka->sync_label();
+
+		// get post list
+		$postlist = json_decode(file_get_contents(POST_FOLDER.'/index.json'), true);
+
 		// page url to fetch
 		$replacement = array(
 			site_url().'blog/' => '',

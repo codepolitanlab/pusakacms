@@ -4,8 +4,8 @@
         "title": "Blog"
     },
     "home": {
-        "url": "Home",
-        "title": "home"
+        "url": "home",
+        "title": "Home"
     },
     "lipsum": {
         "url": "lipsum",

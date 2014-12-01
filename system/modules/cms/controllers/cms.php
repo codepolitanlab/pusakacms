@@ -136,8 +136,14 @@ class CMS extends Public_Controller {
 				$this->data['post'] = $this->pusaka->get_post($uri);
 				if(! $this->data['post']) show_404();
 
-				// set meta title
+				// set meta
 				$this->config->set_item('page_title', $this->data['post']['title'].' - '.$this->config->item('page_title'));
+
+				if(isset($this->data['post']['meta_description']) && !empty($this->data['post']['meta_description']))
+					$this->config->set_item('meta_description', $this->data['post']['meta_description']);
+				
+				if(isset($this->data['post']['meta_keywords']) && !empty($this->data['post']['meta_keywords']))
+					$this->config->set_item('meta_keywords', $this->data['post']['meta_keywords']);
 
 				$this->template->view('layouts/post', $this->data);
 				

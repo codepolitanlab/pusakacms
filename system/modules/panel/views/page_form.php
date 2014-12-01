@@ -62,12 +62,12 @@
 
 		<div class="tab-pane" id="optional">
 			<div class="form-group">
-				<label for="meta-desc">Meta Description <small>optional</small></label>
-				<textarea name="meta-desc" id="meta-desc" class="form-control" rows="3"><?php echo set_value('meta-desc', validate_value($page, 'meta-desc')); ?></textarea>
+				<label for="meta_description">Meta Description <small>optional</small></label>
+				<textarea name="meta_description" id="meta_description" class="form-control" rows="3"><?php echo set_value('meta_description', validate_value($page, 'meta_description')); ?></textarea>
 			</div>
 			<div class="form-group">
-				<label for="meta-keyword">Meta Keyword <small>optional</small></label>
-				<input name="meta-keyword" id="meta-keyword" class="form-control" value="<?php echo set_value('meta-keyword', validate_value($page, 'meta-keyword')); ?>">
+				<label for="meta_keywords">Meta Keyword <small>optional</small></label>
+				<input name="meta_keywords" id="meta_keywords" class="form-control" value="<?php echo set_value('meta_keywords', validate_value($page, 'meta_keywords')); ?>">
 			</div>
 		</div>
 	</div>

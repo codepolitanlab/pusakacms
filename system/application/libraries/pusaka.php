@@ -419,12 +419,6 @@ class Pusaka {
 			foreach ($post as $elm) {
 				$segs = preg_split("/( :} | :}|:} |:})/", $elm, 2);
 
-				// set meta to config
-				if(in_array(trim($segs[0]), array('meta_keywords', 'meta_description', 'author'))){
-					$this->CI->config->set_item(trim($segs[0]), trim($segs[1]));
-					continue;
-				}
-
 				if(trim($segs[0]) == 'labels'){
 					$new_post[trim($segs[0])] = preg_split("/(\s,\s|\s,|,\s|,)/", $segs[1]);
 					continue;
