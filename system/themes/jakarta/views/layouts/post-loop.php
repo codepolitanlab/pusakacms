@@ -36,7 +36,7 @@
 								<?php endif; ?>
 
 								<div class="content">
-									<?php echo $post['content']; ?>
+									<?php echo $post['intro']; ?>
 								</div>
 								
 							</article>

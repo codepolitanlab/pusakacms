@@ -35,6 +35,11 @@ class Posts extends Admin_Controller {
 			'rules'   => 'required'
 			),
 		array(
+			'field'   => 'Intro',
+			'label'   => 'Introduction', 
+			'rules'   => 'trim'
+			),
+		array(
 			'field'   => 'label',
 			'label'   => 'Labels', 
 			'rules'   => 'trim'
@@ -75,11 +80,10 @@ class Posts extends Admin_Controller {
 
 			// set content
 			foreach ($post as $key => $value) {
-				if($value)
-					if($key == 'slug')
-						$file_content .= "{: ".$key." :} ".strtolower(url_title($value))."\n";
-					else
-						$file_content .= "{: ".$key." :} ".$value."\n";
+				if($key == 'slug')
+					$file_content .= "{: ".$key." :} ".strtolower(url_title($value))."\n";
+				else
+					$file_content .= "{: ".$key." :} ".$value."\n";
 			}
 
 			$date = date("Y-m-d-H-i-");
@@ -110,8 +114,9 @@ class Posts extends Admin_Controller {
 	{
 		if(!$prevslug = $this->input->get('post')) show_404();
 
-		$prevpost = $this->pusaka->get_post($prevslug, false);
+		$prevpost = $this->pusaka->get_post($prevslug, false, false);
 		$prevpost['labels'] = (!empty($prevpost['labels']))? implode(",", $prevpost['labels']) : '';
+		$prevpost['slug'] = (isset($prevpost['slug']))? $prevpost['slug'] : $prevslug;
 
 		$this->form_validation->set_rules($this->post_fields);
 
@@ -121,11 +126,10 @@ class Posts extends Admin_Controller {
 
 			// set content
 			foreach ($post as $key => $value) {
-				if($value)
-					if($key == 'slug')
-						$file_content .= "{: ".$key." :} ".strtolower(url_title($value))."\n";
-					else
-						$file_content .= "{: ".$key." :} ".$value."\n";
+				if($key == 'slug')
+					$file_content .= "{: ".$key." :} ".strtolower(url_title($value))."\n";
+				else
+					$file_content .= "{: ".$key." :} ".$value."\n";
 			}
 
 			$date = date("Y-m-d-H-i", strtotime($prevpost['date'])).'-';

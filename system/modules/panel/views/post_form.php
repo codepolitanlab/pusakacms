@@ -8,13 +8,13 @@
 		</div>
 	</div>
 	<ul class="nav nav-tabs" role="tablist">
-		<li class="active"><a href="#main" role="tab" data-toggle="tab">Main</a></li>
-		<li><a href="#optional" role="tab" data-toggle="tab">Optional</a></li>
+		<li class="active"><a href="#maintab" role="tab" data-toggle="tab">Main</a></li>
+		<li><a href="#optionaltab" role="tab" data-toggle="tab">Optional</a></li>
 	</ul>
 
 	<!-- Tab panes -->
 	<div class="tab-content">
-		<div class="tab-pane active" id="main">
+		<div class="tab-pane active" id="maintab">
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
@@ -37,7 +37,7 @@
 						<select class="form-control" name="layout" id="layout">
 							<option value="">Auto</option>
 							<?php foreach ($layouts as $layout): ?>
-							<option value="<?php echo substr($layout, 0, -4); ?>" <?php echo (substr($layout, 0, -4) == validate_value($post, 'layout')) ? "selected" : ''; ?>><?php echo $layout; ?></option>
+								<option value="<?php echo substr($layout, 0, -4); ?>" <?php echo (substr($layout, 0, -4) == validate_value($post, 'layout')) ? "selected" : ''; ?>><?php echo $layout; ?></option>
 							<?php endforeach; ?>
 						</select>
 					</div>
@@ -51,12 +51,16 @@
 			</div>
 
 			<div class="form-group">
-				<label for="content">Content</label>	
-				<textarea id="pagedownMe" class="form-control" name="content" id="content" rows="20"><?php echo set_value('content', validate_value($post, 'content')); ?></textarea>
+				<label for="content">Content</label>
+				<textarea id="pagedownMe" class="form-control" name="content" rows="20"><?php echo set_value('content', validate_value($post, 'content')); ?></textarea>
 			</div>
 		</div>
 
-		<div class="tab-pane" id="optional">
+		<div class="tab-pane" id="optionaltab">
+			<div class="form-group">
+				<label for="intro">Introduction</label>	
+				<textarea class="form-control" name="intro" id="intro" rows="6"><?php echo set_value('intro', validate_value($post, 'intro')); ?></textarea>
+			</div>
 			<div class="form-group">
 				<label for="meta-desc">Meta Description <small>optional</small></label>
 				<textarea name="meta-desc" class="form-control" rows="3"><?php echo set_value('meta-desc', validate_value($post, 'meta-desc')); ?></textarea>
@@ -69,10 +73,3 @@
 	</div>
 
 </form>
-
-<script type="text/javascript">
-	(function() {
-		$("textarea#postdownMe").pagedownBootstrap();
-		$('.wmd-preview').addClass('well').css('display', 'none');
-	})();
-</script>

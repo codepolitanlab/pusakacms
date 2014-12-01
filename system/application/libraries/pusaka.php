@@ -384,17 +384,20 @@ class Pusaka {
 	 * get detail blog post
 	 *
 	 * @access	private
-	 * @param	string	category, null for get all
-	 * @param	int		page number
+	 * @param	string	post url
+	 * @param	bool	parse content and intro or not
+	 * @param	bool	set content to intro or not
 	 * @return	array
 	 */
-	function get_post($url = null, $parse = true)
+	function get_post($url = null, $parse = true, $content_to_intro = true)
 	{
 		$segs = explode("/", $url);
+		$postslug = $segs[count($segs)-1];
 
 		// url must have 4 segment (blog/yyyy/mm/dd/slug)
 		if(count($segs) != 5)
 			return false;
+
 
 		$post_db = new Nyankod\JsonFileDB(POST_FOLDER);
 		$post_db->setTable('index');
@@ -417,13 +420,17 @@ class Pusaka {
 				$segs = preg_split("/( :} | :}|:} |:})/", $elm, 2);
 
 				// set meta to config
-				if(in_array(trim($segs[0]), array('meta_keywords', 'meta_description', 'author')))
+				if(in_array(trim($segs[0]), array('meta_keywords', 'meta_description', 'author'))){
 					$this->CI->config->set_item(trim($segs[0]), trim($segs[1]));
+					continue;
+				}
 
-				if(trim($segs[0]) == 'labels')
+				if(trim($segs[0]) == 'labels'){
 					$new_post[trim($segs[0])] = preg_split("/(\s,\s|\s,|,\s|,)/", $segs[1]);
+					continue;
+				}
 
-				elseif(trim($segs[0]) == 'content' && $parse)
+				if((trim($segs[0]) == 'content' || trim($segs[0]) == 'intro') && $parse)
 				{
 					$Parsedown = new Parsedown();
 					$new_post[trim($segs[0])] = $Parsedown->setBreaksEnabled(true)->text($segs[1]);
@@ -433,6 +440,12 @@ class Pusaka {
 
 				$new_post['url'] = $url;
 			}
+
+			if(!isset($new_post['intro']) && $content_to_intro)
+				$new_post['intro'] = $new_post['content'];
+
+			if(!isset($new_post['slug']))
+				$new_post['slug'] = $postslug;
 
 			// print_r($new_post);
 			return $new_post;

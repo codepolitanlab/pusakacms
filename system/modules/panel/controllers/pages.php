@@ -140,6 +140,8 @@ class Pages extends Admin_Controller {
 		if(!$prevslug = $this->input->get('page')) show_404();
 
 		$prevpage = $this->pusaka->get_page($prevslug, false);
+		if(!isset($prevpage['slug']))
+			$prevpage['slug'] = $prevslug;
 
 		$this->form_validation->set_rules($this->page_fields);
 
