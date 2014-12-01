@@ -32,9 +32,9 @@ class Export extends Admin_Controller {
 		}
 
 		if(!file_exists($theme_location))
-			mkdir($this->export_location.'/'.$theme_location, 0777, true);
+			mkdir($this->export_location.'/'.$theme_location.'/'.$theme.'/assets', 0777, true);
 
-		copy($theme_location.$theme.'/assets/', $this->export_location.'/'.$theme_location.$theme.'/assets/');
+		recurse_copy($theme_location.$theme.'/assets', $this->export_location.'/'.$theme_location.$theme.'/assets');
 
 		echo '{"status":"success", "message":"Theme copied."}';
 	}
