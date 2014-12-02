@@ -17,8 +17,8 @@
 				<?php endif; ?>
 			</div>
 		</div>
-		<br>
-		<div class="progress-panel" style="display:none">
+
+		<div class="progress-panel" style="display:none;margin-top:20px;">
 			<div class="progress">
 				<div id="progress-bar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:0%"></div>
 			</div>
