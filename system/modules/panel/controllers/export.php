@@ -20,8 +20,25 @@ class Export extends Admin_Controller {
 		$this->template->view('export');
 	}
 
+	function check_writable()
+	{
+		$folder = $this->input->post('location');
+
+		// if(!file_exists($this->export_location))
+		// 	mkdir($this->export_location, 0777);
+
+		if(is_writable($folder))
+			echo '{"status":"success", "message":"Folder writable."}';
+		else
+			echo '{"status":"error", "message":"Folder destination is not writable. Make it writable first."}';
+	}
+
 	function copy_theme()
 	{
+		$this->export_location = ($this->input->post('location'))
+		? $this->input->post('location')
+		: $this->export_location;
+
 		$theme = $this->config->item('theme');
 		$theme_locations = $this->template->theme_locations();
 		$theme_location = false;
@@ -31,7 +48,7 @@ class Export extends Admin_Controller {
 			}
 		}
 
-		if(!file_exists($theme_location))
+		if(!file_exists($this->export_location.'/'.$theme_location.'/'.$theme.'/assets'))
 			mkdir($this->export_location.'/'.$theme_location.'/'.$theme.'/assets', 0777, true);
 
 		recurse_copy($theme_location.$theme.'/assets', $this->export_location.'/'.$theme_location.$theme.'/assets');
@@ -39,8 +56,26 @@ class Export extends Admin_Controller {
 		echo '{"status":"success", "message":"Theme copied."}';
 	}
 
+	function copy_files()
+	{
+		$this->export_location = ($this->input->post('location'))
+		? $this->input->post('location')
+		: $this->export_location;
+
+		if(!file_exists($this->export_location.'/sites/'.SITE_SLUG.'/content/'))
+			mkdir($this->export_location.'/sites/'.SITE_SLUG.'/content/', 0777, true);
+
+		recurse_copy('sites/'.SITE_SLUG.'/content/files', $this->export_location.'/sites/'.SITE_SLUG.'/content/files');
+
+		echo '{"status":"success", "message":"Files content copied."}';
+	}
+
 	function export_pages($data = false, $parent = '', $depth = 1)
 	{
+		$this->export_location = ($this->input->post('location'))
+		? $this->input->post('location')
+		: $this->export_location;
+
 		$page = ($data)? $data : $this->pusaka->get_pages_tree();
 
 		$uplink = '';
@@ -67,7 +102,7 @@ class Export extends Admin_Controller {
 			write_file($this->export_location.'/index.html', $file);
 		}
 
-		foreach ($pages as $slug => $page) {
+		foreach ($page as $slug => $page) {
 			$file = str_replace($search, $replace, $this->_render_page(site_url($page['url'])));
 			write_file($this->export_location.'/'.$parent.$slug.'.html', $file);
 
@@ -85,8 +120,9 @@ class Export extends Admin_Controller {
 
 	function export_blog()
 	{
-		if(!file_exists($this->export_location))
-			mkdir($this->export_location, 0777);
+		$this->export_location = ($this->input->post('location'))
+		? $this->input->post('location')
+		: $this->export_location;
 
 		// sync post first
 		$this->pusaka->sync_post();
@@ -169,10 +205,15 @@ class Export extends Admin_Controller {
 			write_file($this->export_location.'/'.$date_folder.'/'.$postslug.'.html', $file);
 		}
 
+		echo '{"status":"success", "message":"Blog exported."}';
 	}
 
 	function add_missing_index_folder($data = false, $parent = '', $depth = 1)
 	{
+		$this->export_location = ($this->input->post('location'))
+		? $this->input->post('location')
+		: $this->export_location;
+
 		$uplink = '../';
 		if($depth > 1)
 			for ($i=1; $i < $depth; $i++)
@@ -208,6 +249,12 @@ class Export extends Admin_Controller {
 
 		if(!$data)
 			echo '{"status":"success", "message":"Missing index files created."}';
+	}
+
+	function success()
+	{
+		$this->session->set_flashdata('success','Export content to HTML success. Go check the folder');
+		redirect('panel/export');
 	}
 
 	function _render_page($url)

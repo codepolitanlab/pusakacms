@@ -10,7 +10,7 @@ $links = array(
 	'structure' => array(
 		'#' => '<span class="fa fa-newspaper-o"></span><span class="nav-tooltip">Structure</span>',
 		'navigation' => '<span class="fa fa-list"></span> Navigation',
-		//'export' => '<span class="fa fa-html5"></span> Export to HTML'
+		'export' => '<span class="fa fa-html5"></span> Export to HTML'
 		),
 	'settings' => array(
 		'#' => '<span class="fa fa-gears"></span><span class="nav-tooltip">Settings</span>',

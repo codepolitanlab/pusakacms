@@ -56,6 +56,12 @@
 							<div class="btn-label">Settings</div>
 						</a>
 					</div>
+					<div class="col-sm-2 col-xs-6">
+						<a href="{{ func.site_url }}panel/export" class="btn btn-block btn-dashboard">
+							<div class="btn-icon"><span class="fa fa-html5"></span></div>
+							<div class="btn-label">Export to HTML</div>
+						</a>
+					</div>
 				</div>
 			</div>
 

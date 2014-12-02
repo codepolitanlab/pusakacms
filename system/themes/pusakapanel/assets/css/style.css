@@ -972,3 +972,11 @@ small, .small {
 span.code {
   font-family: 'Courier New', sans-serif;
 }
+
+#progress-msg {
+  text-align: left;
+  margin-left: 20px;
+}
+#progress-msg p {
+  margin: 0;
+}
