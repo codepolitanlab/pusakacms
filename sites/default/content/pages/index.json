@@ -1,8 +1,4 @@
 {
-    "blog": {
-        "url": "blog",
-        "title": "Blog"
-    },
     "home": {
         "url": "home",
         "title": "Home"
