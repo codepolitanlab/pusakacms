@@ -76,7 +76,7 @@ class Posts extends Admin_Controller {
 
 		if($this->form_validation->run()){
 			$post = $this->input->post();
-			$file_content = "";
+			$file_content = "{: author :} ".$this->session->userdata('username')."\n";
 
 			// set content
 			foreach ($post as $key => $value) {
@@ -122,7 +122,9 @@ class Posts extends Admin_Controller {
 
 		if($this->form_validation->run()){
 			$post = $this->input->post();
-			$file_content = "";
+			$file_content = "{: author :} ";
+			$file_content .= isset($prevpost['author']) ? $prevpost['author'] : $this->session->userdata('username');
+			$file_content .= "\n";
 
 			// set content
 			foreach ($post as $key => $value) {
