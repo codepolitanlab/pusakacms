@@ -54,6 +54,8 @@ class MY_Controller extends MX_Controller
 		if(! defined('SITE_PATH')) define('SITE_PATH', $sitepath);
 		if(! defined('POST_TERM')) define('POST_TERM', $this->config->item('post_term')?$this->config->item('post_term'):'blog');
 
+		if(! defined('PLUGIN_FOLDER')) define('PLUGIN_FOLDER', 'system/plugins/');
+
 		if(! defined('JSON_PRETTY_PRINT')) define('JSON_PRETTY_PRINT', 128);
 	}
 

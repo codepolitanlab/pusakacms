@@ -42,6 +42,7 @@ class Template
 	private $_parser_enabled = TRUE;
 	private $_parser_body_enabled = FALSE;
 	private $_lexparser;
+	private $_callback_helpers = FALSE;
 
 	private $_theme_locations = array();
 	private $_asset_locations = array();
@@ -1094,18 +1095,36 @@ class Template
 		$return = '';
 
 		if(count($plugin_name) >= 2){
-			if($plugin_name[0] == 'func' && function_exists($plugin_name[1])){
-				$data = call_user_func_array($plugin_name[1], $attributes);
+
+			// callback from plugin first
+			if(file_exists(PLUGIN_FOLDER.$plugin_name[0].'.php')){
+				include_once PLUGIN_FOLDER.$plugin_name[0].'.php';
+				$plugin = new $plugin_name[0]();
+				$data = call_user_func_array(array($plugin, $plugin_name[1]), array());
+
 				if(is_array($data))
 					$return .= $this->_lexparser->parse($content, $data, array($this, '_lex_callback'));
 				else
 					$return .= $data;
+			}
+
+			// if system allows to callback from helpers function, do it
+			if(empty($return) && $this->_callback_helpers){
+				if($plugin_name[0] == 'func' && function_exists($plugin_name[1])){
+					$data = call_user_func_array($plugin_name[1], $attributes);
+
+					if(is_array($data))
+						$return .= $this->_lexparser->parse($content, $data, array($this, '_lex_callback'));
+					else
+						$return .= $data;
+				}
 			}
 		}
 
 		return ($return)?$return:false;
 	}
 
+	// get page fields
 	function get_fields($field = false){
 		if($field)
 			return isset($this->fields[$field]) ? $this->fields[$field] : "";

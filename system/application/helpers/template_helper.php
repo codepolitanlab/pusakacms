@@ -211,9 +211,17 @@ if ( ! function_exists('get_partial'))
 	*/
 if ( ! function_exists('get_snippet'))
 {
-	function get_snippet($file) {
+	function get_snippet($file, $data = array()) {
 		$CI = &get_instance();
-		echo $CI->template->load_view('snippets/'.$file);
+
+		$base = array(
+				'show_title' => true,
+				'title' => false
+			);
+
+		$data = array_merge($base, $data);
+
+		echo $CI->template->load_view('snippets/'.$file, $data);
 	}
 }
 

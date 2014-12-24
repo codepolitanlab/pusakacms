@@ -5,7 +5,7 @@ $links = array(
 		'#' => '<span class="fa fa-file-text-o"></span><span class="nav-tooltip">Content</span>',
 		'pages' => '<span class="fa fa-file-text"></span> Pages',
 		'posts' => '<span class="fa fa-book"></span> Posts',
-		//'media' => '<span class="fa fa-picture-o"></span> Media'
+		'media' => '<span class="fa fa-picture-o"></span> Media'
 		),
 	'structure' => array(
 		'#' => '<span class="fa fa-newspaper-o"></span><span class="nav-tooltip">Structure</span>',

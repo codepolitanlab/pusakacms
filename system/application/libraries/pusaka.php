@@ -348,7 +348,16 @@ class Pusaka {
 
 		// get post list from label index
 		if($category && $category != 'all'){
-			$file = file_get_contents(LABEL_FOLDER.'/'.$category.'.json');
+			if(! file_exists(LABEL_FOLDER.$category.'.json')) {
+				$posts = array(
+					'entries' => array(),
+					'total' => 0
+				);
+
+				return $posts;
+			}
+
+			$file = file_get_contents(LABEL_FOLDER.$category.'.json');
 			if(empty($file)) return false;
 			$map = json_decode($file, true);
 			$begin = ($page - 1) * $this->post_per_page;
@@ -403,10 +412,10 @@ class Pusaka {
 		$post_db->setTable('index');
 		$the_post = $post_db->select('url', $url);
 
-		if(empty($the_post))
+		if(empty($the_post) || ! file_exists(POST_FOLDER.$the_post[0]['filename']))
 			return false;
 
-		$file = file_get_contents(POST_FOLDER.'/'.$the_post[0]['filename']);
+		$file = file_get_contents(POST_FOLDER.$the_post[0]['filename']);
 		if(!empty($file)){
 			$post = explode("{:", $file);
 			array_shift($post);

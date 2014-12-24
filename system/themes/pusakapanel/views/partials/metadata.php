@@ -9,22 +9,22 @@
 
 <!-- Custom styles for this template -->
 <link href="<?php echo get_theme_url() ?>assets/css/style.css" rel="stylesheet">
-<link href="<?php echo get_plugin_url('codemirror') ?>lib/codemirror.css" rel="stylesheet">
-<link href="<?php echo get_plugin_url('codemirror') ?>theme/mbo.css" rel="stylesheet">
+<link href="<?php echo get_module_asset('panel', 'codemirror/lib/codemirror.css'); ?>" rel="stylesheet">
+<link href="<?php echo get_module_asset('panel', 'codemirror/theme/mbo.css'); ?>" rel="stylesheet">
 
 <link href="<?php echo get_theme_url() ?>assets/jquery-ui-1.11.2.custom/jquery-ui.min.css" rel="stylesheet">
-<link href="<?php echo get_module_asset('panel','elfinder/css/elfinder.min.css') ?>" rel="stylesheet">
+<link href="<?php echo get_module_asset('panel', 'elfinder/css/elfinder.min.css') ?>" rel="stylesheet">
 
 <!-- codemirror assets -->
-<script src="<?php echo get_plugin_url('codemirror') ?>lib/codemirror.js"></script>
-<script src="<?php echo get_plugin_url('codemirror') ?>addon/edit/closetag.js"></script>
-<script src="<?php echo get_plugin_url('codemirror') ?>addon/fold/xml-fold.js"></script>
-<script src="<?php echo get_plugin_url('codemirror') ?>addon/selection/active-line.js"></script>
-<script src="<?php echo get_plugin_url('codemirror') ?>mode/javascript/javascript.js"></script>
-<script src="<?php echo get_plugin_url('codemirror') ?>mode/xml/xml.js"></script>
-<script src="<?php echo get_plugin_url('codemirror') ?>mode/css/css.js"></script>
-<script src="<?php echo get_plugin_url('codemirror') ?>mode/htmlmixed/htmlmixed.js"></script>
-<script src="<?php echo get_plugin_url('codemirror') ?>mode/markdown/markdown.js"></script>
+<script src="<?php echo get_module_asset('panel', 'codemirror/lib/codemirror.js'); ?>"></script>
+<script src="<?php echo get_module_asset('panel', 'codemirror/addon/edit/closetag.js'); ?>"></script>
+<script src="<?php echo get_module_asset('panel', 'codemirror/addon/fold/xml-fold.js'); ?>"></script>
+<script src="<?php echo get_module_asset('panel', 'codemirror/addon/selection/active-line.js'); ?>"></script>
+<script src="<?php echo get_module_asset('panel', 'codemirror/mode/javascript/javascript.js'); ?>"></script>
+<script src="<?php echo get_module_asset('panel', 'codemirror/mode/xml/xml.js'); ?>"></script>
+<script src="<?php echo get_module_asset('panel', 'codemirror/mode/css/css.js'); ?>"></script>
+<script src="<?php echo get_module_asset('panel', 'codemirror/mode/htmlmixed/htmlmixed.js'); ?>"></script>
+<script src="<?php echo get_module_asset('panel', 'codemirror/mode/markdown/markdown.js'); ?>"></script>
 
 <script src="<?php echo get_theme_url() ?>assets/js/jquery-1.7.2.min.js"></script>
 <script src="<?php echo get_theme_url() ?>assets/jquery-ui-1.11.2.custom/jquery-ui.min.js"></script>
