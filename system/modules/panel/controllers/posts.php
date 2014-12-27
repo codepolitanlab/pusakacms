@@ -49,7 +49,7 @@ class Posts extends Admin_Controller {
 	function __construct(){
 		parent::__construct();
 		
-		if(! $this->session->userdata('username')) redirect('panel/login');
+		if(! $this->logged_in()) redirect('panel/login');
 
 		if(!is_readable(POST_FOLDER) || !is_writable(POST_FOLDER))
 			show_error('Set folder '.POST_FOLDER.' and its contents readable and writable first.');

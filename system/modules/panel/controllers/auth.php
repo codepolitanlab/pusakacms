@@ -30,7 +30,7 @@ class Auth extends Admin_Controller {
 
 	function login()
 	{
-		if($this->session->userdata('username')) redirect('panel');
+		if($this->logged_in()) redirect('panel');
 
 		if($postdata = $this->input->post()){
 			
@@ -39,8 +39,7 @@ class Auth extends Admin_Controller {
 				if($user_file = file_get_contents($this->users_path.$postdata['username'].'.json')){
 					$userdata = json_decode($user_file, true);
 					if(trim($userdata['password']) === trim($postdata['password'])){
-						$this->session->set_userdata('username', $postdata['username']);
-						// $this->session->set_userdata('group', $userdata[0]);
+						$this->_force_login($postdata['username']);
 						redirect('panel');
 					} else {
 						$this->session->set_flashdata('error', 'username and password not match.');

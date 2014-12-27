@@ -1,0 +1,22 @@
+{
+    "home": {
+        "url": "home",
+        "title": "Home"
+    },
+    "lipsum": {
+        "url": "lipsum",
+        "title": "Lipsum",
+        "children": {
+            "subpage": {
+                "title": "Subpage",
+                "url": "lipsum\/subpage",
+                "children": {
+                    "subsubpage": {
+                        "title": "Subsubpage",
+                        "url": "lipsum\/subpage\/subsubpage"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -39,7 +39,7 @@ class Pages extends Admin_Controller {
 	function __construct(){
 		parent::__construct();
 		
-		if(! $this->session->userdata('username')) redirect('panel/login');
+		if(! $this->logged_in()) redirect('panel/login');
 
 		if(!is_readable(PAGE_FOLDER) || !is_writable(PAGE_FOLDER))
 			show_error('Set folder '.PAGE_FOLDER.' readable and writable first.');

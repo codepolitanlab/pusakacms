@@ -16,4 +16,24 @@ class Admin_Controller extends MY_Controller
 		}
 	}
 
+	function logged_in(){
+		if($username = $this->session->userdata(SITE_SLUG.'_username')) {
+			return true;
+		}
+
+		return false;
+	}
+
+	protected function _force_login($username){
+		if(file_exists('sites/'.SITE_SLUG.'/users/'.$username.'.json')){
+			$data = json_decode(file_get_contents('sites/'.SITE_SLUG.'/users/'.$username.'.json'), true);
+
+			$this->session->set_userdata(SITE_SLUG.'_username', $data['username']);
+			$this->session->set_userdata(SITE_SLUG.'_role', $data['role']);
+
+			return true;
+		}
+
+		return false;
+	}
 }

@@ -1,4 +1,4 @@
-<h1 class="dash-title">Welcome, <?php echo $this->session->userdata('username'); ?></h1>
+<h1 class="dash-title">Welcome, <?php echo $this->session->userdata(SITE_SLUG.'_username'); ?>!</h1>
 
 <div class="panel-dashboard">
 

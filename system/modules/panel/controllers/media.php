@@ -21,7 +21,7 @@ class Media extends Admin_Controller {
 	function __construct(){
 		parent::__construct();
 
-		if(! $this->session->userdata('username')) redirect('panel/login');
+		if(! $this->logged_in()) redirect('panel/login');
 
 		$this->files_path = 'sites/'. SITE_SLUG .'/content/files';
 

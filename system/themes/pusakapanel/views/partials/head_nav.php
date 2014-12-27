@@ -19,7 +19,7 @@ $links = array(
 		),
 	'account' => array(
 		'#' => '<span class="fa fa-user"></span><span class="nav-tooltip">Account</span>',
-		'logout' => '<span class="fa fa-lock"></span> Logout as '.$this->session->userdata('username')
+		'logout' => '<span class="fa fa-lock"></span> Logout as '.$this->session->userdata(SITE_SLUG.'_username')
 		)
 	);
 ?>

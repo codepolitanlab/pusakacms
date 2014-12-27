@@ -20,7 +20,7 @@ class Panel extends Admin_Controller {
 
 		parent::__construct();
 
-		if(! $this->session->userdata('username')) redirect('panel/login');
+		if(! $this->logged_in()) redirect('panel/login');
 	}
 
 
