@@ -38,7 +38,7 @@ class Auth extends Admin_Controller {
 			if (file_exists($this->users_path.$postdata['username'].'.json')) {	
 				if($user_file = file_get_contents($this->users_path.$postdata['username'].'.json')){
 					$userdata = json_decode($user_file, true);
-					if(trim($userdata['password']) === trim($postdata['password'])){
+					if(trim($userdata['password']) === sha1(trim($postdata['password']))){
 						$this->_force_login($postdata['username']);
 						redirect('panel');
 					} else {

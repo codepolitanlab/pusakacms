@@ -76,6 +76,14 @@ class Users extends Admin_Controller {
 		// submit if data valid
 		if($this->form_validation->run()){
 			$post = $this->input->post();
+
+			// encrypt password
+			$post['password'] = sha1($post['password']);
+			$post['role'] = 'admin';
+
+			// unset passconf
+			unset($post['passconf']);
+
 			$post_json = json_encode($post, JSON_PRETTY_PRINT);
 
 			if(file_exists($this->users_path.$post['username'].'.json')) {
@@ -106,6 +114,14 @@ class Users extends Admin_Controller {
 		// submit if data valid
 		if($this->form_validation->run()){
 			$post = $this->input->post();
+
+			// encrypt password
+			$post['password'] = sha1($post['password']);
+			$post['role'] = 'admin';
+
+			// unset passconf
+			unset($post['passconf']);
+
 			$post_json = json_encode($post, JSON_PRETTY_PRINT);
 
 			if(write_file($this->users_path.$username.'.json', $post_json)){
