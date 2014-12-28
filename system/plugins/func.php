@@ -4,7 +4,6 @@
  *	Func plugin
  *	contains common function
  */
-
 class Func extends Plugins {
 
 	function site_url($uri = false){
