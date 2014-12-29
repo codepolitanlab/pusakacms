@@ -9,7 +9,7 @@ class Export extends Admin_Controller {
 
 		$this->export_location = ($this->config->item('export_location'))
 		? $this->config->item('export_location')
-		: 'sites/'.SITE_SLUG.'/html_output';
+		: SITE_FOLDER.SITE_SLUG.'/html_output';
 	}
 
 	function index()
@@ -62,10 +62,10 @@ class Export extends Admin_Controller {
 		? $this->input->post('location')
 		: $this->export_location;
 
-		if(!file_exists($this->export_location.'/sites/'.SITE_SLUG.'/content/'))
-			mkdir($this->export_location.'/sites/'.SITE_SLUG.'/content/', 0777, true);
+		if(!file_exists($this->export_location.'/'.SITE_FOLDER.SITE_SLUG.'/content/'))
+			mkdir($this->export_location.'/'.SITE_FOLDER.SITE_SLUG.'/content/', 0777, true);
 
-		recurse_copy('sites/'.SITE_SLUG.'/content/files', $this->export_location.'/sites/'.SITE_SLUG.'/content/files');
+		recurse_copy(SITE_FOLDER.SITE_SLUG.'/content/files', $this->export_location.'/'.SITE_FOLDER.SITE_SLUG.'/content/files');
 
 		echo '{"status":"success", "message":"Files content copied."}';
 	}

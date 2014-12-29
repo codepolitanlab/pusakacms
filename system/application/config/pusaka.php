@@ -23,3 +23,26 @@ $config['localhost_domain'] = 'localhost';
 |
 */
 $config['subsite_domain'] = false;
+
+/*
+|--------------------------------------------------------------------------
+| post term
+|--------------------------------------------------------------------------
+|
+| what term you want to use to represent post slug
+|
+*/
+$config['post_term'] = 'blog';
+
+/*
+|--------------------------------------------------------------------------
+| content folders
+|--------------------------------------------------------------------------
+|
+| content folders path relatives to each site folder
+|
+*/
+$config['page_folder'] = 'content/pages/';
+$config['post_folder'] = 'content/posts/';
+$config['label_folder'] = 'content/labels/';
+$config['nav_folder'] = 'content/navs/';

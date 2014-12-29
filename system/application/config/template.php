@@ -86,7 +86,7 @@ $config['theme'] = '';
 
 $config['theme_locations'] = array(
 	'system/themes/',
-	'sites/'.SITE_SLUG.'/themes/'
+	SITE_FOLDER.SITE_SLUG.'/themes/'
 );
 
 /*

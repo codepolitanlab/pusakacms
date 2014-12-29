@@ -19,7 +19,7 @@ class Auth extends Admin_Controller {
 	function __construct(){
 		parent::__construct();
 		
-		$this->users_path = 'sites/'.SITE_SLUG.'/users/';
+		$this->users_path = SITE_FOLDER.SITE_SLUG.'/users/';
 	}
 
 	function index()
