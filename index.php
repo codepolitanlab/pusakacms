@@ -243,6 +243,7 @@ switch (ENVIRONMENT)
 
 	define('VIEWPATH', $view_folder);
 
+	define('SITE_FOLDER', 'sites/');
 
 // load Composer libraries
 include_once './system/vendor/autoload.php';

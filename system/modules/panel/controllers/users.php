@@ -41,7 +41,7 @@ class Users extends Admin_Controller {
 
 		if(! $this->logged_in()) redirect('panel/login');
 
-		$this->users_path = 'sites/'. SITE_SLUG .'/users/';
+		$this->users_path = SITE_FOLDER. SITE_SLUG .'/users/';
 
 		if(!is_readable($this->users_path) || !is_writable($this->users_path))
 			show_error('Set folder '.$this->users_path.' and its contents readable and writable first.');

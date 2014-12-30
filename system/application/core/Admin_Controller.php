@@ -9,8 +9,8 @@ class Admin_Controller extends MY_Controller
 		// set theme
 		$this->template->set_theme($this->config->item('admin_theme'));
 
-		if(file_exists('sites/'.SITE_SLUG.'/users/admin.json')){
-			$admin = json_decode(file_get_contents('sites/'.SITE_SLUG.'/users/admin.json'), true);
+		if(file_exists(SITE_FOLDER.SITE_SLUG.'/users/admin.json')){
+			$admin = json_decode(file_get_contents(SITE_FOLDER.SITE_SLUG.'/users/admin.json'), true);
 			if(isset($admin['password']) && $admin['password'] == 'password')
 				$this->template->set('warning', 'Change your default admin password to secure one in <a href="'.site_url('panel/users/edit/admin').'"><strong>Users settings</strong></a> page first.');
 		}
@@ -25,8 +25,8 @@ class Admin_Controller extends MY_Controller
 	}
 
 	protected function _force_login($username){
-		if(file_exists('sites/'.SITE_SLUG.'/users/'.$username.'.json')){
-			$data = json_decode(file_get_contents('sites/'.SITE_SLUG.'/users/'.$username.'.json'), true);
+		if(file_exists(SITE_FOLDER.SITE_SLUG.'/users/'.$username.'.json')){
+			$data = json_decode(file_get_contents(SITE_FOLDER.SITE_SLUG.'/users/'.$username.'.json'), true);
 
 			$this->session->set_userdata(SITE_SLUG.'_username', $data['username']);
 			$this->session->set_userdata(SITE_SLUG.'_role', $data['role']);
