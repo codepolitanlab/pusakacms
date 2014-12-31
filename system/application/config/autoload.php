@@ -80,7 +80,7 @@ $autoload['helper'] = array('file', 'url', 'template', 'directory', 'post', 'nav
 |
 */
 
-$autoload['config'] = array();
+$autoload['config'] = array('pusaka');
 
 
 /*
