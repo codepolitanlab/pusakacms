@@ -816,6 +816,14 @@ class Template
 		return file_exists(self::_find_view_folder().$this->_layout_folder . $layout . self::_ext($layout));
 	}
 
+	// get page fields
+	function get_fields($field = false){
+		if($field)
+			return isset($this->fields[$field]) ? $this->fields[$field] : "";
+
+		return $this->fields;
+	}
+
 	/**
 	 * load_view
 	 * Load views from theme paths if they exist.
@@ -1100,7 +1108,7 @@ class Template
 			if(file_exists(PLUGIN_FOLDER.$plugin_name[0].'.php')){
 				include_once PLUGIN_FOLDER.$plugin_name[0].'.php';
 				$plugin = new $plugin_name[0]();
-				$data = call_user_func_array(array($plugin, $plugin_name[1]), array());
+				$data = call_user_func_array(array($plugin, $plugin_name[1]), $attributes);
 
 				if(is_array($data))
 					$return .= $this->_lexparser->parse($content, $data, array($this, '_lex_callback'));
@@ -1124,13 +1132,6 @@ class Template
 		return ($return)?$return:false;
 	}
 
-	// get page fields
-	function get_fields($field = false){
-		if($field)
-			return isset($this->fields[$field]) ? $this->fields[$field] : "";
-
-		return $this->fields;
-	}
 }
 
 // END Template class
