@@ -4,13 +4,16 @@ Class MyHookClass {
 
 	function multisite()
 	{	
-		include_once APPPATH.'config/pusaka.php';
+		include APPPATH.'config/pusaka.php';
 
 		$domain = $_SERVER['HTTP_HOST'];
 
 		// if it is a local server
-		if($domain == $config['localhost_domain'] || $domain == $config['subsite_domain']) {
-			$uri = substr($_SERVER['REQUEST_URI'], strlen(dirname($_SERVER['SCRIPT_NAME'].'/')));
+		if($domain == $config['localhost_domain'] || $domain == $config['subsite_domain']){
+			$uri = ($domain == $config['localhost_domain']) 
+					? substr($_SERVER['REQUEST_URI'], strlen(dirname($_SERVER['SCRIPT_NAME'].'/')))
+					: $uri = $_SERVER['REQUEST_URI'];
+
 			$segments = explode('/', $uri);
 
 			if(isset($segments[1]) && !empty($segments[1])) {

@@ -16,7 +16,7 @@ $config['localhost_domain'] = 'localhost';
 | live domain
 |--------------------------------------------------------------------------
 |
-| Domain in live server to enable subsite mode.
+| Domain in live server to enable subsite mode, example 'yoursite.com'.
 | If it is set, your site domain will become http://yoursite.com/siteslug/
 | and so your multisite.
 | Default to false.

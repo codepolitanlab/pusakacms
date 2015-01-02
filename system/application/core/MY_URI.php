@@ -19,8 +19,13 @@ class MY_URI extends CI_URI {
 			return '';
 		}
 
+		include APPPATH.'config/pusaka.php';
+		
+		$domain = $_SERVER['HTTP_HOST'];
+
 		// if it's localhost, then make uri begin from segment 2
-		if($_SERVER['HTTP_HOST'] == 'localhost'){
+		if($domain == $config['localhost_domain']){
+			
 			if (strpos($_SERVER['REQUEST_URI'], $_SERVER['SCRIPT_NAME']) === 0)
 			{
 				$uri = substr($_SERVER['REQUEST_URI'], strlen($_SERVER['SCRIPT_NAME'].'/'.SITE_SLUG));
@@ -33,6 +38,25 @@ class MY_URI extends CI_URI {
 			{
 				$uri = $_SERVER['REQUEST_URI'].'/'.SITE_SLUG;
 			}
+
+		}
+
+		// if subfolder base multisite chosen
+		elseif($domain == $config['subsite_domain']){
+
+			if (strpos($_SERVER['REQUEST_URI'], $_SERVER['SCRIPT_NAME']) === 0)
+			{
+				$uri = substr($_SERVER['REQUEST_URI'], strlen($_SERVER['SCRIPT_NAME'].'/'.SITE_SLUG));
+			}
+			elseif (strpos($_SERVER['REQUEST_URI'], dirname($_SERVER['SCRIPT_NAME'])) === 0)
+			{
+				$uri = substr($_SERVER['REQUEST_URI'], strlen(dirname($_SERVER['SCRIPT_NAME']).'/'.SITE_SLUG));
+			}
+			else
+			{
+				$uri = $_SERVER['REQUEST_URI'].'/'.SITE_SLUG;
+			}
+
 		} else {
 			if (strpos($_SERVER['REQUEST_URI'], $_SERVER['SCRIPT_NAME']) === 0)
 			{
