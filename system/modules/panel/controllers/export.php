@@ -7,6 +7,8 @@ class Export extends Admin_Controller {
 	function __construct(){
 		parent::__construct();
 
+		if(! $this->logged_in()) redirect('panel/login');
+		
 		$this->export_location = ($this->config->item('export_location'))
 		? $this->config->item('export_location')
 		: SITE_FOLDER.SITE_SLUG.'/html_output';
