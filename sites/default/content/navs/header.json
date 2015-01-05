@@ -19,5 +19,12 @@
         "url": "lipsum",
         "source": "uri",
         "target": "_self"
+    },
+    {
+        "title": "Software Gratis",
+        "slug": "software-gratis",
+        "source": "uri",
+        "url": "software-gratis-bla-bla-bla",
+        "target": "_self"
     }
 ]
