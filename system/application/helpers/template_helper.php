@@ -94,7 +94,7 @@ if ( ! function_exists('get_theme_url'))
 	*/
 if ( ! function_exists('get_content_image'))
 {
-	function get_image_content($file = false, $attr = '') {
+	function get_content_image($file = false, $attr = '') {
 		$url =  base_url().SITE_FOLDER.SITE_SLUG.'/content/files/'.$file;
 
 		return '<img src="'.$url.'" '.$attr.' />';
