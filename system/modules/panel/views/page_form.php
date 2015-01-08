@@ -62,6 +62,10 @@
 
 		<div class="tab-pane" id="optional">
 			<div class="form-group">
+				<label for="role">Role <small>role who can access this page separated by comma, leave blank for no restriction</small></label>
+				<input name="role" id="role" class="form-control" placeholder="i.e. admin, user" value="<?php echo set_value('role', validate_value($page, 'role')); ?>">
+			</div>
+			<div class="form-group">
 				<label for="meta_description">Meta Description <small>optional</small></label>
 				<textarea name="meta_description" id="meta_description" class="form-control" rows="3"><?php echo set_value('meta_description', validate_value($page, 'meta_description')); ?></textarea>
 			</div>
