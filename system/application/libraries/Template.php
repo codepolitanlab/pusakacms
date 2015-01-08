@@ -1024,6 +1024,13 @@ class Template
 			foreach ($content_part as $elm) {
 				$segs = preg_split("/( :} | :}|:} |:})/", $elm, 2);
 
+				if($this->_ci->session->userdata(SITE_SLUG.'_role') != 'admin'){
+					if(trim($segs[0]) == 'role'){
+						$roles = preg_split("/(\s,\s|\s,|,\s|,|\n)/", $segs[1]);
+						if(! in_array($this->_ci->session->userdata(SITE_SLUG.'_role'), $roles)) show_404();
+					}
+				}
+
 				if(trim($segs[0]) == 'title')
 					$this->_ci->config->set_item('page_title', trim($segs[1]).' - '.$this->_ci->config->item('page_title'));
 
