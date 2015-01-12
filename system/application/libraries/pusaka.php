@@ -196,20 +196,16 @@ class Pusaka {
 	 * @return	string
 	 */
 
-	function generate_nav($prefix = null, $ul_class = null, $li_class = null, $active_class = null)
+	function generate_nav($prefix = null, $options = array())
 	{
 		// set variable
 		$folder = PAGE_FOLDER.'/'.$prefix;
-
-		if($ul_class) $this->ul_class = $ul_class;
-		if($li_class) $this->li_class = $li_class;
-		if($active_class) $this->active_class = $active_class;
 
 		$new_map = $this->get_pages_tree($prefix);
 
 		// bulid the list
 		if(!empty($new_map))
-			return $this->_build_list($new_map, ($prefix)? $prefix : '');
+			return $this->_build_list($new_map, ($prefix)? $prefix : '', $options);
 
 		return false;
 	}
@@ -224,40 +220,73 @@ class Pusaka {
 	 * @param	string	starting folder
 	 * @return	string
 	 */
-	function _build_list($tree, $prefix = false)
+	function _build_list($tree, $prefix = false, $options = array())
 	{
-		$ul = '';
+		$default = array(
+			'depth' => 3,
+			'li_class' => '',
+			'li_attr' => '',
+			'a_class' => '',
+			'a_attr' => '',
+			'has_children_li_class' => '',
+			'has_children_li_attr' => '',
+			'has_children_a_class' => 'dropdown-toggle',
+			'has_children_a_attr' => 'data-toggle="dropdown" role="button"',
+			'active_class' => 'active',
+			'ul_children_class' => 'dropdown-menu',
+			'ul_children_attr' => 'role="menu"'
+		);
+		$opt = array_merge($default, $options);
 
 		if($prefix)
 			$arr = $tree[$prefix]['children'];
 		else
 			$arr = $tree;
 
+		$li = '';
+
 		foreach ($arr as $slug => $page)
 		{
-			$li = '';
-			$active = false;
-
-				// echo uri_string().' > '.$prefix.$slug."<br>\n\n";
+			$active = '';
 
 			if (is_array($page))
 			{
-					// set active for match link
-				if(uri_string() == $page['url']) $active = true;
+				// set active for match link
+				if(uri_string() == $page['url']) $active = ' '.$opt['active_class'];
+				// set active for upper link
+				if(strstr(uri_string(), $page['url'].'/')) $active = ' '.$opt['active_class'];
 
-					// set active for upper link
-				if(strstr(uri_string(), $page['url'].'/')) $active = true;
+				$has_children_li_class = '';
+				$has_children_a_attr = '';
+				$has_children_li_attr = '';
+				$has_children_a_attr = '';
 
-				$li .= "<a href='".site_url($page['url'])."' ".($active ? "class='".$this->current_class."'" : "").">{$page['title']}</a>";
+				if(isset($page['children'])){
+					$has_children_li_class = ' '.$opt['has_children_li_class'];
+					$has_children_a_attr = ' '.$opt['has_children_a_class'];
+					$has_children_li_attr = ' '.$opt['has_children_li_attr'];
+					$has_children_a_attr = ' '.$opt['has_children_a_attr'];
+				}
 
-				if(isset($page['children']))
-					$li .= $this->_build_list($page['children']);
+				$li .= '<li class="'.$opt['li_class'].$has_children_li_class.$active.'" '.$opt['li_attr'].$has_children_li_attr.'>';
+				$li .= '<a class="'.$opt['a_class'].$has_children_a_attr.$active.'" '.$opt['a_attr'].$has_children_a_attr.' href="'.site_url($page['url']).'">'.$page['title'].'</a>';
+				if(isset($page['children'])){
+					$li .= '<ul class="'.$opt['ul_children_class'].'" '.$opt['ul_children_attr'].'>';
+					$li .= $this->_build_list($page['children'], false, $opt);
+					$li .= '</ul>';
+				}
+				$li .= '</li>';
 
-				$ul .= strlen($li) ? "<li".($active ? " class='".$this->current_class."'" : "").">$li</li>" : '';
+				// $li .= "<a href='".site_url($page['url'])."' ".($active ? "class='".$this->current_class."'" : "").">{$page['title']}</a>";
+
+				// if(isset($page['children']))
+				// 	$li .= $this->_build_list($page['children']);
+
+				// $ul .= strlen($li) ? "<li".($active ? " class='".$this->current_class."'" : "").">$li</li>" : '';
 			}
 		}
 
-		return strlen($ul) ? "<ul class='".$this->ul_class."'>$ul</ul>" : '';
+		return $li;
 	}
 
 	// --------------------------------------------------------------------

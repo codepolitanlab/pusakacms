@@ -18,6 +18,16 @@ if ( ! function_exists('get_nav'))
 	}
 }
 
+if ( ! function_exists('generate_pagenav'))
+{
+	function generate_pagenav($page = false, $options = array())
+	{
+		$ci = &get_instance();
+		return $ci->pusaka->generate_nav($page, $options);
+	}
+}
+
+
 if ( ! function_exists('generate_nav'))
 {
 	function generate_nav($area = false, $options = array())
@@ -51,10 +61,19 @@ if ( ! function_exists('generate_nav'))
 		foreach ($data as $link) {
 			// $active = uri_string() == $link['url'] ? ' '.$opt['active_class'] : '';
 			$active = strstr('/'.uri_string(), '/'.$link['url']) ? ' '.$opt['active_class'] : '';
-			$has_children_li_class = isset($link['children'])? ' '.$opt['has_children_li_class'] : '';
-			$has_children_a_attr = isset($link['children'])? ' '.$opt['has_children_a_class'] : '';
-			$has_children_li_attr = isset($link['children'])? ' '.$opt['has_children_li_attr'] : '';
-			$has_children_a_attr = isset($link['children'])? ' '.$opt['has_children_a_attr'] : '';
+			
+			$has_children_li_class = '';
+			$has_children_a_attr = '';
+			$has_children_li_attr = '';
+			$has_children_a_attr = '';
+
+			if(isset($link['children'])){
+				$has_children_li_class = ' '.$opt['has_children_li_class'];
+				$has_children_a_attr = ' '.$opt['has_children_a_class'];
+				$has_children_li_attr = ' '.$opt['has_children_li_attr'];
+				$has_children_a_attr = ' '.$opt['has_children_a_attr'];
+			}
+			
 			$url = $link['source'] == 'uri' ? site_url($link['url']) : $link['source'].$link['url'];
 
 			$navstring .= '<li class="'.$opt['li_class'].$has_children_li_class.$active.'" '.$opt['li_attr'].$has_children_li_attr.'>';
