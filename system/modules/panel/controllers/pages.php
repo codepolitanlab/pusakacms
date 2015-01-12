@@ -232,9 +232,8 @@ class Pages extends Admin_Controller {
 					mkdir(PAGE_FOLDER.$dest, 0775);
 					rename(PAGE_FOLDER.$dest.'.md', PAGE_FOLDER.$dest.'/index.md');
 
-					// create index.html file and index.json
+					// create index.html file
 					copy(PAGE_FOLDER.'index.html', PAGE_FOLDER.$dest.'/index.html');
-					write_file(PAGE_FOLDER.$dest.'/index.json', '');
 				}
 			}
 		}
@@ -248,8 +247,8 @@ class Pages extends Admin_Controller {
 
 		// if file left the empty folder, not from the root
 		if(!empty($source) && $filesleft = glob(PAGE_FOLDER.$source.'/*')){
-			// if there are only index.html, index.md, and index.json
-			if(count($filesleft) <= 3){
+			// if there are only index.html, index.md
+			if(count($filesleft) <= 2){
 				// move to upper parent
 				$parent_subparent_arr = explode("/", $source);
 				$parent_name = array_pop($parent_subparent_arr);
@@ -257,7 +256,6 @@ class Pages extends Admin_Controller {
 				rename(PAGE_FOLDER.$source.'/index.md', PAGE_FOLDER.$parent_subparent.'/'.$parent_name.'.md');
 
 				unlink(PAGE_FOLDER.$source.'/index.html');
-				unlink(PAGE_FOLDER.$source.'/index.json');
 				rmdir(PAGE_FOLDER.$source);
 			}
 		}
