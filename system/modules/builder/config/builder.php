@@ -1,8 +1,8 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-$config['elements_dir'] = 'system/themes/jakarta/elements';
-$config['images_dir'] = 'system/themes/jakarta/elements/images';
-$config['images_uploadDir'] = 'system/themes/jakarta/elements/images/uploads';
+$config['elements_dir'] = 'system/themes/jakarta/assets';
+$config['images_dir'] = 'system/themes/jakarta/assets/images';
+$config['images_uploadDir'] = 'system/themes/jakarta/assets/images/uploads';
 
 $config['upload_allowed_types'] = "gif|jpg|png";
 $config['upload_max_size'] = "1000";

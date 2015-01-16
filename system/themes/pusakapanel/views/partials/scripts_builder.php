@@ -25,7 +25,7 @@
     
     var baseUrl = "<?php echo base_url();?>";
     var siteUrl = "<?php echo site_url('/');?>";
-    var elementUrl = "<?php echo base_url().'system/themes/'.$this->config->item('theme');?>/";
+    var elementUrl = "<?php echo base_url().'system/themes/'.$this->config->item('theme');?>/assets/";
     
     <?php if( isset($siteData) ):?>
     var siteID = <?php echo $siteData['site']->sites_id;?>;
