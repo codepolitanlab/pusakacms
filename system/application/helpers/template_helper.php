@@ -18,7 +18,7 @@ if ( ! function_exists('get_theme_js'))
 		if(!$wrap)
 			return $url;
 		else
-			return '<script src="'.$url.'"></script>';
+			return '<script src="'.$url.'"></script>'."\n";
 	}
 }
 
@@ -41,7 +41,7 @@ if ( ! function_exists('get_theme_css'))
 		if(!$media)
 			return $url;
 		else
-			return '<link rel="stylesheet" type="text/css" href="'.$url.'"'.(($media != 'both')? ' media="'.$media.'"': '').' />';
+			return '<link rel="stylesheet" type="text/css" href="'.$url.'"'.(($media != 'both')? ' media="'.$media.'"': '').' />'."\n";
 	}
 }
 
@@ -63,7 +63,7 @@ if ( ! function_exists('get_theme_image'))
 		if(!$attr)
 			return $url;
 		else
-			return '<img src="'.$url.'" '.$attr.' />';
+			return '<img src="'.$url.'" '.$attr.' />'."\n";
 	}
 }
 
@@ -97,7 +97,7 @@ if ( ! function_exists('get_content_image'))
 	function get_content_image($file = false, $attr = '') {
 		$url =  base_url().SITE_FOLDER.SITE_SLUG.'/content/files/'.$file;
 
-		return '<img src="'.$url.'" '.$attr.' />';
+		return '<img src="'.$url.'" '.$attr.' />'."\n";
 	}
 }
 
@@ -127,7 +127,7 @@ if ( ! function_exists('get_module_js'))
 		if(!$wrap)
 			return $url;
 		else
-			return '<script src="'.$url.'"></script>';
+			return '<script src="'.$url.'"></script>'."\n";
 	}
 }
 
@@ -144,12 +144,12 @@ if ( ! function_exists('get_module_css'))
 	function get_module_css($module, $file, $media = 'both') {
 		$CI = &get_instance();
 
-		$url = base_url().'system/modules/'.$module.'/assets/css'.$file;
+		$url = base_url().'system/modules/'.$module.'/assets/css/'.$file;
 
 		if(!$media)
 			return $url;
 		else
-			return '<link rel="stylesheet" type="text/css" href="'.$url.'"'.(($media != 'both')? ' media="'.$media.'"': '').' />';
+			return '<link rel="stylesheet" type="text/css" href="'.$url.'"'.(($media != 'both')? ' media="'.$media.'"': '').' />'."\n";
 	}
 }
 
@@ -170,7 +170,7 @@ if ( ! function_exists('get_module_image'))
 		if(!$attr)
 			return $url;
 		else
-			return '<img src="'.$url.'" '.$attr.' />';
+			return '<img src="'.$url.'" '.$attr.' />'."\n";
 	}
 }
 

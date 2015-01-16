@@ -65,7 +65,9 @@
                         <div class="col-md-6 align-right">
                             <div class="option">
                                 <a href="<?php echo site_url('site/edit/'.$site); ?>" class="edit"><span class="fa fa-edit"></span> Edit</a>
+                                <?php if($site != SITE_SLUG): ?>
                                 <a href="<?php echo site_url('site/delete/'.$site); ?>" class="remove"><span class="fa fa-times"></span> Delete</a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

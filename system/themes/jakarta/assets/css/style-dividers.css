@@ -1,0 +1,82 @@
+hr.dashed {
+	border-style: dashed;
+	border-width: 3px;
+	border-color: #CBD0D3;
+	border-bottom: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	margin-top: 80px;
+	margin-bottom: 80px;
+}
+
+hr.shadowDown {
+	border-style: solid;
+	border-width: 1px;
+	border-color: #d7dcdf;
+	border-bottom: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	margin-top: 80px;
+	margin-bottom: 80px;
+	box-shadow: inset 0 12px 12px -12px rgba(0,0,0,0.25);
+	height: 20px;
+}
+
+.divider {
+	line-height: 0px !important;
+	height: 0px;
+	border-width: 3px;
+	border-color: #CBD0D3;
+	text-align: center;
+	margin-top: 80px;
+	margin-bottom: 80px;
+}
+
+.divider.dashed {
+	border-style: dashed;
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+}
+
+.divider.dotted {
+	border-style: dotted;
+	border-width: 10px;
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	border-color: #e8edef;
+}
+
+.divider.dotted > span {
+	line-height: 0.7em;
+}
+
+.divider > span {
+	background: #fff;
+	text-transform: uppercase;
+	font-style: italic;
+	padding: 0px 20px;
+}
+
+.wrapperDark {
+	background: #3D566E;
+	padding: 60px 0px;
+}
+
+.wrapperDark .divider.dashed {
+	border-color: #1ABC9C;
+	border-style: dashed;
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	color: #eee;
+	margin: 0px;
+}
+
+.wrapperDark .divider.dashed > span {
+	background: #3D566E;
+	font-style: normal;
+	color: #eee;
+	font-weight: 200;
+}

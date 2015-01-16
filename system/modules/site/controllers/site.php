@@ -23,8 +23,8 @@ class Site extends Admin_Controller {
 		// filter sites
 		$data['sites'] = array();
 		foreach ($sites as $key => $val) {
-			if($key != '_domain' && in_array('detail.json', $val))
-				$data['sites'][$key] = json_decode(file_get_contents(SITE_FOLDER.$key.'/detail.json'), true);
+			if($key != '_domain')
+				$data['sites'][$key] = json_decode(file_get_contents(SITE_FOLDER.$key.'/config/site.json'), true);
 		};
 
 		$this->template->view('index', $data);

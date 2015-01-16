@@ -1,0 +1,281 @@
+/* General styles for all menus */
+.spmenu {
+	background: #47a3da;
+	position: fixed;
+}
+
+.spmenu h3 {
+	color: #afdefa;
+	font-size: 1.9em;
+	padding: 20px;
+	margin: 0;
+	font-weight: 300;
+	background: #0d77b6;
+}
+
+.spmenu .nav a {
+	display: block;
+	color: #fff;
+	font-size: 1.1em;
+	font-weight: 300;
+}
+
+.spmenu .nav a:hover {
+	background: #258ecd;
+}
+
+.spmenu .nav a:active {
+	background: #afdefa;
+	color: #47a3da;
+}
+
+.nav-stacked>li+li {
+	margin: 0;
+}
+
+/* Orientation-dependent styles for the content of the menu */
+
+.spmenu-vertical {
+	width: 240px;
+	height: 100%;
+	top: 34px;
+	z-index: 1000;
+}
+
+.spmenu-vertical a {
+	border-bottom: 1px solid #258ecd;
+	padding: 1em;
+}
+
+.spmenu-horizontal {
+	width: 100%;
+	height: 150px;
+	left: 0;
+	z-index: 1000;
+	overflow: hidden;
+}
+
+.spmenu-horizontal h3 {
+	height: 100%;
+	width: 20%;
+	float: left;
+}
+
+.spmenu-horizontal a {
+	float: left;
+	width: 20%;
+	padding: 0.8em;
+	border-left: 1px solid #258ecd;
+}
+
+/* Vertical menu that slides from the left or right */
+
+.spmenu-left {
+	left: -240px;
+}
+
+.spmenu-right {
+	right: -240px;
+}
+
+.spmenu-left.spmenu-open {
+	left: 0px;
+}
+
+.spmenu-right.spmenu-open {
+	right: 0px;
+}
+
+/* Horizontal menu that slides from the top or bottom */
+
+.spmenu-top {
+	top: -150px;
+}
+
+.spmenu-bottom {
+	bottom: -150px;
+}
+
+.spmenu-top.spmenu-open {
+	top: 0px;
+}
+
+.spmenu-bottom.spmenu-open {
+	bottom: 0px;
+}
+
+/* Push classes applied to the body */
+
+.spmenu-push {
+	overflow-x: hidden;
+	position: relative;
+	left: 0;
+}
+
+.spmenu-push-toright {
+	left: 240px;
+}
+
+.spmenu-push-toleft {
+	left: -240px;
+}
+
+/* Transitions */
+
+.spmenu,
+.spmenu-push {
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+/* Example media queries */
+.container {
+	width: 780px;
+}
+.paper {
+	background: white;
+	padding: 20px 30px;
+	-webkit-box-shadow:rgba(0, 0, 0, 0.2) 0px 0px 5px 0px;
+	-moz-box-shadow:rgba(0, 0, 0, 0.2) 0px 0px 5px 0px;
+	box-shadow:rgba(0, 0, 0, 0.2) 0px 0px 5px 0px;
+}
+.cover {
+	padding: 0;
+}
+.cover img {
+	width: 100%;
+}
+
+@media screen and (max-width: 55.1875em){
+
+	.spmenu-horizontal {
+		font-size: 75%;
+		height: 110px;
+	}
+
+	.spmenu-top {
+		top: -110px;
+	}
+
+	.spmenu-bottom {
+		bottom: -110px;
+	}
+
+}
+
+@media screen and (max-height: 26.375em){
+
+	.spmenu-vertical {
+		font-size: 90%;
+		width: 190px;
+	}
+
+	.spmenu-left,
+	.spmenu-push-toleft {
+		left: -190px;
+	}
+
+	.spmenu-right {
+		right: -190px;
+	}
+
+	.spmenu-push-toright {
+		left: 190px;
+	}
+}
+
+.navbar-default {
+	background: white;
+	border: 0;
+	-webkit-box-shadow:rgba(0, 0, 0, 0.2) 0px 0px 5px 0px;
+	-moz-box-shadow:rgba(0, 0, 0, 0.2) 0px 0px 5px 0px;
+	box-shadow:rgba(0, 0, 0, 0.2) 0px 0px 5px 0px;
+	/* 
+	background-image:-webkit-linear-gradient(-90deg,rgb(235,235,235) 0%,rgb(255,255,255) 90%,#fff 100%);
+	background-image:-moz-linear-gradient(-90deg,rgb(235,235,235) 0%,rgb(255,255,255) 90%,#fff 100%);
+	background-image:-o-linear-gradient(-90deg,rgb(235,235,235) 0%,rgb(255,255,255) 90%,#fff 100%);
+	background-image:-ms-linear-gradient(-90deg,rgb(235,235,235) 0%,rgb(255,255,255) 90%,#fff 100%);
+	*/
+}
+.navbar {
+	min-height: 0;
+	font-weight: 300;
+}
+.navbar-brand {
+	padding: 5px 15px 5px 10px;
+	height: auto;
+	float: none;
+	font-weight: 300;
+}
+.navbar-nav>li>a {
+	padding: 5px 15px;
+}
+.navbar-default .navbar-nav>.active>a, 
+.navbar-default .navbar-nav>.active>a:hover, 
+.navbar-default .navbar-nav>.active>a:focus{
+	background: transparent;
+	color: steelblue;
+}
+.iconmenu-right {
+	padding-right: 25px !important;
+}
+.iconmenu {
+	color: #666;	
+	padding: 2px 15px 2px 10px;
+	font-size: 20px;
+	display: inline-block;
+	cursor: pointer;
+}
+.navbar-iconmenu:hover {
+	color: #111;
+}
+.navbar-right {
+	padding-right: 20px;
+}
+
+.pager {
+	margin-bottom: 0;
+}
+.pager li {
+	display: block;
+	/*transform: translateY(36px);
+	transition: .2s;
+	transition-timing-function: ease;*/
+}
+.pager li>a {
+	border-radius: 0;
+	color: #555;
+	padding: 0;
+	border: 0;
+	background: transparent;
+}
+.pager li>a:hover {
+	background: transparent;
+}
+.pager li>a span.prev-btn,
+.pager li>a span.next-btn {
+	background: #47a3da;
+	border: 1px solid #47a3da;
+	color: #eee;
+	padding: 5px 14px;
+	width: 100px;
+	display: inline-block;
+
+}
+.pager li>a span.next-btn {
+	margin: 0 0 0 auto;
+}
+.pager li>a span.bab {
+	padding: 5px 14px;
+	display: inline-block;
+	border: 1px solid #ddd;
+	background: white;
+	
+	transform: translateY(36px);
+	transition: .2s;
+	transition-timing-function: ease;
+}
+.pager li>a:hover span.bab {
+	transform: translateY(0);
+}

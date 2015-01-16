@@ -20,6 +20,9 @@ class MY_Controller extends MX_Controller
 		date_default_timezone_set('Asia/Jakarta');
 
 		define('SITE_PATH', SITE_FOLDER.SITE_SLUG.'/');
+
+		// load library
+		$this->load->library('users/ion_auth');
 		
 		// check if main config file exist
 		if(!file_exists((SITE_PATH.'config/site.json'))){

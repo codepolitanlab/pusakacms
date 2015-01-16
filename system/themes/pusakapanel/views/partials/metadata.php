@@ -3,32 +3,46 @@
 <title><?php echo $this->config->item('site_name'); ?></title>
 
 <!-- Bootstrap core CSS -->
-<link href="<?php echo get_theme_url() ?>assets/css/bootstrap.min.css" rel="stylesheet">
-<link href="<?php echo get_theme_url() ?>assets/css/font-awesome.min.css" rel="stylesheet">
-<link href="<?php echo get_theme_url() ?>assets/js/pagedown-bootstrap/css/jquery.pagedown-bootstrap.css" rel="stylesheet">
+<link href="<?php echo get_theme_url("assets/css/bootstrap.min.css") ?>" rel="stylesheet">
+
+<!-- Loading Flat UI -->
+<link rel="stylesheet" href="<?php echo get_theme_url('assets/less/flat-ui.css'); ?>">
+<link rel="stylesheet" href="<?php echo get_theme_url('assets/css/style.css'); ?>">
+<link rel="stylesheet" href="<?php echo get_theme_url('assets/css/login.css'); ?>">
+
+<link href="<?php echo get_theme_url("assets/css/font-awesome.min.css") ?>" rel="stylesheet">
+<link href="<?php echo get_theme_url("assets/js/pagedown-bootstrap/css/jquery.pagedown-bootstrap.css") ?>" rel="stylesheet">
+
+<?php if( isset($builder) ):?>
+	<link rel="stylesheet" href="<?php echo get_theme_url('assets/css/builder.css'); ?>">
+	<link rel="stylesheet" href="<?php echo get_theme_url('assets/css/spectrum.css'); ?>">
+	<link rel="stylesheet" href="<?php echo get_theme_url('assets/css/chosen.css'); ?>">
+	<link rel="stylesheet" href="<?php echo get_theme_url('assets/js/redactor/redactor.css'); ?>">
+<?php endif;?>
 
 <!-- Custom styles for this template -->
-<link href="<?php echo get_theme_url() ?>assets/css/style.css" rel="stylesheet">
-<link href="<?php echo get_module_asset('panel', 'codemirror/lib/codemirror.css'); ?>" rel="stylesheet">
-<link href="<?php echo get_module_asset('panel', 'codemirror/theme/mbo.css'); ?>" rel="stylesheet">
+<link href="<?php echo get_theme_url("assets/css/style.css") ?>" rel="stylesheet">
+<link href="<?php echo get_theme_url('assets/codemirror/lib/codemirror.css'); ?>" rel="stylesheet">
+<link href="<?php echo get_theme_url('assets/codemirror/theme/mbo.css'); ?>" rel="stylesheet">
+<link href="<?php echo get_theme_url("assets/jquery-ui-1.11.2.custom/jquery-ui.min.css") ?>" rel="stylesheet">
+<link href="<?php echo get_theme_url('assets/elfinder/css/elfinder.min.css') ?>" rel="stylesheet">
 
-<link href="<?php echo get_theme_url() ?>assets/jquery-ui-1.11.2.custom/jquery-ui.min.css" rel="stylesheet">
-<link href="<?php echo get_module_asset('panel', 'elfinder/css/elfinder.min.css') ?>" rel="stylesheet">
 
+<!-- JavaScript -->
 <!-- codemirror assets -->
-<script src="<?php echo get_module_asset('panel', 'codemirror/lib/codemirror.js'); ?>"></script>
-<script src="<?php echo get_module_asset('panel', 'codemirror/addon/edit/closetag.js'); ?>"></script>
-<script src="<?php echo get_module_asset('panel', 'codemirror/addon/fold/xml-fold.js'); ?>"></script>
-<script src="<?php echo get_module_asset('panel', 'codemirror/addon/selection/active-line.js'); ?>"></script>
-<script src="<?php echo get_module_asset('panel', 'codemirror/mode/javascript/javascript.js'); ?>"></script>
-<script src="<?php echo get_module_asset('panel', 'codemirror/mode/xml/xml.js'); ?>"></script>
-<script src="<?php echo get_module_asset('panel', 'codemirror/mode/css/css.js'); ?>"></script>
-<script src="<?php echo get_module_asset('panel', 'codemirror/mode/htmlmixed/htmlmixed.js'); ?>"></script>
-<script src="<?php echo get_module_asset('panel', 'codemirror/mode/markdown/markdown.js'); ?>"></script>
+<script src="<?php echo get_theme_url('assets/codemirror/lib/codemirror.js'); ?>"></script>
+<script src="<?php echo get_theme_url('assets/codemirror/addon/edit/closetag.js'); ?>"></script>
+<script src="<?php echo get_theme_url('assets/codemirror/addon/fold/xml-fold.js'); ?>"></script>
+<script src="<?php echo get_theme_url('assets/codemirror/addon/selection/active-line.js'); ?>"></script>
+<script src="<?php echo get_theme_url('assets/codemirror/mode/javascript/javascript.js'); ?>"></script>
+<script src="<?php echo get_theme_url('assets/codemirror/mode/xml/xml.js'); ?>"></script>
+<script src="<?php echo get_theme_url('assets/codemirror/mode/css/css.js'); ?>"></script>
+<script src="<?php echo get_theme_url('assets/codemirror/mode/htmlmixed/htmlmixed.js'); ?>"></script>
+<script src="<?php echo get_theme_url('assets/codemirror/mode/markdown/markdown.js'); ?>"></script>
 
-<script src="<?php echo get_theme_url() ?>assets/js/jquery-1.7.2.min.js"></script>
-<script src="<?php echo get_theme_url() ?>assets/jquery-ui-1.11.2.custom/jquery-ui.min.js"></script>
-<script src="<?php echo get_module_asset('panel','elfinder/js/elfinder.min.js') ?>"></script>
+<script src="<?php echo get_theme_url("assets/js/jquery-1.7.2.min.js") ?>"></script>
+<script src="<?php echo get_theme_url("assets/js/jquery-ui.min.js") ?>"></script>
+<script src="<?php echo get_theme_url('assets/elfinder/js/elfinder.min.js') ?>"></script>
 
 <script>
 	var BASE_URL = "<?php echo site_url(); ?>";

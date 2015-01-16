@@ -1,0 +1,48 @@
+.col {
+	margin: 0px 10px;
+	padding: 20px;
+}
+
+.wrapper.grey {
+	background: #ECF0F1;
+	border-top: 1px solid #d3d9dd;
+	border-bottom: 1px solid #d3d9dd;
+	padding: 80px 0px;
+}
+
+.item.dark {
+	background-color: #3D566E;
+	color: #eee;
+}
+
+/* tabs */
+
+body .nav-tabs > li > a {
+	padding: 13px 26px 14px !important;
+	color: #3D566E;
+	text-transform: uppercase;
+}
+
+body .nav-tabs > li.active > a, body .nav-tabs > li.active > a:hover, body .nav-tabs > li.active > a:focus {
+	color: #3D566E;
+}
+
+.tabs img {
+	max-width: 100%;
+	margin-top: 20px;
+}
+
+.tabs p {
+	font-size: 14px;
+}
+
+.tabs h5 {
+	margin-bottom: 5px;
+	font-size: 16px;
+}
+
+.tabs .tab-pane {
+	padding: 30px 20px;
+}
+
+/* end tabs */

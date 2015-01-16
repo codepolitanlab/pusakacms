@@ -158,16 +158,22 @@ class CMS extends Public_Controller {
 	{
 		if(!$site) show_error('which site domain must be update?');
 
-		if(file_exists(SITE_FOLDER.$site.'/CNAME')){
-			$domain = @file_get_contents(SITE_FOLDER.$site.'/CNAME');
-			if(write_file(SITE_FOLDER.'_domain/'.$domain.'.conf', $site)){
+		if(file_exists(SITE_FOLDER.$site.'/config/site.json')){
+			$settings = json_decode(@file_get_contents(SITE_FOLDER.$site.'/CNAME'), true);
+
+			// check if site_domain not set
+			if(!isset($settings['site_domain']) || empty($settings['site_domain']))
+				show_error('site_domain configuration in config/site.json must be set first.');
+				
+			// create .conf file for site domain
+			if(write_file(SITE_FOLDER.'_domain/'.$settings['site_domain'].'.conf', $site)){
 				header("Content-Type:text/plain");
 				echo "Domain setting for site $site updated.";
 			}
 			else
 				show_error('Writing domain configuration file failed. '.SITE_FOLDER.'_domain/ folder must be writable.');
 		} else
-			show_error('CNAME file not found');
+			show_error('config/site.json file not found');
 	}
 
 }

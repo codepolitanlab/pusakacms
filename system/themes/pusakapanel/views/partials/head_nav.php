@@ -1,24 +1,24 @@
 <?php
 $links = array(
-	'/' => '<span class="fa fa-dashboard"></span><span class="nav-tooltip">Dashboard</span>',
+	'/' => '<span class="fa fa-dashboard"></span><span class="nav-tooltip"> Dashboard</span>',
 	'content' => array(
-		'#' => '<span class="fa fa-file-text-o"></span><span class="nav-tooltip">Content</span>',
+		'#' => '<span class="fa fa-file-text-o"></span><span class="nav-tooltip"> Content</span>',
 		'pages' => '<span class="fa fa-file-text"></span> Pages',
 		'posts' => '<span class="fa fa-book"></span> Posts',
 		'media' => '<span class="fa fa-picture-o"></span> Media'
 		),
 	'structure' => array(
-		'#' => '<span class="fa fa-newspaper-o"></span><span class="nav-tooltip">Structure</span>',
+		'#' => '<span class="fa fa-newspaper-o"></span><span class="nav-tooltip"> Structure</span>',
 		'navigation' => '<span class="fa fa-list"></span> Navigation',
 		'export' => '<span class="fa fa-html5"></span> Export to HTML'
 		),
 	'settings' => array(
-		'#' => '<span class="fa fa-gears"></span><span class="nav-tooltip">Settings</span>',
+		'#' => '<span class="fa fa-gears"></span><span class="nav-tooltip"> Settings</span>',
 		'settings' => '<span class="fa fa-cog"></span> General',
 		'users' => '<span class="fa fa-users"></span> Users'
 		),
 	'account' => array(
-		'#' => '<span class="fa fa-user"></span><span class="nav-tooltip">Account</span>',
+		'#' => '<span class="fa fa-user"></span><span class="nav-tooltip"> Account</span>',
 		'logout' => '<span class="fa fa-lock"></span> Logout as '.$this->session->userdata(SITE_SLUG.'_username')
 		)
 	);

@@ -1,0 +1,20 @@
+b.chead {
+	color: #8C9899;
+}
+
+b.chead span {
+	color: #34495E;
+	font-size: 14px;
+	margin-right: 10px;
+}
+
+p.text-light {
+	color: #7F8C8D;
+}
+
+.wrapper.grey {
+	background: #ECF0F1;
+	border-top: 1px solid #d3d9dd;
+	border-bottom: 1px solid #d3d9dd;
+	padding: 80px 0px;
+}
