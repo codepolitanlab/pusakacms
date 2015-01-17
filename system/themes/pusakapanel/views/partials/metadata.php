@@ -7,8 +7,6 @@
 
 <!-- Loading Flat UI -->
 <link rel="stylesheet" href="<?php echo get_theme_url('assets/less/flat-ui.css'); ?>">
-<link rel="stylesheet" href="<?php echo get_theme_url('assets/css/style.css'); ?>">
-<link rel="stylesheet" href="<?php echo get_theme_url('assets/css/login.css'); ?>">
 
 <link href="<?php echo get_theme_url("assets/css/font-awesome.min.css") ?>" rel="stylesheet">
 <link href="<?php echo get_theme_url("assets/js/pagedown-bootstrap/css/jquery.pagedown-bootstrap.css") ?>" rel="stylesheet">

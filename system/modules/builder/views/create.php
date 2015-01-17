@@ -10,53 +10,6 @@
 				<li><a href="#" id="all"><?php echo $this->lang->line('all_elements')?></a></li>
 			</ul>
 
-			<hr>
-
-			<h3><span class="fui-windows"></span> <?php echo $this->lang->line('pages')?></h3>
-
-			<ul id="pages">
-				<li style="display: none;" id="newPageLI">
-					<input type="text" value="index" name="page">
-					<span class="pageButtons">
-						<a href="" class="fileEdit"><span class="fui-new"></span></a>
-						<a href="" class="fileDel"><span class="fui-cross"></span></a>
-						<a class="btn btn-xs btn-primary btn-embossed fileSave" href="#"><span class="fui-check"></span></a>
-					</span>
-				</li>
-				<?php if( count( $siteData['pages'] ) == 0 ):?>
-					<li class="active">
-						<a href="#page1">index</a>
-						<span class="pageButtons">
-							<a href="" class="fileEdit"><span class="fui-new"></span></a>
-							<a class="btn btn-xs btn-primary btn-embossed fileSave" href="#"><span class="fui-check"></span></a>
-						</span>
-					</li>
-				<?php else:?>
-
-					<?php $counter = 1;?>
-
-					<?php foreach( $siteData['pages'] as $page => $frames ):?>
-						<li <?php if( $counter == 1 ):?>class="active"<?php endif;?>>
-							<a href="#page<?php echo $counter;?>"><?php echo $page;?></a>
-							<span class="pageButtons">
-								<a href="" class="fileEdit"><span class="fui-new"></span></a>
-								<?php if( $counter > 1 ):?>
-									<a href="" class="fileDel"><span class="fui-cross"></span></a>
-								<?php endif;?>
-								<a class="btn btn-xs btn-primary btn-embossed fileSave" href="#"><span class="fui-check"></span></a>
-							</span>
-						</li>
-						<?php $counter++;?>
-					<?php endforeach;?>
-
-				<?php endif;?>
-			</ul>
-
-			<div class="sideButtons clearfix">
-				<a href="#" class="btn btn-primary btn-sm btn-embossed" id="addPage"><span class="fui-plus"></span> <?php echo $this->lang->line('button_add_page')?></a>
-				<!--<a href="#exportModal" data-toggle="modal" class="btn btn-inverse btn-sm btn-embossed disabled actionButtons"><span class="fui-upload"></span> <?php echo $this->lang->line('button_publish_page')?></a>-->
-			</div>
-
 		</div><!-- /.main -->
 
 		<div class="second" id="second">
@@ -77,23 +30,8 @@
 			
 			<header class="clearfix" data-spy="affix" data-offset-top="60" data-offset-bottom="200">
 				
-				<div class="btn-group" style="float: right;">           
-					<button class="btn btn-default btn-embossed"><span class="fui-gear"></span> Settings</button>
-					<button class="btn btn-default btn-embossed dropdown-toggle" data-toggle="dropdown">
-						<span class="caret"></span>
-					</button>
-					<span class="dropdown-arrow dropdown-arrow-inverse"></span>
-					<ul class="dropdown-menu dropdown-inverse">
-						<li><a href="#siteSettings" id="siteSettingsButton" class="siteSettingsModalButton" data-siteid="<?php echo $siteData['site']->sites_id;?>"><?php echo $this->lang->line('actionbuttons_sitesettings')?></a></li>
-						<li><a href="#pageSettingsModal" id="pageSettingsButton" data-toggle="modal" data-siteid="<?php echo $siteData['site']->sites_id;?>"><?php echo $this->lang->line('actionbuttons_pagesettings')?></a></li>
-					</ul>
-				</div>
-
-				<a href="#" id="savePage" data-toggle="modal" class="btn btn-primary btn-embossed pull-right disabled actionButtons" style="margin-right: 10px;"><span class="fui-check"></span> <span class="bLabel"><?php echo $this->lang->line('actionbuttons_save')?></span></a>
-
-				<a href="#exportModal" id="exportPage" data-toggle="modal" class="btn btn-info btn-embossed pull-right disabled actionButtons"><span class="fui-export"></span> <?php echo $this->lang->line('actionbuttons_export')?></a>
-
-				<a href="#" id="publishPage" class="btn btn-inverse btn-embossed pull-right disabled actionButtons" data-siteid="<?php echo $siteData['site']->sites_id;?>" <?php if( $siteData['site']->ftp_ok == 0 ):?>data-toggle="tooltip"<?php endif;?> data-placement="bottom" title="You can not publish your site right now. Please update your FTP details." ><span class="fui-upload"></span> <?php echo $this->lang->line('actionbuttons_publish')?> <span class="fui-alert text-danger" <?php if( $siteData['site']->ftp_ok == 1 ):?>style="display:none"<?php endif;?>></span></a>
+				<a href="#pageSettingsModal" id="pageSettingsButton" class="btn btn-info pull-right disabled actionButtons" data-toggle="modal" data-siteid="<?php echo $siteData['site']->sites_id;?>"><span class="fui-gear"></span> <?php echo $this->lang->line('actionbuttons_pagesettings')?></a>
+				<a href="#" id="savePage" data-toggle="modal" class="btn btn-primary pull-right disabled actionButtons" style="margin-right: 10px;"><span class="fui-check"></span> <span class="bLabel"><?php echo $this->lang->line('actionbuttons_save')?></span></a>
 
 				<div class="modes">
 
@@ -235,7 +173,7 @@
 						<span><?php echo $this->lang->line('OR')?></span>
 					</p>-->
 					
-					<a href="#imageModal" data-toggle="modal" type="button" class="btn btn-default btn-embossed btn-block margin-bottom-20"><span class="fui-image"></span> <?php echo $this->lang->line('open_image_library')?></a>
+					<a href="#imageModal" data-toggle="modal" type="button" class="btn btn-default btn-block margin-bottom-20"><span class="fui-image"></span> <?php echo $this->lang->line('open_image_library')?></a>
 					
 				</div><!-- /.tab-pane -->
 				
@@ -822,20 +760,20 @@
 				</div>
 
 				<div class="margin-bottom-5">
-					<button type="button" class="btn btn-primary btn-embossed btn-sm btn-block" id="saveStyling"><span class="fui-check-inverted"></span> <?php echo $this->lang->line('sidebuttons_apply_changes')?></button>
+					<button type="button" class="btn btn-primary btn-sm btn-block" id="saveStyling"><span class="fui-check-inverted"></span> <?php echo $this->lang->line('sidebuttons_apply_changes')?></button>
 				</div>
 
 				<div class="sideButtons clearfix">
-					<button type="button" class="btn btn-inverse btn-embossed btn-xs" id="cloneElementButton"><span class="fui-windows"></span> <?php echo $this->lang->line('sidebuttons_apply_clone')?></button>
-					<button type="button" class="btn btn-warning btn-embossed btn-xs" id="resetStyleButton"><i class="fa fa-refresh"></i> <?php echo $this->lang->line('sidebuttons_apply_reset')?></button>
-					<button type="button" class="btn btn-danger btn-embossed btn-xs" id="removeElementButton"><span class="fui-cross-inverted"></span> <?php echo $this->lang->line('sidebuttons_apply_remove')?></button>
+					<button type="button" class="btn btn-inverse btn-xs" id="cloneElementButton"><span class="fui-windows"></span> <?php echo $this->lang->line('sidebuttons_apply_clone')?></button>
+					<button type="button" class="btn btn-warning btn-xs" id="resetStyleButton"><i class="fa fa-refresh"></i> <?php echo $this->lang->line('sidebuttons_apply_reset')?></button>
+					<button type="button" class="btn btn-danger btn-xs" id="removeElementButton"><span class="fui-cross-inverted"></span> <?php echo $this->lang->line('sidebuttons_apply_remove')?></button>
 				</div>
 
 			<!--<p class="text-center or">
 				<span>OR</span>
 			</p>
 			
-			<button type="button" class="btn btn-default btn-embossed btn-block btn-sm" id="closeStyling"><span class="fui-cross-inverted"></span> Close Editor</button>-->
+			<button type="button" class="btn btn-default btn-block btn-sm" id="closeStyling"><span class="fui-cross-inverted"></span> Close Editor</button>-->
 
 		</div><!-- /.styleEditor -->
 		
@@ -871,8 +809,8 @@
 
 						</div><!-- /.modal-body -->
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default btn-embossed" data-dismiss="modal" id="exportCancel"><?php echo $this->lang->line('modal_cancelclose')?></button>
-							<button type="submit" type="button" class="btn btn-primary btn-embossed" id="exportSubmit"><?php echo $this->lang->line('modalexport_export_now')?></button>
+							<button type="button" class="btn btn-default" data-dismiss="modal" id="exportCancel"><?php echo $this->lang->line('modal_cancelclose')?></button>
+							<button type="submit" type="button" class="btn btn-primary" id="exportSubmit"><?php echo $this->lang->line('modalexport_export_now')?></button>
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -986,8 +924,8 @@
 
 						</div><!-- /.modal-body -->
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default btn-embossed" data-dismiss="modal" id="publishCancel"><?php echo $this->lang->line('modal_cancelclose')?></button>
-							<button type="button" type="button" class="btn btn-primary btn-embossed disabled" id="publishSubmit"><?php echo $this->lang->line('modalpublish_publish_now')?></button>
+							<button type="button" class="btn btn-default" data-dismiss="modal" id="publishCancel"><?php echo $this->lang->line('modal_cancelclose')?></button>
+							<button type="button" type="button" class="btn btn-primary disabled" id="publishSubmit"><?php echo $this->lang->line('modalpublish_publish_now')?></button>
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -1051,12 +989,12 @@
 										<div class="fileinput fileinput-new" data-provides="fileinput">
 											<div class="fileinput-preview thumbnail" data-trigger="fileinput"></div>
 											<div>
-												<span class="btn btn-primary btn-embossed btn-file">
+												<span class="btn btn-primary btn-file">
 													<span class="fileinput-new"><span class="fui-image"></span>&nbsp;&nbsp;<?php echo $this->lang->line('modal_imagelibrary_button_selectimage')?></span>
 													<span class="fileinput-exists"><span class="fui-gear"></span>&nbsp;&nbsp;<?php echo $this->lang->line('modal_imagelibrary_button_change')?></span>
 													<input type="file" name="imageFile" id="imageFile">
 												</span>
-												<a href="#" class="btn btn-primary btn-embossed fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>&nbsp;&nbsp;<?php echo $this->lang->line('modal_imagelibrary_button_remove')?></a>
+												<a href="#" class="btn btn-primary fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>&nbsp;&nbsp;<?php echo $this->lang->line('modal_imagelibrary_button_remove')?></a>
 											</div>
 										</div>
 										
@@ -1064,7 +1002,7 @@
 									
 									<hr>
 
-									<button type="button" class="btn btn-primary btn-embossed btn-wide upload btn-block disabled" id="uploadImageButton"><span class="fui-upload"></span> <?php echo $this->lang->line('modal_imagelibrary_button_upload')?></button>
+									<button type="button" class="btn btn-primary btn-wide upload btn-block disabled" id="uploadImageButton"><span class="fui-upload"></span> <?php echo $this->lang->line('modal_imagelibrary_button_upload')?></button>
 
 								</div><!-- /.tab-pane -->
 
@@ -1089,7 +1027,7 @@
 													?>
 
 													<div class="buttons clearfix">
-														<button type="button" class="btn btn-info btn-embossed btn-block btn-sm useImage" data-url="<?php echo $dataUrl;?>/<?php echo $img;?>"><span class="fui-export"></span> <?php echo $this->lang->line('modal_imagelibrary_button_insert')?></button>
+														<button type="button" class="btn btn-info btn-block btn-sm useImage" data-url="<?php echo $dataUrl;?>/<?php echo $img;?>"><span class="fui-export"></span> <?php echo $this->lang->line('modal_imagelibrary_button_insert')?></button>
 													</div>
 
 												</div><!-- /.image -->
@@ -1107,7 +1045,7 @@
 
 					</div><!-- /.modal-body -->
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default btn-embossed" data-dismiss="modal"><?php echo $this->lang->line('modal_cancelclose')?></button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang->line('modal_cancelclose')?></button>
 					</div>
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
@@ -1126,8 +1064,8 @@
 
 					</div><!-- /.modal-body -->
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default btn-embossed" data-dismiss="modal"><?php echo $this->lang->line('modal_cancelclose')?></button>
-						<button type="button" type="button" class="btn btn-primary btn-embossed" id="deleteBlockConfirm"><?php echo $this->lang->line('modal_delete')?></button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang->line('modal_cancelclose')?></button>
+						<button type="button" type="button" class="btn btn-primary" id="deleteBlockConfirm"><?php echo $this->lang->line('modal_delete')?></button>
 					</div>
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
@@ -1151,8 +1089,8 @@
 						
 					</div><!-- /.modal-body -->
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default btn-embossed" data-dismiss="modal"><?php echo $this->lang->line('modal_cancelclose')?></button>
-						<button type="button" type="button" class="btn btn-primary btn-embossed" id="resetBlockConfirm"><?php echo $this->lang->line('modalresetblock_button_reset')?></button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang->line('modal_cancelclose')?></button>
+						<button type="button" type="button" class="btn btn-primary" id="resetBlockConfirm"><?php echo $this->lang->line('modalresetblock_button_reset')?></button>
 					</div>
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
@@ -1171,8 +1109,8 @@
 
 					</div><!-- /.modal-body -->
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default btn-embossed" data-dismiss="modal" id="deletePageCancel"><?php echo $this->lang->line('modal_cancelclose')?></button>
-						<button type="button" type="button" class="btn btn-primary btn-embossed" id="deletePageConfirm"><?php echo $this->lang->line('modaldeletepage_button_deletepage')?></button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="deletePageCancel"><?php echo $this->lang->line('modal_cancelclose')?></button>
+						<button type="button" type="button" class="btn btn-primary" id="deletePageConfirm"><?php echo $this->lang->line('modaldeletepage_button_deletepage')?></button>
 					</div>
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
@@ -1191,8 +1129,8 @@
 
 					</div><!-- /.modal-body -->
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default btn-embossed" data-dismiss="modal" id="deletePageCancel"><?php echo $this->lang->line('modal_cancelclose')?></button>
-						<button type="button" type="button" class="btn btn-primary btn-embossed" id="deleteElementConfirm"><?php echo $this->lang->line('modaldeleteelement_button_deleteelement')?></button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="deletePageCancel"><?php echo $this->lang->line('modal_cancelclose')?></button>
+						<button type="button" type="button" class="btn btn-primary" id="deleteElementConfirm"><?php echo $this->lang->line('modaldeleteelement_button_deleteelement')?></button>
 					</div>
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
@@ -1246,8 +1184,8 @@
 				</div><!-- /.modal-body -->
 
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default btn-embossed" data-dismiss="modal"><span class="fui-cross"></span> <?php echo $this->lang->line('modal_cancelclose')?></button>
-					<button type="button" class="btn btn-primary btn-embossed" id="pageSettingsSubmittButton"><span class="fui-check"></span> <?php echo $this->lang->line('sitesettings_button_savesettings')?></button>
+					<button type="button" class="btn btn-default" data-dismiss="modal"><span class="fui-cross"></span> <?php echo $this->lang->line('modal_cancelclose')?></button>
+					<button type="button" class="btn btn-primary" id="pageSettingsSubmittButton"><span class="fui-check"></span> <?php echo $this->lang->line('sitesettings_button_savesettings')?></button>
 				</div>
 
 			</div><!-- /.modal-content -->
@@ -1318,7 +1256,7 @@
 
 				<div class="modal-footer">
 					<button type="button" class="btn btn-inverse" data-dismiss="modal"><span class="fui-cross"></span> <?php echo $this->lang->line('modal_pendingchanges_button_stay')?></button>
-					<a href="<?php echo site_url('sites')?>" class="btn btn-primary btn-embossed" id="leavePageButton"><span class="fui-check"></span> <?php echo $this->lang->line('modal_pendingchanges_button_leave')?></a>
+					<a href="<?php echo site_url('sites')?>" class="btn btn-primary" id="leavePageButton"><span class="fui-check"></span> <?php echo $this->lang->line('modal_pendingchanges_button_leave')?></a>
 				</div>
 
 			</div><!-- /.modal-content -->
@@ -1338,8 +1276,8 @@
 
 				</div><!-- /.modal-body -->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default btn-embossed" data-dismiss="modal"><?php echo $this->lang->line('modal_cancelclose')?></button>
-					<button type="button" type="button" class="btn btn-primary btn-embossed" id="updateContentInFrameSubmit"><?php echo $this->lang->line('modal_editcontent_updatecontent')?></button>
+					<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang->line('modal_cancelclose')?></button>
+					<button type="button" type="button" class="btn btn-primary" id="updateContentInFrameSubmit"><?php echo $this->lang->line('modal_editcontent_updatecontent')?></button>
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->

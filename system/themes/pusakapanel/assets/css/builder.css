@@ -39,8 +39,8 @@ button:focus,
 button:active,
 button:hover
 {
-    outline:0px !important;
-    -webkit-appearance:none;
+	outline:0px !important;
+	-webkit-appearance:none;
 }
 
 body .drop-hover {
@@ -92,18 +92,18 @@ header {
 	padding-bottom: 15px;
 	margin-left: auto;
 	margin-right: auto;
-	width: 94%;
-	background: #ECF0F1;
+	/*width: 94%;*/
+	background: #F9F9F9;
 }
 
 header.affix {
 	left: 0;
 	top:0px;
-    width: 100%;
-    z-index: 1040;
-    padding-right: 3.5%;
-    padding-left: 30px;
-    box-shadow: 0px 6px 0px rgba(0, 0, 0, 0.08);
+	width: 100%;
+	z-index: 1040;
+	padding-right: 3.5%;
+	padding-left: 30px;
+	box-shadow: 0px 6px 0px rgba(0, 0, 0, 0.08);
 }
 
 .toggle {
@@ -201,6 +201,10 @@ header .modes > label:last-child {
 	top: 90px;
 	right: 15px;
 	font-size: 20px;
+	color: #FD5656;
+}
+.styleEditor > a.close:hover {
+	color: red;
 }
 
 .styleEditor h3 {
@@ -312,8 +316,8 @@ body .sp-input {
 }
 
 .styleEditor .breadcrumb .active {
-    color: #24bfa0;
-    font-weight: bold;
+	color: #24bfa0;
+	font-weight: bold;
 }
 
 .styleEditor .nav-tabs > li > a {
@@ -392,20 +396,24 @@ body .sp-input {
 .menu {
 	position: fixed;
 	top: 0px;
-	left: 0px;
+	left: -200px;
 	height: 100%;
 	z-index: 1000;
+	transition: .2s;
+}
+.menu:hover {
+	left: 0px;
 }
 
 .menu .main {
-	background: none repeat scroll 0 0 #34495e;
-    height: 100% !important;
-    overflow-y: auto;
-    padding-top: 100px;
-    width: 210px;
-    height: 100%;
-    float: left;
-    box-shadow: -10px 0 2px rgba(0, 0, 0, 0.08) inset;
+	background: #424242;
+	height: 100% !important;
+	overflow-y: auto;
+	padding-top: 100px;
+	width: 210px;
+	height: 100%;
+	float: left;
+	/*box-shadow: -10px 0 2px rgba(0, 0, 0, 0.08) inset;*/
 }
 
 .menu .main h3 {
@@ -465,12 +473,12 @@ body .sp-input {
 }
 
 .menu .second {
-	background: #1f2e3c;
+	background: #3F3F3F;
 	width: 0px;
 	height: 100%;
 	float: left;
 	display: none;
-	box-shadow: inset 5px 0px 5px rgba(0,0,0,0.3);
+	box-shadow: inset 5px 0px 5px rgba(0,0,0,0.1);
 	z-index: 1000;
 	overflow-y: auto !important;
 	padding-top: 70px;
@@ -506,12 +514,12 @@ li.element {
 
 .menu .second ul li iframe html {
 	-ms-zoom: 0.25;
-	        -moz-transform: scale(0.25);
-	        -moz-transform-origin: 0 0;
-	        -o-transform: scale(0.25);
-	        -o-transform-origin: 0 0;
-	        -webkit-transform: scale(0.25);
-	        -webkit-transform-origin: 0 0;
+	-moz-transform: scale(0.25);
+	-moz-transform-origin: 0 0;
+	-o-transform: scale(0.25);
+	-o-transform-origin: 0 0;
+	-webkit-transform: scale(0.25);
+	-webkit-transform-origin: 0 0;
 }
 
 .menu .second ul li .zoomer-wrapper a {
@@ -602,7 +610,9 @@ li.element {
 
 .screen {
 	margin: 0px auto 30px;
-	width: 94%;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 5px 2px;
+	-moz-box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 5px 2px;
+	box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 5px 2px;
 }
 
 .screen .zoomer-wrapper {
@@ -630,9 +640,11 @@ li.element {
 }
 
 .screen .toolbar {
-	background: #E1E0E0;
+	background: #F9F9F9;
 	height: 35px;
 	padding: 0px 0px 0px 11px;
+	box-shadow: rgba(255, 255, 255, 0.490196) 0px -1px 3px 0px inset;
+	border-bottom: 1px solid #ddd;
 }
 
 .screen .toolbar .buttons {
@@ -741,10 +753,10 @@ li.element {
 
 .screen .aceEditor {
 	position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
 }
 
 
