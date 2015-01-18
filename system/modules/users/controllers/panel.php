@@ -21,7 +21,7 @@ class Panel extends Admin_Controller {
 		if (!$this->ion_auth->logged_in())
 		{
 			//redirect them to the login page
-			redirect('users/login', 'refresh');
+			redirect('panel/login', 'refresh');
 		}
 		elseif (!$this->ion_auth->is_admin()) //remove this elseif if you want to enable this for non-admins
 		{
@@ -39,6 +39,8 @@ class Panel extends Admin_Controller {
 			{
 				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
 			}
+
+			$this->data['groups'] = $this->ion_auth->groups()->result();
 
 			$this->_render_page('users/index', $this->data);
 		}
@@ -76,7 +78,7 @@ class Panel extends Admin_Controller {
 				'last_name'  => $this->input->post('last_name'),
 				'company'    => $this->input->post('company'),
 				'phone'      => $this->input->post('phone'),
-			);
+				);
 		}
 		if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data))
 		{
@@ -96,43 +98,50 @@ class Panel extends Admin_Controller {
 				'id'    => 'first_name',
 				'type'  => 'text',
 				'value' => $this->form_validation->set_value('first_name'),
-			);
+				'class' => 'form-control',
+				);
 			$this->data['last_name'] = array(
 				'name'  => 'last_name',
 				'id'    => 'last_name',
 				'type'  => 'text',
 				'value' => $this->form_validation->set_value('last_name'),
-			);
+				'class' => 'form-control',
+				);
 			$this->data['email'] = array(
 				'name'  => 'email',
 				'id'    => 'email',
 				'type'  => 'text',
 				'value' => $this->form_validation->set_value('email'),
-			);
+				'class' => 'form-control',
+				);
 			$this->data['company'] = array(
 				'name'  => 'company',
 				'id'    => 'company',
 				'type'  => 'text',
 				'value' => $this->form_validation->set_value('company'),
-			);
+				'class' => 'form-control',
+				);
 			$this->data['phone'] = array(
 				'name'  => 'phone',
 				'id'    => 'phone',
 				'type'  => 'text',
 				'value' => $this->form_validation->set_value('phone'),
-			);
+				'class' => 'form-control',
+				);
 			$this->data['password'] = array(
 				'name'  => 'password',
 				'id'    => 'password',
 				'type'  => 'password',
 				'value' => $this->form_validation->set_value('password'),
-			);
+				'class' => 'form-control',
+				);
 			$this->data['password_confirm'] = array(
 				'name'  => 'password_confirm',
 				'id'    => 'password_confirm',
 				'type'  => 'password',
 				'value' => $this->form_validation->set_value('password_confirm'),
-			);
+				'class' => 'form-control',
+				);
 
 			$this->_render_page('users/create_user', $this->data);
 		}
@@ -148,6 +157,8 @@ class Panel extends Admin_Controller {
 			redirect('panel/users', 'refresh');
 		}
 
+		$tables = $this->config->item('tables','ion_auth');
+
 		$user = $this->ion_auth->user($id)->row();
 		$groups=$this->ion_auth->groups()->result_array();
 		$currentGroups = $this->ion_auth->get_users_groups($id)->result();
@@ -155,6 +166,7 @@ class Panel extends Admin_Controller {
 		//validate form input
 		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'required|xss_clean');
 		$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'required|xss_clean');
+		$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email|is_unique['.$tables['users'].'.email]');
 		$this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'required|xss_clean');
 		$this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'required|xss_clean');
 		$this->form_validation->set_rules('groups', $this->lang->line('edit_user_validation_groups_label'), 'xss_clean');
@@ -170,9 +182,10 @@ class Panel extends Admin_Controller {
 			$data = array(
 				'first_name' => $this->input->post('first_name'),
 				'last_name'  => $this->input->post('last_name'),
+				'email'      => $this->input->post('email'),
 				'company'    => $this->input->post('company'),
 				'phone'      => $this->input->post('phone'),
-			);
+				);
 
 			// Only allow updating groups if user is admin
 			if ($this->ion_auth->is_admin())
@@ -233,36 +246,49 @@ class Panel extends Admin_Controller {
 			'name'  => 'first_name',
 			'id'    => 'first_name',
 			'type'  => 'text',
+			'class' => 'form-control',
 			'value' => $this->form_validation->set_value('first_name', $user->first_name),
-		);
+			);
 		$this->data['last_name'] = array(
 			'name'  => 'last_name',
 			'id'    => 'last_name',
 			'type'  => 'text',
+			'class' => 'form-control',
 			'value' => $this->form_validation->set_value('last_name', $user->last_name),
-		);
+			);
+		$this->data['email'] = array(
+			'name'  => 'email',
+			'id'    => 'email',
+			'type'  => 'text',
+			'class' => 'form-control',
+			'value' => $this->form_validation->set_value('email',$user->email),
+			);
 		$this->data['company'] = array(
 			'name'  => 'company',
 			'id'    => 'company',
 			'type'  => 'text',
+			'class' => 'form-control',
 			'value' => $this->form_validation->set_value('company', $user->company),
-		);
+			);
 		$this->data['phone'] = array(
 			'name'  => 'phone',
 			'id'    => 'phone',
 			'type'  => 'text',
+			'class' => 'form-control',
 			'value' => $this->form_validation->set_value('phone', $user->phone),
-		);
+			);
 		$this->data['password'] = array(
 			'name' => 'password',
 			'id'   => 'password',
-			'type' => 'password'
-		);
+			'type' => 'password',
+			'class' => 'form-control',
+			);
 		$this->data['password_confirm'] = array(
 			'name' => 'password_confirm',
 			'id'   => 'password_confirm',
-			'type' => 'password'
-		);
+			'type' => 'password',
+			'class' => 'form-control',
+			);
 
 		$this->_render_page('users/edit_user', $this->data);
 	}
@@ -279,16 +305,16 @@ class Panel extends Admin_Controller {
 
 		//validate form input
 		$this->form_validation->set_rules('group_name', $this->lang->line('create_group_validation_name_label'), 'required|alpha_dash|xss_clean');
-		$this->form_validation->set_rules('description', $this->lang->line('create_group_validation_desc_label'), 'xss_clean');
+		$this->form_validation->set_rules('group_description', $this->lang->line('create_group_validation_desc_label'), 'xss_clean');
 
 		if ($this->form_validation->run() == TRUE)
 		{
-			$new_group_id = $this->ion_auth->create_group($this->input->post('group_name'), $this->input->post('description'));
+			$new_group_id = $this->ion_auth->create_group($this->input->post('group_name'), $this->input->post('group_description'));
 			if($new_group_id)
 			{
 				// check to see if we are creating the group
 				// redirect them back to the admin page
-				$this->session->set_flashdata('message', $this->ion_auth->messages());
+				$this->session->set_flashdata('success', $this->ion_auth->messages());
 				redirect("panel/users", 'refresh');
 			}
 		}
@@ -298,20 +324,8 @@ class Panel extends Admin_Controller {
 			//set the flash data error message if there is one
 			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
 
-			$this->data['group_name'] = array(
-				'name'  => 'group_name',
-				'id'    => 'group_name',
-				'type'  => 'text',
-				'value' => $this->form_validation->set_value('group_name'),
-			);
-			$this->data['description'] = array(
-				'name'  => 'description',
-				'id'    => 'description',
-				'type'  => 'text',
-				'value' => $this->form_validation->set_value('description'),
-			);
-
-			$this->_render_page('users/create_group', $this->data);
+			$this->session->set_flashdata('error', $this->data['message']);
+			redirect("panel/users", 'refresh');
 		}
 	}
 
@@ -345,11 +359,11 @@ class Panel extends Admin_Controller {
 
 				if($group_update)
 				{
-					$this->session->set_flashdata('message', $this->lang->line('edit_group_saved'));
+					$this->session->set_flashdata('success', $this->lang->line('edit_group_saved'));
 				}
 				else
 				{
-					$this->session->set_flashdata('message', $this->ion_auth->errors());
+					$this->session->set_flashdata('error', $this->ion_auth->errors());
 				}
 				redirect("panel/users", 'refresh');
 			}
@@ -358,23 +372,8 @@ class Panel extends Admin_Controller {
 		//set the flash data error message if there is one
 		$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
 
-		//pass the user to the view
-		$this->data['group'] = $group;
-
-		$this->data['group_name'] = array(
-			'name'  => 'group_name',
-			'id'    => 'group_name',
-			'type'  => 'text',
-			'value' => $this->form_validation->set_value('group_name', $group->name),
-		);
-		$this->data['group_description'] = array(
-			'name'  => 'group_description',
-			'id'    => 'group_description',
-			'type'  => 'text',
-			'value' => $this->form_validation->set_value('group_description', $group->description),
-		);
-
-		$this->_render_page('users/edit_group', $this->data);
+		$this->session->set_flashdata('error', $this->data['message']);
+		redirect("panel/users", 'refresh');
 	}
 
 

@@ -2,6 +2,8 @@
 <script src="<?php echo get_theme_url() ?>assets/js/pagedown-bootstrap/js/jquery.pagedown-bootstrap.combined.js"></script>
 <script src="<?php echo get_theme_url() ?>assets/js/jquery.slugify.js"></script>
 <script src="<?php echo get_theme_url() ?>assets/js/jquery.nestable.js"></script>
+<?php echo get_theme_js('flatui-checkbox.js');?>
+<?php echo get_theme_js('flatui-radio.js');?>
 <script src="<?php echo get_theme_url() ?>assets/js/script.js"></script>
 
 <script>

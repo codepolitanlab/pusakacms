@@ -10,12 +10,9 @@
             "subpage": {
                 "title": "Subpage",
                 "url": "lipsum\/subpage",
-                "children": {
-                    "subsubpage": {
-                        "title": "Subsubpage",
-                        "url": "lipsum\/subpage\/subsubpage"
-                    }
-                }
+                "children": [
+
+                ]
             }
         }
     }

@@ -1,66 +1,86 @@
-<h1><?php echo lang('edit_user_heading');?></h1>
-<p><?php echo lang('edit_user_subheading');?></p>
-
-<div id="infoMessage"><?php echo $message;?></div>
-
 <?php echo form_open(uri_string());?>
 
-      <p>
-            <?php echo lang('edit_user_fname_label', 'first_name');?> <br />
-            <?php echo form_input($first_name);?>
-      </p>
+<div class="row heading">
+	<div class="col-md-6">
+	<h1><a href="{{ func.site_url uri="panel/users" }}">Users</a> &bull; Edit User</h1>
+	</div>
+	<div class="col-md-6 align-right">
+		<div>
+			<button type="submit" class="btn btn-md btn-success">Update User</a>
+			</div>
+		</div>
+	</div>
 
-      <p>
-            <?php echo lang('edit_user_lname_label', 'last_name');?> <br />
-            <?php echo form_input($last_name);?>
-      </p>
+	<div class="row">
+		<div class="col-md-6">
 
-      <p>
-            <?php echo lang('edit_user_company_label', 'company');?> <br />
-            <?php echo form_input($company);?>
-      </p>
+			<div class="form-group">
+				<?php echo lang('create_user_fname_label', 'first_name');?> <br />
+				<?php echo form_input($first_name);?>
+			</div>
 
-      <p>
-            <?php echo lang('edit_user_phone_label', 'phone');?> <br />
-            <?php echo form_input($phone);?>
-      </p>
+			<div class="form-group">
+				<?php echo lang('create_user_lname_label', 'last_name');?> <br />
+				<?php echo form_input($last_name);?>
+			</div>
 
-      <p>
-            <?php echo lang('edit_user_password_label', 'password');?> <br />
-            <?php echo form_input($password);?>
-      </p>
+			<div class="form-group">
+				<?php echo lang('create_user_company_label', 'company');?> <br />
+				<?php echo form_input($company);?>
+			</div>
 
-      <p>
-            <?php echo lang('edit_user_password_confirm_label', 'password_confirm');?><br />
-            <?php echo form_input($password_confirm);?>
-      </p>
+			<div class="form-group">
+				<?php echo lang('create_user_phone_label', 'phone');?> <br />
+				<?php echo form_input($phone);?>
+			</div>
 
-      <?php if ($this->ion_auth->is_admin()): ?>
+		</div>
 
-          <h3><?php echo lang('edit_user_groups_heading');?></h3>
-          <?php foreach ($groups as $group):?>
-              <label class="checkbox">
-              <?php
-                  $gID=$group['id'];
-                  $checked = null;
-                  $item = null;
-                  foreach($currentGroups as $grp) {
-                      if ($gID == $grp->id) {
-                          $checked= ' checked="checked"';
-                      break;
-                      }
-                  }
-              ?>
-              <input type="checkbox" name="groups[]" value="<?php echo $group['id'];?>"<?php echo $checked;?>>
-              <?php echo $group['name'];?>
-              </label>
-          <?php endforeach?>
+		<div class="col-md-6">
 
-      <?php endif ?>
+			<div class="form-group">
+				<?php echo lang('create_user_email_label', 'email');?> <br />
+				<?php echo form_input($email);?>
+			</div>
 
-      <?php echo form_hidden('id', $user->id);?>
-      <?php echo form_hidden($csrf); ?>
+			<div class="form-group">
+				<?php echo lang('create_user_password_label', 'password');?> <br />
+				<?php echo form_input($password);?>
+			</div>
 
-      <p><?php echo form_submit('submit', lang('edit_user_submit_btn'));?></p>
+			<div class="form-group">
+				<?php echo lang('create_user_password_confirm_label', 'password_confirm');?> <br />
+				<?php echo form_input($password_confirm);?>
+			</div>
 
-<?php echo form_close();?>
+			<?php if ($this->ion_auth->is_admin()): ?>
+
+				<div class="form-group">
+					
+					<h3><?php echo lang('edit_user_groups_heading');?></h3>
+					<?php foreach ($groups as $group):?>
+						<label class="checkbox">
+							<?php
+							$gID=$group['id'];
+							$checked = null;
+							$item = null;
+							foreach($currentGroups as $grp) {
+								if ($gID == $grp->id) {
+									$checked= ' checked="checked"';
+									break;
+								}
+							}
+							?>
+							<input type="checkbox" name="groups[]" value="<?php echo $group['id'];?>"<?php echo $checked;?> data-toggle="checkbox">
+							<?php echo $group['name'];?>
+						</label>
+					<?php endforeach?>
+				</div>
+
+			<?php endif ?>
+
+		</div>
+	</div>
+
+
+	<?php echo form_close();?>

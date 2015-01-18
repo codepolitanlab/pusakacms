@@ -3,8 +3,6 @@
 <?php echo get_theme_js('jquery.ui.touch-punch.min.js');?>
 <?php echo get_theme_js('bootstrap-select.js');?>
 <?php echo get_theme_js('bootstrap-switch.js');?>
-<?php echo get_theme_js('flatui-checkbox.js');?>
-<?php echo get_theme_js('flatui-radio.js');?>
 <?php echo get_theme_js('jquery.tagsinput.js');?>
 <?php echo get_theme_js('flatui-fileinput.js');?>
 <?php echo get_theme_js('jquery.placeholder.js');?>

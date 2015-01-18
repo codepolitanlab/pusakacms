@@ -1690,6 +1690,7 @@ class Ion_auth_model extends CI_Model
 
 		$session_data = array(
 		    'identity'             => $user->{$this->identity_column},
+		    'id' 	               => $user->id,
 		    'username'             => $user->username,
 		    'email'                => $user->email,
 		    SITE_SLUG.'_username'  => $user->username,

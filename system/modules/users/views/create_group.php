@@ -1,20 +1,25 @@
-<h1><?php echo lang('create_group_heading');?></h1>
-<p><?php echo lang('create_group_subheading');?></p>
-
-<div id="infoMessage"><?php echo $message;?></div>
-
 <?php echo form_open("panel/users/create_group");?>
 
-      <p>
-            <?php echo lang('create_group_name_label', 'group_name');?> <br />
-            <?php echo form_input($group_name);?>
-      </p>
+<div class="row heading">
+	<div class="col-md-6">
+		<h1><a href="{{ func.site_url uri="panel/users" }}">Users</a> &bull; Create Group</h1>
+	</div>
+	<div class="col-md-6 align-right">
+		<div>
+			<button type="submit" class="btn btn-md btn-success">Save Group</button>
+		</div>
+	</div>
+</div>
 
-      <p>
-            <?php echo lang('create_group_desc_label', 'description');?> <br />
-            <?php echo form_input($description);?>
-      </p>
 
-      <p><?php echo form_submit('submit', lang('create_group_submit_btn'));?></p>
+<div class="form-group">
+	<?php echo lang('create_group_name_label', 'group_name');?>
+	<?php echo form_input($group_name);?>
+</div>
+
+<div class="form-group">
+	<?php echo lang('create_group_desc_label', 'description');?>
+	<?php echo form_input($group_description);?>
+</div>
 
 <?php echo form_close();?>

@@ -64,6 +64,28 @@ $(function(){
 			$('#linkModalLabel').html('Add New Link');				
 		}
 	})
+
+	// groups modals
+	$('#groupModal').on('show.bs.modal', function (e) {
+		var mode = $(e.relatedTarget).data('mode');
+		var group_id = $(e.relatedTarget).data('group-id');
+		var group_name = $(e.relatedTarget).data('name');
+		var group_desc = $(e.relatedTarget).data('desc');
+
+		console.log(link_title + ' ' + link_slug);
+
+		$('#group_name').val(group_name);
+		$('#group_description').val(group_desc);
+		if(mode == 'edit'){
+			$('#link-form').attr('action', base_url + 'panel/users/edit_group/' + group_id);
+			$('#btn-submit-link-form').html('Edit');
+			$('#linkModalLabel').html('Edit Group');
+		} else {
+			$('#area-form').attr('action', base_url + 'panel/users/create_group');
+			$('#btn-submit-area-form').html('Create');
+			$('#linkModalLabel').html('Add Group');
+		}
+	})
 });
 
 // define timeout
