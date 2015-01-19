@@ -166,7 +166,6 @@ class Panel extends Admin_Controller {
 		//validate form input
 		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'required|xss_clean');
 		$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'required|xss_clean');
-		$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email|is_unique['.$tables['users'].'.email]');
 		$this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'required|xss_clean');
 		$this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'required|xss_clean');
 		$this->form_validation->set_rules('groups', $this->lang->line('edit_user_validation_groups_label'), 'xss_clean');
@@ -182,7 +181,6 @@ class Panel extends Admin_Controller {
 			$data = array(
 				'first_name' => $this->input->post('first_name'),
 				'last_name'  => $this->input->post('last_name'),
-				'email'      => $this->input->post('email'),
 				'company'    => $this->input->post('company'),
 				'phone'      => $this->input->post('phone'),
 				);
@@ -211,6 +209,13 @@ class Panel extends Admin_Controller {
 				$this->form_validation->set_rules('password_confirm', $this->lang->line('edit_user_validation_password_confirm_label'), 'required');
 
 				$data['password'] = $this->input->post('password');
+			}
+
+			if($user->email != $this->input->post('email'))
+			{
+				$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email|is_unique['.$tables['users'].'.email]');
+
+				$data['email'] = $this->input->post('email');
 			}
 
 			if ($this->form_validation->run() === TRUE)
@@ -291,6 +296,23 @@ class Panel extends Admin_Controller {
 			);
 
 		$this->_render_page('users/edit_user', $this->data);
+	}
+
+	function delete_user($id)
+	{
+		if(!$id)
+			show_404();
+
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+			$this->session->set_flashdata('error', "You don't have permission to delete user.");
+		else
+
+		if($this->ion_auth->delete_user($id))
+			$this->session->set_flashdata('success', $this->ion_auth->messages());
+		else
+			$this->session->set_flashdata('error', $this->ion_auth->errors());
+
+		redirect('panel/users');
 	}
 
 	// create a new group
@@ -374,6 +396,27 @@ class Panel extends Admin_Controller {
 
 		$this->session->set_flashdata('error', $this->data['message']);
 		redirect("panel/users", 'refresh');
+	}
+
+	function delete_group($id)
+	{
+		if(!$id)
+			show_404();
+
+		if($id == 1)
+			$this->session->set_flashdata('error', "Sorry, we don't recommend to delete admin group.");
+		else
+
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+			$this->session->set_flashdata('error', "You don't have permission to delete the group.");
+		else
+
+		if($this->ion_auth->delete_group($id))
+			$this->session->set_flashdata('success', $this->ion_auth->messages());
+		else
+			$this->session->set_flashdata('error', $this->ion_auth->errors());
+
+		redirect('panel/users');
 	}
 
 

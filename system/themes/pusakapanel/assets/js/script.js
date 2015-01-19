@@ -59,8 +59,8 @@ $(function(){
 			$('#btn-submit-link-form').html('Edit');
 			$('#linkModalLabel').html('Edit Link');
 		} else {
-			$('#area-form').attr('action', base_url + 'panel/navigation/create_link');
-			$('#btn-submit-area-form').html('Create');
+			$('#link-form').attr('action', base_url + 'panel/navigation/create_link');
+			$('#btn-submit-link-form').html('Create');
 			$('#linkModalLabel').html('Add New Link');				
 		}
 	})
@@ -72,18 +72,18 @@ $(function(){
 		var group_name = $(e.relatedTarget).data('name');
 		var group_desc = $(e.relatedTarget).data('desc');
 
-		console.log(link_title + ' ' + link_slug);
+		console.log(group_id + ' ' + group_name);
 
 		$('#group_name').val(group_name);
 		$('#group_description').val(group_desc);
 		if(mode == 'edit'){
-			$('#link-form').attr('action', base_url + 'panel/users/edit_group/' + group_id);
-			$('#btn-submit-link-form').html('Edit');
-			$('#linkModalLabel').html('Edit Group');
+			$('#group-form').attr('action', base_url + 'panel/users/edit_group/' + group_id);
+			$('#btn-submit-group-form').html('Edit');
+			$('#groupModalLabel').html('Edit Group');
 		} else {
-			$('#area-form').attr('action', base_url + 'panel/users/create_group');
-			$('#btn-submit-area-form').html('Create');
-			$('#linkModalLabel').html('Add Group');
+			$('#group-form').attr('action', base_url + 'panel/users/create_group');
+			$('#btn-submit-group-form').html('Create');
+			$('#groupModalLabel').html('Add Group');
 		}
 	})
 });

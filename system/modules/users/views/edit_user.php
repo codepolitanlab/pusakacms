@@ -2,7 +2,7 @@
 
 <div class="row heading">
 	<div class="col-md-6">
-	<h1><a href="{{ func.site_url uri="panel/users" }}">Users</a> &bull; Edit User</h1>
+		<h1><a href="{{ func.site_url uri="panel/users" }}">Users</a> &bull; Edit User</h1>
 	</div>
 	<div class="col-md-6 align-right">
 		<div>
@@ -81,6 +81,9 @@
 
 		</div>
 	</div>
+
+	<?php echo form_hidden('id', $user->id);?>
+	<?php echo form_hidden($csrf); ?>
 
 
 	<?php echo form_close();?>

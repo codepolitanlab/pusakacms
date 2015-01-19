@@ -61,7 +61,9 @@
 				<tr>
 					<td><?php echo $group->name;?></td>
 					<td><?php echo $group->description;?></td>
-					<td style="text-align:right"><?php echo anchor("panel/groups/change_permissions/".$group->id, 'Change Permissions', 'class="btn btn-xs btn-primary"') ;?>
+					<td style="text-align:right">
+						<?php if($group->name != 'admin'): ?>
+
 						<a href="#" 
 						   class="btn edit btn-xs btn-primary" 
 						   data-group-id="<?php echo $group->id; ?>" 
@@ -72,7 +74,9 @@
 						   data-desc="<?php echo $group->description; ?>">
 							Edit
 						</a>
-						<?php echo anchor("panel/groups/delete_group/".$group->id, 'Delete', 'class="btn remove btn-xs btn-primary"') ;?>
+						<?php echo anchor("panel/users/delete_group/".$group->id, 'Delete', 'class="btn remove btn-xs btn-primary"') ;?>
+
+						<?php endif; ?>
 					</td>
 				</tr>
 			<?php endforeach;?>
@@ -85,10 +89,10 @@
 <div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
-			<form action="<?php echo site_url('panel/users/create_group'); ?>" class="form" id="area-form" method="POST">
+			<form action="<?php echo site_url('panel/users/create_group'); ?>" class="form" id="group-form" method="POST">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-					<h4 class="modal-title" id="areaModalLabel">New Group</h4>
+					<h4 class="modal-title" id="groupModalLabel">New Group</h4>
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
@@ -102,7 +106,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-					<button type="submit" id="btn-submit-area-form" class="btn btn-primary">Create</button>
+					<button type="submit" id="btn-submit-group-form" class="btn btn-primary">Create</button>
 				</div>
 			</form>
 		</div>
