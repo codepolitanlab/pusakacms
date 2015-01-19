@@ -4,7 +4,7 @@
     </div>
     <div class="col-md-6 align-right">
         <div>
-            <a class="btn btn-md btn-transparent" href="{{ func.site_url }}site/create"><span class="fa fa-plus-circle"></span> Create new site</a>
+            <a class="btn btn-md btn-transparent" href="<?php echo site_url('panel/site/create'); ?>"><span class="fa fa-plus-circle"></span> Create new site</a>
         </div>
     </div>
 </div>
@@ -64,7 +64,7 @@
                         </div>
                         <div class="col-md-6 align-right">
                             <div class="option">
-                                <a href="<?php echo site_url('site/edit/'.$site); ?>" class="edit"><span class="fa fa-edit"></span> Edit</a>
+                                <!-- <a href="<?php echo site_url('site/edit/'.$site); ?>" class="edit"><span class="fa fa-edit"></span> Edit</a> -->
                                 <?php if($site != SITE_SLUG): ?>
                                 <a href="<?php echo site_url('site/delete/'.$site); ?>" class="remove"><span class="fa fa-times"></span> Delete</a>
                                 <?php endif; ?>

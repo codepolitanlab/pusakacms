@@ -1,0 +1,23 @@
+[
+    {
+        "title": "Home",
+        "slug": "home",
+        "url": "home",
+        "source": "uri",
+        "target": "_self"
+    },
+    {
+        "title": "Blog",
+        "slug": "blog",
+        "url": "blog",
+        "source": "uri",
+        "target": "_self"
+    },
+    {
+        "title": "Lipsum",
+        "slug": "lipsum",
+        "url": "lipsum",
+        "source": "uri",
+        "target": "_self"
+    }
+]
