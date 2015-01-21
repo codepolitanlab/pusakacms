@@ -11,8 +11,15 @@ class MY_Config extends MX_Config
 	 * @param	mixed	the URI string or an array of segments
 	 * @return	string
 	 */
-	public function site_url($uri = '')
+	public function site_url($uri = '', $protocol = NULL)
 	{
+		$base_url = $this->slash_item('base_url');
+
+		if (isset($protocol))
+		{
+			$base_url = $protocol.substr($base_url, strpos($base_url, '://'));
+		}
+
 		$site_slug = SITE_SLUG.'/';
 
 		include APPPATH.'config/pusaka.php';
@@ -23,7 +30,7 @@ class MY_Config extends MX_Config
 
 		if (empty($uri))
 		{
-			return $this->slash_item('base_url').$this->item('index_page').$site_slug;
+			return $base_url.$this->item('index_page').$site_slug;
 		}
 
 		$uri = $this->_uri_string($uri);
@@ -41,13 +48,13 @@ class MY_Config extends MX_Config
 				$uri .= $suffix;
 			}
 
-			return $this->slash_item('base_url').$this->slash_item('index_page').$site_slug.$uri;
+			return $base_url.$this->slash_item('index_page').$site_slug.$uri;
 		}
 		elseif (strpos($uri, '?') === FALSE)
 		{
 			$uri = '?'.$uri;
 		}
 
-		return $this->slash_item('base_url').$this->item('index_page').$site_slug.$uri;
+		return $base_url.$this->item('index_page').$site_slug.$uri;
 	}
 }

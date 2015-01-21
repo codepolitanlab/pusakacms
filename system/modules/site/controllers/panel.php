@@ -39,7 +39,7 @@ class Panel extends Admin_Controller {
 
 		//validate form input
 		$this->form_validation->set_rules('site_name', 'Site Name', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('site_slug', 'Site Slug', 'trim|trim|required|xss_clean|callback_site_slug_check');
+		$this->form_validation->set_rules('site_slug', 'Site Slug', 'trim|required|xss_clean|callback_siteslug_check');
 		$this->form_validation->set_rules('site_slogan', 'Site Slogan', 'trim|xss_clean');
 		$this->form_validation->set_rules('site_domain', 'Site Domain', 'trim|xss_clean');
 
@@ -52,7 +52,7 @@ class Panel extends Admin_Controller {
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[4]|max_length[20]|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', 'Confirm Password', 'trim|required');
 
-		if ($this->form_validation->run() == true)
+		if ($this->form_validation->run($this) == true)
 		{
 			// create site folder
 			$site_slug = $this->input->post('site_slug');
@@ -225,7 +225,7 @@ class Panel extends Admin_Controller {
 
 	}
 
-	function site_slug_check($str)
+	function siteslug_check($str)
 	{
 		if(file_exists(SITE_FOLDER.'/'.$str.'/')){
 			$this->form_validation->set_message('site_slug_check', 'Site Slug already taken.');
