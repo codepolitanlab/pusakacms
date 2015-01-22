@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 /**
  * CodeIgniter
  *
@@ -18,12 +18,13 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
  * @filesource
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Initialize the database
@@ -31,8 +32,10 @@
  * @category	Database
  * @author	EllisLab Dev Team
  * @link	http://codeigniter.com/user_guide/database/
- * @param 	string
- * @param 	bool	Determines if query builder should be used or not
+ *
+ * @param 	string|string[]	$params
+ * @param 	bool		$query_builder_override
+ *				Determines if query builder should be used or not
  */
 function &DB($params = '', $query_builder_override = NULL)
 {
@@ -40,13 +43,28 @@ function &DB($params = '', $query_builder_override = NULL)
 	if (is_string($params) && strpos($params, '://') === FALSE)
 	{
 		// Is the config file in the environment folder?
-		if (( ! defined('ENVIRONMENT') OR ! file_exists($file_path = APPPATH.'config/'.ENVIRONMENT.'/database.php'))
+		if ( ! file_exists($file_path = APPPATH.'config/'.ENVIRONMENT.'/database.php')
 			&& ! file_exists($file_path = APPPATH.'config/database.php'))
 		{
 			show_error('The configuration file database.php does not exist.');
 		}
 
 		include($file_path);
+//		 Make packages contain database config files
+		foreach (get_instance()->load->get_package_paths() as $path)
+		{
+			if ($path !== APPPATH && $path != COMMONPATH)
+			{
+				if (file_exists($file_path = $path.'config/'.ENVIRONMENT.'/database.php'))
+				{
+					include($file_path);
+				}
+				elseif (file_exists($file_path = $path.'config/database.php'))
+				{
+					include($file_path);
+				}
+			}
+		}
 
 		if ( ! isset($db) OR count($db) === 0)
 		{
@@ -58,21 +76,25 @@ function &DB($params = '', $query_builder_override = NULL)
 			$active_group = $params;
 		}
 
-		if ( ! isset($active_group) OR ! isset($db[$active_group]))
+		if ( ! isset($active_group))
 		{
-			show_error('You have specified an invalid database connection group.');
+			show_error('You have not specified a database connection group via $active_group in your config/database.php file.');
+		}
+		elseif ( ! isset($db[$active_group]))
+		{
+			show_error('You have specified an invalid database connection group ('.$active_group.') in your config/database.php file.');
 		}
 
 		$params = $db[$active_group];
 	}
 	elseif (is_string($params))
 	{
-
-		/* parse the URL from the DSN string
-		 *  Database settings can be passed as discreet
-		 *  parameters or as a data source name in the first
-		 *  parameter. DSNs must have this prototype:
-		 *  $dsn = 'driver://username:password@hostname/database';
+		/**
+		 * Parse the URL from the DSN string
+		 * Database settings can be passed as discreet
+		 * parameters or as a data source name in the first
+		 * parameter. DSNs must have this prototype:
+		 * $dsn = 'driver://username:password@hostname/database';
 		 */
 		if (($dsn = @parse_url($params)) === FALSE)
 		{
@@ -88,7 +110,7 @@ function &DB($params = '', $query_builder_override = NULL)
 				'database'	=> isset($dsn['path']) ? rawurldecode(substr($dsn['path'], 1)) : ''
 			);
 
-		// were additional config items set?
+		// Were additional config items set?
 		if (isset($dsn['query']))
 		{
 			parse_str($dsn['query'], $extra);
@@ -131,13 +153,24 @@ function &DB($params = '', $query_builder_override = NULL)
 	if ( ! isset($query_builder) OR $query_builder === TRUE)
 	{
 		require_once(BASEPATH.'database/DB_query_builder.php');
-		if ( ! class_exists('CI_DB'))
+		if ( ! class_exists('CI_DB', FALSE))
 		{
+			/**
+			 * CI_DB
+			 *
+			 * Acts as an alias for both CI_DB_driver and CI_DB_query_builder.
+			 *
+			 * @see	CI_DB_query_builder
+			 * @see	CI_DB_driver
+			 */
 			class CI_DB extends CI_DB_query_builder { }
 		}
 	}
-	elseif ( ! class_exists('CI_DB'))
+	elseif ( ! class_exists('CI_DB', FALSE))
 	{
+		/**
+	 	 * @ignore
+		 */
 		class CI_DB extends CI_DB_driver { }
 	}
 

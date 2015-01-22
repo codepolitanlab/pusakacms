@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 /**
  * CodeIgniter
  *
@@ -18,11 +18,13 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
+ * @filesource
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * CodeIgniter Form Helpers
@@ -48,14 +50,9 @@ if ( ! function_exists('form_open'))
 	 * @param	array	a key/value pair hidden data
 	 * @return	string
 	 */
-	function form_open($action = '', $attributes = '', $hidden = array())
+	function form_open($action = '', $attributes = array(), $hidden = array())
 	{
 		$CI =& get_instance();
-
-		if ($attributes === '')
-		{
-			$attributes = 'method="post"';
-		}
 
 		// If an action is not a full URL then turn it into one
 		if ($action && strpos($action, '://') === FALSE)
@@ -68,10 +65,22 @@ if ( ! function_exists('form_open'))
 			$action = $CI->config->site_url($CI->uri->uri_string());
 		}
 
-		$form = '<form action="'.$action.'"'._attributes_to_string($attributes, TRUE).">\n";
+		$attributes = _attributes_to_string($attributes);
+
+		if (stripos($attributes, 'method=') === FALSE)
+		{
+			$attributes .= ' method="post"';
+		}
+
+		if (stripos($attributes, 'accept-charset=') === FALSE)
+		{
+			$attributes .= ' accept-charset="'.strtolower(config_item('charset')).'"';
+		}
+
+		$form = '<form action="'.$action.'"'.$attributes.">\n";
 
 		// Add CSRF field if enabled, but leave it out for GET requests and requests to external websites
-		if ($CI->config->item('csrf_protection') === TRUE && ! (strpos($action, $CI->config->base_url()) === FALSE OR strpos($form, 'method="get"')))
+		if ($CI->config->item('csrf_protection') === TRUE && ! (strpos($action, $CI->config->base_url()) === FALSE OR stripos($form, 'method="get"')))
 		{
 			$hidden[$CI->security->get_csrf_token_name()] = $CI->security->get_csrf_hash();
 		}
@@ -124,9 +133,9 @@ if ( ! function_exists('form_hidden'))
 	 * Generates hidden fields. You can pass a simple key/value string or
 	 * an associative array with multiple values.
 	 *
-	 * @param	mixed
-	 * @param	string
-	 * @param	bool
+	 * @param	mixed	$name		Field name
+	 * @param	string	$value		Field value
+	 * @param	bool	$recursing
 	 * @return	string
 	 */
 	function form_hidden($name, $value = '', $recursing = FALSE)
@@ -149,7 +158,7 @@ if ( ! function_exists('form_hidden'))
 
 		if ( ! is_array($value))
 		{
-			$form .= '<input type="hidden" name="'.$name.'" value="'.form_prep($value, $name)."\" />\n";
+			$form .= '<input type="hidden" name="'.$name.'" value="'.form_prep($value)."\" />\n";
 		}
 		else
 		{
@@ -226,13 +235,10 @@ if ( ! function_exists('form_upload'))
 	 */
 	function form_upload($data = '', $value = '', $extra = '')
 	{
-		if ( ! is_array($data))
-		{
-			$data = array('name' => $data);
-		}
-
+		$defaults = array('type' => 'file', 'name' => '');
+		is_array($data) OR $data = array('name' => $data);
 		$data['type'] = 'file';
-		return form_input($data, $value, $extra);
+		return '<input '._parse_form_attributes($data, $defaults).$extra." />\n";
 	}
 }
 
@@ -243,9 +249,9 @@ if ( ! function_exists('form_textarea'))
 	/**
 	 * Textarea field
 	 *
-	 * @param	mixed
-	 * @param	string
-	 * @param	string
+	 * @param	mixed	$data
+	 * @param	string	$value
+	 * @param	string	$extra
 	 * @return	string
 	 */
 	function form_textarea($data = '', $value = '', $extra = '')
@@ -262,8 +268,7 @@ if ( ! function_exists('form_textarea'))
 			unset($data['value']); // textareas don't use the value attribute
 		}
 
-		$name = is_array($data) ? $data['name'] : $data;
-		return '<textarea '._parse_form_attributes($data, $defaults).$extra.'>'.form_prep($val, $name)."</textarea>\n";
+		return '<textarea '._parse_form_attributes($data, $defaults).$extra.'>'.form_prep($val, TRUE)."</textarea>\n";
 	}
 }
 
@@ -298,10 +303,10 @@ if ( ! function_exists('form_dropdown'))
 	/**
 	 * Drop-down Menu
 	 *
-	 * @param	string
-	 * @param	array
-	 * @param	string
-	 * @param	string
+	 * @param	mixed	$name
+	 * @param	mixed	$options
+	 * @param	mixed	$selected
+	 * @param	mixed	$extra
 	 * @return	string
 	 */
 	function form_dropdown($name = '', $options = array(), $selected = array(), $extra = '')
@@ -316,10 +321,7 @@ if ( ! function_exists('form_dropdown'))
 			return form_dropdown($name['name'], $name['options'], $name['selected'], $name['extra']);
 		}
 
-		if ( ! is_array($selected))
-		{
-			$selected = array($selected);
-		}
+		is_array($selected) OR $selected = array($selected);
 
 		// If no selected state was submitted we will attempt to set it automatically
 		if (count($selected) === 0 && isset($_POST[$name]))
@@ -352,14 +354,17 @@ if ( ! function_exists('form_dropdown'))
 				foreach ($val as $optgroup_key => $optgroup_val)
 				{
 					$sel = in_array($optgroup_key, $selected) ? ' selected="selected"' : '';
-					$form .= '<option value="'.$optgroup_key.'"'.$sel.'>'.(string) $optgroup_val."</option>\n";
+					$form .= '<option value="'.form_prep($optgroup_key).'"'.$sel.'>'
+						.(string) $optgroup_val."</option>\n";
 				}
 
 				$form .= "</optgroup>\n";
 			}
 			else
 			{
-				$form .= '<option value="'.$key.'"'.(in_array($key, $selected) ? ' selected="selected"' : '').'>'.(string) $val."</option>\n";
+				$form .= '<option value="'.form_prep($key).'"'
+					.(in_array($key, $selected) ? ' selected="selected"' : '').'>'
+					.(string) $val."</option>\n";
 			}
 		}
 
@@ -544,12 +549,12 @@ if ( ! function_exists('form_fieldset'))
 	 * use form_fieldset_close()
 	 *
 	 * @param	string	The legend text
-	 * @param	string	Additional attributes
+	 * @param	array	Additional attributes
 	 * @return	string
 	 */
 	function form_fieldset($legend_text = '', $attributes = array())
 	{
-		$fieldset = '<fieldset'._attributes_to_string($attributes, FALSE).">\n";
+		$fieldset = '<fieldset'._attributes_to_string($attributes).">\n";
 		if ($legend_text !== '')
 		{
 			return $fieldset.'<legend>'.$legend_text."</legend>\n";
@@ -600,45 +605,28 @@ if ( ! function_exists('form_prep'))
 	 *
 	 * Formats text so that it can be safely placed in a form field in the event it has HTML tags.
 	 *
-	 * @param	string
-	 * @param	string
-	 * @return	string
+	 * @param	string|string[]	$str		Value to escape
+	 * @param	bool		$is_textarea	Whether we're escaping for a textarea element
+	 * @return	string|string[]	Escaped values
 	 */
-	function form_prep($str = '', $field_name = '')
+	function form_prep($str = '', $is_textarea = FALSE)
 	{
-		static $prepped_fields = array();
-
-		// if the field name is an array we do this recursively
 		if (is_array($str))
 		{
-			foreach ($str as $key => $val)
+			foreach (array_keys($str) as $key)
 			{
-				$str[$key] = form_prep($val);
+				$str[$key] = form_prep($str[$key], $is_textarea);
 			}
 
 			return $str;
 		}
 
-		if ($str === '')
+		if ($is_textarea === TRUE)
 		{
-			return '';
+			return str_replace(array('<', '>'), array('&lt;', '&gt;'), stripslashes($str));
 		}
 
-		// we've already prepped a field with this name
-		// @todo need to figure out a way to namespace this so
-		// that we know the *exact* field and not just one with
-		// the same name
-		if (isset($prepped_fields[$field_name]))
-		{
-			return $str;
-		}
-
-		if ($field_name !== '')
-		{
-			$prepped_fields[$field_name] = $field_name;
-		}
-
-		return html_escape($str);
+		return str_replace(array("'", '"'), array('&#39;', '&quot;'), stripslashes($str));
 	}
 }
 
@@ -653,23 +641,20 @@ if ( ! function_exists('set_value'))
 	 * re-populate an input field or textarea. If Form Validation
 	 * is active it retrieves the info from the validation class
 	 *
-	 * @param	string
-	 * @param	string
-	 * @return	mixed
+	 * @param	string	$field		Field name
+	 * @param	string	$default	Default value
+	 * @param	bool	$is_textarea	Whether the field is a textarea element
+	 * @return	string
 	 */
-	function set_value($field = '', $default = '')
+	function set_value($field = '', $default = '', $is_textarea = FALSE)
 	{
-		if (FALSE === ($OBJ =& _get_validation_object()))
-		{
-			if ( ! isset($_POST[$field]))
-			{
-				return $default;
-			}
+		$CI =& get_instance();
 
-			return form_prep($_POST[$field], $field);
-		}
+		$value = (isset($CI->form_validation) && is_object($CI->form_validation) && $CI->form_validation->has_rule($field))
+			? $CI->form_validation->set_value($field, $default)
+			: $CI->input->post($field, FALSE);
 
-		return form_prep($OBJ->set_value($field, $default), $field);
+		return form_prep($value === NULL ? $default : $value, $is_textarea);
 	}
 }
 
@@ -831,7 +816,6 @@ if ( ! function_exists('set_radio'))
 
 // ------------------------------------------------------------------------
 
-
 if ( ! function_exists('form_error'))
 {
 	/**
@@ -890,8 +874,8 @@ if ( ! function_exists('_parse_form_attributes'))
 	 *
 	 * Helper function used by some of the form helpers
 	 *
-	 * @param	array
-	 * @param	array
+	 * @param	array	$attributes	List of attributes
+	 * @param	array	$default	Default values
 	 * @return	string
 	 */
 	function _parse_form_attributes($attributes, $default)
@@ -919,7 +903,11 @@ if ( ! function_exists('_parse_form_attributes'))
 		{
 			if ($key === 'value')
 			{
-				$val = form_prep($val, $default['name']);
+				$val = form_prep($val);
+			}
+			elseif ($key === 'name' && ! strlen($default['name']))
+			{
+				continue;
 			}
 
 			$att .= $key.'="'.$val.'" ';
@@ -939,44 +927,23 @@ if ( ! function_exists('_attributes_to_string'))
 	 * Helper function used by some of the form helpers
 	 *
 	 * @param	mixed
-	 * @param	bool
 	 * @return	string
 	 */
-	function _attributes_to_string($attributes, $formtag = FALSE)
+	function _attributes_to_string($attributes)
 	{
-		if (is_string($attributes) && strlen($attributes) > 0)
+		if (empty($attributes))
 		{
-			if ($formtag === TRUE && strpos($attributes, 'method=') === FALSE)
-			{
-				$attributes .= ' method="post"';
-			}
-
-			if ($formtag === TRUE && strpos($attributes, 'accept-charset=') === FALSE)
-			{
-				$attributes .= ' accept-charset="'.strtolower(config_item('charset')).'"';
-			}
-
-			return ' '.$attributes;
+			return '';
 		}
 
-		if (is_object($attributes) && count($attributes) > 0)
+		if (is_object($attributes))
 		{
 			$attributes = (array) $attributes;
 		}
 
-		if (is_array($attributes) && ($formtag === TRUE OR count($attributes) > 0))
+		if (is_array($attributes))
 		{
 			$atts = '';
-
-			if ( ! isset($attributes['method']) && $formtag === TRUE)
-			{
-				$atts .= ' method="post"';
-			}
-
-			if ( ! isset($attributes['accept-charset']) && $formtag === TRUE)
-			{
-				$atts .= ' accept-charset="'.strtolower(config_item('charset')).'"';
-			}
 
 			foreach ($attributes as $key => $val)
 			{
@@ -985,6 +952,13 @@ if ( ! function_exists('_attributes_to_string'))
 
 			return $atts;
 		}
+
+		if (is_string($attributes))
+		{
+			return ' '.$attributes;
+		}
+
+		return FALSE;
 	}
 }
 
@@ -1007,7 +981,7 @@ if ( ! function_exists('_get_validation_object'))
 		// We set this as a variable since we're returning by reference.
 		$return = FALSE;
 
-		if (FALSE !== ($object = $CI->load->is_loaded('form_validation')))
+		if (FALSE !== ($object = $CI->load->is_loaded('Form_validation')))
 		{
 			if ( ! isset($CI->$object) OR ! is_object($CI->$object))
 			{

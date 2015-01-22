@@ -139,10 +139,10 @@ class Template
 		$this->_method 		= $this->_ci->router->fetch_method();
 
 		// Load user agent library if not loaded
-		$this->_ci->load->library('user_agent');
+		// $this->_ci->load->library('user_agent');
 
 		// We'll want to know this later
-		$this->_is_mobile	= $this->_ci->agent->is_mobile();
+		// $this->_is_mobile	= $this->_ci->agent->is_mobile();
 	}
 
 	// --------------------------------------------------------------------
@@ -515,6 +515,9 @@ class Template
 				if(! defined('THEME_PATH')) 
 					define('THEME_PATH', $this->_theme_path);
 				break;
+			} else {
+				if(! defined('THEME_PATH')) 
+					define('THEME_PATH', 'default');
 			}
 		}
 

@@ -221,30 +221,6 @@ class JsonFileDB
         return $result;
     }
 
-    public function select_children($key, $val, $array = false)
-    {
-        if(!$array)
-            $new_array = $this->fileData;
-        else
-            $new_array = $array;
-
-        $result = array();
-
-        foreach($new_array as $i => &$arr){
-            if($arr[$key] == $val){
-                $result = $new_array[$i];
-                break;
-            }
-
-            if(!empty($arr['children'])){
-                if($result = $this->select_children($key, $val, $arr['children']))
-                    break;
-            }
-        }
-
-        return $result;
-    }
-
     /**
      * Update All
      *
@@ -300,37 +276,6 @@ class JsonFileDB
         $this->save();
 
         return $result;
-    }
-
-    public function update_children($key, $val, $newdata = array(), $array = false)
-    {
-        if(!$array)
-            $new_array = $this->fileData;
-        else
-            $new_array = $array;
-
-        foreach($new_array as $i => &$arr){
-            if($arr[$key] == $val){
-                if(isset($arr['children']))
-                    $newdata['children'] = $arr['children'];
-
-                $new_array[$i] = $newdata;
-                break;
-            }
-
-            if(!empty($arr['children'])){
-                $arr['children'] = $this->update_children($key, $val, $newdata, $arr['children']);
-
-                if(count($arr['children']) < 1)
-                    unset($arr['children']);
-            }
-        }
-
-        if(!$array){
-            $this->fileData = array_values($new_array);
-            return $this->save();
-        } else
-            return array_values($new_array);
     }
 
     /**
@@ -400,34 +345,6 @@ class JsonFileDB
         $this->save();
 
         return $result;
-    }
-
-    public function delete_children($key, $val, $array = false)
-    {
-        if(!$array)
-            $new_array = $this->fileData;
-        else
-            $new_array = $array;
-
-        foreach($new_array as $i => &$arr){
-            if($arr[$key] == $val){
-                unset($new_array[$i]);
-                break;
-            }
-
-            if(!empty($arr['children'])){
-                $arr['children'] = $this->delete_children($key, $val, $arr['children']);
-
-                if(count($arr['children']) < 1)
-                    unset($arr['children']);
-            }
-        }
-
-        if(!$array){
-            $this->fileData = array_values($new_array);
-            return $this->save();
-        } else
-            return array_values($new_array);
     }
 
     public function createTable($tablePath) {

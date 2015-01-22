@@ -71,7 +71,7 @@ $config['layout'] = 'page';
 |
 */
 
-$config['theme'] = '';
+$config['theme'] = 'jakarta';
 
 /*
 |--------------------------------------------------------------------------
@@ -85,7 +85,7 @@ $config['theme'] = '';
 */
 
 $config['theme_locations'] = array(
-	'system/themes/',
+	'themes/',
 	SITE_FOLDER.SITE_SLUG.'/themes/'
 );
 

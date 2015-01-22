@@ -6,6 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
+    'org\\bovigo\\vfs' => array($vendorDir . '/mikey179/vfsStream/src/main/php'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log'),
+    'Profiler' => array($vendorDir . '/loic-sharma/profiler/src'),
     'Parsedown' => array($vendorDir . '/erusev/parsedown'),
+    'Monolog' => array($vendorDir . '/monolog/monolog/src'),
     'Lex' => array($vendorDir . '/pyrocms/lex/lib'),
 );

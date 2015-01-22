@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 /**
  * CodeIgniter
  *
@@ -18,12 +18,13 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
  * @filesource
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * CodeIgniter Profiler Class
@@ -74,12 +75,14 @@ class CI_Profiler {
 	 */
 	protected $CI;
 
+	// --------------------------------------------------------------------
+
 	/**
-	 * Constructor
+	 * Class constructor
 	 *
 	 * Initialize Profiler
 	 *
-	 * @param array $config
+	 * @param	array	$config	Parameters
 	 */
 	public function __construct($config = array())
 	{
@@ -111,7 +114,7 @@ class CI_Profiler {
 	 *
 	 * Sets the private _compile_* properties to enable/disable Profiler sections
 	 *
-	 * @param	mixed
+	 * @param	mixed	$config
 	 * @return	void
 	 */
 	public function set_sections($config)
@@ -190,11 +193,24 @@ class CI_Profiler {
 		$dbs = array();
 
 		// Let's determine which databases are currently connected to
-		foreach (get_object_vars($this->CI) as $CI_object)
+		foreach (get_object_vars($this->CI) as $name => $cobject)
 		{
-			if (is_object($CI_object) && is_subclass_of(get_class($CI_object), 'CI_DB'))
+			if (is_object($cobject))
 			{
-				$dbs[] = $CI_object;
+				if ($cobject instanceof CI_DB)
+				{
+					$dbs[get_class($this->CI).':$'.$name] = $cobject;
+				}
+				elseif ($cobject instanceof CI_Model)
+				{
+					foreach (get_object_vars($cobject) as $mname => $mobject)
+					{
+						if ($mobject instanceof CI_DB)
+						{
+							$dbs[get_class($cobject).':$'.$mname] = $mobject;
+						}
+					}
+				}
 			}
 		}
 
@@ -219,9 +235,10 @@ class CI_Profiler {
 		$output  = "\n\n";
 		$count = 0;
 
-		foreach ($dbs as $db)
+		foreach ($dbs as $name => $db)
 		{
 			$hide_queries = (count($db->queries) > $this->_query_toggle_count) ? ' display:none' : '';
+			$total_time = number_format(array_sum($db->query_times), 4).' '.$this->CI->lang->line('profiler_seconds');
 
 			$show_hide_js = '(<span style="cursor: pointer;" onclick="var s=document.getElementById(\'ci_profiler_queries_db_'.$count.'\').style;s.display=s.display==\'none\'?\'\':\'none\';this.innerHTML=this.innerHTML==\''.$this->CI->lang->line('profiler_section_hide').'\'?\''.$this->CI->lang->line('profiler_section_show').'\':\''.$this->CI->lang->line('profiler_section_hide').'\';">'.$this->CI->lang->line('profiler_section_hide').'</span>)';
 
@@ -233,8 +250,8 @@ class CI_Profiler {
 			$output .= '<fieldset style="border:1px solid #0000FF;padding:6px 10px 10px 10px;margin:20px 0 20px 0;background-color:#eee;">'
 				."\n"
 				.'<legend style="color:#0000FF;">&nbsp;&nbsp;'.$this->CI->lang->line('profiler_database')
-				.':&nbsp; '.$db->database.'&nbsp;&nbsp;&nbsp;'.$this->CI->lang->line('profiler_queries')
-				.': '.count($db->queries).'&nbsp;&nbsp;'.$show_hide_js."</legend>\n\n\n"
+				.':&nbsp; '.$db->database.' ('.$name.')&nbsp;&nbsp;&nbsp;'.$this->CI->lang->line('profiler_queries')
+				.': '.count($db->queries).' ('.$total_time.')&nbsp;&nbsp;'.$show_hide_js."</legend>\n\n\n"
 				.'<table style="width:100%;'.$hide_queries.'" id="ci_profiler_queries_db_'.$count."\">\n";
 
 			if (count($db->queries) === 0)
@@ -247,7 +264,7 @@ class CI_Profiler {
 				foreach ($db->queries as $key => $val)
 				{
 					$time = number_format($db->query_times[$key], 4);
-					$val = highlight_code($val, ENT_QUOTES);
+					$val = highlight_code($val);
 
 					foreach ($highlight as $bold)
 					{
@@ -388,7 +405,7 @@ class CI_Profiler {
 			.'<fieldset id="ci_profiler_controller_info" style="border:1px solid #995300;padding:6px 10px 10px 10px;margin:20px 0 20px 0;background-color:#eee;">'
 			."\n"
 			.'<legend style="color:#995300;">&nbsp;&nbsp;'.$this->CI->lang->line('profiler_controller_info')."&nbsp;&nbsp;</legend>\n"
-			.'<div style="color:#995300;font-weight:normal;padding:4px 0 4px 0;">'.$this->CI->router->fetch_class().'/'.$this->CI->router->fetch_method()
+			.'<div style="color:#995300;font-weight:normal;padding:4px 0 4px 0;">'.$this->CI->router->class.'/'.$this->CI->router->method
 			.'</div></fieldset>';
 	}
 
@@ -430,7 +447,7 @@ class CI_Profiler {
 			.'&nbsp;&nbsp;(<span style="cursor: pointer;" onclick="var s=document.getElementById(\'ci_profiler_httpheaders_table\').style;s.display=s.display==\'none\'?\'\':\'none\';this.innerHTML=this.innerHTML==\''.$this->CI->lang->line('profiler_section_show').'\'?\''.$this->CI->lang->line('profiler_section_hide').'\':\''.$this->CI->lang->line('profiler_section_show').'\';">'.$this->CI->lang->line('profiler_section_show')."</span>)</legend>\n\n\n"
 			.'<table style="width:100%;display:none;" id="ci_profiler_httpheaders_table">'."\n";
 
-		foreach (array('HTTP_ACCEPT', 'HTTP_USER_AGENT', 'HTTP_CONNECTION', 'SERVER_PORT', 'SERVER_NAME', 'REMOTE_ADDR', 'SERVER_SOFTWARE', 'HTTP_ACCEPT_LANGUAGE', 'SCRIPT_NAME', 'REQUEST_METHOD',' HTTP_HOST', 'REMOTE_HOST', 'CONTENT_TYPE', 'SERVER_PROTOCOL', 'QUERY_STRING', 'HTTP_ACCEPT_ENCODING', 'HTTP_X_FORWARDED_FOR') as $header)
+		foreach (array('HTTP_ACCEPT', 'HTTP_USER_AGENT', 'HTTP_CONNECTION', 'SERVER_PORT', 'SERVER_NAME', 'REMOTE_ADDR', 'SERVER_SOFTWARE', 'HTTP_ACCEPT_LANGUAGE', 'SCRIPT_NAME', 'REQUEST_METHOD',' HTTP_HOST', 'REMOTE_HOST', 'CONTENT_TYPE', 'SERVER_PROTOCOL', 'QUERY_STRING', 'HTTP_ACCEPT_ENCODING', 'HTTP_X_FORWARDED_FOR', 'HTTP_DNT') as $header)
 		{
 			$val = isset($_SERVER[$header]) ? $_SERVER[$header] : '';
 			$output .= '<tr><td style="vertical-align:top;width:50%;padding:5px;color:#900;background-color:#ddd;">'

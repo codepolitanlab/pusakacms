@@ -18,7 +18,7 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -62,17 +62,45 @@ class CI_DB_sqlite_driver extends CI_DB {
 	/**
 	 * Non-persistent database connection
 	 *
-	 * @param	bool	$persistent
 	 * @return	resource
 	 */
-	public function db_connect($persistent = FALSE)
+	public function db_connect()
 	{
-		$error = NULL;
-		$conn_id = ($persistent === TRUE)
-			? sqlite_popen($this->database, 0666, $error)
-			: sqlite_open($this->database, 0666, $error);
+		if ( ! $conn_id = @sqlite_open($this->database, FILE_WRITE_MODE, $error))
+		{
+			log_message('error', $error);
 
-		isset($error) && log_message('error', $error);
+			if ($this->db_debug)
+			{
+				$this->display_error($error, '', TRUE);
+			}
+
+			return FALSE;
+		}
+
+		return $conn_id;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Persistent database connection
+	 *
+	 * @return	resource
+	 */
+	public function db_pconnect()
+	{
+		if ( ! $conn_id = @sqlite_popen($this->database, FILE_WRITE_MODE, $error))
+		{
+			log_message('error', $error);
+
+			if ($this->db_debug)
+			{
+				$this->display_error($error, '', TRUE);
+			}
+
+			return FALSE;
+		}
 
 		return $conn_id;
 	}
@@ -102,8 +130,8 @@ class CI_DB_sqlite_driver extends CI_DB {
 	protected function _execute($sql)
 	{
 		return $this->is_write_type($sql)
-			? sqlite_exec($this->conn_id, $sql)
-			: sqlite_query($this->conn_id, $sql);
+			? @sqlite_exec($this->conn_id, $sql)
+			: @sqlite_query($this->conn_id, $sql);
 	}
 
 	// --------------------------------------------------------------------
@@ -203,7 +231,7 @@ class CI_DB_sqlite_driver extends CI_DB {
 	 */
 	public function insert_id()
 	{
-		return sqlite_last_insert_rowid($this->conn_id);
+		return @sqlite_last_insert_rowid($this->conn_id);
 	}
 
 	// --------------------------------------------------------------------
@@ -345,7 +373,7 @@ class CI_DB_sqlite_driver extends CI_DB {
 	 */
 	protected function _close()
 	{
-		sqlite_close($this->conn_id);
+		@sqlite_close($this->conn_id);
 	}
 
 }

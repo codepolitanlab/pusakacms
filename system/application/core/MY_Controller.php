@@ -1,14 +1,9 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+require_once COMMONPATH.'core/Core_Controller.php';
 
-require APPPATH."libraries/MX/Controller.php";
+class MY_Controller extends Core_Controller{
 
-/*
-| Parent class of every controller.
-*/
-
-class MY_Controller extends MX_Controller
-{
-	var $data = array();
+		var $data = array();
 
 	public function __construct()
 	{
@@ -20,6 +15,7 @@ class MY_Controller extends MX_Controller
 		date_default_timezone_set('Asia/Jakarta');
 
 		if(! defined('PAGE_FOLDER')) define('SITE_PATH', SITE_FOLDER.SITE_SLUG.'/');
+
 
 		// load library
 		$this->load->library('users/ion_auth');
@@ -58,10 +54,10 @@ class MY_Controller extends MX_Controller
 
 		if(! defined('POST_TERM')) define('POST_TERM', $this->config->item('post_term'));
 
-		if(! defined('PLUGIN_FOLDER')) define('PLUGIN_FOLDER', 'system/plugins/');
+		if(! defined('PLUGIN_FOLDER')) define('PLUGIN_FOLDER', APPPATH.'plugins/');
 
 		// support compatibility with php < 5.3
 		if(! defined('JSON_PRETTY_PRINT')) define('JSON_PRETTY_PRINT', 128);
 	}
-
+	
 }

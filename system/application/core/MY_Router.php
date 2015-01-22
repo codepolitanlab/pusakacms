@@ -1,5 +1,4 @@
-<?php (defined('BASEPATH')) OR exit('No direct script access allowed');
+<?php
+require_once COMMONPATH."core/Core_Router.php";
 
-require APPPATH."libraries/MX/Router.php";
-
-class MY_Router extends MX_Router {}
+class MY_Router extends Core_Router {}

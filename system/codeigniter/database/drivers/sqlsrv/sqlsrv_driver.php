@@ -18,7 +18,7 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 2.0.3
@@ -48,18 +48,6 @@ class CI_DB_sqlsrv_driver extends CI_DB {
 	 */
 	public $dbdriver = 'sqlsrv';
 
-	/**
-	 * Scrollable flag
-	 *
-	 * Determines what cursor type to use when executing queries.
-	 *
-	 * FALSE or SQLSRV_CURSOR_FORWARD would increase performance,
-	 * but would disable num_rows() (and possibly insert_id())
-	 *
-	 * @var	mixed
-	 */
-	public $scrollable;
-
 	// --------------------------------------------------------------------
 
 	/**
@@ -78,27 +66,6 @@ class CI_DB_sqlsrv_driver extends CI_DB {
 	 * @var	bool
 	 */
 	protected $_quoted_identifier = TRUE;
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Class constructor
-	 *
-	 * @param	array	$params
-	 * @return	void
-	 */
-	public function __construct($params)
-	{
-		parent::__construct($params);
-
-		// This is only supported as of SQLSRV 3.0
-		if ($this->scrollable === NULL)
-		{
-			$this->scrollable = defined('SQLSRV_CURSOR_CLIENT_BUFFERED')
-				? SQLSRV_CURSOR_CLIENT_BUFFERED
-				: FALSE;
-		}
-	}
 
 	// --------------------------------------------------------------------
 
@@ -144,6 +111,18 @@ class CI_DB_sqlsrv_driver extends CI_DB {
 	// --------------------------------------------------------------------
 
 	/**
+	 * Persistent database connection
+	 *
+	 * @return	resource
+	 */
+	public function db_pconnect()
+	{
+		return $this->db_connect(TRUE);
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
 	 * Select the database
 	 *
 	 * @param	string	$database
@@ -175,9 +154,9 @@ class CI_DB_sqlsrv_driver extends CI_DB {
 	 */
 	protected function _execute($sql)
 	{
-		return ($this->scrollable === FALSE OR $this->is_write_type($sql))
+		return ($this->is_write_type($sql) && stripos($sql, 'INSERT') === FALSE)
 			? sqlsrv_query($this->conn_id, $sql)
-			: sqlsrv_query($this->conn_id, $sql, NULL, array('Scrollable' => $this->scrollable));
+			: sqlsrv_query($this->conn_id, $sql, NULL, array('Scrollable' => SQLSRV_CURSOR_STATIC));
 	}
 
 	// --------------------------------------------------------------------
@@ -556,7 +535,7 @@ class CI_DB_sqlsrv_driver extends CI_DB {
 	 */
 	protected function _close()
 	{
-		sqlsrv_close($this->conn_id);
+		@sqlsrv_close($this->conn_id);
 	}
 
 }

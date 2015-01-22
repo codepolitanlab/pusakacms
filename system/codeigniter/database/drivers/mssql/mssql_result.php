@@ -18,7 +18,7 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -47,7 +47,7 @@ class CI_DB_mssql_result extends CI_DB_result {
 	{
 		return is_int($this->num_rows)
 			? $this->num_rows
-			: $this->num_rows = mssql_num_rows($this->result_id);
+			: $this->num_rows = @mssql_num_rows($this->result_id);
 	}
 
 	// --------------------------------------------------------------------
@@ -59,7 +59,7 @@ class CI_DB_mssql_result extends CI_DB_result {
 	 */
 	public function num_fields()
 	{
-		return mssql_num_fields($this->result_id);
+		return @mssql_num_fields($this->result_id);
 	}
 
 	// --------------------------------------------------------------------
@@ -167,7 +167,7 @@ class CI_DB_mssql_result extends CI_DB_result {
 	 */
 	protected function _fetch_object($class_name = 'stdClass')
 	{
-		$row = mssql_fetch_object($this->result_id);
+		$row = @mssql_fetch_object($this->result_id);
 
 		if ($class_name === 'stdClass' OR ! $row)
 		{

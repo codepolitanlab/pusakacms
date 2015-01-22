@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 /**
  * CodeIgniter
  *
@@ -18,12 +18,13 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2006 - 2012 EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 3.0
  * @filesource
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * CodeIgniter Wincache Caching Class
@@ -126,10 +127,10 @@ class CI_Cache_wincache extends CI_Driver {
 			$hitcount = $stored['ucache_entries'][1]['hitcount'];
 
 			return array(
-				'expire'    => $ttl - $age,
-				'hitcount'  => $hitcount,
-				'age'       => $age,
-				'ttl'       => $ttl
+				'expire'	=> $ttl - $age,
+				'hitcount'	=> $hitcount,
+				'age'		=> $age,
+				'ttl'		=> $ttl
 			);
 		}
 
@@ -149,7 +150,7 @@ class CI_Cache_wincache extends CI_Driver {
 	{
 		if ( ! extension_loaded('wincache'))
 		{
-			log_message('error', 'The Wincache PHP extension must be loaded to use Wincache Cache.');
+			log_message('debug', 'The Wincache PHP extension must be loaded to use Wincache Cache.');
 			return FALSE;
 		}
 

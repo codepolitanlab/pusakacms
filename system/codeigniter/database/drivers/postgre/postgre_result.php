@@ -18,7 +18,7 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -47,7 +47,7 @@ class CI_DB_postgre_result extends CI_DB_result {
 	{
 		return is_int($this->num_rows)
 			? $this->num_rows
-			: $this->num_rows = pg_num_rows($this->result_id);
+			: $this->num_rows = @pg_num_rows($this->result_id);
 	}
 
 	// --------------------------------------------------------------------
@@ -59,7 +59,7 @@ class CI_DB_postgre_result extends CI_DB_result {
 	 */
 	public function num_fields()
 	{
-		return pg_num_fields($this->result_id);
+		return @pg_num_fields($this->result_id);
 	}
 
 	// --------------------------------------------------------------------

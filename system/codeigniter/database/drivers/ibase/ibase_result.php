@@ -18,7 +18,7 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -45,7 +45,7 @@ class CI_DB_ibase_result extends CI_DB_result {
 	 */
 	public function num_fields()
 	{
-		return ibase_num_fields($this->result_id);
+		return @ibase_num_fields($this->result_id);
 	}
 
 	// --------------------------------------------------------------------
@@ -103,7 +103,7 @@ class CI_DB_ibase_result extends CI_DB_result {
 	 */
 	public function free_result()
 	{
-		ibase_free_result($this->result_id);
+		@ibase_free_result($this->result_id);
 	}
 
 	// --------------------------------------------------------------------
@@ -117,7 +117,7 @@ class CI_DB_ibase_result extends CI_DB_result {
 	 */
 	protected function _fetch_assoc()
 	{
-		return ibase_fetch_assoc($this->result_id, IBASE_FETCH_BLOBS);
+		return @ibase_fetch_assoc($this->result_id, IBASE_FETCH_BLOBS);
 	}
 
 	// --------------------------------------------------------------------
@@ -132,7 +132,7 @@ class CI_DB_ibase_result extends CI_DB_result {
 	 */
 	protected function _fetch_object($class_name = 'stdClass')
 	{
-		$row = ibase_fetch_object($this->result_id, IBASE_FETCH_BLOBS);
+		$row = @ibase_fetch_object($this->result_id, IBASE_FETCH_BLOBS);
 
 		if ($class_name === 'stdClass' OR ! $row)
 		{

@@ -18,7 +18,7 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -139,7 +139,7 @@ class CI_DB_postgre_driver extends CI_DB {
 	public function db_connect($persistent = FALSE)
 	{
 		if ($persistent === TRUE
-			&& ($this->conn_id = pg_pconnect($this->dsn))
+			&& ($this->conn_id = @pg_pconnect($this->dsn))
 			&& pg_connection_status($this->conn_id) === PGSQL_CONNECTION_BAD
 			&& pg_ping($this->conn_id) === FALSE
 		)
@@ -148,7 +148,7 @@ class CI_DB_postgre_driver extends CI_DB {
 		}
 		else
 		{
-			$this->conn_id = pg_connect($this->dsn);
+			$this->conn_id = @pg_connect($this->dsn);
 		}
 
 		if ($this->conn_id && ! empty($this->schema))
@@ -157,6 +157,18 @@ class CI_DB_postgre_driver extends CI_DB {
 		}
 
 		return $this->conn_id;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Persistent database connection
+	 *
+	 * @return	resource
+	 */
+	public function db_pconnect()
+	{
+		return $this->db_connect(TRUE);
 	}
 
 	// --------------------------------------------------------------------
@@ -233,7 +245,7 @@ class CI_DB_postgre_driver extends CI_DB {
 	 */
 	protected function _execute($sql)
 	{
-		return pg_query($this->conn_id, $sql);
+		return @pg_query($this->conn_id, $sql);
 	}
 
 	// --------------------------------------------------------------------
@@ -257,7 +269,7 @@ class CI_DB_postgre_driver extends CI_DB {
 		// even if the queries produce a successful result.
 		$this->_trans_failure = ($test_mode === TRUE);
 
-		return (bool) pg_query($this->conn_id, 'BEGIN');
+		return (bool) @pg_query($this->conn_id, 'BEGIN');
 	}
 
 	// --------------------------------------------------------------------
@@ -275,7 +287,7 @@ class CI_DB_postgre_driver extends CI_DB {
 			return TRUE;
 		}
 
-		return (bool) pg_query($this->conn_id, 'COMMIT');
+		return (bool) @pg_query($this->conn_id, 'COMMIT');
 	}
 
 	// --------------------------------------------------------------------
@@ -293,7 +305,7 @@ class CI_DB_postgre_driver extends CI_DB {
 			return TRUE;
 		}
 
-		return (bool) pg_query($this->conn_id, 'ROLLBACK');
+		return (bool) @pg_query($this->conn_id, 'ROLLBACK');
 	}
 
 	// --------------------------------------------------------------------
@@ -306,7 +318,7 @@ class CI_DB_postgre_driver extends CI_DB {
 	 */
 	public function is_write_type($sql)
 	{
-		return (bool) preg_match('/^\s*"?(SET|INSERT(?![^\)]+\)\s+RETURNING)|UPDATE(?!.*\sRETURNING)|DELETE|CREATE|DROP|TRUNCATE|LOAD|COPY|ALTER|RENAME|GRANT|REVOKE|LOCK|UNLOCK|REINDEX)\s/i', str_replace(array("\r\n", "\r", "\n"), ' ', $sql));
+		return (bool) preg_match('/^\s*"?(SET|INSERT(?![^\)]+\)\s+RETURNING)|UPDATE|DELETE|REPLACE|CREATE|DROP|TRUNCATE|LOAD|COPY|ALTER|RENAME|GRANT|REVOKE|LOCK|UNLOCK|REINDEX)\s+/i', $sql);
 	}
 
 	// --------------------------------------------------------------------
@@ -319,7 +331,7 @@ class CI_DB_postgre_driver extends CI_DB {
 	 */
 	protected function _escape_str($str)
 	{
-		return pg_escape_string($this->conn_id, $str);
+		return pg_escape_string($str);
 	}
 
 	// --------------------------------------------------------------------
@@ -334,11 +346,7 @@ class CI_DB_postgre_driver extends CI_DB {
 	 */
 	public function escape($str)
 	{
-		if (is_php('5.4.4') && (is_string($str) OR (is_object($str) && method_exists($str, '__toString'))))
-		{
-			return pg_escape_literal($this->conn_id, $str);
-		}
-		elseif (is_bool($str))
+		if (is_bool($str))
 		{
 			return ($str) ? 'TRUE' : 'FALSE';
 		}
@@ -355,7 +363,7 @@ class CI_DB_postgre_driver extends CI_DB {
 	 */
 	public function affected_rows()
 	{
-		return pg_affected_rows($this->result_id);
+		return @pg_affected_rows($this->result_id);
 	}
 
 	// --------------------------------------------------------------------
@@ -504,7 +512,7 @@ class CI_DB_postgre_driver extends CI_DB {
 	 * ORDER BY
 	 *
 	 * @param	string	$orderby
-	 * @param	string	$direction	ASC, DESC or RANDOM
+	 * @param	string	$direction	ASC or DESC
 	 * @param	bool	$escape
 	 * @return	object
 	 */
@@ -632,7 +640,7 @@ class CI_DB_postgre_driver extends CI_DB {
 	 */
 	protected function _close()
 	{
-		pg_close($this->conn_id);
+		@pg_close($this->conn_id);
 	}
 
 }

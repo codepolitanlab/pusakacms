@@ -12,12 +12,16 @@ class MY_URI extends CI_URI {
 	 *
 	 * @return	string
 	 */
-	protected function _detect_uri()
+	protected function _parse_request_uri()
 	{
 		if ( ! isset($_SERVER['REQUEST_URI'], $_SERVER['SCRIPT_NAME']))
 		{
 			return '';
 		}
+
+		$uri = parse_url($_SERVER['REQUEST_URI']);
+		$query = isset($uri['query']) ? $uri['query'] : '';
+		$uri = isset($uri['path']) ? rawurldecode($uri['path']) : '';
 
 		include APPPATH.'config/pusaka.php';
 		
@@ -74,32 +78,25 @@ class MY_URI extends CI_URI {
 
 		// This section ensures that even on servers that require the URI to be in the query string (Nginx) a correct
 		// URI is found, and also fixes the QUERY_STRING server var and $_GET array.
-		if (strpos($uri, '?/') === 0)
+		if (trim($uri, '/') === '' && strncmp($query, '/', 1) === 0)
 		{
-			$uri = substr($uri, 2);
-		}
-
-		$parts = explode('?', $uri, 2);
-		$uri = $parts[0];
-		if (isset($parts[1]))
-		{
-			$_SERVER['QUERY_STRING'] = $parts[1];
-			parse_str($_SERVER['QUERY_STRING'], $_GET);
+			$query = explode('?', $query, 2);
+			$uri = rawurldecode($query[0]);
+			$_SERVER['QUERY_STRING'] = isset($query[1]) ? $query[1] : '';
 		}
 		else
 		{
-			$_SERVER['QUERY_STRING'] = '';
-			$_GET = array();
+			$_SERVER['QUERY_STRING'] = $query;
 		}
 
-		if ($uri === '/' OR empty($uri))
+		parse_str($_SERVER['QUERY_STRING'], $_GET);
+
+		if ($uri === '/' OR $uri === '')
 		{
 			return '/';
 		}
 
-		$uri = parse_url('pseudo://hostname/'.$uri, PHP_URL_PATH);
-
 		// Do some final cleaning of the URI and return it
-		return str_replace(array('//', '../'), '/', trim($uri, '/'));
+		return $this->_remove_relative_directory($uri);
 	}
 }

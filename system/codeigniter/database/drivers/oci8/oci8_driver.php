@@ -18,7 +18,7 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -129,11 +129,11 @@ class CI_DB_oci8_driver extends CI_DB {
 		parent::__construct($params);
 
 		$valid_dsns = array(
-			'tns'	=> '/^\(DESCRIPTION=(\(.+\)){2,}\)$/', // TNS
-			// Easy Connect string (Oracle 10g+)
-			'ec'	=> '/^(\/\/)?[a-z0-9.:_-]+(:[1-9][0-9]{0,4})?(\/[a-z0-9$_]+)?(:[^\/])?(\/[a-z0-9$_]+)?$/i',
-			'in'	=> '/^[a-z0-9$_]+$/i' // Instance name (defined in tnsnames.ora)
-		);
+					'tns'	=> '/^\(DESCRIPTION=(\(.+\)){2,}\)$/', // TNS
+					// Easy Connect string (Oracle 10g+)
+					'ec'	=> '/^(\/\/)?[a-z0-9.:_-]+(:[1-9][0-9]{0,4})?(\/[a-z0-9$_]+)?(:[^\/])?(\/[a-z0-9$_]+)?$/i',
+					'in'	=> '/^[a-z0-9$_]+$/i' // Instance name (defined in tnsnames.ora)
+				);
 
 		/* Space characters don't have any effect when actually
 		 * connecting, but can be a hassle while validating the DSN.
@@ -169,8 +169,8 @@ class CI_DB_oci8_driver extends CI_DB {
 			 * that the database field is a service name.
 			 */
 			$this->dsn = $this->hostname
-				.(( ! empty($this->port) && ctype_digit($this->port)) ? ':'.$this->port : '')
-				.($this->database !== '' ? '/'.ltrim($this->database, '/') : '');
+					.(( ! empty($this->port) && ctype_digit($this->port)) ? ':'.$this->port : '')
+					.($this->database !== '' ? '/'.ltrim($this->database, '/') : '');
 
 			if (preg_match($valid_dsns['ec'], $this->dsn))
 			{
@@ -208,15 +208,27 @@ class CI_DB_oci8_driver extends CI_DB {
 	/**
 	 * Non-persistent database connection
 	 *
-	 * @param	bool	$persistent
 	 * @return	resource
 	 */
-	public function db_connect($persistent = FALSE)
+	public function db_connect()
 	{
-		$func = ($persistent === TRUE) ? 'oci_pconnect' : 'oci_connect';
+		return ( ! empty($this->char_set))
+			? @oci_connect($this->username, $this->password, $this->dsn, $this->char_set)
+			: @oci_connect($this->username, $this->password, $this->dsn);
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Persistent database connection
+	 *
+	 * @return	resource
+	 */
+	public function db_pconnect()
+	{
 		return empty($this->char_set)
-			? $func($this->username, $this->password, $this->dsn)
-			: $func($this->username, $this->password, $this->dsn, $this->char_set);
+			? @oci_pconnect($this->username, $this->password, $this->dsn)
+			: @oci_pconnect($this->username, $this->password, $this->dsn, $this->char_set);
 	}
 
 	// --------------------------------------------------------------------
@@ -261,7 +273,7 @@ class CI_DB_oci8_driver extends CI_DB {
 		$this->stmt_id = FALSE;
 		$this->_set_stmt_id($sql);
 		oci_set_prefetch($this->stmt_id, 1000);
-		return oci_execute($this->stmt_id, $this->commit_mode);
+		return @oci_execute($this->stmt_id, $this->commit_mode);
 	}
 
 	// --------------------------------------------------------------------
@@ -332,7 +344,7 @@ class CI_DB_oci8_driver extends CI_DB {
 				$have_cursor = TRUE;
 			}
 		}
-		$sql = trim($sql, ',').'); END;';
+		$sql = trim($sql, ',') . '); END;';
 
 		$this->stmt_id = FALSE;
 		$this->_set_stmt_id($sql);
@@ -393,9 +405,9 @@ class CI_DB_oci8_driver extends CI_DB {
 		// Reset the transaction failure flag.
 		// If the $test_mode flag is set to TRUE transactions will be rolled back
 		// even if the queries produce a successful result.
-		$this->_trans_failure = ($test_mode === TRUE);
+		$this->_trans_failure = ($test_mode === TRUE) ? TRUE : FALSE;
 
-		$this->commit_mode = is_php('5.3.2') ? OCI_NO_AUTO_COMMIT : OCI_DEFAULT;
+		$this->commit_mode = (is_php('5.3.2')) ? OCI_NO_AUTO_COMMIT : OCI_DEFAULT;
 		return TRUE;
 	}
 
@@ -451,7 +463,7 @@ class CI_DB_oci8_driver extends CI_DB {
 	 */
 	public function affected_rows()
 	{
-		return oci_num_rows($this->stmt_id);
+		return @oci_num_rows($this->stmt_id);
 	}
 
 	// --------------------------------------------------------------------
@@ -685,7 +697,7 @@ class CI_DB_oci8_driver extends CI_DB {
 	{
 		$this->limit_used = TRUE;
 		return 'SELECT * FROM (SELECT inner_query.*, rownum rnum FROM ('.$sql.') inner_query WHERE rownum < '.($this->qb_offset + $this->qb_limit + 1).')'
-			.($this->qb_offset ? ' WHERE rnum >= '.($this->qb_offset + 1) : '');
+			.($this->qb_offset ? ' WHERE rnum >= '.($this->qb_offset + 1): '');
 	}
 
 	// --------------------------------------------------------------------
@@ -697,7 +709,7 @@ class CI_DB_oci8_driver extends CI_DB {
 	 */
 	protected function _close()
 	{
-		oci_close($this->conn_id);
+		@oci_close($this->conn_id);
 	}
 
 }
