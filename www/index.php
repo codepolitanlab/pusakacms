@@ -113,6 +113,9 @@ $application_folder = '../system/application';
  */
 $view_folder = 'views';
 
+// SITES FOLDER NAME
+$sites_folder = '../sites/';
+
 
 /*
  * --------------------------------------------------------------------
@@ -269,7 +272,7 @@ else
 
 define('VIEWPATH', $view_folder);
 
-define('SITE_FOLDER', 'sites/');
+define('SITE_FOLDER', rtrim(realpath($sites_folder), '/').'/');
 
 /**
 * Define where to locate the common dir.

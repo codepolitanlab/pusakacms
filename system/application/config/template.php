@@ -85,8 +85,8 @@ $config['theme'] = 'jakarta';
 */
 
 $config['theme_locations'] = array(
-	'themes/',
-	SITE_FOLDER.SITE_SLUG.'/themes/'
+	'media/'.SITE_SLUG.'/themes/',
+	'shared_media/themes/'
 );
 
 /*
