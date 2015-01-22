@@ -357,5 +357,18 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
+/*
+|--------------------------------------------------------------------------
+| Common Modules location
+|--------------------------------------------------------------------------
+|
+| Add path to find modules in the common directory
+|
+*/
+$config['modules_locations'] = array(
+        APPPATH.'modules/' => '../modules/',
+        COMMONPATH.'modules/' => '../../common/modules/',
+    );
+
 /* End of file config.php */
 /* Location: ./application/config/config.php */

@@ -2,17 +2,17 @@
 	"description" : "Dependencies for CodeIgniter's testing environment",
 	"name" : "ellislab/codeigniter",
 	"config": {
-	        "vendor-dir": "system/vendor"
+		"vendor-dir": "system/vendor"
 	},
 	"require": {
 		"php": ">=5.2.4"
 	},
-    	"require-dev": {
+	"require-dev": {
 		"mikey179/vfsStream": "1.1.*",
-        	"monolog/monolog": "1.0.*",
-	        "loic-sharma/profiler": "1.1.*",
+		"monolog/monolog": "1.0.*",
+		"loic-sharma/profiler": "1.1.*",
 		"pyrocms/lex": "2.3.*",
-	        "erusev/parsedown": "1.1.0",
-        	"nyankod/jsonfiledb": "0.2.*"
- 	}
+		"erusev/parsedown": "1.1.0",
+		"nyankod/jsonfiledb": "0.2.*"
+	}
 }
