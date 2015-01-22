@@ -20,7 +20,14 @@
 * Requirements: PHP5 or above
 *
 */
-$config['filebased'] = false;
+
+/*
+| -------------------------------------------------------------------------
+| Filebased
+| -------------------------------------------------------------------------
+| Do you want to use json file based storage or database?
+*/
+$config['filebased'] = true;
 
 
 /*

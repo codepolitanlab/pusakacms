@@ -75,7 +75,15 @@ class Ion_auth
 			$this->load->driver('session');
 		}
 
-		$this->load->model('users/ion_auth_model');
+		// check model used, file based or databased
+		if($this->config->item('filebased'))
+		{
+			$this->load->model('users/ion_auth_json_model', 'ion_auth_model');
+		}
+		else
+		{
+			$this->load->model('users/ion_auth_model', 'ion_auth_model');
+		}
 
 		$this->_cache_user_in_group =& $this->ion_auth_model->_cache_user_in_group;
 
