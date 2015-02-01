@@ -57,4 +57,36 @@ class MY_Config extends MX_Config
 
 		return $base_url.$this->item('index_page').$site_slug.$uri;
 	}
+
+	// // Added by Ivan Tcholakov, 20-JAN-2014.
+ //    public function valid_language($language) {
+
+ //        return in_array($language, $this->enabled_languages());
+ //    }
+
+ //    // Added by Ivan Tcholakov, 20-JAN-2014.
+ //    public function valid_language_code($code) {
+
+ //        return $this->valid_language($this->language_by_code($code));
+ //    }
+
+	// // Added by Ivan Tcholakov, 20-JAN-2014.
+ //    public function valid_language_uri_segment($uri_segment) {
+
+ //        return $this->valid_language($this->language_by_uri_segment($uri_segment));
+ //    }
+
+ //    // Added by Ivan Tcholakov, 20-JAN-2014.
+ //    public function language_by_uri_segment($uri_segment) {
+
+ //        foreach ($this->config['languages'] as $key => $value) {
+
+ //            if ($value['uri_segment'] == $uri_segment) {
+ //                return $key;
+ //            }
+ //        }
+
+ //        return null;
+ //    }
+
 }

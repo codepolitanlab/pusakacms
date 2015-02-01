@@ -56,6 +56,20 @@ $autoload['packages'] = array(COMMONPATH,APPPATH);
 
 $autoload['libraries'] = array('template', 'pusaka', 'form_validation');
 
+/*
+| -------------------------------------------------------------------
+|  Auto-load Drivers
+| -------------------------------------------------------------------
+| These classes are located in the system/libraries folder or in your
+| application/libraries folder within their own subdirectory. They
+| offer multiple interchangeable driver options.
+|
+| Prototype:
+|
+|	$autoload['drivers'] = array('cache');
+*/
+
+$autoload['drivers'] = array('session');
 
 /*
 | -------------------------------------------------------------------
@@ -112,8 +126,6 @@ $autoload['language'] = array();
 */
 
 $autoload['model'] = array();
-
-$autoload['drivers'] = array('session');
 
 /*
  * Merge current autoload values with those in common folder

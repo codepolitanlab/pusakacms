@@ -1,4 +1,6 @@
-<?php
-require_once COMMONPATH.'core/Core_Loader.php';
+<?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
-class MY_Loader extends Core_Loader {}
+/* load the MX_Loader class */
+require COMMONPATH."third_party/MX/Loader.php";
+
+class MY_Loader extends MX_Loader {}

@@ -12,7 +12,7 @@ class MY_URI extends CI_URI {
 	 *
 	 * @return	string
 	 */
-	protected function _parse_request_uri()
+	public function _parse_request_uri()
 	{
 		if ( ! isset($_SERVER['REQUEST_URI'], $_SERVER['SCRIPT_NAME']))
 		{

@@ -47,7 +47,7 @@ $route["update_domain/(:any)"]	= "cms/update_domain/$1";
 
 $route["panel"]								= "dashboard/panel";
 $route['panel/([a-zA-Z0-9_-]+)']            = '$1/panel/index';
-$route['panel/([a-zA-Z0-9_-]+)/(:any)']	    = '$1/panel/$2';
+$route['panel/([a-zA-Z0-9_-]+)/(.+)']	    = '$1/panel/$2';
 
 $route["panel/login"]	= "users/auth/login";
 $route["panel/logout"]	= "users/auth/logout";

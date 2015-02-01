@@ -1,4 +1,6 @@
-<?php
-require_once COMMONPATH."core/Core_Router.php";
+<?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
-class MY_Router extends Core_Router {}
+/* load the MX_Router class */
+require COMMONPATH."third_party/MX/Router.php";
+
+class MY_Router extends MX_Router {}

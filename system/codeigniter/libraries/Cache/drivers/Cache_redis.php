@@ -2,26 +2,37 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 5.2.4 or newer
+ * An open source application development framework for PHP
  *
- * NOTICE OF LICENSE
+ * This content is released under the MIT License (MIT)
  *
- * Licensed under the Open Software License version 3.0
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
  *
- * This source file is subject to the Open Software License (OSL 3.0) that is
- * bundled with this package in the files license.txt / license.rst.  It is
- * also available through the world wide web at this URL:
- * http://opensource.org/licenses/OSL-3.0
- * If you did not receive a copy of the license and are unable to obtain it
- * through the world wide web, please send an email to
- * licensing@ellislab.com so we can send you a copy immediately.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * @package		CodeIgniter
- * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
- * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
- * @link		http://codeigniter.com
- * @since		Version 3.0
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+ * @since	Version 3.0.0
  * @filesource
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -44,6 +55,7 @@ class CI_Cache_redis extends CI_Driver
 	 * @var	array
 	 */
 	protected static $_default_config = array(
+		'socket_type' => 'tcp',
 		'host' => '127.0.0.1',
 		'password' => NULL,
 		'port' => 6379,
@@ -57,17 +69,31 @@ class CI_Cache_redis extends CI_Driver
 	 */
 	protected $_redis;
 
+	/**
+	 * An internal cache for storing keys of serialized values.
+	 *
+	 * @var	array
+	 */
+	protected $_serialized = array();
+
 	// ------------------------------------------------------------------------
 
 	/**
 	 * Get cache
 	 *
-	 * @param	string	Cache key identifier
+	 * @param	string	Cache ID
 	 * @return	mixed
 	 */
 	public function get($key)
 	{
-		return $this->_redis->get($key);
+		$value = $this->_redis->get($key);
+
+		if ($value !== FALSE && isset($this->_serialized[$key]))
+		{
+			return unserialize($value);
+		}
+
+		return $value;
 	}
 
 	// ------------------------------------------------------------------------
@@ -75,16 +101,33 @@ class CI_Cache_redis extends CI_Driver
 	/**
 	 * Save cache
 	 *
-	 * @param	string	Cache key identifier
-	 * @param	mixed	Data to save
-	 * @param	int	Time to live
-	 * @return	bool
+	 * @param	string	$id	Cache ID
+	 * @param	mixed	$data	Data to save
+	 * @param	int	$ttl	Time to live in seconds
+	 * @param	bool	$raw	Whether to store the raw value (unused)
+	 * @return	bool	TRUE on success, FALSE on failure
 	 */
-	public function save($key, $value, $ttl = NULL)
+	public function save($id, $data, $ttl = 60, $raw = FALSE)
 	{
+		if (is_array($data) OR is_object($data))
+		{
+			if ( ! $this->_redis->sAdd('_ci_redis_serialized', $id))
+			{
+				return FALSE;
+			}
+
+			isset($this->_serialized[$id]) OR $this->_serialized[$id] = TRUE;
+			$data = serialize($data);
+		}
+		elseif (isset($this->_serialized[$id]))
+		{
+			$this->_serialized[$id] = NULL;
+			$this->_redis->sRemove('_ci_redis_serialized', $id);
+		}
+
 		return ($ttl)
-			? $this->_redis->setex($key, $ttl, $value)
-			: $this->_redis->set($key, $value);
+			? $this->_redis->setex($id, $ttl, $data)
+			: $this->_redis->set($id, $data);
 	}
 
 	// ------------------------------------------------------------------------
@@ -97,7 +140,46 @@ class CI_Cache_redis extends CI_Driver
 	 */
 	public function delete($key)
 	{
-		return ($this->_redis->delete($key) === 1);
+		if ($this->_redis->delete($key) !== 1)
+		{
+			return FALSE;
+		}
+
+		if (isset($this->_serialized[$key]))
+		{
+			$this->_serialized[$key] = NULL;
+			$this->_redis->sRemove('_ci_redis_serialized', $key);
+		}
+
+		return TRUE;
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Increment a raw value
+	 *
+	 * @param	string	$id	Cache ID
+	 * @param	int	$offset	Step/value to add
+	 * @return	mixed	New value on success or FALSE on failure
+	 */
+	public function increment($id, $offset = 1)
+	{
+		return $this->_redis->incr($id, $offset);
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Decrement a raw value
+	 *
+	 * @param	string	$id	Cache ID
+	 * @param	int	$offset	Step/value to reduce by
+	 * @return	mixed	New value on success or FALSE on failure
+	 */
+	public function decrement($id, $offset = 1)
+	{
+		return $this->_redis->decr($id, $offset);
 	}
 
 	// ------------------------------------------------------------------------
@@ -163,8 +245,7 @@ class CI_Cache_redis extends CI_Driver
 	{
 		if (extension_loaded('redis'))
 		{
-			$this->_setup_redis();
-			return TRUE;
+			return $this->_setup_redis();
 		}
 		else
 		{
@@ -200,23 +281,45 @@ class CI_Cache_redis extends CI_Driver
 
 		try
 		{
-			$this->_redis->connect($config['host'], $config['port'], $config['timeout']);
+			if ($config['socket_type'] === 'unix')
+			{
+				$success = $this->_redis->connect($config['socket']);
+			}
+			else // tcp socket
+			{
+				$success = $this->_redis->connect($config['host'], $config['port'], $config['timeout']);
+			}
+
+			if ( ! $success)
+			{
+				log_message('debug', 'Cache: Redis connection refused. Check the config.');
+				return FALSE;
+			}
 		}
 		catch (RedisException $e)
 		{
-			show_error('Redis connection refused. ' . $e->getMessage());
+			log_message('debug', 'Cache: Redis connection refused ('.$e->getMessage().')');
+			return FALSE;
 		}
 
 		if (isset($config['password']))
 		{
 			$this->_redis->auth($config['password']);
 		}
+
+		// Initialize the index of serialized values.
+		$serialized = $this->_redis->sMembers('_ci_redis_serialized');
+		if ( ! empty($serialized))
+		{
+			$this->_serialized = array_flip($serialized);
+		}
+
+		return TRUE;
 	}
 
 	// ------------------------------------------------------------------------
 
 	/**
-
 	 * Class destructor
 	 *
 	 * Closes the connection to Redis if present.
@@ -232,6 +335,3 @@ class CI_Cache_redis extends CI_Driver
 	}
 
 }
-
-/* End of file Cache_redis.php */
-/* Location: ./system/libraries/Cache/drivers/Cache_redis.php */

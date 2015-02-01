@@ -1,7 +1,7 @@
 {
     "home": {
-        "url": "home",
-        "title": "Home"
+        "title": "Home",
+        "url": "home"
     },
     "lipsum": {
         "url": "lipsum",
@@ -9,10 +9,7 @@
         "children": {
             "subpage": {
                 "title": "Subpage",
-                "url": "lipsum\/subpage",
-                "children": [
-
-                ]
+                "url": "lipsum\/subpage"
             }
         }
     }
