@@ -21,12 +21,8 @@ class CMS extends Public_Controller {
 	 * @access	public
 	 * @return	void
 	 */
-	public function _remap($method, $params = array())
+	public function index()
 	{
-		// run the main method first if available
-		if (method_exists($this, $method))
-			return call_user_func_array(array($this, $method), $params);
-
 		$segments = $this->uri->segment_array();
 
 		$is_home = FALSE;
@@ -42,7 +38,8 @@ class CMS extends Public_Controller {
 		}
 
 		// reset index to 0
-		$segments = array_values($segments);
+		$params = $segments = array_values($segments);
+		array_shift($params);
 		
 		// if it is STREAM POST
 		if($segments[0] == POST_TERM)

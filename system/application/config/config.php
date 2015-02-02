@@ -128,7 +128,7 @@ $config['subclass_prefix'] = 'MY_';
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
-$config['composer_autoload'] = FALSE;
+$config['composer_autoload'] = '../system/vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -335,7 +335,7 @@ $config['encryption_key'] = 'dfkasjc4oim)MJmsodmae8%^$&*Hjfkldjase';
 |
 */
 $config['sess_driver'] = 'files';
-$config['sess_cookie_name'] = 'ci_session';
+// $config['sess_cookie_name'] = 'ci_session';
 $config['sess_expiration'] = ((60*60)*24)*2;
 $config['sess_save_path'] = APPPATH.'sessions';
 $config['sess_match_ip'] = FALSE;
@@ -470,8 +470,7 @@ $config['proxy_ips'] = '';
 |
 */
 $config['modules_locations'] = array(
-        APPPATH.'modules/' => '../modules/',
-        COMMONPATH.'modules/' => '../../common/modules/',
+        APPPATH.'modules/' => '../modules/'
     );
 
 /* End of file config.php */

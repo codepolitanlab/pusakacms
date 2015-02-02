@@ -1,4 +1,3 @@
-<?php
-require_once COMMONPATH.'core/Core_Model.php';
+<?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
-class MY_Model extends Core_Model{}
+class MY_Model extends CI_Model{}

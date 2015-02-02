@@ -40,6 +40,7 @@
 
 $route["default_controller"]	= "cms";
 $route["404_override"] 			= "cms";
+$route['translate_uri_dashes'] = FALSE;
 
 $route["sync_page"] 			= "cms/sync_page";
 $route["sync_post"] 			= "cms/sync_post";

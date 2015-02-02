@@ -44,7 +44,7 @@ class MX_Loader extends CI_Loader
 	public function initialize($controller = NULL) 
 	{
 		/* set the module name */
-		$this->_module = CI::$APP->router->module;
+		$this->_module = CI::$APP->router->fetch_module();
 		
 		if ($controller instanceof MX_Controller) 
 		{
@@ -167,12 +167,11 @@ class MX_Loader extends CI_Loader
 			list($path2, $file) = Modules::find($_alias, $this->_module, 'config/');	
 			($path2) && $params = Modules::load_file($file, $path2, 'config');
 		}	
-			
+		
 		if ($path === FALSE) 
 		{
 			$this->_ci_load_library($library, $params, $object_name);
 			$_alias = $this->_ci_classes[$class];
-			
 		} 
 		else 
 		{
@@ -365,7 +364,7 @@ class MX_Loader extends CI_Loader
 		{
 			CI::$APP->output->append_output(ob_get_clean());
 		}
-	}	
+	}
 	
 	/** Autoload module items **/
 	public function _autoloader($autoload) 

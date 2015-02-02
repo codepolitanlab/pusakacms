@@ -1,7 +1,5 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-include_once COMMONPATH.'config/autoload.php';
-$autoloadCommon = isset($autoload)?$autoload:array();
 /*
 | -------------------------------------------------------------------
 | AUTO-LOADER
@@ -39,7 +37,7 @@ $autoloadCommon = isset($autoload)?$autoload:array();
 |  $autoload['packages'] = array(APPPATH.'third_party', '/usr/local/shared');
 |
 */
-$autoload['packages'] = array(COMMONPATH,APPPATH);
+$autoload['packages'] = array();
 
 
 /*
@@ -126,13 +124,6 @@ $autoload['language'] = array();
 */
 
 $autoload['model'] = array();
-
-/*
- * Merge current autoload values with those in common folder
- * 
- * Comment this line below if you don't want to use common autoload inheritance
- */
-$autoload = array_merge_recursive($autoload,$autoloadCommon);
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */

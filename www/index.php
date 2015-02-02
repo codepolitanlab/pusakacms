@@ -55,21 +55,28 @@ define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'developm
 switch (ENVIRONMENT)
 {
 	case 'development':
-	error_reporting(-1);
-	ini_set('display_errors', 1);
+		error_reporting(-1);
+		ini_set('display_errors', 1);
 	break;
 
 	case 'testing':
 	case 'production':
-	error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT);
-	ini_set('display_errors', 0);
+		ini_set('display_errors', 0);
+		if (version_compare(PHP_VERSION, '5.3', '>='))
+		{
+			error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE & ~E_USER_DEPRECATED);
+		}
+		else
+		{
+			error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_USER_NOTICE);
+		}
 	break;
 
 	default:
-	header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
-	echo 'The application environment is not set correctly.';
-		exit(1); // EXIT_* constants not yet defined; 1 is EXIT_ERROR, a generic error.
-	}
+		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		echo 'The application environment is not set correctly.';
+		exit(1); // EXIT_ERROR
+}
 
 /*
  *---------------------------------------------------------------
@@ -205,74 +212,70 @@ if ( ! is_dir($system_path))
  * -------------------------------------------------------------------
  */
 	// The name of THIS file
-define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
-
-	// The PHP file extension
-	// this global constant is deprecated.
-define('EXT', '.php');
+	define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
 
 	// Path to the system folder
-define('BASEPATH', str_replace('\\', '/', $system_path));
+	define('BASEPATH', str_replace('\\', '/', $system_path));
 
 	// Path to the front controller (this file)
-define('FCPATH', str_replace(SELF, '', __FILE__));
+	define('FCPATH', str_replace(SELF, '', __FILE__));
 
 	// Name of the "system folder"
-define('SYSDIR', trim(strrchr(trim(BASEPATH, '/'), '/'), '/'));
+	define('SYSDIR', trim(strrchr(trim(BASEPATH, '/'), '/'), '/'));
 
 	// The path to the "application" folder
-if (is_dir($application_folder))
-{
-	if (($_temp = realpath($application_folder)) !== FALSE)
+	if (is_dir($application_folder))
 	{
-		$application_folder = $_temp;
-	}
+		if (($_temp = realpath($application_folder)) !== FALSE)
+		{
+			$application_folder = $_temp;
+		}
 
-	define('APPPATH', $application_folder.'/');
-}
-else
-{
-	if ( ! is_dir(BASEPATH.$application_folder.'/'))
-	{
-		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
-		echo 'Your application folder path does not appear to be set correctly. Please open the following file and correct this: '.SELF;
-		exit(3); // EXIT_* constants not yet defined; 3 is EXIT_CONFIG.
-	}
-
-	define('APPPATH', BASEPATH.$application_folder.'/');
-}
-
-// The path to the "views" folder
-if ( ! is_dir($view_folder))
-{
-	if ( ! empty($view_folder) && is_dir(APPPATH.$view_folder.'/'))
-	{
-		$view_folder = APPPATH.$view_folder;
-	}
-	elseif ( ! is_dir(APPPATH.'views/'))
-	{
-		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
-		echo 'Your view folder path does not appear to be set correctly. Please open the following file and correct this: '.SELF;
-		exit(3); // EXIT_* constants not yet defined; 3 is EXIT_CONFIG.
+		define('APPPATH', $application_folder.DIRECTORY_SEPARATOR);
 	}
 	else
 	{
-		$view_folder = APPPATH.'views';
+		if ( ! is_dir(BASEPATH.$application_folder.DIRECTORY_SEPARATOR))
+		{
+			header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+			echo 'Your application folder path does not appear to be set correctly. Please open the following file and correct this: '.SELF;
+			exit(3); // EXIT_CONFIG
+		}
+
+		define('APPPATH', BASEPATH.$application_folder.DIRECTORY_SEPARATOR);
 	}
-}
 
-if (($_temp = realpath($view_folder)) !== FALSE)
-{
-	$view_folder = $_temp.'/';
-}
-else
-{
-	$view_folder = rtrim($view_folder, '/').'/';
-}
+	// The path to the "views" folder
+	if ( ! is_dir($view_folder))
+	{
+		if ( ! empty($view_folder) && is_dir(APPPATH.$view_folder.DIRECTORY_SEPARATOR))
+		{
+			$view_folder = APPPATH.$view_folder;
+		}
+		elseif ( ! is_dir(APPPATH.'views'.DIRECTORY_SEPARATOR))
+		{
+			header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+			echo 'Your view folder path does not appear to be set correctly. Please open the following file and correct this: '.SELF;
+			exit(3); // EXIT_CONFIG
+		}
+		else
+		{
+			$view_folder = APPPATH.'views';
+		}
+	}
 
-define('VIEWPATH', $view_folder);
+	if (($_temp = realpath($view_folder)) !== FALSE)
+	{
+		$view_folder = $_temp.DIRECTORY_SEPARATOR;
+	}
+	else
+	{
+		$view_folder = rtrim($view_folder, '/\\').DIRECTORY_SEPARATOR;
+	}
 
-define('SITE_FOLDER', rtrim(realpath($sites_folder), '/').'/');
+	define('VIEWPATH', $view_folder);
+
+	define('SITE_FOLDER', rtrim(realpath($sites_folder), '/').'/');
 
 /**
 * Define where to locate the common dir.
@@ -288,19 +291,6 @@ define('SITE_FOLDER', rtrim(realpath($sites_folder), '/').'/');
  * And away we go...
  *
  */
-
-/* ADDED FOR XHMVC */
-// Path to the common folder
-define('COMMONPATH','../system/common/');
-
-/*
-* Detect AJAX Request for MY_Session
-*/
-define('IS_AJAX', isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'); 
-
-       // Composer Autoloader
-require FCPATH.'../system/vendor/autoload.php';
-/* ADDED FOR XHMVC */
 
 require_once BASEPATH.'core/CodeIgniter.php';
 
