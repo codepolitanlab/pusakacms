@@ -282,6 +282,7 @@ if ( ! is_dir($system_path))
 *
 *
 */
+require_once('../system/vendor/autoload.php');
 
 /*
  * --------------------------------------------------------------------
