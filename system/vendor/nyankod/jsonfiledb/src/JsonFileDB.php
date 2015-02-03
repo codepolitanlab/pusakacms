@@ -218,6 +218,9 @@ class JsonFileDB
             }
         }
 
+        if(count($result) == 1)
+            return $result[0];
+
         return $result;
     }
 
@@ -357,5 +360,10 @@ class JsonFileDB
             return true;
         else
             throw new JsonDBException("New table couldn't be created: ".$tablePath);
+    }
+
+    public function generate_id()
+    {
+        return time();
     }
 }

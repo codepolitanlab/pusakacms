@@ -65,7 +65,7 @@
 							$checked = null;
 							$item = null;
 							foreach($currentGroups as $grp) {
-								if ($gID == $grp->id) {
+								if ($gID == $grp['id']) {
 									$checked= ' checked="checked"';
 									break;
 								}
@@ -82,7 +82,7 @@
 		</div>
 	</div>
 
-	<?php echo form_hidden('id', $user->id);?>
+	<?php echo form_hidden('id', $user['id']);?>
 	<?php echo form_hidden($csrf); ?>
 
 

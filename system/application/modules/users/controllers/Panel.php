@@ -23,27 +23,44 @@ class Panel extends Admin_Controller {
 			//redirect them to the login page
 			redirect('panel/login', 'refresh');
 		}
-		elseif (!$this->ion_auth->is_admin()) //remove this elseif if you want to enable this for non-admins
-		{
-			//redirect them to the home page because they must be an administrator to view this
-			return show_error('You must be an administrator to view this page.');
-		}
+		// elseif (!$this->ion_auth->is_admin()) //remove this elseif if you want to enable this for non-admins
+		// {
+		// 	//redirect them to the home page because they must be an administrator to view this
+		// 	return show_error('You must be an administrator to view this page.');
+		// }
 		else
 		{
 			//set the flash data error message if there is one
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
 			//list the users
-			$this->data['users'] = $this->ion_auth->users()->result();
-			foreach ($this->data['users'] as $k => $user)
+			// check model used, file based or databased
+			if($this->config->item('filebased', 'ion_auth'))
 			{
-				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
-			}
+				$this->data['users'] = $this->ion_auth->users();
+				foreach ($this->data['users'] as $k => $user)
+				{
+					$this->data['users'][$k]['groups'] = $this->ion_auth->get_users_groups($user['id']);
+				}
+				$this->data['groups'] = $this->ion_auth->groups();
 
-			$this->data['groups'] = $this->ion_auth->groups()->result();
+			} else {
+				$this->data['users'] = $this->ion_auth->users()->result_array();
+				foreach ($this->data['users'] as $k => $user)
+				{
+					$this->data['users'][$k]['groups'] = $this->ion_auth->get_users_groups($user['id']);
+				}
+
+				$this->data['groups'] = $this->ion_auth->groups()->result_array();
+			}
 
 			$this->_render_page('users/index', $this->data);
 		}
+	}
+
+	function coba()
+	{
+		print_r($this->ion_auth->get_users_groups(1));
 	}
 
 	//create a new user
@@ -59,11 +76,11 @@ class Panel extends Admin_Controller {
 		$tables = $this->config->item('tables','ion_auth');
 
 		//validate form input
-		$this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'required|xss_clean');
-		$this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_lname_label'), 'required|xss_clean');
-		$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email|is_unique['.$tables['users'].'.email]');
-		$this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'required|xss_clean');
-		$this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), 'required|xss_clean');
+		$this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'required');
+		$this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_lname_label'), 'required');
+		$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email');
+		$this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'required');
+		$this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), 'required');
 		$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
 
@@ -159,16 +176,23 @@ class Panel extends Admin_Controller {
 
 		$tables = $this->config->item('tables','ion_auth');
 
-		$user = $this->ion_auth->user($id)->row();
-		$groups=$this->ion_auth->groups()->result_array();
-		$currentGroups = $this->ion_auth->get_users_groups($id)->result();
+		if($this->config->item('filebased', 'ion_auth'))
+		{
+			$user = $this->ion_auth->user($id);
+			$groups=$this->ion_auth->groups();
+			$currentGroups = $this->ion_auth->get_users_groups($id);
+		} else {
+			$user = $this->ion_auth->user($id)->row_array();
+			$groups=$this->ion_auth->groups()->result_array();
+			$currentGroups = $this->ion_auth->get_users_groups($id);
+		}
 
 		//validate form input
-		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'required|xss_clean');
-		$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'required|xss_clean');
-		$this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'required|xss_clean');
-		$this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'required|xss_clean');
-		$this->form_validation->set_rules('groups', $this->lang->line('edit_user_validation_groups_label'), 'xss_clean');
+		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'required');
+		$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'required');
+		// $this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'required');
+		// $this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'required');
+		// $this->form_validation->set_rules('groups', $this->lang->line('edit_user_validation_groups_label'), 'required');
 
 		if (isset($_POST) && !empty($_POST))
 		{
@@ -185,22 +209,30 @@ class Panel extends Admin_Controller {
 				'phone'      => $this->input->post('phone'),
 				);
 
-			// Only allow updating groups if user is admin
+			//  Only allow updating groups if user is admin
 			if ($this->ion_auth->is_admin())
 			{
 				//Update the groups user belongs to
 				$groupData = $this->input->post('groups');
 
-				if (isset($groupData) && !empty($groupData)) {
+				if($this->config->item('filebased', 'ion_auth'))
+				{
+					if (isset($groupData) && !empty($groupData))
+						$data['groups'] = $groupData;
 
-					$this->ion_auth->remove_from_group('', $id);
+				} else {
+					if (isset($groupData) && !empty($groupData)) {
 
-					foreach ($groupData as $grp) {
-						$this->ion_auth->add_to_group($grp, $id);
-					}
+						$this->ion_auth->remove_from_group('', $id);
 
+						foreach ($groupData as $grp) {
+							$this->ion_auth->add_to_group($grp, $id);
+						}
+					}					
 				}
 			}
+			
+			$data = array_merge($user, $data);
 
 			//update the password if it was posted
 			if ($this->input->post('password'))
@@ -211,7 +243,7 @@ class Panel extends Admin_Controller {
 				$data['password'] = $this->input->post('password');
 			}
 
-			if($user->email != $this->input->post('email'))
+			if($user['email'] != $this->input->post('email'))
 			{
 				$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email|is_unique['.$tables['users'].'.email]');
 
@@ -220,7 +252,7 @@ class Panel extends Admin_Controller {
 
 			if ($this->form_validation->run() === TRUE)
 			{
-				$this->ion_auth->update($user->id, $data);
+				$this->ion_auth->update($user['id'], $data);
 
 				//check to see if we are creating the user
 				//redirect them back to the admin page
@@ -252,35 +284,35 @@ class Panel extends Admin_Controller {
 			'id'    => 'first_name',
 			'type'  => 'text',
 			'class' => 'form-control',
-			'value' => $this->form_validation->set_value('first_name', $user->first_name),
+			'value' => $this->form_validation->set_value('first_name', $user['first_name']),
 			);
 		$this->data['last_name'] = array(
 			'name'  => 'last_name',
 			'id'    => 'last_name',
 			'type'  => 'text',
 			'class' => 'form-control',
-			'value' => $this->form_validation->set_value('last_name', $user->last_name),
+			'value' => $this->form_validation->set_value('last_name', $user['last_name']),
 			);
 		$this->data['email'] = array(
 			'name'  => 'email',
 			'id'    => 'email',
 			'type'  => 'text',
 			'class' => 'form-control',
-			'value' => $this->form_validation->set_value('email',$user->email),
+			'value' => $this->form_validation->set_value('email',$user['email']),
 			);
 		$this->data['company'] = array(
 			'name'  => 'company',
 			'id'    => 'company',
 			'type'  => 'text',
 			'class' => 'form-control',
-			'value' => $this->form_validation->set_value('company', $user->company),
+			'value' => $this->form_validation->set_value('company', $user['company']),
 			);
 		$this->data['phone'] = array(
 			'name'  => 'phone',
 			'id'    => 'phone',
 			'type'  => 'text',
 			'class' => 'form-control',
-			'value' => $this->form_validation->set_value('phone', $user->phone),
+			'value' => $this->form_validation->set_value('phone', $user['phone']),
 			);
 		$this->data['password'] = array(
 			'name' => 'password',
@@ -307,151 +339,151 @@ class Panel extends Admin_Controller {
 			$this->session->set_flashdata('error', "You don't have permission to delete user.");
 		else
 
-		if($this->ion_auth->delete_user($id))
-			$this->session->set_flashdata('success', $this->ion_auth->messages());
-		else
-			$this->session->set_flashdata('error', $this->ion_auth->errors());
+			if($this->ion_auth->delete_user($id))
+				$this->session->set_flashdata('success', $this->ion_auth->messages());
+			else
+				$this->session->set_flashdata('error', $this->ion_auth->errors());
 
-		redirect('panel/users');
-	}
-
-	// create a new group
-	function create_group()
-	{
-		$this->data['title'] = $this->lang->line('create_group_title');
-
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
-		{
-			redirect('panel/users', 'refresh');
+			redirect('panel/users');
 		}
 
-		//validate form input
-		$this->form_validation->set_rules('group_name', $this->lang->line('create_group_validation_name_label'), 'required|alpha_dash|xss_clean');
-		$this->form_validation->set_rules('group_description', $this->lang->line('create_group_validation_desc_label'), 'xss_clean');
-
-		if ($this->form_validation->run() == TRUE)
+	// create a new group
+		function create_group()
 		{
-			$new_group_id = $this->ion_auth->create_group($this->input->post('group_name'), $this->input->post('group_description'));
-			if($new_group_id)
+			$this->data['title'] = $this->lang->line('create_group_title');
+
+			if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
 			{
+				redirect('panel/users', 'refresh');
+			}
+
+			//validate form input
+			$this->form_validation->set_rules('group_name', $this->lang->line('create_group_validation_name_label'), 'required|alpha_dash');
+			$this->form_validation->set_rules('group_description', $this->lang->line('create_group_validation_desc_label'), 'required');
+
+			if ($this->form_validation->run() == TRUE)
+			{
+				$new_group_id = $this->ion_auth->create_group($this->input->post('group_name'), $this->input->post('group_description'));
+				if($new_group_id)
+				{
 				// check to see if we are creating the group
 				// redirect them back to the admin page
-				$this->session->set_flashdata('success', $this->ion_auth->messages());
+					$this->session->set_flashdata('success', $this->ion_auth->messages());
+					redirect("panel/users", 'refresh');
+				}
+			}
+			else
+			{
+			//display the create group form
+			//set the flash data error message if there is one
+				$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+
+				$this->session->set_flashdata('error', $this->data['message']);
 				redirect("panel/users", 'refresh');
 			}
 		}
-		else
+
+	//edit a group
+		function edit_group($id)
 		{
-			//display the create group form
-			//set the flash data error message if there is one
+		// bail if no group id given
+			if(!$id || empty($id))
+			{
+				redirect('panel/users', 'refresh');
+			}
+
+			$this->data['title'] = $this->lang->line('edit_group_title');
+
+			if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+			{
+				redirect('panel/users', 'refresh');
+			}
+
+			$group = $this->ion_auth->group($id)->row();
+
+		//validate form input
+			$this->form_validation->set_rules('group_name', $this->lang->line('edit_group_validation_name_label'), 'required|alpha_dash');
+			$this->form_validation->set_rules('group_description', $this->lang->line('edit_group_validation_desc_label'), 'required');
+
+			if (isset($_POST) && !empty($_POST))
+			{
+				if ($this->form_validation->run() === TRUE)
+				{
+					$group_update = $this->ion_auth->update_group($id, $_POST['group_name'], $_POST['group_description']);
+
+					if($group_update)
+					{
+						$this->session->set_flashdata('success', $this->lang->line('edit_group_saved'));
+					}
+					else
+					{
+						$this->session->set_flashdata('error', $this->ion_auth->errors());
+					}
+					redirect("panel/users", 'refresh');
+				}
+			}
+
+		//set the flash data error message if there is one
 			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
 
 			$this->session->set_flashdata('error', $this->data['message']);
 			redirect("panel/users", 'refresh');
 		}
-	}
 
-	//edit a group
-	function edit_group($id)
-	{
-		// bail if no group id given
-		if(!$id || empty($id))
+		function delete_group($id)
 		{
-			redirect('panel/users', 'refresh');
-		}
+			if(!$id)
+				show_404();
 
-		$this->data['title'] = $this->lang->line('edit_group_title');
+			if($id == 1)
+				$this->session->set_flashdata('error', "Sorry, we don't recommend to delete admin group.");
+			else
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
-		{
-			redirect('panel/users', 'refresh');
-		}
-
-		$group = $this->ion_auth->group($id)->row();
-
-		//validate form input
-		$this->form_validation->set_rules('group_name', $this->lang->line('edit_group_validation_name_label'), 'required|alpha_dash|xss_clean');
-		$this->form_validation->set_rules('group_description', $this->lang->line('edit_group_validation_desc_label'), 'xss_clean');
-
-		if (isset($_POST) && !empty($_POST))
-		{
-			if ($this->form_validation->run() === TRUE)
-			{
-				$group_update = $this->ion_auth->update_group($id, $_POST['group_name'], $_POST['group_description']);
-
-				if($group_update)
-				{
-					$this->session->set_flashdata('success', $this->lang->line('edit_group_saved'));
-				}
+				if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+					$this->session->set_flashdata('error', "You don't have permission to delete the group.");
 				else
-				{
-					$this->session->set_flashdata('error', $this->ion_auth->errors());
+
+					if($this->ion_auth->delete_group($id))
+						$this->session->set_flashdata('success', $this->ion_auth->messages());
+					else
+						$this->session->set_flashdata('error', $this->ion_auth->errors());
+
+					redirect('panel/users');
 				}
-				redirect("panel/users", 'refresh');
+
+
+				function _get_csrf_nonce()
+				{
+					$this->load->helper('string');
+					$key   = random_string('alnum', 8);
+					$value = random_string('alnum', 20);
+					$this->session->set_flashdata('csrfkey', $key);
+					$this->session->set_flashdata('csrfvalue', $value);
+
+					return array($key => $value);
+				}
+
+				function _valid_csrf_nonce()
+				{
+					if ($this->input->post($this->session->flashdata('csrfkey')) !== FALSE &&
+						$this->input->post($this->session->flashdata('csrfkey')) == $this->session->flashdata('csrfvalue'))
+					{
+						return TRUE;
+					}
+					else
+					{
+						return FALSE;
+					}
+				}
+
+				function _render_page($view, $data=null, $render=false)
+				{
+
+					$this->viewdata = (empty($data)) ? $this->data: $data;
+
+					$view_html = $this->template->view($view, $this->viewdata, $render);
+
+					if (!$render) return $view_html;
+				}
+
 			}
-		}
-
-		//set the flash data error message if there is one
-		$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
-
-		$this->session->set_flashdata('error', $this->data['message']);
-		redirect("panel/users", 'refresh');
-	}
-
-	function delete_group($id)
-	{
-		if(!$id)
-			show_404();
-
-		if($id == 1)
-			$this->session->set_flashdata('error', "Sorry, we don't recommend to delete admin group.");
-		else
-
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
-			$this->session->set_flashdata('error', "You don't have permission to delete the group.");
-		else
-
-		if($this->ion_auth->delete_group($id))
-			$this->session->set_flashdata('success', $this->ion_auth->messages());
-		else
-			$this->session->set_flashdata('error', $this->ion_auth->errors());
-
-		redirect('panel/users');
-	}
-
-
-	function _get_csrf_nonce()
-	{
-		$this->load->helper('string');
-		$key   = random_string('alnum', 8);
-		$value = random_string('alnum', 20);
-		$this->session->set_flashdata('csrfkey', $key);
-		$this->session->set_flashdata('csrfvalue', $value);
-
-		return array($key => $value);
-	}
-
-	function _valid_csrf_nonce()
-	{
-		if ($this->input->post($this->session->flashdata('csrfkey')) !== FALSE &&
-			$this->input->post($this->session->flashdata('csrfkey')) == $this->session->flashdata('csrfvalue'))
-		{
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
-
-	function _render_page($view, $data=null, $render=false)
-	{
-
-		$this->viewdata = (empty($data)) ? $this->data: $data;
-
-		$view_html = $this->template->view($view, $this->viewdata, $render);
-
-		if (!$render) return $view_html;
-	}
-
-}

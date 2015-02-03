@@ -30,19 +30,19 @@
 			</tr>
 			<?php foreach ($users as $user):?>
 				<tr>
-					<td><?php echo $user->first_name;?></td>
-					<td><?php echo $user->last_name;?></td>
-					<td><?php echo $user->email;?></td>
+					<td><?php echo $user['first_name'];?></td>
+					<td><?php echo $user['last_name'];?></td>
+					<td><?php echo $user['email'];?></td>
 					<td>
-						<?php foreach ($user->groups as $group):?>
-							<?php echo anchor("panel/users/edit_group/".$group->id, $group->name) ;?><br />
+						<?php foreach ($user['groups'] as $group):?>
+							<?php echo anchor("panel/users/edit_group/".$group['id'], $group['name']) ;?><br />
 						<?php endforeach?>
 					</td>
-					<td><?php echo ($user->active) ? lang('index_active_link') : lang('index_inactive_link');?></td>
+					<td><?php echo ($user['active']) ? lang('index_active_link') : lang('index_inactive_link');?></td>
 					<td style="text-align:right">
-						<?php echo ($user->active) ? anchor("users/auth/deactivate/".$user->id, 'Deactivate', 'class="btn btn-xs btn-primary"') : anchor("users/auth/activate/". $user->id, 'Activate', 'class="btn btn-xs btn-primary"'); ?>
-						<?php echo anchor("panel/users/edit_user/".$user->id, 'Edit', 'class="btn edit btn-xs btn-primary"') ;?>
-						<?php if($this->session->userdata('id') != $user->id) echo anchor("panel/users/delete_user/".$user->id, 'Delete', 'class="btn delete btn-xs btn-primary"') ;?>
+						<?php echo ($user['active']) ? anchor("users/auth/deactivate/".$user['id'], 'Deactivate', 'class="btn btn-xs btn-primary"') : anchor("users/auth/activate/". $user['id'], 'Activate', 'class="btn btn-xs btn-primary"'); ?>
+						<?php echo anchor("panel/users/edit_user/".$user['id'], 'Edit', 'class="btn edit btn-xs btn-primary"') ;?>
+						<?php if($this->session->userdata('id') != $user['id']) echo anchor("panel/users/delete_user/".$user['id'], 'Delete', 'class="btn delete remove btn-xs btn-primary"') ;?>
 					</td>
 				</tr>
 			<?php endforeach;?>
@@ -59,22 +59,22 @@
 			</tr>
 			<?php foreach ($groups as $group):?>
 				<tr>
-					<td><?php echo $group->name;?></td>
-					<td><?php echo $group->description;?></td>
+					<td><?php echo $group['name'];?></td>
+					<td><?php echo $group['description'];?></td>
 					<td style="text-align:right">
-						<?php if($group->name != 'admin'): ?>
+						<?php if($group['name'] != 'admin'): ?>
 
 						<a href="#" 
 						   class="btn edit btn-xs btn-primary" 
-						   data-group-id="<?php echo $group->id; ?>" 
+						   data-group-id="<?php echo $group['id']; ?>" 
 						   data-mode="edit" 
 						   data-toggle="modal" 
 						   data-target="#groupModal" 
-						   data-name="<?php echo $group->name; ?>" 
-						   data-desc="<?php echo $group->description; ?>">
+						   data-name="<?php echo $group['name']; ?>" 
+						   data-desc="<?php echo $group['description']; ?>">
 							Edit
 						</a>
-						<?php echo anchor("panel/users/delete_group/".$group->id, 'Delete', 'class="btn remove btn-xs btn-primary"') ;?>
+						<?php echo anchor("panel/users/delete_group/".$group['id'], 'Delete', 'class="btn remove btn-xs btn-primary"') ;?>
 
 						<?php endif; ?>
 					</td>

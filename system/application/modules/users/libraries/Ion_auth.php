@@ -66,7 +66,7 @@ class Ion_auth
 		$this->load->helper('language');
 
 		// check model used, file based or databased
-		if($this->config->item('filebased'))
+		if($this->config->item('filebased', 'ion_auth'))
 		{
 			$this->load->model('users/ion_auth_json_model', 'ion_auth_model');
 		}
@@ -462,7 +462,7 @@ class Ion_auth
 	 * @return bool
 	 * @author Phil Sturgeon
 	 **/
-	public function in_group($check_group, $id=false, $check_all = false)
+	public function in_group($check_group, $id = false, $check_all = false)
 	{
 		$this->ion_auth_model->trigger_events('in_group');
 
@@ -479,11 +479,11 @@ class Ion_auth
 		}
 		else
 		{
-			$users_groups = $this->ion_auth_model->get_users_groups($id)->result();
+			$users_groups = $this->ion_auth_model->get_users_groups($id);
 			$groups_array = array();
 			foreach ($users_groups as $group)
 			{
-				$groups_array[$group->id] = $group->name;
+				$groups_array[$group['id']] = $group['name'];
 			}
 			$this->_cache_user_in_group[$id] = $groups_array;
 		}
