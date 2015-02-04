@@ -1,10 +1,11 @@
-<form action="<?php echo site_url('panel/pages/'.$type.'?page='.$url); ?>" method="POST" class="panel-form">
+<form action="<?php echo site_url('panel/pages/'.$type.'/'.$url); ?>" method="POST" data-page="<?php echo $url; ?>" data-mode="<?php echo $type; ?>" class="panel-form">
 	<div class="row heading">
 		<div class="col-md-6">
 			<h1><a href="<?php echo site_url('panel/pages'); ?>">PAGES</a> &bull; <?php echo strtoupper($type); ?> PAGE</h1>
 		</div>
 		<div class="col-md-6 align-right">
-			<button type="submit" class="btn btn-success"><span class="fa fa-save"></span> Save changes</button>
+			<button type="submit" name="btnSave" class="btn btn-save btn-info"><span class="fa fa-save"></span> Save</button>
+			<button type="submit" name="btnSaveExit" value="1" class="btn btn-save btn-success"><span class="fa fa-save"></span> Save and exit</button>
 		</div>
 	</div>
 	<ul class="nav nav-tabs" role="tablist">
@@ -36,7 +37,7 @@
 						<select class="form-control" name="parent" id="parent">
 							<option value="">—</option>
 							<?php foreach ($pagelinks as $pagelink => $caption): ?>
-								<option value="<?php echo $pagelink; ?>" <?php echo ($pagelink==$this->input->get('parent') || $pagelink==validate_value($page, 'parent'))? "selected":''; ?>><?php echo $caption; ?></option>
+								<option value="<?php echo $pagelink; ?>" <?php echo ($pagelink==$parent || $pagelink==validate_value($page, 'parent'))? "selected":''; ?>><?php echo $caption; ?></option>
 							<?php endforeach; ?>
 						</select>
 					</div>
@@ -77,10 +78,3 @@
 	</div>
 
 </form>
-
-<script>
-	// $(function() {
-	// 	$("textarea#pagedownMe").pagedownBootstrap();
-	// 	$('.wmd-preview').addClass('well').css('display', 'none');
-	// });
-</script>

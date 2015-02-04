@@ -55,12 +55,23 @@
         var change_attributes = function(e, d){
             if(d.dest){
                 e.data('url', d.dest+'/'+d.page);
+                
                 e.children('.dd3-content').children('small').children('.page-url')
                 .attr('href', BASE_URL+d.dest+'/'+d.page).html(d.dest+'/'+d.page);
+
+                var opts = e.children('.dd3-content').children('div').children('.option');
+                opts.children('.edit').attr('href', BASE_URL+'panel/pages/edit/'+d.dest+'/'+d.page);
+                opts.children('.add').attr('href', BASE_URL+'panel/pages/create/'+d.dest+'/'+d.page);
+                opts.children('.remove').attr('href', BASE_URL+'panel/pages/delete/'+d.dest+'/'+d.page);
             } else {
                 e.data('url', d.page);
                 e.children('.dd3-content').children('small').children('.page-url')   
                 .attr('href', BASE_URL+d.page).html(d.page);
+
+                var opts = e.children('.dd3-content').children('div').children('.option');
+                opts.children('.edit').attr('href', BASE_URL+'panel/pages/edit/'+d.page);
+                opts.children('.add').attr('href', BASE_URL+'panel/pages/create/'+d.page);
+                opts.children('.remove').attr('href', BASE_URL+'panel/pages/delete/'+d.page);
             }
 
             // if element has children, do the same thing

@@ -7,9 +7,9 @@
             <small><a href="<?php echo site_url($content['url']); ?>" target="_blank" class="page-url"><?php echo $content['url']; ?></a></small>
             <div class="align-right pull-right">
                 <div class="option">
-                    <a href="<?php echo site_url('panel/pages/edit?page='.$content['url']); ?>" class="edit" title="Edit"><span class="fa fa-edit"></span></a>
-					<a href="<?php echo site_url('panel/pages/create?parent='.$content['url']); ?>" class="add" title="Add Subpage"><span class="fa fa-plus"></span></a>
-					<a href="<?php echo site_url('panel/pages/delete?page='.$content['url']); ?>" class="remove" title="Delete"><span class="fa fa-times"></span></a>
+                    <a href="<?php echo site_url('panel/pages/edit/'.$content['url']); ?>" class="edit" title="Edit"><span class="fa fa-edit"></span></a>
+					<a href="<?php echo site_url('panel/pages/create/'.$content['url']); ?>" class="add" title="Add Subpage"><span class="fa fa-plus"></span></a>
+					<a href="<?php echo site_url('panel/pages/delete/'.$content['url']); ?>" class="remove" title="Delete"><span class="fa fa-times"></span></a>
                 </div>
             </div>
         </div>

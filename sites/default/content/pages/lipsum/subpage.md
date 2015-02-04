@@ -1,4 +1,4 @@
+{: btnSaveExit :} 1
 {: title :} Subpage
 {: slug :} subpage
-{: parent :} lipsum
-{: content :} Sample Sub Page
+{: content :} df dsf sad sdfasdfdsf

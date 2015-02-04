@@ -57,28 +57,74 @@ class Pusaka {
 			$map = directory_map(PAGE_FOLDER, $depth);
 		
 		$new_map = array();
-		foreach ($map as $folder => $file)
-		if($file != 'index.json' && $file != 'index.md' && $file != 'index.html'){	
-			if(is_string($file)){
-				$slug = $this->remove_extension($file);
-				$content = array(
-					'title' => $this->guess_name($file),
-					'url' => $prefix.$slug
-					);
-			}
-			else {
-				$slug = $this->remove_extension($folder);
-				$content = array(
-					'title' => $this->guess_name($folder),
-					'url' => $prefix.$slug,
-					'children' => $this->scan_pages($file, $prefix.$slug.'/')
-					);
-			}
+		foreach ($map as $folder => $file){
+			if($file != 'index.json' && $file != 'index.md' && $file != 'index.html'){
+				if(is_array($file)){
+					$slug = $this->remove_extension($folder);
+					$content = array(
+						'title' => $this->guess_name($folder),
+						'url' => $prefix.$slug,
+						'children' => $this->scan_pages($file, $prefix.$slug.'/')
+						);
+				} else {
+					$slug = $this->remove_extension($file);
+					$content = array(
+						'title' => $this->guess_name($file),
+						'url' => $prefix.$slug
+						);
+				}
 
-			$new_map[$slug] = $content;
+				$new_map[$slug] = $content;
+			}
 		}
 
 		return $new_map;
+	}
+
+	function move_page($prevslug, $slug, $source, $dest)
+	{
+		// page move to another folder
+		if($source != $dest) {
+			// if it is move to subpage, not to root
+			if(!empty($dest)) { 
+				// if parent still as standalone file (not in folder)
+				if(file_exists(PAGE_FOLDER.$dest.'.md')) {
+					// create folder and move the parent inside
+					mkdir(PAGE_FOLDER.$dest, 0775);
+					rename(PAGE_FOLDER.$dest.'.md', PAGE_FOLDER.$dest.'/index.md');
+
+					// create index.html file
+					copy(PAGE_FOLDER.'index.html', PAGE_FOLDER.$dest.'/index.html');
+				}
+			}
+		}
+
+		// move to new location
+		if(is_dir(PAGE_FOLDER.$prevslug))
+			rename(PAGE_FOLDER.$prevslug, PAGE_FOLDER.$dest.'/'.$slug);
+		else
+			rename(PAGE_FOLDER.$prevslug.'.md', PAGE_FOLDER.$dest.'/'.$slug.'.md');
+
+
+		// if file left the empty folder, not from the root
+		if(!empty($source) && $filesleft = glob(PAGE_FOLDER.$source.'/*')){
+			// if there are only index.html, index.md
+			if(count($filesleft) <= 2){
+				// move to upper parent
+				$this->raise_page($source);
+			}
+		}
+	}
+
+	function raise_page($source)
+	{
+		$parent_subparent_arr = explode("/", $source);
+		$parent_name = array_pop($parent_subparent_arr);
+		$parent_subparent = implode("/", $parent_subparent_arr);
+		rename(PAGE_FOLDER.$source.'/index.md', PAGE_FOLDER.$parent_subparent.'/'.$parent_name.'.md');
+
+		unlink(PAGE_FOLDER.$source.'/index.html');
+		rmdir(PAGE_FOLDER.$source);
 	}
 
 	// --------------------------------------------------------------------
@@ -724,7 +770,7 @@ class Pusaka {
 		if(! $prefix)
 			$name = ucwords($name);
 
-		return $name;
+		return rtrim($name, '/');
 	}
 
 	// --------------------------------------------------------------------------
@@ -748,7 +794,7 @@ class Pusaka {
 		}
 
 
-		return $file;
+		return rtrim($file, '/');
 	}
 
 	// --------------------------------------------------------------------------

@@ -54,6 +54,12 @@ class Panel extends Admin_Controller {
 	 * PAGES
 	 **********************************************/
 
+	function coba()
+	{
+		print_r(directory_map(PAGE_FOLDER));
+		print_r($this->pusaka->scan_pages());
+	}
+
 	function index()
 	{
 		// $pages = $this->pusaka->get_pages_tree();
@@ -84,6 +90,13 @@ class Panel extends Admin_Controller {
 
 	function create()
 	{
+		$segs = $this->uri->uri_string();
+		$seg_array = explode("/", $segs, 4);
+
+		$parent = false;
+		if(isset($seg_array[3]))
+			$parent = $seg_array[3];
+
 		$this->form_validation->set_rules($this->page_fields);
 
 		if($this->form_validation->run()){
@@ -118,7 +131,10 @@ class Panel extends Admin_Controller {
 				// update page index
 				$this->sync(false);
 
-				redirect('panel/pages');
+				if($this->input->post('btnSaveExit'))
+					redirect('panel/pages');
+				else
+					redirect('panel/pages/edit/'.$page['parent'].$page['slug']);
 			}
 			else {
 				$this->template->set('error', 'Page failed to save. Make sure the folder '.PAGE_FOLDER.' is writable.');
@@ -129,6 +145,7 @@ class Panel extends Admin_Controller {
 		$this->template
 			->set('type', 'create')
 			->set('page', '')
+			->set('parent', $parent)
 			->set('url', '')
 			->set('layouts', $this->pusaka->get_layouts($this->config->item('theme')))
 			->set('pagelinks', $this->pusaka->get_flatnav())
@@ -137,7 +154,13 @@ class Panel extends Admin_Controller {
 
 	function edit()
 	{
-		if(!$prevslug = $this->input->get('page')) show_404();
+		$segs = $this->uri->uri_string();
+		$seg_array = explode("/", $segs, 4);
+
+		if(isset($seg_array[3]))
+			$prevslug = $seg_array[3];
+		else
+			show_404();
 
 		$prevpage = $this->pusaka->get_page($prevslug, false);
 		if(!isset($prevpage['slug']))
@@ -170,7 +193,10 @@ class Panel extends Admin_Controller {
 			// update page index
 			$this->sync(false);
 
-			redirect('panel/pages');
+			if($this->input->post('btnSaveExit'))
+				redirect('panel/pages');
+			else
+				redirect('panel/pages/edit/'.$page['parent'].$page['slug']);
 		}
 
 
@@ -186,10 +212,25 @@ class Panel extends Admin_Controller {
 
 	function delete()
 	{
-		if(!$prevslug = $this->input->get('page')) show_404();
+		$segs = $this->uri->uri_string();
+		$seg_array = explode("/", $segs, 4);
+
+		if(isset($seg_array[3]))
+			$prevslug = $seg_array[3];
+		else
+			show_404();
 
 		if(unlink(PAGE_FOLDER.'/'.$prevslug.'.md')){
 			$this->session->set_flashdata('success', 'Page '.$prevslug.' deleted.');
+
+			// check to raise parent page
+			$slug_array = explode("/", $prevslug);
+			if(count($slug_array) >= 2){
+				array_pop($slug_array);
+				$parent = implode("/", $slug_array);
+				$this->pusaka->raise_page($parent);
+			}
+
 			// update page index
 			$this->sync(false);
 		}
@@ -212,53 +253,12 @@ class Panel extends Admin_Controller {
 		$source = implode("/", $source_arr);
 		$dest = $this->input->post('dest');
 
-		$this->_move_page($source.'/'.$page, $page, $source, $dest);
+		$this->pusaka->move_page($source.'/'.$page, $page, $source, $dest);
 		
 		// update page index
 		$msg = $this->sync(false);
 
 		echo json_encode(array('page' => $page, 'source' => $source, 'dest' => $dest) + $msg);
-	}
-
-	function _move_page($prevslug, $slug, $source, $dest)
-	{
-		// page move to another folder
-		if($source != $dest) {
-			// if it is move to subpage, not to root
-			if(!empty($dest)) { 
-				// if parent still as standalone file (not in folder)
-				if(file_exists(PAGE_FOLDER.$dest.'.md')) {
-					// create folder and move the parent inside
-					mkdir(PAGE_FOLDER.$dest, 0775);
-					rename(PAGE_FOLDER.$dest.'.md', PAGE_FOLDER.$dest.'/index.md');
-
-					// create index.html file
-					copy(PAGE_FOLDER.'index.html', PAGE_FOLDER.$dest.'/index.html');
-				}
-			}
-		}
-
-		// move to new location
-		if(is_dir(PAGE_FOLDER.$prevslug))
-			rename(PAGE_FOLDER.$prevslug, PAGE_FOLDER.$dest.'/'.$slug);
-		else
-			rename(PAGE_FOLDER.$prevslug.'.md', PAGE_FOLDER.$dest.'/'.$slug.'.md');
-
-
-		// if file left the empty folder, not from the root
-		if(!empty($source) && $filesleft = glob(PAGE_FOLDER.$source.'/*')){
-			// if there are only index.html, index.md
-			if(count($filesleft) <= 2){
-				// move to upper parent
-				$parent_subparent_arr = explode("/", $source);
-				$parent_name = array_pop($parent_subparent_arr);
-				$parent_subparent = implode("/", $parent_subparent_arr);
-				rename(PAGE_FOLDER.$source.'/index.md', PAGE_FOLDER.$parent_subparent.'/'.$parent_name.'.md');
-
-				unlink(PAGE_FOLDER.$source.'/index.html');
-				rmdir(PAGE_FOLDER.$source);
-			}
-		}
 	}
 
 	function sort($arr = false)
