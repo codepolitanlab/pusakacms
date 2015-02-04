@@ -40,7 +40,9 @@
 					</td>
 					<td><?php echo ($user['active']) ? lang('index_active_link') : lang('index_inactive_link');?></td>
 					<td style="text-align:right">
-						<?php echo ($user['active']) ? anchor("users/auth/deactivate/".$user['id'], 'Deactivate', 'class="btn btn-xs btn-primary"') : anchor("users/auth/activate/". $user['id'], 'Activate', 'class="btn btn-xs btn-primary"'); ?>
+						<?php if($this->session->userdata('id') != $user['id']): ?>
+							<?php echo ($user['active']) ? anchor("users/auth/deactivate/".$user['id'], 'Deactivate', 'class="btn btn-xs btn-primary"') : anchor("users/auth/activate/". $user['id'], 'Activate', 'class="btn btn-xs btn-primary"'); ?>
+						<?php endif; ?>
 						<?php echo anchor("panel/users/edit_user/".$user['id'], 'Edit', 'class="btn edit btn-xs btn-primary"') ;?>
 						<?php if($this->session->userdata('id') != $user['id']) echo anchor("panel/users/delete_user/".$user['id'], 'Delete', 'class="btn delete remove btn-xs btn-primary"') ;?>
 					</td>

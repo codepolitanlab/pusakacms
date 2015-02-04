@@ -257,7 +257,10 @@ class Ion_auth
 	 **/
 	public function forgotten_password_check($code)
 	{
-		$profile = $this->where('forgotten_password_code', $code)->users()->row(); //pass the code to profile
+		if($this->config->item('filebased', 'ion_auth'))
+			$profile = $this->user_where('forgotten_password_code', $code); //pass the code to profile
+		else
+			$profile = $this->where('forgotten_password_code', $code)->users()->row_array(); //pass the code to profile
 
 		if (!is_object($profile))
 		{
@@ -269,7 +272,7 @@ class Ion_auth
 			if ($this->config->item('forgot_password_expiration', 'ion_auth') > 0) {
 				//Make sure it isn't expired
 				$expiration = $this->config->item('forgot_password_expiration', 'ion_auth');
-				if (time() - $profile->forgotten_password_time > $expiration) {
+				if (time() - $profile['forgotten_password_time'] > $expiration) {
 					//it has expired
 					$this->clear_forgotten_password_code($code);
 					$this->set_error('password_change_unsuccessful');

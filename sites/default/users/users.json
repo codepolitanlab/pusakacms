@@ -6,7 +6,7 @@
         "phone": "+628986818780",
         "id": 1422957127,
         "username": "toni haryanto",
-        "password": "$2y$08$6D0EKSfGuwPzKJFZlOaGpe7fAOQlCv1NxrrHTLxEWW5n8SE6xPKQe",
+        "password": "$2y$08$m412nWKLJFmcCBgwxgctpetJFk5nCUXJ2vLNU129IpzVXF38vgjlK",
         "salt": null,
         "email": "toha.samba@gmail.com",
         "ip_address": "127.0.0.1",
@@ -14,9 +14,9 @@
         "last_login": 1422957127,
         "active": 1,
         "groups": [
-            "1",
             "2"
-        ]
+        ],
+        "activation_code": null
     },
     {
         "id": 1,
@@ -30,7 +30,7 @@
         "forgotten_password_time": null,
         "remember_code": null,
         "created_on": 1268889823,
-        "last_login": 1422961929,
+        "last_login": 1423011804,
         "active": 1,
         "groups": [
             "1",

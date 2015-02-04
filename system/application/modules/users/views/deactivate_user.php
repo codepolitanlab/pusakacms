@@ -1,7 +1,7 @@
 <h1><?php echo lang('deactivate_heading');?></h1>
-<p><?php echo sprintf(lang('deactivate_subheading'), $user->username);?></p>
+<p><?php echo sprintf(lang('deactivate_subheading'), $user['username']);?></p>
 
-<?php echo form_open("users/auth/deactivate/".$user->id);?>
+<?php echo form_open("users/auth/deactivate/".$user['id']);?>
 
   <p>
   	<?php echo lang('deactivate_confirm_y_label', 'confirm');?>
@@ -11,7 +11,7 @@
   </p>
 
   <?php echo form_hidden($csrf); ?>
-  <?php echo form_hidden(array('id'=>$user->id)); ?>
+  <?php echo form_hidden(array('id'=>$user['id'])); ?>
 
   <p><?php echo form_submit('submit', lang('deactivate_submit_btn'));?></p>
 

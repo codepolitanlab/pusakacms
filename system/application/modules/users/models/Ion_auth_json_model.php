@@ -74,6 +74,269 @@ class Ion_auth_json_model extends Ion_auth_model
 	}
 
 	/**
+	 * user_where
+	 *
+	 * @return object
+	 * @author Ben Edmunds
+	 **/
+	public function user_where($key, $value)
+	{
+		$this->trigger_events('user');
+
+		$this->db->setTable('users');
+		$result = $this->db->select($key, $value);
+
+		return $result;
+	}
+
+	public function clear_forgotten_password_code($code) {
+
+		if (empty($code))
+		{
+			return FALSE;
+		}
+
+		$this->db->setTable('users');
+		$user = $this->db->select('forgotten_password_code', $code);
+
+		if (count($user) > 0)
+		{
+			$data = array(
+				'forgotten_password_code' => NULL,
+				'forgotten_password_time' => NULL
+				);
+
+			$data = array_merge($user, $data);
+
+			$this->db->update('forgotten_password_code', $code, $data);
+
+			return TRUE;
+		}
+
+		return FALSE;
+	}
+
+	/**
+	 * reset password
+	 *
+	 * @return bool
+	 * @author Mathew
+	 **/
+	public function reset_password($identity, $new) {
+		$this->trigger_events('pre_change_password');
+
+		if (!$this->identity_check($identity)) {
+			$this->trigger_events(array('post_change_password', 'post_change_password_unsuccessful'));
+			return FALSE;
+		}
+
+		$this->db->setTable('users');
+		$query = $this->db->select($this->identity_column, $identity);
+
+		if (count($query) !== 1)
+		{
+			$this->trigger_events(array('post_change_password', 'post_change_password_unsuccessful'));
+			$this->set_error('password_change_unsuccessful');
+			return FALSE;
+		}
+
+		$result = $query;
+
+		$new = $this->hash_password($new, $result['salt']);
+
+		//store the new password and reset the remember code so all remembered instances have to re-login
+		//also clear the forgotten password code
+		$data = array(
+		    'password' => $new,
+		    'remember_code' => NULL,
+		    'forgotten_password_code' => NULL,
+		    'forgotten_password_time' => NULL,
+		);
+
+		$data = array_merge($user, $data);
+
+		$return = $this->db->update($this->identity_column, $identity, $data);
+
+		if ($return)
+		{
+			$this->trigger_events(array('post_change_password', 'post_change_password_successful'));
+			$this->set_message('password_change_successful');
+		}
+		else
+		{
+			$this->trigger_events(array('post_change_password', 'post_change_password_unsuccessful'));
+			$this->set_error('password_change_unsuccessful');
+		}
+
+		return $return;
+	}
+
+	/**
+	 * Activation functions
+	 *
+	 * Activate : Validates and removes activation code.
+	 * Deactivae : Updates a users row with an activation code.
+	 *
+	 * @author Mathew
+	 */
+
+	/**
+	 * activate
+	 *
+	 * @return void
+	 * @author Mathew
+	 **/
+	public function activate($id, $code = false)
+	{
+		$this->trigger_events('pre_activate');
+
+		$this->db->setTable('users');
+
+		if ($code !== FALSE)
+		{
+			$result = $this->db->select('activation_code', $code);
+
+			if (count($result) !== 1)
+			{
+				$this->trigger_events(array('post_activate', 'post_activate_unsuccessful'));
+				$this->set_error('activate_unsuccessful');
+				return FALSE;
+			}
+
+			$data = array(
+			    'activation_code' => NULL,
+			    'active'          => 1
+			);
+
+			$data = array_merge($result, $data);
+
+			$return = $this->db->update('id', $id, $data);
+		}
+		else
+		{
+			$result = $this->db->select('id', $id);
+
+			$data = array(
+			    'activation_code' => NULL,
+			    'active'          => 1
+			);
+
+			$data = array_merge($result, $data);
+
+			$return = $this->db->update('id', $id, $data);
+		}
+
+		if ($return)
+		{
+			$this->trigger_events(array('post_activate', 'post_activate_successful'));
+			$this->set_message('activate_successful');
+		}
+		else
+		{
+			$this->trigger_events(array('post_activate', 'post_activate_unsuccessful'));
+			$this->set_error('activate_unsuccessful');
+		}
+
+
+		return $return;
+	}
+
+
+	/**
+	 * Deactivate
+	 *
+	 * @return void
+	 * @author Mathew
+	 **/
+	public function deactivate($id = NULL)
+	{
+		$this->trigger_events('deactivate');
+
+		if (!isset($id))
+		{
+			$this->set_error('deactivate_unsuccessful');
+			return FALSE;
+		}
+
+		$activation_code       = sha1(md5(microtime()));
+		$this->activation_code = $activation_code;
+
+		$data = array(
+		    'activation_code' => $activation_code,
+		    'active'          => 0
+		);
+
+		$this->db->setTable('users');
+		$user = $this->db->select('id', $id);
+		$data = array_merge($user, $data);
+		$return = $this->db->update('id', $id, $data);
+
+		if ($return)
+			$this->set_message('deactivate_successful');
+		else
+			$this->set_error('deactivate_unsuccessful');
+
+		return $return;
+	}
+
+	/**
+	 * Insert a forgotten password key.
+	 *
+	 * @return bool
+	 * @author Mathew
+	 * @updated Ryan
+	 * @updated 52aa456eef8b60ad6754b31fbdcc77bb
+	 **/
+	public function forgotten_password($identity)
+	{
+		if (empty($identity))
+		{
+			$this->trigger_events(array('post_forgotten_password', 'post_forgotten_password_unsuccessful'));
+			return FALSE;
+		}
+
+		//All some more randomness
+		$activation_code_part = "";
+		if(function_exists("openssl_random_pseudo_bytes")) {
+			$activation_code_part = openssl_random_pseudo_bytes(128);
+		}
+
+		for($i=0;$i<1024;$i++) {
+			$activation_code_part = sha1($activation_code_part . mt_rand() . microtime());
+		}
+
+		$key = $this->hash_code($activation_code_part.$identity);
+
+		// If enable query strings is set, then we need to replace any unsafe characters so that the code can still work
+		if ($key != '' && $this->config->item('permitted_uri_chars') != '' && $this->config->item('enable_query_strings') == FALSE)
+		{
+			// preg_quote() in PHP 5.3 escapes -, so the str_replace() and addition of - to preg_quote() is to maintain backwards
+			// compatibility as many are unaware of how characters in the permitted_uri_chars will be parsed as a regex pattern
+			if ( ! preg_match("|^[".str_replace(array('\\-', '\-'), '-', preg_quote($this->config->item('permitted_uri_chars'), '-'))."]+$|i", $key))
+			{
+				$key = preg_replace("/[^".$this->config->item('permitted_uri_chars')."]+/i", "-", $key);
+			}
+		}
+
+		$this->forgotten_password_code = $key;
+
+		$update = array(
+		    'forgotten_password_code' => $key,
+		    'forgotten_password_time' => time()
+		);
+
+		$this->db->setTable('users');
+		$return = $this->db->update($this->identity_column, $identity, $update);
+
+		if ($return)
+			$this->trigger_events(array('post_forgotten_password', 'post_forgotten_password_successful'));
+		else
+			$this->trigger_events(array('post_forgotten_password', 'post_forgotten_password_unsuccessful'));
+
+		return $return;
+	}
+
+	/**
 	 * update
 	 *
 	 * @return bool
@@ -111,8 +374,6 @@ class Ion_auth_json_model extends Ion_auth_model
 			}
 		}
 
-		$this->trigger_events('extra_where');
-
 		$this->db->setTable('users');
 
 		if (! $this->db->update('id', $user['id'], $data))
@@ -142,8 +403,6 @@ class Ion_auth_json_model extends Ion_auth_model
 			$this->set_error('login_unsuccessful');
 			return FALSE;
 		}
-
-		$this->trigger_events('extra_where');
 
 		$this->db->setTable('users');
 		$query = $this->db->select($this->identity_column, $identity);
@@ -301,8 +560,6 @@ class Ion_auth_json_model extends Ion_auth_model
 
 		$this->load->helper('date');
 
-		$this->trigger_events('extra_where');
-
 		$this->db->setTable('users');
 		$user = $this->db->select('id', $id);
 		$user = array_merge($user, array('last_login' => time()));
@@ -322,8 +579,6 @@ class Ion_auth_json_model extends Ion_auth_model
 		{
 			return FALSE;
 		}
-
-		$this->trigger_events('extra_where');
 
 		$query = $this->db->select('id', $id);
 
@@ -608,6 +863,60 @@ class Ion_auth_json_model extends Ion_auth_model
 		$this->trigger_events(array('post_delete_group', 'post_delete_group_successful'));
 		$this->set_message('group_delete_successful');
 		return TRUE;
+	}
+
+	/**
+	 * change password
+	 *
+	 * @return bool
+	 * @author Mathew
+	 **/
+	public function change_password($identity, $old, $new)
+	{
+		$this->trigger_events('pre_change_password');
+
+		$this->db->setTable('users');
+		$query = $this->db->select($this->identity_column, $identity);
+
+		if (count($query) !== 1)
+		{
+			$this->trigger_events(array('post_change_password', 'post_change_password_unsuccessful'));
+			$this->set_error('password_change_unsuccessful');
+			return FALSE;
+		}
+
+		$user = $query;
+
+		$old_password_matches = $this->hash_password_db($user['id'], $old);
+
+		if ($old_password_matches === TRUE)
+		{
+			//store the new password and reset the remember code so all remembered instances have to re-login
+			$hashed_new_password  = $this->hash_password($new, $user['salt']);
+			$data = array(
+			    'password' => $hashed_new_password,
+			    'remember_code' => NULL,
+			);
+
+			$data = array_merge($user, $data);
+
+			$successfully_changed_password_in_db = $this->db->update($this->identity_column, $identity, $data);
+			if ($successfully_changed_password_in_db)
+			{
+				$this->trigger_events(array('post_change_password', 'post_change_password_successful'));
+				$this->set_message('password_change_successful');
+			}
+			else
+			{
+				$this->trigger_events(array('post_change_password', 'post_change_password_unsuccessful'));
+				$this->set_error('password_change_unsuccessful');
+			}
+
+			return $successfully_changed_password_in_db;
+		}
+
+		$this->set_error('password_change_unsuccessful');
+		return FALSE;
 	}
 
 	/**

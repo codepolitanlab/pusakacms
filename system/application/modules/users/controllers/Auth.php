@@ -6,19 +6,25 @@ class Auth extends Admin_Controller {
 	{
 		parent::__construct();
 		
-		$this->load->database();
+		if(! $this->config->item('filebased', 'ion_auth'))
+			$this->load->database();
 
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
 		$this->lang->load('users/auth');
 		$this->load->helper('language');
+
+		if(! is_writable(SITE_PATH.'users/users.json') || ! is_writable(SITE_PATH.'users/groups.json'))
+			show_error('Files users.json and groups.json in folder '.SITE_PATH.'users/ must be writable.');
 	}
 
 	//redirect if needed, otherwise display the user list
 	function index()
 	{
-
-		$this->login();
+		if (!$this->ion_auth->logged_in())
+			redirect('users/auth/login');
+		else
+			redirect('panel/users');
 	}
 
 	//log the user in
@@ -102,7 +108,11 @@ class Auth extends Admin_Controller {
 			redirect('users/auth/login', 'refresh');
 		}
 
-		$user = $this->ion_auth->user()->row();
+		if($this->config->item('filebased', 'ion_auth')){
+			$user = $this->ion_auth->user();
+		} else {
+			$user = $this->ion_auth->user()->row_array();
+		}
 
 		if ($this->form_validation->run() == false)
 		{
@@ -132,7 +142,7 @@ class Auth extends Admin_Controller {
 				'name'  => 'user_id',
 				'id'    => 'user_id',
 				'type'  => 'hidden',
-				'value' => $user->id,
+				'value' => $user['id'],
 			);
 
 			//render
@@ -185,20 +195,29 @@ class Auth extends Admin_Controller {
 		{
 			// get identity from username or email
 			if ( $this->config->item('identity', 'ion_auth') == 'username' ){
-				$identity = $this->ion_auth->where('username', strtolower($this->input->post('email')))->users()->row();
+				if($this->config->item('filebased', 'ion_auth')){
+					$identity = $this->ion_auth->user_where('username', strtolower($this->input->post('email')));
+				} else {
+					$identity = $this->ion_auth->where('username', strtolower($this->input->post('email')))->users()->row_array();
+				}
 			}
 			else
 			{
-				$identity = $this->ion_auth->where('email', strtolower($this->input->post('email')))->users()->row();
+				if($this->config->item('filebased', 'ion_auth')){
+					$identity = $this->ion_auth->user_where('email', strtolower($this->input->post('email')));
+				} else {
+					$identity = $this->ion_auth->where('email', strtolower($this->input->post('email')))->users()->row_array();
+				}
 			}
-	            	if(empty($identity)) {
-		        	$this->ion_auth->set_message('forgot_password_email_not_found');
-		                $this->session->set_flashdata('message', $this->ion_auth->messages());
-                		redirect("users/auth/forgot_password", 'refresh');
-            		}
+
+			if(empty($identity)) {
+				$this->ion_auth->set_message('forgot_password_email_not_found');
+				$this->session->set_flashdata('message', $this->ion_auth->messages());
+				redirect("users/auth/forgot_password", 'refresh');
+			}
 
 			//run the forgotten password method to email an activation code to the user
-			$forgotten = $this->ion_auth->forgotten_password($identity->{$this->config->item('identity', 'ion_auth')});
+			$forgotten = $this->ion_auth->forgotten_password($identity[$this->config->item('identity', 'ion_auth')]);
 
 			if ($forgotten)
 			{
@@ -255,7 +274,7 @@ class Auth extends Admin_Controller {
 					'name'  => 'user_id',
 					'id'    => 'user_id',
 					'type'  => 'hidden',
-					'value' => $user->id,
+					'value' => $user['id'],
 				);
 				$this->data['csrf'] = $this->_get_csrf_nonce();
 				$this->data['code'] = $code;
@@ -266,7 +285,7 @@ class Auth extends Admin_Controller {
 			else
 			{
 				// do we have a valid request?
-				if ($this->_valid_csrf_nonce() === FALSE || $user->id != $this->input->post('user_id'))
+				if ($this->_valid_csrf_nonce() === FALSE || $user['id'] != $this->input->post('user_id'))
 				{
 
 					//something fishy might be up
@@ -278,7 +297,7 @@ class Auth extends Admin_Controller {
 				else
 				{
 					// finally change the password
-					$identity = $user->{$this->config->item('identity', 'ion_auth')};
+					$identity = $user[$this->config->item('identity', 'ion_auth')];
 
 					$change = $this->ion_auth->reset_password($identity, $this->input->post('new'));
 
@@ -344,7 +363,11 @@ class Auth extends Admin_Controller {
 		{
 			// insert csrf check
 			$this->data['csrf'] = $this->_get_csrf_nonce();
-			$this->data['user'] = $this->ion_auth->user($id)->row();
+
+			if($this->config->item('filebased', 'ion_auth'))
+				$this->data['user'] = $this->ion_auth->user($id);
+			else
+				$this->data['user'] = $this->ion_auth->user($id)->row_array();
 
 			$this->_render_page('users/deactivate_user', $this->data);
 		}
