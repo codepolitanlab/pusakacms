@@ -1,24 +1,5 @@
 [
     {
-        "first_name": "Toha",
-        "last_name": "Taymullah",
-        "company": "Nyankod",
-        "phone": "+628986818780",
-        "id": 1422957127,
-        "username": "toni haryanto",
-        "password": "$2y$08$m412nWKLJFmcCBgwxgctpetJFk5nCUXJ2vLNU129IpzVXF38vgjlK",
-        "salt": null,
-        "email": "toha.samba@gmail.com",
-        "ip_address": "127.0.0.1",
-        "created_on": 1422957127,
-        "last_login": 1422957127,
-        "active": 1,
-        "groups": [
-            "2"
-        ],
-        "activation_code": null
-    },
-    {
         "id": 1,
         "ip_address": "127.0.0.1",
         "username": "admin",
