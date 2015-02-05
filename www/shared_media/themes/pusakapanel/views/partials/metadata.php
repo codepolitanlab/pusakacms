@@ -39,7 +39,7 @@
 <script src="<?php echo get_theme_url('assets/codemirror/mode/markdown/markdown.js'); ?>"></script>
 
 <script src="<?php echo get_theme_url("assets/js/jquery-1.7.2.min.js") ?>"></script>
-<script src="<?php echo get_theme_url("assets/js/jquery-ui.min.js") ?>"></script>
+<script src="<?php echo get_theme_url("assets/jquery-ui-1.11.2.custom/jquery-ui.min.js") ?>"></script>
 <script src="<?php echo get_theme_url('assets/elfinder/js/elfinder.min.js') ?>"></script>
 
 <script>
