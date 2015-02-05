@@ -94,7 +94,10 @@ class Panel extends Admin_Controller {
 				// update post index
 				$this->sync(false);
 
-				redirect('panel/posts');
+				if($this->input->post('btnSaveExit'))
+					redirect('panel/posts');
+				else
+					redirect('panel/posts/edit/'.$page['parent'].$page['slug']);
 			}
 			else {
 				$this->template->set('error', 'Post failed to save. Make sure the folder '.POST_FOLDER.' is writable.');
@@ -112,11 +115,13 @@ class Panel extends Admin_Controller {
 
 	function edit()
 	{
-		if(!$prevslug = $this->input->get('post')) show_404();
+		$prevname = $this->uri->segment(4);
+		if(! isset($prevname))
+			show_404();
 
-		$prevpost = $this->pusaka->get_post($prevslug, false, false);
+		$prevpost = $this->pusaka->get_post($prevname, false, false, true);
 		$prevpost['labels'] = (!empty($prevpost['labels']))? implode(",", $prevpost['labels']) : '';
-		$prevpost['slug'] = (isset($prevpost['slug']))? $prevpost['slug'] : $prevslug;
+		$prevpost['slug'] = (isset($prevpost['slug']))? $prevpost['slug'] : $prevname;
 
 		$this->form_validation->set_rules($this->post_fields);
 
@@ -135,6 +140,7 @@ class Panel extends Admin_Controller {
 			}
 
 			$date = date("Y-m-d-H-i", strtotime($prevpost['date'])).'-';
+			$redir_date = date("Y/m/d/", strtotime($prevpost['date']));
 
 			// rename post first
 			if($prevpost['slug'] != $post['slug'])
@@ -146,7 +152,10 @@ class Panel extends Admin_Controller {
 				// update post index
 				$this->sync(false);
 
-				redirect('panel/posts');
+				if($this->input->post('btnSaveExit'))
+					redirect('panel/posts');
+				else
+					redirect('panel/posts/edit/'.$date.$post['slug'].'.md');
 			}
 			else {
 				$this->template->set('error', 'Post failed to update. Make sure the folder '.POST_FOLDER.' is writable.');
@@ -157,7 +166,7 @@ class Panel extends Admin_Controller {
 		$this->template
 			->enable_parser_body(false)
 			->set('type', 'edit')
-			->set('url', $prevslug)
+			->set('filename', $prevname)
 			->set('post', $prevpost)
 			->set('layouts', $this->pusaka->get_layouts($this->config->item('theme')))
 			->view('post_form');
@@ -165,7 +174,10 @@ class Panel extends Admin_Controller {
 
 	function delete()
 	{
-		if(!$file = $this->input->get('post')) show_404();
+		$file = $this->uri->segment(4);
+
+		if(! isset($file))
+			show_404();
 
 		if(unlink(POST_FOLDER.'/'.$file)){
 			$this->session->set_flashdata('success', 'Post '.$file.' deleted.');

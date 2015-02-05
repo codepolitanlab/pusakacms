@@ -15,7 +15,7 @@
 		<?php foreach ($posts['entries'] as $post): ?>
 			<li>
 				<div class="list-desc">
-					<h3><a href="<?php echo site_url('panel/posts/edit?post='.$post['url']); ?>"><?php echo $post['title']; ?></a></h3>
+					<h3><a href="<?php echo site_url('panel/posts/edit/'.$post['url']); ?>"><?php echo $post['title']; ?></a></h3>
 					<small><a href="<?php echo site_url($post['url']); ?>" target="_blank" class="link"><span class="fa fa-external-link"></span> <?php echo site_url($post['url']); ?></a></small>
 					
 					<div class="row">
@@ -34,8 +34,8 @@
 						</div>
 						<div class="col-md-6 align-right">
 							<div class="option">
-								<a href="<?php echo site_url('panel/posts/edit?post='.$post['url']); ?>" class="edit"><span class="fa fa-edit"></span> Edit</a>
-								<a href="<?php echo site_url('panel/posts/delete?post='.$post['file']); ?>" class="remove"><span class="fa fa-times"></span> Delete</a>
+								<a href="<?php echo site_url('panel/posts/edit/'.$post['file']); ?>" class="edit"><span class="fa fa-edit"></span> Edit</a>
+								<a href="<?php echo site_url('panel/posts/delete/'.$post['file']); ?>" class="remove"><span class="fa fa-times"></span> Delete</a>
 							</div>
 						</div>
 					</div>

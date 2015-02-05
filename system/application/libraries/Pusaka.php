@@ -473,31 +473,38 @@ class Pusaka {
 	 * @param	bool	set content to intro or not
 	 * @return	array
 	 */
-	function get_post($url = null, $parse = true, $content_to_intro = true)
+	function get_post($url = null, $parse = true, $content_to_intro = true, $by_filename = false)
 	{
-		$segs = explode("/", $url);
-		$postslug = $segs[count($segs)-1];
-
-		// url must have 4 segment (blog/yyyy/mm/dd/slug)
-		if(count($segs) != 5)
-			return false;
-
-
 		$post_db = new Nyankod\JsonFileDB(POST_FOLDER);
 		$post_db->setTable('index');
-		$the_post = $post_db->select('url', $url);
 
-		if(empty($the_post) || ! file_exists(POST_FOLDER.$the_post[0]['filename']))
+		// if post get by filename
+		if($by_filename){
+			$the_post = $post_db->select('filename', $url);
+
+		} else {
+			$segs = explode("/", $url);
+			$postslug = $segs[count($segs)-1];
+
+			// url must have 4 segment (blog/yyyy/mm/dd/slug)
+			if(count($segs) != 5)
+				return false;
+			
+			$the_post = $post_db->select('url', $url);
+		}
+
+
+		if(empty($the_post) || ! file_exists(POST_FOLDER.$the_post['filename']))
 			return false;
 
-		$file = file_get_contents(POST_FOLDER.$the_post[0]['filename']);
+		$file = file_get_contents(POST_FOLDER.$the_post['filename']);
 		if(!empty($file)){
 			$post = explode("{:", $file);
 			array_shift($post);
 			
 			$new_post = array(
-				'date' => $the_post[0]['date'],
-				'file' => $the_post[0]['filename']
+				'date' => $the_post['date'],
+				'file' => $the_post['filename']
 			);
 
 			foreach ($post as $elm) {

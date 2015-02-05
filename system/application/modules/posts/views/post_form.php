@@ -1,10 +1,11 @@
-<form action="<?php echo site_url('panel/posts/'.$type.'?post='.$url); ?>" class="panel-form" method="POST">
+<form action="<?php echo site_url('panel/posts/'.$type.'/'.$filename); ?>" class="panel-form" method="POST">
 	<div class="row heading">
 		<div class="col-md-6">
 			<h1><a href="<?php echo site_url('panel/posts'); ?>">POSTS</a> &bull; <?php echo strtoupper($type); ?> POST</h1>
 		</div>
 		<div class="col-md-6 align-right">
-			<button type="submit" class="btn btn-success"><span class="fa fa-save"></span> Save changes</button>
+			<button type="submit" name="btnSave" class="btn btn-info"><span class="fa fa-save"></span> Save</button>
+			<button type="submit" name="btnSaveExit" value="1" class="btn btn-success"><span class="fa fa-save"></span> Save and exit</button>
 		</div>
 	</div>
 	<ul class="nav nav-tabs" role="tablist">
