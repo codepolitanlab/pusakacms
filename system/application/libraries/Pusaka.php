@@ -277,7 +277,7 @@ class Pusaka {
 			'has_children_li_class' => '',
 			'has_children_li_attr' => '',
 			'has_children_a_class' => 'dropdown-toggle',
-			'has_children_a_attr' => 'data-toggle="dropdown" role="button"',
+			'has_children_a_attr' => 'role="button"',
 			'active_class' => 'active',
 			'ul_children_class' => 'dropdown-menu',
 			'ul_children_attr' => 'role="menu"'
