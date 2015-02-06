@@ -204,6 +204,7 @@ class Panel extends Admin_Controller {
 			->enable_parser_body(false)
 			->set('type', 'edit')
 			->set('page', $prevpage)
+			->set('parent', '')
 			->set('url', $prevslug)
 			->set('layouts', $this->pusaka->get_layouts($this->config->item('theme')))
 			->set('pagelinks', $this->pusaka->get_flatnav())

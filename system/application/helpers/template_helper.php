@@ -95,7 +95,7 @@ if ( ! function_exists('get_theme_url'))
 if ( ! function_exists('get_content_image'))
 {
 	function get_content_image($file = false, $attr = '') {
-		$url =  base_url().SITE_FOLDER.SITE_SLUG.'/content/files/'.$file;
+		$url =  base_url().'media/'.SITE_SLUG.'/files/'.$file;
 
 		return '<img src="'.$url.'" '.$attr.' />'."\n";
 	}
@@ -104,7 +104,7 @@ if ( ! function_exists('get_content_image'))
 if ( ! function_exists('get_content_file'))
 {
 	function get_content_file($file = false) {
-		$url =  base_url().SITE_FOLDER.SITE_SLUG.'/content/files/'.$file;
+		$url =  base_url().'media/'.SITE_SLUG.'/files/'.$file;
 
 		return $url;
 	}
