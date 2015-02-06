@@ -182,7 +182,7 @@ class Panel extends Admin_Controller {
 			}
 
 			// move page
-			$this->_move_page($prevslug, $page['slug'], $prevpage['parent'], $page['parent']);
+			$this->pusaka->move_page($prevslug, $page['slug'], $prevpage['parent'], $page['parent']);
 
 			// update page content
 			if(write_file(PAGE_FOLDER.$page['parent'].'/'.$page['slug'].'.md', $file_content, 'w+'))
@@ -196,7 +196,7 @@ class Panel extends Admin_Controller {
 			if($this->input->post('btnSaveExit'))
 				redirect('panel/pages');
 			else
-				redirect('panel/pages/edit/'.$page['parent'].$page['slug']);
+				redirect('panel/pages/edit/'.$page['parent'].'/'.$page['slug']);
 		}
 
 
