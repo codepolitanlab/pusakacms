@@ -14,8 +14,8 @@ class Auth extends Admin_Controller {
 		$this->lang->load('users/auth');
 		$this->load->helper('language');
 
-		if(! is_writable(SITE_PATH.'users/users.json') || ! is_writable(SITE_PATH.'users/groups.json'))
-			show_error('Files users.json and groups.json in folder '.SITE_PATH.'users/ must be writable.');
+		if(! is_writable(SITE_PATH.'db/users.json') || ! is_writable(SITE_PATH.'db/groups.json'))
+			show_error('Files users.json and groups.json in folder '.SITE_PATH.'db/ must be writable.');
 	}
 
 	//redirect if needed, otherwise display the user list

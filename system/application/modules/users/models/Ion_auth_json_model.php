@@ -35,7 +35,7 @@ class Ion_auth_json_model extends Ion_auth_model
 	{
 		parent::__construct();
 
-		$this->db = new Nyankod\JsonFileDB(SITE_PATH.'users/');
+		$this->db = new Nyankod\JsonFileDB(SITE_PATH.'db/');
 	}
 
 	/**
