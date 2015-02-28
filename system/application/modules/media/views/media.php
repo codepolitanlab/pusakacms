@@ -4,14 +4,5 @@
 	</div>
 </div>
 
-<script type="text/javascript" charset="utf-8">
-	jQuery(document).ready(function(){
-		jQuery('#elfinder').elfinder({
-			url: '<?php echo site_url('panel/media/elfinder_init'); ?>',
-			height: '500px'
-		}).elfinder('instance');
-	});
-</script>
-
 <!-- Element where elFinder will be created (REQUIRED) -->
-<div id="elfinder"></div>
+<iframe src="<?php echo site_url('panel/media/dialog'); ?>" width="100%" height="600px" style="border:1px solid #ddd;"></iframe>

@@ -151,7 +151,7 @@ class CI_URI {
 	 * @param 	string	$str
 	 * @return	void
 	 */
-	/* protected */ public function _set_uri_string($str)
+	protected function _set_uri_string($str)
 	{
 		// Filter out control characters and trim slashes
 		$this->uri_string = trim(remove_invisible_characters($str, FALSE), '/');
@@ -197,7 +197,7 @@ class CI_URI {
 	 *
 	 * @return	string
 	 */
-	/* protected */ public function _parse_request_uri()
+	protected function _parse_request_uri()
 	{
 		if ( ! isset($_SERVER['REQUEST_URI'], $_SERVER['SCRIPT_NAME']))
 		{

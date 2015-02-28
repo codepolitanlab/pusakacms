@@ -95,7 +95,7 @@ var timeout = setTimeout(function(){
 
 var set_parent_dropdown = function(area)
 {
-	$.get(BASE_URL + 'panel/navigation/get_nav_parent_option/' + area, function(data){
+	$.get(base_url + 'panel/navigation/get_nav_parent_option/' + area, function(data){
 		$('#link_parent').html(data);
 	});
 }

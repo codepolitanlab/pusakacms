@@ -35,8 +35,13 @@ class Panel extends Admin_Controller {
 			'rules'   => 'required'
 			),
 		array(
-			'field'   => 'Intro',
+			'field'   => 'intro',
 			'label'   => 'Introduction', 
+			'rules'   => 'trim'
+			),
+		array(
+			'field'   => 'post_image',
+			'label'   => 'Featured Image', 
 			'rules'   => 'trim'
 			),
 		array(
@@ -91,13 +96,19 @@ class Panel extends Admin_Controller {
 			if(write_file(POST_FOLDER.$date.$post['slug'].'.md', $file_content)){
 				$this->session->set_flashdata('success', 'Post saved.');
 
+				// call event after_insert
+				$post['filename'] = $date.$post['slug'].'.md';
+				$postmeta = $this->pusaka->create_post_attributes($post['filename']);
+				$post = array_merge($post, $postmeta);
+				$this->call_event('Posts', 'after_insert', $post);
+
 				// update post index
 				$this->sync(false);
 
 				if($this->input->post('btnSaveExit'))
 					redirect('panel/posts');
 				else
-					redirect('panel/posts/edit/'.$page['parent'].$page['slug']);
+					redirect('panel/posts/edit/'.$post['filename']);
 			}
 			else {
 				$this->template->set('error', 'Post failed to save. Make sure the folder '.POST_FOLDER.' is writable.');
@@ -108,6 +119,7 @@ class Panel extends Admin_Controller {
 		$this->template
 			->set('type', 'create')
 			->set('post', '')
+			->set('filename', null)
 			->set('url', '')
 			->set('layouts', $this->pusaka->get_layouts($this->config->item('theme')))
 			->view('post_form');
@@ -149,6 +161,12 @@ class Panel extends Admin_Controller {
 			if(write_file(POST_FOLDER.$date.$post['slug'].'.md', $file_content)){
 				$this->session->set_flashdata('success', 'Post updated.');
 
+				// call event after_update
+				$post['filename'] = $date.$post['slug'].'.md';
+				$postmeta = $this->pusaka->create_post_attributes($post['filename']);
+				$post = array_merge($post, $postmeta);
+				$this->call_event('Posts', 'after_update', $date.$prevpost['slug'].'.md', $post);
+
 				// update post index
 				$this->sync(false);
 
@@ -182,6 +200,9 @@ class Panel extends Admin_Controller {
 		if(unlink(POST_FOLDER.'/'.$file)){
 			$this->session->set_flashdata('success', 'Post '.$file.' deleted.');
 
+			// call event after_update
+			$this->call_event('Posts', 'after_delete', $file);
+
 			// update post index
 			$this->sync(false);
 		}
@@ -205,5 +226,11 @@ class Panel extends Admin_Controller {
 
 		if($redirect)
 			redirect('panel/posts');
+	}
+
+	function coba()
+	{
+		echo "sadasdas";
+		print_r($_SESSION);
 	}
 }

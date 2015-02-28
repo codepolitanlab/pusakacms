@@ -15,7 +15,7 @@
 		<?php foreach ($posts['entries'] as $post): ?>
 			<li>
 				<div class="list-desc">
-					<h3><a href="<?php echo site_url('panel/posts/edit/'.$post['url']); ?>"><?php echo $post['title']; ?></a></h3>
+					<h3><a href="<?php echo site_url('panel/posts/edit/'.$post['file']); ?>"><?php echo $post['title']; ?></a></h3>
 					<small><a href="<?php echo site_url($post['url']); ?>" target="_blank" class="link"><span class="fa fa-external-link"></span> <?php echo site_url($post['url']); ?></a></small>
 					
 					<div class="row">

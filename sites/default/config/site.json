@@ -1,9 +1,9 @@
 {
-	"site_name": "PusakaCMS",
-	"site_slogan": "Just a Simple Homepage by PusakaCMS",
-	"site_owner": "Toni Haryanto",
-	"site_domain":"pusakadev.com",
-	"protocol":"http",
-	"meta_description": "Nyankod Publish adalah blog media berisi konten seputar perkembangan Nyankod, mulai dari rilis produk, konten, kegiatan dan sebagainya.",
-	"meta_keywords": "nyankod publish, nyankodmagz, media, press release, launch produk, pemrograman, belajar pemrograman"
+    "site_name": "PusakaCMS",
+    "site_slogan": "Just a Simple Homepage by PusakaCMS",
+    "site_owner": "Toni Haryanto",
+    "site_domain": "pusakacms.org",
+    "protocol": "http",
+    "meta_description": "PusakaCMS adalah Content Management System (CMS) dengan media penyimpanan konten berbasis file, dibangun dengan PHP di atas framework CodeIgniter.",
+    "meta_keywords": "pusakacms, codeigniter, cms, file based cms, flat file cms"
 }

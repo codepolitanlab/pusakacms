@@ -221,7 +221,7 @@ class Pusaka {
 
 		foreach ($map as $link => $content) {
 			$new_map[$content['url']] = $prefix.' '.$content['title'];
-	
+
 			if(isset($content['children']))
 				$new_map += $this->get_flatnav($content['children'], $prefix.'—');
 		}
@@ -281,7 +281,7 @@ class Pusaka {
 			'active_class' => 'active',
 			'ul_children_class' => 'dropdown-menu',
 			'ul_children_attr' => 'role="menu"'
-		);
+			);
 		$opt = array_merge($default, $options);
 
 		if($prefix)
@@ -351,40 +351,43 @@ class Pusaka {
 		$labels = array();
 
 		// get all labels for each post
-		foreach ($posts['entries'] as $post) {
-			if(isset($post['labels']))
-				foreach ($post['labels'] as $label) {
-					$labels[trim($label)][] = $post['url'];
+		if(isset($posts['entries'])){
+			foreach ($posts['entries'] as $post) {
+				if(isset($post['labels'])){
+					foreach ($post['labels'] as $label) {
+						$labels[trim($label)][] = $post['url'];
+					}
 				}
+			}
 		}
 
 		// delete all labels first
-		delete_files(LABEL_FOLDER);
-		write_file(LABEL_FOLDER.'/index.md', 'Directory access forbidden.');
+			delete_files(LABEL_FOLDER);
+			write_file(LABEL_FOLDER.'/index.md', 'Directory access forbidden.');
 
 		// rewrite label indexes
-		$output = array();
-		foreach ($labels as $label => $url) {
-			if(write_file(LABEL_FOLDER.'/'.$label.'.json', json_encode($url, JSON_PRETTY_PRINT)))
-				$output = array('status' => 'success', 'message' => "Label list updated.\n");
-			else
-				$output = array('status' => 'error', 'message' => "Some labels failed to update. Please make content/labels/ folder writable.\n");
+			$output = array();
+			foreach ($labels as $label => $url) {
+				if(write_file(LABEL_FOLDER.'/'.$label.'.json', json_encode($url, JSON_PRETTY_PRINT)))
+					$output = array('status' => 'success', 'message' => "Label list updated.\n");
+				else
+					$output = array('status' => 'error', 'message' => "Some labels failed to update. Please make content/labels/ folder writable.\n");
+			}
+
+			return $output;
 		}
 
-		return $output;
-	}
+		public function get_layouts($theme = false)
+		{
+			$layouts = $this->CI->template->get_layouts($theme);
+			$list = array();
+			foreach ($layouts as $layout) {
+				if(substr($layout, 0, 1) == "_")
+					array_push($list, $layout);
+			}
 
-	public function get_layouts($theme = false)
-	{
-		$layouts = $this->CI->template->get_layouts($theme);
-		$list = array();
-		foreach ($layouts as $layout) {
-			if(substr($layout, 0, 1) == "_")
-				array_push($list, $layout);
+			return $list;
 		}
-
-		return $list;
-	}
 
 	// --------------------------------------------------------------------
 
@@ -394,12 +397,16 @@ class Pusaka {
 	 * @access	public
 	 * @return	array
 	 */
-	function get_posts_tree($sort = 'asc')
+	function get_posts_tree($sort = 'asc', $site_slug = false)
 	{
-		if(! file_exists(POST_FOLDER.'/'.$this->navfile))
-			$this->sync_post();
+		$file_location = POST_FOLDER.'/'.$this->navfile;
+		if($site_slug)
+			$file_location = SITE_FOLDER.$site_slug.'/content/posts/'.$this->navfile;
 
-		$tree = json_decode(file_get_contents(POST_FOLDER.'/'.$this->navfile), true);
+		if(! file_exists($file_location))
+			$this->sync_post($site_slug);
+
+		$tree = json_decode(file_get_contents($file_location), true);
 
 		return $tree;
 	}
@@ -414,8 +421,10 @@ class Pusaka {
 	 * @param	int		page number
 	 * @return	array
 	 */
-	function get_posts($category = null, $page = 1, $sort = 'desc', $parse = true)
+	function get_posts($category = null, $page = 1, $sort = 'desc', $parse = true, $site_slug = false)
 	{
+		if(!$site_slug) $site_slug = SITE_SLUG;
+
 		// I don't know why this line of code cannot affected if put in __construct
 		$this->set_post_per_page();
 
@@ -427,7 +436,7 @@ class Pusaka {
 				$posts = array(
 					'entries' => array(),
 					'total' => 0
-				);
+					);
 
 				return $posts;
 			}
@@ -440,20 +449,21 @@ class Pusaka {
 			$new_map = ($page != 'all') ? array_slice($map, $begin, $limit) : $map;
 
 			foreach ($new_map as $url) {
-				if($post = $this->get_post($url, $parse))
-					$posts['entries'][] = ($post);
+				if($post = $this->get_post($url, $parse, true, false, $site_slug))
+					$posts['entries'][] = $post;
 			}
 			$posts['total'] = count($map);
 
 		// get post list from post index
 		} else {
-			$map = $this->get_posts_tree($sort);
+			$map = $this->get_posts_tree($sort, $site_slug);
 			$begin = ($page - 1) * $this->post_per_page;
 			$limit = $this->post_per_page;
 			$new_map = ($page != 'all') ? array_slice($map, $begin, $limit) : $map;
 			
+			$posts['entries'] = array();
 			foreach ($new_map as $postlist) {
-				if($post = $this->get_post($postlist['url'], $parse))
+				if($post = $this->get_post($postlist['url'], $parse, true, false, $site_slug))
 					$posts['entries'][] = $post;
 			}
 			$posts['total'] = count($map);
@@ -473,9 +483,15 @@ class Pusaka {
 	 * @param	bool	set content to intro or not
 	 * @return	array
 	 */
-	function get_post($url = null, $parse = true, $content_to_intro = true, $by_filename = false)
+	function get_post($url = null, $parse = true, $content_to_intro = true, $by_filename = false, $site_slug = false)
 	{
-		$post_db = new Nyankod\JsonFileDB(POST_FOLDER);
+		if(! $site_slug) $site_slug = SITE_SLUG;
+		
+		$post_folder = ($site_slug == SITE_SLUG)
+						? POST_FOLDER
+						: SITE_FOLDER.$site_slug.'/'.$this->CI->config->item('post_folder');
+
+		$post_db = new Nyankod\JsonFileDB($post_folder);
 		$post_db->setTable('index');
 
 		// if post get by filename
@@ -494,10 +510,10 @@ class Pusaka {
 		}
 
 
-		if(empty($the_post) || ! file_exists(POST_FOLDER.$the_post['filename']))
+		if(empty($the_post) || ! file_exists($post_folder.$the_post['filename']))
 			return false;
 
-		$file = file_get_contents(POST_FOLDER.$the_post['filename']);
+		$file = file_get_contents($post_folder.$the_post['filename']);
 		if(!empty($file)){
 			$post = explode("{:", $file);
 			array_shift($post);
@@ -505,7 +521,7 @@ class Pusaka {
 			$new_post = array(
 				'date' => $the_post['date'],
 				'file' => $the_post['filename']
-			);
+				);
 
 			foreach ($post as $elm) {
 				$segs = preg_split("/( :} | :}|:} |:})/", $elm, 2);
@@ -548,39 +564,29 @@ class Pusaka {
 	 * @param	string	starting folder
 	 * @return	void
 	 */
-	function sync_post()
+	function sync_post($site_slug = false)
 	{
-		if(! file_exists(POST_FOLDER.'/'.$this->navfile))
-			write_file(POST_FOLDER.'/'.$this->navfile, json_encode(array(), JSON_PRETTY_PRINT));
+		$post_folder = POST_FOLDER;
+		if($site_slug)
+			$post_folder = SITE_FOLDER.$site_slug.'/content/posts';
+
+		if(! file_exists($post_folder.'/'.$this->navfile))
+			write_file($post_folder.'/'.$this->navfile, json_encode(array(), JSON_PRETTY_PRINT));
 
 		$output = array('status' => 'success', 'message' => 'Everything already synced.');
 
 		// get derectory map
-		$map = directory_map(POST_FOLDER, 1);
+		$map = directory_map($post_folder, 1);
 
 		$tree = array();
 		foreach ($map as $file) {
 			if(in_array($file, array('index.json', 'index.html'))) continue;
-
-			// change dash in date to slash
-			$segs = explode("-", $file, 6);
-			$date = $segs[0].'-'.$segs[1].'-'.$segs[2].'-'.$segs[3].'-'.$segs[4];
-
-			if(count($segs) > 5)
-				$newkey = $this->remove_extension(implode("/", $segs));
-			else
-				$newkey = $this->remove_extension($file);
-
-			if($file != $this->navfile && $file != 'index.html' && $this->is_valid_ext(POST_FOLDER.'/'.$file))
-				$tree[$date] = array(
-					"filename" => $file,
-					"url" => POST_TERM.'/'.$this->remove_extension($segs[0].'/'.$segs[1].'/'.$segs[2].'/'.$segs[5]),
-					"date" => $segs[0].'-'.$segs[1].'-'.$segs[2].' '.$segs[3].':'.$segs[4]
-					);
+			$temp = $this->create_post_attributes($file);
+			$tree[$temp['date']] = $temp;
 		}
 		krsort($tree);
 
-		if(! write_file(POST_FOLDER.'/'.$this->navfile, json_encode($tree, JSON_PRETTY_PRINT)))
+		if(! write_file($post_folder.'/'.$this->navfile, json_encode($tree, JSON_PRETTY_PRINT)))
 			$output = array('status' => 'error', 'message' => "Post index file ".$this->navfile." is not writable. Make it writable first then sync post index.\n");
 		else
 			$output = array('status' => 'success', 'message' => "post index synced.\n");
@@ -588,12 +594,33 @@ class Pusaka {
 		return $output;
 	}
 
+	function create_post_attributes($file)
+	{
+		// change dash in date to slash
+		$segs = explode("-", $file, 6);
+		$date = $segs[0].'-'.$segs[1].'-'.$segs[2].'-'.$segs[3].'-'.$segs[4];
+
+		if(count($segs) > 5)
+			$newkey = $this->remove_extension(implode("/", $segs));
+		else
+			$newkey = $this->remove_extension($file);
+
+		if($file != $this->navfile && $file != 'index.html' && $this->is_valid_ext(POST_FOLDER.'/'.$file))
+			return array(
+				"filename" => $file,
+				"url" => POST_TERM.'/'.$this->remove_extension($segs[0].'/'.$segs[1].'/'.$segs[2].'/'.$segs[5]),
+				"date" => $segs[0].'-'.$segs[1].'-'.$segs[2].' '.$segs[3].':'.$segs[4]
+				);
+
+		return false;
+	}
+
 
 	function set_post_per_page($post_per_page = false)
 	{
 		$this->post_per_page = $this->CI->config->item('post_per_page')
-								? $this->CI->config->item('post_per_page')
-								: 10;
+		? $this->CI->config->item('post_per_page')
+		: 10;
 
 		if($post_per_page)
 			$this->post_per_page = $post_per_page;
@@ -843,6 +870,37 @@ class Pusaka {
 		}
 
 		return $filename;
+	}
+
+	function register_domain($new_domain, $old_domain = false, $site_slug = false)
+	{
+		// if new domain already exist, warn user
+		if($new_domain != $old_domain && file_exists(SITE_FOLDER.'_domain/'.$new_domain.'.conf')){
+			$site_slug = read_file(SITE_FOLDER.'_domain/'.$new_domain.'.conf');
+			$this->CI->session->set_flashdata('error', 'Domain already used with site slug '.$site_slug);
+			return false;
+		}
+
+		//this means request come from outside module
+		if(! $site_slug) 
+			$site_slug = SITE_SLUG;
+
+		// delete previous domain if it is updating
+		if($old_domain !== FALSE && ! empty($old_domain) && file_exists(SITE_FOLDER.'_domain/'.$old_domain.'.conf')){
+			$site_slug = read_file(SITE_FOLDER.'_domain/'.$old_domain.'.conf');
+
+			// delete old domain
+			if(!unlink(SITE_FOLDER.'_domain/'.$old_domain.'.conf'))
+				show_error('cnnot delete file');
+		}
+		
+		// create new
+		if(write_file(SITE_FOLDER.'_domain/'.$new_domain.'.conf', $site_slug))
+			return true;
+		else
+			show_error('cnnot write file');
+
+		return false;
 	}
 
 }

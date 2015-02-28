@@ -21,7 +21,7 @@
 		lineNumbers: true,
 		lineWrapping: true,
 		styleActiveLine: true,
-		theme: "mbo"
+		theme: "neo"
 	});
 </script>
 

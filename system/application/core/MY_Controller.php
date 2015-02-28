@@ -60,5 +60,22 @@ class MY_Controller extends MX_Controller{
 		// support compatibility with php < 5.3
 		if(! defined('JSON_PRETTY_PRINT')) define('JSON_PRETTY_PRINT', 128);
 	}
+
+	function call_event()
+	{
+		$args = func_get_args();
+		$event_location = APPPATH.'events/';
+		$event_class = array_shift($args).'_event';
+		$event_method = array_shift($args);
+
+		if(file_exists($event_location.$event_class.'.php')){
+			include_once($event_location.$event_class.'.php');
+			$obj = new $event_class;
+
+			if(method_exists($obj, $event_method)) {
+				return call_user_func_array(array($obj, $event_method), $args);
+			}
+		}
+	}
 	
 }

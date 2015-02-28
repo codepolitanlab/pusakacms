@@ -147,7 +147,7 @@ $config['composer_autoload'] = FALSE;
 | DO NOT CHANGE THIS UNLESS YOU FULLY UNDERSTAND THE REPERCUSSIONS!!
 |
 */
-$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
+$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-?=&';
 
 
 /*
@@ -463,7 +463,7 @@ $config['proxy_ips'] = '';
 
 /*
 |--------------------------------------------------------------------------
-| Common Modules location
+| Modules location
 |--------------------------------------------------------------------------
 |
 | Add path to find modules in the common directory
@@ -471,6 +471,18 @@ $config['proxy_ips'] = '';
 */
 $config['modules_locations'] = array(
         APPPATH.'modules/' => '../modules/'
+    );
+
+/*
+|--------------------------------------------------------------------------
+| Events location
+|--------------------------------------------------------------------------
+|
+| Add path to find events in the common directory
+|
+*/
+$config['events_locations'] = array(
+        APPPATH.'events/'
     );
 
 /* End of file config.php */

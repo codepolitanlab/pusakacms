@@ -1,0 +1,22 @@
+.masonry-4 .site, .masonry-4 .user {
+	width:23%;
+}
+
+@media screen and (max-width:1281px) {
+	.masonry-4 .user {
+		width: 32%;
+	}
+	.masonry-4 .site {
+		width: 31%;
+	}
+}
+
+@media screen and (max-width:1025px) {
+	.masonry-4 .user {
+		width: 48%;
+	}
+}
+
+.masonry-3 .image {
+	width: 31%;
+}

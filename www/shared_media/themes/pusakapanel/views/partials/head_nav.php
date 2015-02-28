@@ -1,25 +1,17 @@
 <?php
 $links = array(
-	'/' => '<span class="fa fa-dashboard"></span><span class="nav-tooltip"> Dashboard</span>',
+	'/' => '<span class="fa fa-dashboard fa-fw"></span><span class="nav-tooltip">Dashboard</span>',
 	'content' => array(
-		'#' => '<span class="fa fa-file-text-o"></span><span class="nav-tooltip"> Content</span>',
-		'pages' => '<span class="fa fa-file-text"></span> Pages',
-		'posts' => '<span class="fa fa-book"></span> Posts',
-		'media' => '<span class="fa fa-picture-o"></span> Media'
+		'#' => '<span class="fa fa-file-text-o fa-fw"></span><span class="nav-tooltip">Content</span>',
+		'pages' => '<span class="fa fa-file fa-fw"></span><span class="nav-tooltip">Pages</span>',
+		'posts' => '<span class="fa fa-file-text-o fa-fw"></span><span class="nav-tooltip">Articles</span>',
+		'media' => '<span class="fa fa-picture-o fa-fw"></span><span class="nav-tooltip">Gallery</span>'
 		),
-	'structure' => array(
-		'#' => '<span class="fa fa-newspaper-o"></span><span class="nav-tooltip"> Structure</span>',
-		'navigation' => '<span class="fa fa-list"></span> Navigation',
-		'export' => '<span class="fa fa-html5"></span> Export to HTML'
-		),
-	'settings' => array(
-		'#' => '<span class="fa fa-gears"></span><span class="nav-tooltip"> Settings</span>',
-		'settings' => '<span class="fa fa-cog"></span> General',
-		'users' => '<span class="fa fa-users"></span> Users'
-		),
+	'navigation' => '<span class="fa fa-list fa-fw"></span><span class="nav-tooltip">Navigation</span>',
+	'settings' => '<span class="fa fa-gears fa-fw"></span><span class="nav-tooltip">Settings</span>',
 	'account' => array(
-		'#' => '<span class="fa fa-user"></span><span class="nav-tooltip"> Account</span>',
-		'logout' => '<span class="fa fa-lock"></span> Logout as '.$this->session->userdata(SITE_SLUG.'_username')
+		'#' => '<span class="fa fa-user fa-fw"></span><span class="nav-tooltip">Account</span>',
+		'logout' => '<span class="fa fa-lock fa-fw"></span><span class="nav-tooltip">Logout as '.$this->session->userdata(SITE_SLUG.'_username').'</span>'
 		)
 	);
 ?>

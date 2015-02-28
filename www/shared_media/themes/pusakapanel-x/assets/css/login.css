@@ -1,0 +1,48 @@
+body.login {
+	background-color: #3A5168;
+	color: #C9CED1;
+	padding-top: 70px;
+}
+
+body.login a {
+	color: #1DCFAC;
+}
+
+body.login form .input-group {
+	margin-bottom: 20px;
+}
+
+body.login form .input-group .input-group-btn button.btn {
+	border: 0px;
+	line-height: 22px;
+	background-color: #2C3E50;
+}
+
+body.login form input[type="email"], body.login form input[type="password"], body.login form input[type="text"] {
+	border: 0px;
+	background-color: #2C3E50;
+	color: #eee;
+}
+
+body.login h2 {
+	margin-bottom: 40px;
+	font-weight: 200;
+	font-size: 22px;
+	text-transform: uppercase;
+	color: #eee;
+	letter-spacing: 4px;
+}
+
+body.login .alert-success {
+	border: 0px;
+}
+
+body.login h5.smaller {
+	color: #ddd;
+	font-weight: normal;
+	font-size: 18px;
+}
+
+body.login h5.smaller > span {
+	margin-right: 10px;
+}
