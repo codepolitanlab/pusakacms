@@ -1,10 +1,9 @@
-<script src="<?php echo get_theme_url() ?>assets/js/bootstrap.min.js"></script>
-<script src="<?php echo get_theme_url() ?>assets/js/pagedown-bootstrap/js/jquery.pagedown-bootstrap.combined.js"></script>
-<script src="<?php echo get_theme_url() ?>assets/js/jquery.slugify.js"></script>
-<script src="<?php echo get_theme_url() ?>assets/js/jquery.nestable.js"></script>
+<script src="<?php echo get_theme_url() ?>assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<?php echo get_theme_js('jquery.slugify.js');?>
+<?php echo get_theme_js('jquery.nestable.js');?>
 <?php echo get_theme_js('flatui-checkbox.js');?>
 <?php echo get_theme_js('flatui-radio.js');?>
-<script src="<?php echo get_theme_url() ?>assets/js/script.js"></script>
+<?php echo get_theme_js('script.js');?>
 
 <script>
 	var base_url = "<?php echo site_url(); ?>";

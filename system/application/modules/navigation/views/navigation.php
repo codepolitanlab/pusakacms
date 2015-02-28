@@ -162,7 +162,7 @@
 
 		if (window.JSON) {
 			var newmap = window.JSON.stringify(list.nestable('serialize'));
-			$.post(BASE_URL+'panel/navigation/sort/'+area, {newmap : newmap})
+			$.post(base_url+'panel/navigation/sort/'+area, {newmap : newmap})
 			.done(function(data){
 				var res = JSON.parse(data);
 				$('#alert-'+res.status).children('span').html(res.message);

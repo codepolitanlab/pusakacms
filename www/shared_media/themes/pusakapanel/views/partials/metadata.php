@@ -13,7 +13,6 @@
 <link rel="stylesheet" href="<?php echo get_theme_url('assets/less/flat-ui.css'); ?>">
 
 <link href="<?php echo get_theme_url("assets/vendor/font-awesome/css/font-awesome.min.css") ?>" rel="stylesheet">
-<link href="<?php echo get_theme_url("assets/js/pagedown-bootstrap/css/jquery.pagedown-bootstrap.css") ?>" rel="stylesheet">
 
 <?php if( isset($builder) ):?>
 	<link rel="stylesheet" href="<?php echo get_theme_url('assets/css/builder.css'); ?>">
@@ -26,7 +25,6 @@
 <link href="<?php echo get_theme_url("assets/css/style.css") ?>" rel="stylesheet">
 <link href="<?php echo get_theme_url('assets/vendor/codemirror/lib/codemirror.css'); ?>" rel="stylesheet">
 <link href="<?php echo get_theme_url('assets/vendor/codemirror/theme/mbo.css'); ?>" rel="stylesheet">
-<link href="<?php echo get_theme_url("assets/vendor/jquery-ui-1.11.2.custom/jquery-ui.min.css") ?>" rel="stylesheet">
 
 <!-- JavaScript -->
 <!-- codemirror assets -->
@@ -41,7 +39,6 @@
 <script src="<?php echo get_theme_url('assets/vendor/codemirror/mode/markdown/markdown.js'); ?>"></script>
 
 <script src="<?php echo get_theme_url("assets/js/jquery-1.7.2.min.js") ?>"></script>
-<script src="<?php echo get_theme_url("assets/js/jquery-ui.min.js") ?>"></script>
 
 <script>
 	// IMPORTANT
