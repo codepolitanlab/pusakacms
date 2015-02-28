@@ -1,3 +1,5 @@
 dploy.yaml
 sites/_domain/pusakadev.com.conf
 system/application/sessions/*
+www/media/default/thumbs/*
+www/media/default/files/*
