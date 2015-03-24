@@ -7,27 +7,74 @@ class Panel extends Admin_Controller {
 		parent::__construct();
 
 		// check if this site has permission to access this module
-		$this->config->load('site');
+		$this->config->load('permission');
+
 		if(! in_array(SITE_SLUG, $this->config->item('allowed_sites'))) show_404();
 
 		// check if user has logged in
 		if(! $this->logged_in()) redirect('panel/login');
+
+		$this->load->model('site_m');
 	}
 
 	// List of Sites
 	function index()
 	{
-		// get site folder list
-		$sites = directory_map(SITE_FOLDER, 2);
-
 		// filter sites
-		$data['sites'] = array();
-		foreach ($sites as $key => $val) {
-			if($key != '_domain/' && is_dir(SITE_FOLDER.$key))
-				$data['sites'][$key] = json_decode(file_get_contents(SITE_FOLDER.$key.'/config/site.json'), true);
-		};
+		$data['sites'] = $this->site_m->get_sites();
+		// $data['total_indexed'] = $this->direktori_m->count_site();
 
 		$this->template->view('index', $data);
+	}
+
+	// function reindex()
+	// {
+	// 	$sites = $this->site_m->get_sites();
+		
+	// 	// clean unused site index
+	// 	// $this->direktori_m->delete_unused_index($sites);
+
+	// 	// clean unused site post index
+	// 	// $this->direktori_m->delete_unused_sitepost($sites);
+
+	// 	$indexed = 0;
+	// 	foreach ($sites as $site_slug => $site_data) {
+	// 		if($this->direktori_m->count_site('site_slug', rtrim($site_slug, '/')) < 1)
+	// 		{
+	// 			$sekolah_data = json_decode(file_get_contents(SITE_FOLDER.$site_slug.'config/sekolah.json'), true);
+	// 			$sekolah_data['site_slug'] = rtrim($site_slug, DIRECTORY_SEPARATOR);
+	// 			$sekolah_data = array_merge($site_data, $sekolah_data);
+	// 			$sekolah_data['site_created'] = date("Y-m-d");
+
+	// 			if($this->direktori_m->insert_site($sekolah_data))
+	// 				$indexed++;
+	// 		}
+	// 	}
+
+
+	// 	if($indexed > 0)
+	// 		$this->session->set_flashdata('success', $indexed.' row(s) indexed.');
+	// 	else
+	// 		$this->session->set_flashdata('success', 'No new site found.');
+
+	// 	redirect(getenv('HTTP_REFERER'));
+	// }
+
+	function reindex_posts($site_slug = false)
+	{
+		if(! $site_slug) show_404();
+
+		$posts = $this->pusaka->get_posts('all', 'all', 'desc', false, $site_slug);
+
+		// delete unused post
+		$this->direktori_m->delete_unused_post($posts, $site_slug);
+
+		if(isset($posts['entries']) && $this->direktori_m->insert_posts($site_slug, $posts['entries']))
+			$this->session->set_flashdata('success', 'Posts from site '.$site_slug.' indexed.');
+		else
+			$this->session->set_flashdata('success', 'No new post in site '.$site_slug.'.');
+
+		redirect('panel/site/index');
 	}
 
 	function create()
@@ -38,17 +85,17 @@ class Panel extends Admin_Controller {
 		}
 
 		//validate form input
-		$this->form_validation->set_rules('site_name', 'Site Name', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('site_slug', 'Site Slug', 'trim|required|xss_clean|callback_siteslug_check');
-		$this->form_validation->set_rules('site_slogan', 'Site Slogan', 'trim|xss_clean');
-		$this->form_validation->set_rules('site_domain', 'Site Domain', 'trim|xss_clean');
+		$this->form_validation->set_rules('site_name', 'Site Name', 'trim|required');
+		$this->form_validation->set_rules('site_slug', 'Site Slug', 'trim|required|callback_siteslug_check');
+		$this->form_validation->set_rules('site_slogan', 'Site Slogan', 'trim');
+		$this->form_validation->set_rules('site_domain', 'Site Domain', 'trim|callback_domain_check');
 
-		$this->form_validation->set_rules('first_name', 'First Name', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email');
-		$this->form_validation->set_rules('company', 'Company', 'trim|xss_clean');
-		$this->form_validation->set_rules('phone', 'Phone', 'trim|xss_clean');
+		$this->form_validation->set_rules('first_name', 'First Name', 'trim|required');
+		$this->form_validation->set_rules('last_name', 'Last Name', 'trim|required');
+		$this->form_validation->set_rules('username', 'Username', 'trim|required');
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+		$this->form_validation->set_rules('company', 'Company', 'trim');
+		$this->form_validation->set_rules('phone', 'Phone', 'trim');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[4]|max_length[20]|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', 'Confirm Password', 'trim|required');
 
@@ -56,7 +103,7 @@ class Panel extends Admin_Controller {
 		{
 			// create site folder
 			$site_slug = $this->input->post('site_slug');
-			mkdir(SITE_FOLDER.'/'.$site_slug.'/users/', 0775, true);
+			mkdir(SITE_FOLDER.'/'.$site_slug.'/db/', 0775, true);
 
 			// extract template
 			$zip = new ZipArchive;
@@ -87,23 +134,47 @@ class Panel extends Admin_Controller {
 
 			// create first admin user
 			$user_data = array(
-				'first_name'=> $this->input->post('first_name'),
-				'last_name'	=> $this->input->post('last_name'),
-				'username'	=> $this->input->post('username'),
-				'email'		=> $this->input->post('email'),
-				'company'	=> $this->input->post('company'),
-				'phone'		=> $this->input->post('phone'),
-				'password'	=> sha1($this->input->post('password')),
-				'group'		=> "admin"
+				"id" => 1,
+				"ip_address"	=> "127.0.0.1",
+				"first_name"	=> $this->input->post("first_name"),
+				"last_name"		=> $this->input->post("last_name"),
+				"username"		=> $this->input->post("username"),
+				"email"			=> $this->input->post("email"),
+				"company"		=> $this->input->post("company"),
+				"phone"			=> $this->input->post("phone"),
+				"password"		=> $this->ion_auth->hash_password($this->input->post("password")),
+				"salt" 			=> null,
+				"activation_code"			=> null,
+				"forgotten_password_code"	=> null,
+				"forgotten_password_time"	=> null,
+				"remember_code" 			=> null,
+				"created_on"	=> time(),
+				"last_login"	=> 1423553091,
+				"active" 		=> 1,
+				"groups" 		=> array("1","2")
 				);
 
-			if(! write_file(SITE_FOLDER.'/'.$site_slug.'/users/'.$user_data['email'].'.json', json_encode($user_data, JSON_PRETTY_PRINT))){
+			// remove default user first
+			unlink(SITE_FOLDER.'/'.$site_slug.'/db/users.json');
+
+			// create a new one
+			if(! write_file(SITE_FOLDER.'/'.$site_slug.'/db/users.json', json_encode(array($user_data), JSON_PRETTY_PRINT))){
 				$this->session->set_flashdata('error', 'Cannot write admin user file.');
 				redirect("panel/site", 'refresh');
 			}
 
-			// delete default user
-			unlink(SITE_FOLDER.'/'.$site_slug.'/users/admin@admin.com.json');
+			// create media folder
+			mkdir('media/'.$site_slug.'/files', 0775, true);
+			mkdir('media/'.$site_slug.'/themes', 0775, true);
+			copy('media/index.html', 'media/'.$site_slug.'/index.html');
+			copy('media/index.html', 'media/'.$site_slug.'/files/index.html');
+			copy('media/index.html', 'media/'.$site_slug.'/themes/index.html');
+
+			// call events
+			$this->call_event('Sites', 'after_insert', $site_data + array('site_slug' => $site_slug));
+
+			if($this->input->post('site_domain'))
+				$this->pusaka->register_domain($this->input->post('site_domain'), false, $site_slug);
 
 			$this->session->set_flashdata('success', 'New site create.');
 			redirect("panel/site", 'refresh');
@@ -225,14 +296,25 @@ class Panel extends Admin_Controller {
 
 	}
 
+	function domain_check($domain)
+	{
+		if(file_exists(SITE_FOLDER.'_domain/'.$domain.'.conf')){
+			$domain = read_file(SITE_FOLDER.'_domain/'.$domain.'.conf');
+			$this->form_validation->set_message('domain_check', 'Domain already used by another site.');
+			return false;
+		}
+
+		return true;
+	}
+
 	function siteslug_check($str)
 	{
-		// if(file_exists(SITE_FOLDER.'/'.$str.'/')){
+		if(file_exists(SITE_FOLDER.'/'.$str.'/')){
 			$this->form_validation->set_message('siteslug_check', 'Site Slug already taken.');
 			return false;
-		// }
+		}
 
-		// return true;
+		return true;
 	}
 
 	function _get_csrf_nonce()

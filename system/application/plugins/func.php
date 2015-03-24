@@ -4,7 +4,7 @@
  *	Func plugin
  *	contains common function
  */
-class Func extends Plugins {
+class Func_plugin extends Plugins {
 
 	function site_url($uri = false){
 		return site_url($uri);

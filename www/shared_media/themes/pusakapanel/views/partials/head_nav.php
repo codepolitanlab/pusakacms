@@ -7,8 +7,12 @@ $links = array(
 		'posts' => '<span class="fa fa-file-text-o fa-fw"></span><span class="nav-tooltip">Articles</span>',
 		'media' => '<span class="fa fa-picture-o fa-fw"></span><span class="nav-tooltip">Gallery</span>'
 		),
-	'navigation' => '<span class="fa fa-list fa-fw"></span><span class="nav-tooltip">Navigation</span>',
-	'settings' => '<span class="fa fa-gears fa-fw"></span><span class="nav-tooltip">Settings</span>',
+	'misc' => array(
+		'#' => '<span class="fa fa-tags fa-fw"></span><span class="nav-tooltip">Misc</span>',
+		'navigation' => '<span class="fa fa-list fa-fw"></span><span class="nav-tooltip">Navigation</span>',
+		'site' => '<span class="fa fa-home fa-page"></span><span class="nav-tooltip">Site</span>',
+		),
+	'settings' => '<span class="fa fa-cog fa-fw"></span><span class="nav-tooltip">Settings</span>',
 	'account' => array(
 		'#' => '<span class="fa fa-user fa-fw"></span><span class="nav-tooltip">Account</span>',
 		'logout' => '<span class="fa fa-lock fa-fw"></span><span class="nav-tooltip">Logout as '.$this->session->userdata(SITE_SLUG.'_username').'</span>'

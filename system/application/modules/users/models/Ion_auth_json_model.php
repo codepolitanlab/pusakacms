@@ -531,6 +531,7 @@ class Ion_auth_json_model extends Ion_auth_model
 		$this->trigger_events('pre_set_session');
 
 		$session_data = array(
+		    'site_slug'			   => SITE_SLUG,
 		    'identity'             => $user[$this->identity_column],
 		    'id' 	               => $user['id'],
 		    'username'             => $user['username'],

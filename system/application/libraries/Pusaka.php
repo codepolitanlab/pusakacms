@@ -59,20 +59,24 @@ class Pusaka {
 		$new_map = array();
 		foreach ($map as $folder => $file){
 			if($file != 'index.json' && $file != 'index.md' && $file != 'index.html'){
+
 				if(is_array($file)){
 					$slug = $this->remove_extension($folder);
 					$content = array(
 						'title' => $this->guess_name($folder),
 						'url' => $prefix.$slug,
-						'children' => $this->scan_pages($file, $prefix.$slug.'/')
+						'children' => $this->scan_pages($file, $prefix.$slug.'/'),
 						);
 				} else {
 					$slug = $this->remove_extension($file);
 					$content = array(
 						'title' => $this->guess_name($file),
-						'url' => $prefix.$slug
+						'url' => $prefix.$slug,
 						);
 				}
+
+				if($this->is_use_builder($prefix.$slug))
+					$content['builder'] = true;
 
 				$new_map[$slug] = $content;
 			}
@@ -497,6 +501,7 @@ class Pusaka {
 		// if post get by filename
 		if($by_filename){
 			$the_post = $post_db->select('filename', $url);
+			$postslug = url_title($this->guess_name($url, POST_TERM));
 
 		} else {
 			$segs = explode("/", $url);
@@ -547,6 +552,7 @@ class Pusaka {
 
 			if(!isset($new_post['slug']))
 				$new_post['slug'] = $postslug;
+
 
 			// print_r($new_post);
 			return $new_post;
@@ -862,11 +868,11 @@ class Pusaka {
 	 */
 	public function remove_date($filename)
 	{
-		$segs = explode('-', $filename, 4);
+		$segs = explode('-', $filename, 6);
 
-		if(count($segs) > 3)
+		if(count($segs) > 5)
 		{
-			$filename = $segs[3];
+			$filename = $segs[5];
 		}
 
 		return $filename;
@@ -898,7 +904,18 @@ class Pusaka {
 		if(write_file(SITE_FOLDER.'_domain/'.$new_domain.'.conf', $site_slug))
 			return true;
 		else
-			show_error('cnnot write file');
+			show_error('cannot write domain configuration file. Make sure folder sites/_domain/ is writable.');
+
+		return false;
+	}
+
+	function is_use_builder($file)
+	{
+		if($page = $this->get_page($file))
+		{
+			if(isset($page['builder']) && $page['builder'])
+				return true;
+		}
 
 		return false;
 	}

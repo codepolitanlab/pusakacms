@@ -1,0 +1,42 @@
+{
+	"data_name": "contact",
+	"data_title": "Contact",
+	"data_folder": "db",
+	"frontend": true,
+	"backend": true,
+	"fields": [
+		{
+			"field_name": "title",
+			"field_label": "Title",
+			"field_type": "text",
+			"default": "New Title",
+			"rules": {
+				"required": true,
+				"min_length": 5,
+				"max_length": 50
+			},
+			"attributes": {
+				"class": "form-control",
+				"id": "title"
+			}
+		},
+		{
+			"field_name": "work",
+			"field_label": "Work",
+			"field_type": "text",
+			"options": {
+				"programmer": "Programmer",
+				"sys_analyst": "System Analyst",
+				"manager": "Manager"
+			},
+			"default": "programmer",
+			"rules": {
+				"required": true
+			},
+			"attributes": {
+				"class": "form-control",
+				"id": "work"
+			}
+		}
+	]
+}

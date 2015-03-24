@@ -106,7 +106,7 @@ class Template
 		if ($this->_theme_locations === array())
 		{
 			// Let's use this obvious default
-			$this->_theme_locations = array(SITE_FOLDER.'themes/');
+			$this->_theme_locations = array(WWW_FOLDER.'shared_media/themes/');
 		}
 
 		// No asset locations set in config?
@@ -362,6 +362,75 @@ class Template
 	}
 
 	/**
+	 * Build the entire HTML output combining partials, layouts and views.
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	void
+	 */
+	public function view_block($blockname, $data = array(), $return = FALSE)
+	{
+		// Set whatever values are given. These will be available to all view files
+		is_array($data) OR $data = (array) $data;
+
+		// Merge in what we already have with the specific data
+		$this->_data = array_merge($this->_data, $data);
+
+		// We don't need you any more buddy
+		unset($data);
+
+		if (empty($this->_title))
+		{
+			$this->_title = $this->_guess_title();
+		}
+
+		// Output template variables to the template
+		$template['title']       = $this->_title;
+		$template['breadcrumbs'] = $this->_breadcrumbs;
+		$template['metadata']    = implode("\n\t\t", $this->_metadata);
+		$template['js']          = implode("\n\t\t", $this->_js);
+		$template['css']         = implode("\n\t\t", $this->_css);
+		$template['partials']    = array();
+
+		// Assign by reference, as all loaded views will need access to partials
+		$this->_data['template'] =& $template;
+
+		// Disable sodding IE7's constant cacheing!!
+		$this->_ci->output->set_header('Expires: Sat, 01 Jan 2000 00:00:01 GMT');
+		$this->_ci->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
+		$this->_ci->output->set_header('Cache-Control: post-check=0, pre-check=0, max-age=0');
+		$this->_ci->output->set_header('Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
+		$this->_ci->output->set_header('Pragma: no-cache');
+
+		// Let CI do the caching instead of the browser
+		$this->_ci->output->cache($this->cache_lifetime);
+
+		if(! file_exists(SITE_PATH.'content/blocks/'.$blockname.'.html'))
+			show_404();
+
+		// Test to see if this file
+		$this->_body = file_get_contents(SITE_PATH.'content/blocks/'.$blockname.'.html');
+
+		// Want this file wrapped with a layout file?
+		if ($this->_layout)
+		{
+			// Added to $this->_data['template'] by refference
+			$template['body'] = $this->_body;
+
+			// Find the main body and 3rd param means parse if its a theme view (only if parser is enabled)
+			$this->_body =  self::_load_view($this->_layout_folder.$this->_layout, $this->_data, FALSE, self::_find_view_folder());
+		}
+
+		// Want it returned or output to browser?
+		if ( ! $return)
+		{
+			$this->_ci->output->set_output($this->_body);
+		}
+
+		return $this->_body;
+	}
+
+	/**
 	 * Set the title of the page
 	 *
 	 * @access	public
@@ -512,12 +581,7 @@ class Template
 			if ($this->_theme AND file_exists($location.$this->_theme))
 			{
 				$this->_theme_path = rtrim($location.$this->_theme.'/');
-				if(! defined('THEME_PATH')) 
-					define('THEME_PATH', $this->_theme_path);
 				break;
-			} else {
-				if(! defined('THEME_PATH')) 
-					define('THEME_PATH', 'default');
 			}
 		}
 
@@ -541,9 +605,25 @@ class Template
 	 * @access	public
 	 * @return	string The current theme path
 	 */
-	public function get_theme_path()
+	public function get_theme_path($theme = false)
 	{
-		return $this->_theme_path;
+		if(! $theme)
+			return $this->_theme_path;
+		else 
+		{
+			$path = false;
+
+			foreach ($this->_theme_locations as $location)
+			{
+				if ($this->_theme AND file_exists($location.$theme))
+				{
+					$path = rtrim($location.$theme.'/');
+					break;
+				}
+			}
+
+			return $path;
+		}
 	}
 
 	/**
@@ -1117,7 +1197,8 @@ class Template
 			// callback from plugin first
 			if(file_exists(PLUGIN_FOLDER.$plugin_name[0].'.php')){
 				include_once PLUGIN_FOLDER.$plugin_name[0].'.php';
-				$plugin = new $plugin_name[0]();
+				$classname = $plugin_name[0].'_plugin';
+				$plugin = new $classname();
 				$data = call_user_func_array(array($plugin, $plugin_name[1]), $attributes);
 
 				if(is_array($data))

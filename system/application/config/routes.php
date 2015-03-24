@@ -50,7 +50,8 @@ $route["panel"]								= "dashboard/panel";
 $route['panel/([a-zA-Z0-9_-]+)']            = '$1/panel/index';
 $route['panel/([a-zA-Z0-9_-]+)/(.+)']	    = '$1/panel/$2';
 
-$route["panel/login"]	= "users/auth/login";
+$route["users/login"]	= "users/auth/login";
+$route["panel/login"]	= "users/auth/admin_login";
 $route["panel/logout"]	= "users/auth/logout";
 
 

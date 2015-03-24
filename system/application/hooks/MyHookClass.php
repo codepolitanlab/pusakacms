@@ -3,7 +3,7 @@
 Class MyHookClass {
 
 	function multisite()
-	{	
+	{
 		include APPPATH.'config/pusaka.php';
 
 		$domain = $_SERVER['HTTP_HOST'];
@@ -20,7 +20,7 @@ Class MyHookClass {
 				if(is_dir(SITE_FOLDER.$segments[1]))
 					define('SITE_SLUG', $segments[1]);
 				else
-					show_error('Site not found');
+					show_error('Site with slug \''.$segments[1].'\' not found.', '404', 'Site Not Found');
 			}
 			else
 				define('SITE_SLUG', 'default');
@@ -31,7 +31,7 @@ Class MyHookClass {
 			if(file_exists(SITE_FOLDER.'_domain/'.$domain.'.conf'))
 				define('SITE_SLUG', trim(@file_get_contents(SITE_FOLDER.'_domain/'.$domain.'.conf')));
 			else
-				show_error('Site not configured yet');
+				show_error('Site with domain '.$domain.' not configured yet.', '404', 'Site Not Found');
 		}
 	}
 }
