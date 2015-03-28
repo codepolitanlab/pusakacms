@@ -3,7 +3,7 @@
         "id": 1,
         "ip_address": "127.0.0.1",
         "username": "admin",
-        "password": "$2y$08$WM6AFJRIi7MHA0qOmUL10uqZSNJyBeD85Leuyg\/NrTKbWi5xva2aG",
+        "password": "$2y$08$Xe63FONFOL3bEAfOwBWSMuxbAzhBZIXZ.Baa5QpmkzsKNdauk8\/dS",
         "salt": null,
         "email": "admin@admin.com",
         "activation_code": null,
@@ -11,7 +11,7 @@
         "forgotten_password_time": null,
         "remember_code": null,
         "created_on": 1268889823,
-        "last_login": 1426071051,
+        "last_login": 1423210632,
         "active": 1,
         "groups": [
             "1",

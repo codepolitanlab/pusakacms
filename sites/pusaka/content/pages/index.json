@@ -1,0 +1,84 @@
+{
+    "home": {
+        "title": "Home",
+        "url": "home"
+    },
+    "themes": {
+        "url": "themes",
+        "title": "Themes"
+    },
+    "docs": {
+        "title": "Docs",
+        "url": "docs",
+        "children": {
+            "apa-itu-pusaka": {
+                "title": "Apa Itu Pusaka",
+                "url": "docs\/apa-itu-pusaka",
+                "children": {
+                    "changelog": {
+                        "title": "Changelog",
+                        "url": "docs\/apa-itu-pusaka\/changelog"
+                    },
+                    "fitur": {
+                        "title": "Fitur",
+                        "url": "docs\/apa-itu-pusaka\/fitur"
+                    },
+                    "showcase": {
+                        "title": "Showcase",
+                        "url": "docs\/apa-itu-pusaka\/showcase"
+                    },
+                    "lisensi": {
+                        "title": "Lisensi",
+                        "url": "docs\/apa-itu-pusaka\/lisensi"
+                    },
+                    "kontribusi": {
+                        "title": "Kontribusi",
+                        "url": "docs\/apa-itu-pusaka\/kontribusi"
+                    }
+                }
+            },
+            "panduan-pengguna": {
+                "title": "Panduan Pengguna",
+                "url": "docs\/panduan-pengguna",
+                "children": {
+                    "format-penulisan": {
+                        "title": "Format Penulisan",
+                        "url": "docs\/panduan-pengguna\/format-penulisan"
+                    },
+                    "membuat-halaman": {
+                        "title": "Membuat Halaman",
+                        "url": "docs\/panduan-pengguna\/membuat-halaman"
+                    },
+                    "struktur-file": {
+                        "title": "Struktur File",
+                        "url": "docs\/panduan-pengguna\/struktur-file"
+                    },
+                    "upgrade-sistem": {
+                        "title": "Upgrade Sistem",
+                        "url": "docs\/panduan-pengguna\/upgrade-sistem"
+                    },
+                    "mengatur-navigasi": {
+                        "title": "Mengatur Navigasi",
+                        "url": "docs\/panduan-pengguna\/mengatur-navigasi"
+                    },
+                    "instalasi": {
+                        "title": "Instalasi",
+                        "url": "docs\/panduan-pengguna\/instalasi"
+                    },
+                    "konfigurasi": {
+                        "title": "Konfigurasi",
+                        "url": "docs\/panduan-pengguna\/konfigurasi"
+                    },
+                    "mengatur-kategori": {
+                        "title": "Mengatur Kategori",
+                        "url": "docs\/panduan-pengguna\/mengatur-kategori"
+                    },
+                    "posting-blog": {
+                        "title": "Posting Blog",
+                        "url": "docs\/panduan-pengguna\/posting-blog"
+                    }
+                }
+            }
+        }
+    }
+}

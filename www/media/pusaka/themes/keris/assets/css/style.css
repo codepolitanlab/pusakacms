@@ -1,0 +1,454 @@
+/*
+ * Author: Carlos Alvarez
+ * URL: http://alvarez.is
+ *
+ * Project Name: Feedo - Free Bootstrap Theme
+ * Version: 1.0
+ * URL: http://blacktie.co/
+ */
+ 
+/* FONTS */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Open Sans Light'), local('OpenSans-Light'), url(../fonts/OpenSans-Light.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(../fonts/OpenSans.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(../fonts/OpenSans-Semibold.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 300;
+  src: local('Open Sans Light Italic'), local('OpenSansLight-Italic'), url(../fonts/OpenSansLight-Italic.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Open Sans Italic'), local('OpenSans-Italic'), url(../fonts/OpenSans-Italic.woff) format('woff');
+}
+
+/* OVERALL ASPECT */
+
+body {
+    background-color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #666;
+
+    -webkit-font-smoothing: antialiased;
+    -webkit-overflow-scrolling: touch;
+    
+}
+
+/* Titles */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
+
+/* Paragraph & Typographic */
+p {
+    line-height: 24px;
+    margin-bottom: 25px;
+}
+
+.centered {
+    text-align: center;
+}
+
+.goleft {
+	text-align: left;
+}
+
+/* Links */
+a {
+    word-wrap: break-word;
+
+    -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+    transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+a:hover,
+a:focus {
+    color: darkgreen;
+    text-decoration: none;
+    outline: 0;
+}
+
+a:before,
+a:after {
+    -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+    transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+ hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+.mb10 {
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+.centered {
+	text-align: center;
+}
+
+/* CONFIGURATION FOR Feedo */
+
+.site {
+	background: white;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	box-shadow: 5px 5px 5px #2f2f2f;
+}
+.site-title {
+	background: #7f7ea8;
+	margin-left: -15px;
+	margin-right: -15px;
+	padding: 20px;
+}
+
+.site-title h2 {
+	font-weight: 400;
+	color: white;
+	text-align: center;
+}
+
+.site-footer {
+	margin-left: -15px;
+	margin-right: -15px;
+	text-align: center;
+}
+
+.post {
+	display: block;
+	padding-top:15px;
+	padding-bottom: 15px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	border-bottom: 1px solid #ddd;
+}
+
+.post .pull-right {
+	margin-top: -15px;
+}
+
+.post .glyphicon {
+	font-size: 24px;
+	color: #7f7ea8
+}
+
+/*Helper*/
+
+.font-white{
+color:white;
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+article.the-content {
+  margin-bottom: 30px;
+  padding-bottom: 40px !important;
+  border-bottom: 4px solid #8EC63F;
+}
+
+.the-content ul {
+  padding: 0 20px;
+  margin-bottom: 25px;
+}
+
+.the-content ul li {
+  margin-bottom: 5px;
+}
+
+.label a {
+  color: white;
+}
+
+.label-ribbon {
+  position: absolute;
+  border-radius: 50%;
+  left: 0px;
+  top: -10px;
+  width: 45px;
+  height: 45px;
+  line-height: 41px;
+}
+
+.content {
+  margin: 20px 0;
+}
+
+
+
+
+
+.pusaka-header {
+  color: #ffffff;
+  padding-top: 60px;
+  padding-bottom: 40px;
+  background: #8ec63f url(../img/corak_batik.png) no-repeat right bottom;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-attachment: fixed;
+}
+.pusaka-header .lead {
+  color: #ffffff;
+  margin-bottom: 30px;
+  font-size: 18px;
+}
+.pusaka-header .link-wrapper {
+  margin-top: 30px;
+}
+.pusaka-header .link-wrapper a {
+  color: #ffffff;
+  margin: 0px 15px;
+}
+
+.btn-download {
+  background: transparent;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+.btn-download:hover,
+.btn-download:focus {
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  color: #f39c12;
+}
+
+section {
+  padding: 50px 0;
+}
+
+.pusaka-followup {
+  /*background: orange;*/
+}
+.pusaka-features h1 {
+  margin-bottom: 50px;
+}
+
+.pusaka-features .feature {
+  margin-bottom: 20px;
+}
+
+.pusaka-footer {
+  font-size: 14px;
+  padding: 10px 0px;
+}
+span.date,
+span.cat {
+  font-size: 14px;
+  font-style: italic;
+  margin-right: 10px;
+}
+span.cat span a {
+  font-weight: normal;
+}
+span.cat i {
+  margin-right: 3px;
+}
+span.cat span a:after {
+  content: ",";
+}
+span.cat span:last-child a:after {
+  content: " ";
+}
+
+.bigicon {
+  width: 100px;
+  height: 100px;
+  background: lightsteelblue;
+  color: white;
+  font-size: 48px;
+  text-align: center;
+  line-height: 100px;
+  border-radius: 50%;
+  margin: 0 auto;
+  background: #ecc021;
+}
+.dark {
+  background: steelblue;
+  color: white;
+  background: #8ec63f;
+}
+
+.btn-primary {
+  background: #e6b509;
+  border-color: #e6b509;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  background: #d9ac0e;
+  border-color: #d9ac0e;
+}
+
+.btn-info {
+  background: #8ec63f;
+  border-color: #8ec63f;
+}
+.btn-info:hover,
+.btn-info:focus {
+  background: #89b847;
+  border-color: #89b847;
+}
+
+
+
+
+/* DOC */
+.navbar-inverse {
+  background: #f7f9f3;
+  border-bottom: 1px solid #f0f4e9;
+}
+.navbar-inverse .navbar-brand {
+  color: #7bac37;
+}
+.navbar-inverse .navbar-brand:hover {
+  color: #89b847;
+}
+.navbar-inverse .navbar-nav li a {
+  color: #7bac37;
+}
+.navbar-inverse .navbar-nav li a:hover {
+  background: #e0ead2;
+  color: #7bac37;
+}
+.navbar-inverse .navbar-nav li.active a {
+  background: #8ec63f;
+  border-color: #8ec63f;
+  color: #ffffff;
+}
+.navbar-inverse .navbar-nav li.active a:hover {
+  background: #89b847;
+  border-color: #89b847;
+  color: #ffffff;
+}
+
+
+
+.sidebar {
+  background: #fbfbfb;
+  background: #ffffff
+}
+.sidebar .nav li {
+  border-color: #f0f4e9;
+  font-size: 14px;
+  margin-top:3px;
+  margin-bottom: 3px;
+}
+.sidebar .nav li a {
+  color: #78826a;
+}
+.sidebar .nav li a:hover {
+  background: #f0f4e9;
+}
+
+.sidebar .nav li.active a.active {
+  color: #7bac37;
+  background: #ffffff
+}
+.sidebar .nav li.active {
+  border-color: #8ec63f;
+}
+
+
+a {
+  color: #7bac37;
+}
+
+
+
+
+/* BLOG */
+.pusaka-blog-header {
+  color: #ffffff;
+  padding-top: 60px;
+  padding-bottom: 40px;
+  background: #8ec63f url(../img/corak_batik.png) no-repeat right bottom;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-attachment: fixed;
+}
+
+.content-wrapper {
+  padding:50px 0px;
+}
+
+.content-wrapper .label-title-wrapper {
+   border-bottom: 1px solid #f0f4e9;
+   font-size: 20px;
+   padding: 20px 20px;
+   margin-bottom: 30px;
+}
+
+article.the-content {
+  border-bottom: 1px solid #f0f4e9;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.footer-link {
+    padding-top: 50px;
+}
+.footer-link a {
+  margin: 0px 10px;
+  font-size: 14px;
+}
+
+
+
+.pagination li a {
+  border: 1px solid #e1e1e1;
+  background: #ffffff;
+}
+.pagination li a:hover,
+.pagination li a:focus {
+  border-color: #8ec63f;
+  background: #ffffff;
+}
+.pagination li.active a {
+  background: #8ec63f;
+  border-color: #8ec63f;
+  color: #ffffff;
+}
+.pagination li.active a:hover,
+.pagination li.active a:focus {
+  background: #89b847;
+  border-color: #89b847;
+  color: #ffffff;
+}
