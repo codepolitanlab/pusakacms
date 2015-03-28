@@ -1,4 +1,11 @@
-<h1 class="dash-title">Welcome, <?php echo $this->session->userdata(SITE_SLUG.'_username'); ?>!</h1>
+<div class="row heading">
+	<div class="col-md-10">
+		<h1 class="dash-title">Welcome, <?php echo $this->session->userdata(SITE_SLUG.'_username'); ?>!</h1>
+	</div>
+	<div class="col-md-2">
+		<div><a href="<?php echo site_url(); ?>" class="btn btn-transparent" target="_blank"><i class="fa fa-long-arrow-right fa-fw"></i> Kunjungi Web</a></div>
+	</div>
+</div>
 
 <div class="panel-dashboard">
 

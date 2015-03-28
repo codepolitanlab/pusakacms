@@ -94,10 +94,15 @@ if ( ! function_exists('get_theme_url'))
 	*/
 if ( ! function_exists('get_content_image'))
 {
-	function get_content_image($file = false, $attr = '') {
-		$url =  base_url().'media/'.SITE_SLUG.'/files/'.$file;
+	function get_content_image($file = false, $attr = true, $site_slug = false) {
+		if(! $site_slug) $site_slug = SITE_SLUG;
 
-		return '<img src="'.$url.'" '.$attr.' />'."\n";
+		$url =  base_url().'media/'.$site_slug.'/files/'.$file;
+
+		if($attr)
+			return '<img src="'.$url.'" '.$attr.' />'."\n";
+		
+		return $url;
 	}
 }
 
@@ -107,6 +112,17 @@ if ( ! function_exists('get_content_file'))
 		$url =  base_url().'media/'.SITE_SLUG.'/files/'.$file;
 
 		return $url;
+	}
+}
+
+if ( ! function_exists('module_exist'))
+{
+	function module_exist($module_name)
+	{
+		if(file_exists(APPPATH.'modules/'.$module_name))
+			return true;
+
+		return false;
 	}
 }
 
@@ -222,6 +238,19 @@ if ( ! function_exists('get_snippet'))
 		$data = array_merge($base, $data);
 
 		echo $CI->template->load_view('snippets/'.$file, $data);
+	}
+}
+
+/**
+	* get the block for templating
+	* 
+	* @param String $file 	name
+	* @return String filename
+	*/
+if ( ! function_exists('get_block'))
+{
+	function get_block($file, $data = array()) {
+		return file_get_contents(SITE_PATH.'content/blocks/'.$file.'.html');
 	}
 }
 

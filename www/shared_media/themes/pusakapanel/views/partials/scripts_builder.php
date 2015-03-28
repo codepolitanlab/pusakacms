@@ -23,7 +23,8 @@
     
     var baseUrl = "<?php echo base_url();?>";
     var siteUrl = "<?php echo site_url('/');?>";
-    var elementUrl = "<?php echo base_url().'system/themes/'.$this->config->item('theme');?>/assets/";
+    var elementUrl = "<?php echo $this->config->item('elements_dir');?>/";
+    var prevImageUrl = "<?php echo Modules::run('builder/getelements/thumb_image');?>/";
     
     <?php if( isset($siteData) ):?>
     var siteID = <?php echo $siteData['site']->sites_id;?>;
@@ -50,7 +51,7 @@
     		
     	}*/
     	
-    	<?php if( isset($siteData) ):?>
+    	<?php if( isset($page['content']) ):?>
     	
     	//make sortable
     	
@@ -61,32 +62,35 @@
     	})
     	
     	$('#pageList li iframe').each(function(){
-    	
-    		theHeight = $(this).attr('data-height')*0.8;
-    		
-    		//add height to frames array
-    		frames[$(this).attr('id')] = $(this).attr('data-height');
-    		    		    		
-    		$(this).zoomer({
-    			zoom: 0.8,
-    			height: theHeight,
-    			width: $('#screen').width()
-    		});
-    		
-    		$(this).closest('li').find('.zoomer-cover a').remove();
-    		$(this).closest('li').find('.zoomer-cover').text('');
-    		
-    		
-    		//add a delete button
-    		delButton = $('<button type="button" class="btn btn-danger deleteBlock"><span class="fui-trash"></span> remove</button>');
-    		resetButton = $('<button type="button" class="btn btn-warning resetBlock"><i class="fa fa-refresh"></i> reset</button>');
-    		htmlButton = $('<button type="button" class="btn btn-inverse htmlBlock"><i class="fa fa-code"></i> source</button>');
-    		
-    		$(this).closest('li').find('.zoomer-cover').append( delButton )
-    		$(this).closest('li').find('.zoomer-cover').append( resetButton );
-			$(this).closest('li').find('.zoomer-cover').append( htmlButton ); 	
-    		
-    	})
+        
+            theHeight = $(this).attr('data-height');
+            
+            $(this).uniqueId();
+            $(this).height(theHeight+"px");
+            $(this).parent().height(theHeight+"px");
+            $(this).css('background', '#ffffff url(<?php echo base_url('/images/loading.gif')?>) 50% 50% no-repeat');
+                                
+            $(this).load(function(){
+                
+                //heightAdjustment( $(this).attr('id'), true );
+            
+            })
+            
+            
+            //add a delete button
+            delButton = $('<button type="button" class="btn btn-danger deleteBlock"><span class="fui-trash"></span> remove</button>');
+            resetButton = $('<button type="button" class="btn btn-warning resetBlock"><i class="fa fa-refresh"></i> reset</button>');
+            htmlButton = $('<button type="button" class="btn btn-inverse htmlBlock"><i class="fa fa-code"></i> source</button>');
+            
+            frameCover = $('<div class="frameCover"></div>');
+            
+            frameCover.append( delButton );
+            frameCover.append( resetButton );
+            frameCover.append( htmlButton );
+            
+            $(this).parent().append( frameCover );
+            
+        })
     	
     	
     	allEmpty();

@@ -3,7 +3,7 @@
 		<h1>NAVIGATION</h1>
 	</div>
 	<div class="col-md-6 align-right">
-		<div><button class="btn btn-transparent" data-toggle="modal" data-target="#areaModal">+ Create new area</button></div>
+		<div><button class="btn btn-transparent" data-toggle="modal" data-target="#areaModal"><i class="fa fa-plus fa-fw"></i> Create new area</button></div>
 	</div>
 </div>
 <br>

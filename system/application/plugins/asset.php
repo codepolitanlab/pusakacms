@@ -5,7 +5,7 @@
  *	contains functions required for get assets
  */
 
-class Asset extends Plugins {
+class Asset_plugin extends Plugins {
 
 	// THEME ASSETS
 	function get_theme_js($file, $wrap = true) {

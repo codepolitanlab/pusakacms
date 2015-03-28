@@ -179,6 +179,15 @@ class Parser
         return $text;
     }
 
+    public function extractAttributes($text)
+    {
+        $this->setupRegex();
+          $regex = '/\{\{\s*('.$this->variableRegex.')(\s+.*?)?\s*(\/)?\}\}/ms';
+
+        preg_match_all($regex, $text, $match, PREG_SET_ORDER);
+        return $match;
+    }
+
     /**
      * Parses all Callback tags, and sends them through the given $callback.
      *

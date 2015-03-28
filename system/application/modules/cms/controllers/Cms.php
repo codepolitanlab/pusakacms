@@ -49,23 +49,36 @@ class CMS extends Public_Controller {
 		// if it is a PAGE
 		else 
 		{
-			$this->_page($segments);
+			$this->page($segments);
 		}
 	}
 
-	function _page($segments)
+	function page($segments)
 	{
-		$file_path = PAGE_FOLDER.implode('/', $segments);
+		$strseg = "";
 
-		if(! file_exists($file_path.'.md') && ! file_exists($file_path.'/index.md')) show_404();
+		for ($i = count($segments); $i > 0; $i--) 
+		{	
+			$file_path = PAGE_FOLDER.implode('/', $segments);
+
+			if(file_exists($file_path.'.md') || file_exists($file_path.'/index.md'))
+			{
+				$strseg = $file_path;
+				break;
+			}
+
+			array_pop($segments);
+		}
+
+		// if content file not found, show 404
+		if(empty($strseg)) show_404();
+
+		// set default layout
+		$this->template->set_layout('page');
 
 		// check if there is a custom layout for this page
 		if($this->template->layout_exists('pages/'.implode("/",$segments)))
 			$this->template->set_layout('pages/'.implode("/",$segments));
-		
-		// check if there is a custom layout for this page and its children
-		elseif($this->template->layout_exists('pages/'.$segments[0]))
-			$this->template->set_layout('pages/'.$segments[0]);
 
 		$this->template->view_content($file_path, $this->data);
 	}

@@ -75,6 +75,16 @@ class MY_Exceptions extends CI_Exceptions {
 	 */
 	public function show_error($heading, $message, $template = 'error_general', $status_code = 500)
 	{
+		$theme_path = WWW_FOLDER.'shared_media/themes/jakarta/';
+
+		// if CI_Controller has been loaded, 
+		// this check is used for MyHookClass
+		if(class_exists('CI_Controller')){
+			$CI = &get_instance();
+			$theme_path = $CI->template->get_theme_path();
+		}
+
+
 		set_status_header($status_code);
 
 		$message = '<p>'.implode('</p><p>', is_array($message) ? $message : array($message)).'</p>';
@@ -84,8 +94,8 @@ class MY_Exceptions extends CI_Exceptions {
 			ob_end_flush();
 		}
 		ob_start();
-		if(file_exists(THEME_PATH.'views/layouts/'.$template.'.php'))
-			include(THEME_PATH.'views/layouts/'.$template.'.php');
+		if(file_exists($theme_path.'views/layouts/'.$template.'.php'))
+			include($theme_path.'views/layouts/'.$template.'.php');
 		else
 			include(VIEWPATH.'errors/'.$template.'.php');
 		$buffer = ob_get_contents();

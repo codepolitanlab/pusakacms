@@ -23,7 +23,7 @@ class Panel extends Admin_Controller {
 	function index()
 	{
 
-		if (!$this->ion_auth->logged_in())
+		if (!$this->logged_in())
 		{
 			//redirect them to the login page
 			redirect('panel/login', 'refresh');
@@ -73,7 +73,7 @@ class Panel extends Admin_Controller {
 	{
 		$this->data['title'] = "Create User";
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		if (!$this->logged_in() || !$this->ion_auth->is_admin())
 		{
 			redirect('panel/users', 'refresh');
 		}
@@ -188,7 +188,7 @@ class Panel extends Admin_Controller {
 			$currentGroups = $this->ion_auth->get_users_groups($id);
 		}
 
-		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($user['id'] == $id)))
+		if (!$this->logged_in() || (!$this->ion_auth->is_admin() && !($user['id'] == $id)))
 		{
 			redirect('panel/users', 'refresh');
 		}
@@ -341,7 +341,7 @@ class Panel extends Admin_Controller {
 		if(!$id)
 			show_404();
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		if (!$this->logged_in() || !$this->ion_auth->is_admin())
 			$this->session->set_flashdata('error', "You don't have permission to delete user.");
 		elseif($this->ion_auth->delete_user($id))
 			$this->session->set_flashdata('success', $this->ion_auth->messages());
@@ -356,7 +356,7 @@ class Panel extends Admin_Controller {
 	{
 		$this->data['title'] = $this->lang->line('create_group_title');
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		if (!$this->logged_in() || !$this->ion_auth->is_admin())
 		{
 			redirect('panel/users', 'refresh');
 		}
@@ -398,7 +398,7 @@ class Panel extends Admin_Controller {
 
 		$this->data['title'] = $this->lang->line('edit_group_title');
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		if (!$this->logged_in() || !$this->ion_auth->is_admin())
 		{
 			redirect('panel/users', 'refresh');
 		}
@@ -442,7 +442,7 @@ class Panel extends Admin_Controller {
 		if($id == 1)
 			$this->session->set_flashdata('error', "Sorry, we don't recommend to delete admin group.");
 
-		elseif (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		elseif (!$this->logged_in() || !$this->ion_auth->is_admin())
 			$this->session->set_flashdata('error', "You don't have permission to delete the group.");
 
 		elseif($this->ion_auth->delete_group($id))

@@ -123,6 +123,9 @@ $view_folder = 'views';
 // SITES FOLDER NAME
 $sites_folder = '../sites/';
 
+// www FOLDER NAME
+$www_folder = '../www/';
+
 
 /*
  * --------------------------------------------------------------------
@@ -276,6 +279,8 @@ if ( ! is_dir($system_path))
 	define('VIEWPATH', $view_folder);
 
 	define('SITE_FOLDER', rtrim(realpath($sites_folder), '/').'/');
+
+	define('WWW_FOLDER', rtrim(realpath($www_folder), '/').'/');
 
 /**
 * Define where to locate the common dir.

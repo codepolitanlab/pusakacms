@@ -69,6 +69,13 @@ class Panel extends Admin_Controller {
 				}
 			}
 
+			// call events
+			$this->call_event('Settings', 'after_update', $savefile);
+
+			// update domain
+			if(! empty($savefile['site']['site_domain']))
+				$this->pusaka->register_domain($savefile['site']['site_domain'], $config['site']['site_domain']);
+
 			$this->session->set_flashdata('success', 'config saved.');
 			redirect('panel/settings');
 		}

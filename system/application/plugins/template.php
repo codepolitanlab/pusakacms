@@ -5,7 +5,7 @@
  *	contains functions required for templating
  */
 
-class Template extends Plugins {
+class Template_plugin extends Plugins {
 
 	function get_partial($name) {
 		return get_partial($name);
@@ -13,6 +13,10 @@ class Template extends Plugins {
 
 	function get_snippet($file, $data = array()) {
 		return get_snippet($file, $data);
+	}
+
+	function get_block($file, $height = false) {
+		return get_block($file);
 	}
 
 	function get_field($field = false) {

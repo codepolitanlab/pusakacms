@@ -61,6 +61,13 @@ class MY_Controller extends MX_Controller{
 		if(! defined('JSON_PRETTY_PRINT')) define('JSON_PRETTY_PRINT', 128);
 	}
 
+	function logged_in(){
+		if($username = $this->session->userdata(SITE_SLUG.'_username')) {
+			return true;
+		}
+		return false;
+	}
+
 	function call_event()
 	{
 		$args = func_get_args();

@@ -46,19 +46,15 @@ class Panel extends Admin_Controller {
 
 		// set page index file
 		$this->page_db = new Nyankod\JsonFileDB(PAGE_FOLDER);
-		$this->page_db->setTable('index');			
+		$this->page_db->setTable('index');
+
+		$this->load->model('pages_m');
 	}
 
 
 	/*********************************************
 	 * PAGES
 	 **********************************************/
-
-	function coba()
-	{
-		print_r(directory_map(PAGE_FOLDER));
-		print_r($this->pusaka->scan_pages());
-	}
 
 	function index()
 	{
@@ -101,40 +97,14 @@ class Panel extends Admin_Controller {
 
 		if($this->form_validation->run()){
 			$page = $this->input->post();
-			$file_content = "";
-
-			// set content
-			foreach ($page as $key => $value) {
-				if($value)
-					if($key == 'slug')
-						$file_content .= "{: ".$key." :} ".strtolower(url_title($value))."\n";
-					else
-						$file_content .= "{: ".$key." :} ".$value."\n";
-			}
-
-			// if it is placed as subpage
-			if(!empty($page['parent'])) { 
-				// if parent still as standalone file (not in folder)
-				if(file_exists(PAGE_FOLDER.$page['parent'].'.md')) {
-					// create folder and move the parent inside
-					mkdir(PAGE_FOLDER.$page['parent'], 0775);
-					rename(PAGE_FOLDER.$page['parent'].'.md', PAGE_FOLDER.$page['parent'].'/index.md');
-
-					// create index.html file
-					copy(PAGE_FOLDER.'index.html', PAGE_FOLDER.$page['parent'].'/index.html');
-				}
-			}
 			
-			if(write_file(PAGE_FOLDER.$page['parent'].'/'.$page['slug'].'.md', $file_content)){
+			if($this->pages_m->save_page($page)){
 				$this->session->set_flashdata('success', 'Page saved.');
-
-				// update page index
-				$this->sync(false);
 
 				if($this->input->post('btnSaveExit'))
 					redirect('panel/pages');
 				else
-					redirect('panel/pages/edit/'.$page['parent'].$page['slug']);
+					redirect('panel/pages/edit/'.$page['parent'].'/'.$page['slug']);
 			}
 			else {
 				$this->template->set('error', 'Page failed to save. Make sure the folder '.PAGE_FOLDER.' is writable.');
@@ -170,28 +140,12 @@ class Panel extends Admin_Controller {
 
 		if($this->form_validation->run()){
 			$page = $this->input->post();
-			$file_content = "";
-
-			// set content
-			foreach ($page as $key => $value) {
-				if($value)
-					if($key == 'slug')
-						$file_content .= "{: ".$key." :} ".strtolower(url_title($value))."\n";
-					else
-						$file_content .= "{: ".$key." :} ".$value."\n";
-			}
-
-			// move page
-			$this->pusaka->move_page($prevslug, $page['slug'], $prevpage['parent'], $page['parent']);
-
+			
 			// update page content
-			if(write_file(PAGE_FOLDER.$page['parent'].'/'.$page['slug'].'.md', $file_content, 'w+'))
+			if($this->pages_m->update_page($page, $prevpage))
 				$this->session->set_flashdata('success', 'Page updated.');
 			else
 				$this->session->set_flashdata('error', 'Page failed to update. Make sure the folder '.PAGE_FOLDER.' is writable.');
-
-			// update page index
-			$this->sync(false);
 
 			if($this->input->post('btnSaveExit'))
 				redirect('panel/pages');
@@ -205,7 +159,7 @@ class Panel extends Admin_Controller {
 			->set('type', 'edit')
 			->set('page', $prevpage)
 			->set('parent', '')
-			->set('url', $prevslug)
+			->set('url', $prevpage['slug'])
 			->set('layouts', $this->pusaka->get_layouts($this->config->item('theme')))
 			->set('pagelinks', $this->pusaka->get_flatnav())
 			->view('page_form');
