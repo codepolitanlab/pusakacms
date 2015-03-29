@@ -307,19 +307,19 @@ class Pusaka {
 				if(strstr(uri_string(), $page['url'].'/')) $active = ' '.$opt['active_class'];
 
 				$has_children_li_class = '';
-				$has_children_a_attr = '';
+				$has_children_a_class = '';
 				$has_children_li_attr = '';
 				$has_children_a_attr = '';
 
 				if(isset($page['children'])){
 					$has_children_li_class = ' '.$opt['has_children_li_class'];
-					$has_children_a_attr = ' '.$opt['has_children_a_class'];
+					$has_children_a_class = ' '.$opt['has_children_a_class'];
 					$has_children_li_attr = ' '.$opt['has_children_li_attr'];
 					$has_children_a_attr = ' '.$opt['has_children_a_attr'];
 				}
 
 				$li .= '<li class="'.$opt['li_class'].$has_children_li_class.$active.'" '.$opt['li_attr'].$has_children_li_attr.'>';
-				$li .= '<a class="'.$opt['a_class'].$has_children_a_attr.$active.'" '.$opt['a_attr'].$has_children_a_attr.' href="'.site_url($page['url']).'">'.$page['title'].'</a>';
+				$li .= '<a class="'.$opt['a_class'].$has_children_a_class.$active.'" '.$opt['a_attr'].$has_children_a_attr.' href="'.site_url($page['url']).'">'.$page['title'].'</a>';
 				if(isset($page['children'])){
 					$li .= '<ul class="'.$opt['ul_children_class'].'" '.$opt['ul_children_attr'].'>';
 					$li .= $this->_build_list($page['children'], false, $opt);

@@ -41,17 +41,17 @@
 				var res = JSON.parse(data);
 				change_attributes(elm, res);
 
-				// $('.alert-'+res.status).fadeIn().children('span').html(res.message);
+				$('.alert-'+res.status).fadeIn().children('span').html(res.message);
 
 				// we don't need to send new sorted structure anymore as it already done by syncing
-				// var newmap = JSON.stringify($('.dd').nestable('serialize'));
-				// $.post(base_url+'panel/pages/sort/', {newmap : newmap})
-				// .done(function(sorted){
-				// 	console.log(sorted);
-				// 	// var ed = JSON.parse(sorted);
+				var newmap = JSON.stringify($('.dd').nestable('serialize'));
+				$.post(base_url+'panel/pages/sort/', {newmap : newmap})
+				.done(function(sorted){
+					// console.log(sorted);
+					// var ed = JSON.parse(sorted);
 
-				// 	// $('.alert-'+ed.status).fadeIn().children('span').html(ed.message);
-				// });
+					// $('.alert-'+ed.status).fadeIn().children('span').html(ed.message);
+				});
 			});
 		});
 
