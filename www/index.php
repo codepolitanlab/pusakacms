@@ -120,11 +120,15 @@ $application_folder = '../system/application';
  */
 $view_folder = 'views';
 
+
 // SITES FOLDER NAME
 $sites_folder = '../sites/';
 
-// www FOLDER NAME
+// WWW FOLDER NAME
 $www_folder = '../www/';
+
+// ADDON FOLDER NAME
+$addon_folder = '../addons/';
 
 
 /*
@@ -281,6 +285,8 @@ if ( ! is_dir($system_path))
 	define('SITE_FOLDER', rtrim(realpath($sites_folder), '/').'/');
 
 	define('WWW_FOLDER', rtrim(realpath($www_folder), '/').'/');
+
+	define('ADDON_FOLDER', rtrim(realpath($addon_folder), '/').'/');
 
 /**
 * Define where to locate the common dir.

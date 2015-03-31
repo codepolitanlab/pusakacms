@@ -133,10 +133,13 @@ if ( ! function_exists('module_exist'))
 {
 	function module_exist($module_name)
 	{
-		if(file_exists(APPPATH.'modules/'.$module_name))
-			return true;
-
-		return false;
+		$return = false;
+		foreach (Modules::$locations as $location => $rel) {
+			if(file_exists($location.$module_name))
+				$return = true;
+		}
+		
+		return $return;
 	}
 }
 
@@ -222,8 +225,6 @@ if ( ! function_exists('get_module_nav_tree'))
 {
 	function get_module_nav_tree()
 	{
-		$CI = &get_instance();
-
 		$menus = array();
 		foreach (Modules::$locations as $location => $rel) {
 			$map = directory_map($location, 1);

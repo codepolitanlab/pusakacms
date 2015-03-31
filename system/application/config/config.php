@@ -482,7 +482,8 @@ $config['events_locations'] = array(
 |
 */
 $config['modules_locations'] = array(
-        APPPATH.'modules/' => '../modules/'
+        APPPATH.'modules/' => '../modules/',
+        ADDON_FOLDER.'modules/' => '../../../addons/modules/'
     );
 
 /* End of file config.php */
