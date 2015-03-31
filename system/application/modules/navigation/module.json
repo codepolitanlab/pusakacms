@@ -1,0 +1,13 @@
+{
+	"module_name": "Navigation",
+	"module_slug": "navigation",
+	"module_description": "Core module to maintains navigation blocks and links",
+	"version": "1.0.0",
+	"author": "Toni Haryanto",
+	"author_site": "id.toniharyanto.id",
+	"menu": {
+		"caption": "Navigation",
+		"context": "Misc",
+		"order": 5
+	}
+}

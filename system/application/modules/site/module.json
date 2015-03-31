@@ -1,0 +1,13 @@
+{
+	"module_name": "Site",
+	"module_slug": "site",
+	"module_description": "Multisite management module",
+	"version": "1.0.0",
+	"author": "Toni Haryanto",
+	"author_site": "id.toniharyanto.id",
+	"menu": {
+		"caption": "Site Management",
+		"context": "Settings",
+		"order": 10
+	}
+}

@@ -1,0 +1,13 @@
+{
+	"module_name": "Users",
+	"module_slug": "users",
+	"module_description": "Users and authentication management module",
+	"version": "1.0.0",
+	"author": "Toni Haryanto",
+	"author_site": "id.toniharyanto.id",
+	"menu": {
+		"caption": "Users",
+		"context": "Settings",
+		"order": 15
+	}
+}

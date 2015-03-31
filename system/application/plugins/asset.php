@@ -20,8 +20,8 @@ class Asset_plugin extends Plugins {
 		return get_theme_image($file, $attr);
 	}
 
-	function get_theme_url($url = '') {
-		return get_theme_url($url);
+	function theme_url($url = '') {
+		return theme_url($url);
 	}
 
 	// CONTENT ASSETS

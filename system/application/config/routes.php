@@ -38,13 +38,13 @@
 |
 */
 
-$route["default_controller"]	= "cms";
-$route["404_override"] 			= "cms";
+$route["default_controller"]	= "dashboard";
+$route["404_override"] 			= "dashboard";
 $route['translate_uri_dashes'] = FALSE;
 
-$route["sync_page"] 			= "cms/sync_page";
-$route["sync_post"] 			= "cms/sync_post";
-$route["update_domain/(:any)"]	= "cms/update_domain/$1";
+$route["sync_page"] 			= "dashboard/sync_page";
+$route["sync_post"] 			= "dashboard/sync_post";
+$route["update_domain/(:any)"]	= "dashboard/update_domain/$1";
 
 $route["panel"]								= "dashboard/panel";
 $route['panel/([a-zA-Z0-9_-]+)']            = '$1/panel/index';

@@ -1,0 +1,13 @@
+{
+	"module_name": "Export",
+	"module_slug": "export",
+	"module_description": "Core module to export all posts and pages into static HTML",
+	"version": "1.0.0",
+	"author": "Toni Haryanto",
+	"author_site": "id.toniharyanto.id",
+	"menu": {
+		"caption": "Export",
+		"context": "Misc",
+		"order": 10
+	}
+}

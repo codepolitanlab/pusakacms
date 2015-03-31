@@ -1,0 +1,13 @@
+{
+	"module_name": "Settings",
+	"module_slug": "settings",
+	"module_description": "Key-value pair content settings management module",
+	"version": "1.0.0",
+	"author": "Toni Haryanto",
+	"author_site": "id.toniharyanto.id",
+	"menu": {
+		"caption": "Configurations",
+		"context": "Settings",
+		"order": 5
+	}
+}

@@ -463,18 +463,6 @@ $config['proxy_ips'] = '';
 
 /*
 |--------------------------------------------------------------------------
-| Modules location
-|--------------------------------------------------------------------------
-|
-| Add path to find modules in the common directory
-|
-*/
-$config['modules_locations'] = array(
-        APPPATH.'modules/' => '../modules/'
-    );
-
-/*
-|--------------------------------------------------------------------------
 | Events location
 |--------------------------------------------------------------------------
 |
@@ -483,6 +471,18 @@ $config['modules_locations'] = array(
 */
 $config['events_locations'] = array(
         APPPATH.'events/'
+    );
+
+/*
+|--------------------------------------------------------------------------
+| Modules location
+|--------------------------------------------------------------------------
+|
+| Add path to find modules in the common directory
+|
+*/
+$config['modules_locations'] = array(
+        APPPATH.'modules/' => '../modules/'
     );
 
 /* End of file config.php */

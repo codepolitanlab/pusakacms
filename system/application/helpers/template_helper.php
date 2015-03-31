@@ -73,15 +73,29 @@ if ( ! function_exists('get_theme_image'))
 	* @param String $url 	url of asset in theme
 	* @return String url
 	*/
-if ( ! function_exists('get_theme_url'))
+if ( ! function_exists('theme_url'))
 {
-	function get_theme_url($url = '') {
+	function theme_url($url = '') {
 		$CI = &get_instance();
 		$theme_path = $CI->template->get_theme_path();
 
 		$url =  base_url().$theme_path.$url;
 
 		return $url;
+	}
+}
+
+/**
+	* set and get theme url + url of asset in theme
+	* 
+	* @param String $url 	url of asset in theme
+	* @return String url
+	*/
+if ( ! function_exists('vendor_url'))
+{
+	function vendor_url($vendor, $url = '') {
+
+		return base_url().'public/vendor/'.$vendor.'/'.$url;
 	}
 }
 
@@ -200,8 +214,34 @@ if ( ! function_exists('get_module_image'))
 if ( ! function_exists('get_module_asset'))
 {
 	function get_module_asset($module, $file) {
-		$CI = &get_instance();
 		return base_url().'system/modules/'.$module.'/assets/'.$file;
+	}
+}
+
+if ( ! function_exists('get_module_nav_tree'))
+{
+	function get_module_nav_tree()
+	{
+		$CI = &get_instance();
+
+		$menus = array();
+		foreach (Modules::$locations as $location => $rel) {
+			$map = directory_map($location, 1);
+
+			foreach ($map as $folder) {
+				if(file_exists($location.$folder.'module.json')){ 
+					$module = json_decode(file_get_contents($location.$folder.'module.json'), true);
+					
+					if(!empty($module['menu'])){
+						$menus[$module['menu']['context']][$module['menu']['order']] = array("link" => rtrim($folder, DIRECTORY_SEPARATOR),
+																					 "caption" => $module['menu']['caption']);
+					}
+
+				}
+			}
+		}
+
+		return $menus;
 	}
 }
 
@@ -265,20 +305,6 @@ if ( ! function_exists('get_field'))
 	function get_field($field = false) {
 		$CI = &get_instance();
 		return $CI->template->get_fields($field);
-	}
-}
-
-
-/**
-	* set and get plugin url + url of asset in theme
-	* 
-	* @param String $url 	url of asset in theme
-	* @return String url
-	*/
-if ( ! function_exists('get_plugin_url'))
-{
-	function get_plugin_url($plugin = '') {
-		return base_url().'system/plugins/'.$plugin.'/';		
 	}
 }
 

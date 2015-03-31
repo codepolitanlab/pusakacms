@@ -106,7 +106,7 @@ class Template
 		if ($this->_theme_locations === array())
 		{
 			// Let's use this obvious default
-			$this->_theme_locations = array(WWW_FOLDER.'shared_media/themes/');
+			$this->_theme_locations = array(WWW_FOLDER.'public/themes/');
 		}
 
 		// No asset locations set in config?

@@ -1,0 +1,13 @@
+{
+	"module_name": "Media",
+	"module_slug": "media",
+	"module_description": "File management module",
+	"version": "1.0.0",
+	"author": "Toni Haryanto",
+	"author_site": "id.toniharyanto.id",
+	"menu": {
+		"caption": "Media",
+		"context": "Content",
+		"order": 15
+	}
+}

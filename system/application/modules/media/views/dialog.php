@@ -1,5 +1,5 @@
 <?php
-if(!defined('FMPATH')) define('FMPATH', 'shared_media/vendor/filemanager/');
+if(!defined('FMPATH')) define('FMPATH', 'public/vendor/filemanager/');
 
 include FMPATH.'config/config.php';
 
@@ -263,11 +263,11 @@ $get_params = http_build_query(array(
   <meta name="robots" content="noindex,nofollow">
   <title>Responsive FileManager</title>
 	<link rel="shortcut icon" href="img/ico/favicon.ico">
-  <link href="<?php echo BASEFM; ?>css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link href="<?php echo BASEFM; ?>css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
-  <link href="<?php echo BASEFM; ?>css/bootstrap-lightbox.min.css" rel="stylesheet" type="text/css" />
-  <link href="<?php echo BASEFM; ?>css/style.css" rel="stylesheet" type="text/css" />
-	<link href="<?php echo BASEFM; ?>css/dropzone.min.css" type="text/css" rel="stylesheet" />
+  <link href="<?php echo vendor_url('filemanager', 'css/bootstrap.min.css'); ?>" rel="stylesheet" type="text/css" />
+  <link href="<?php echo vendor_url('filemanager', 'css/bootstrap-responsive.min.css'); ?>" rel="stylesheet" type="text/css" />
+  <link href="<?php  echo vendor_url('filemanager', 'css/bootstrap-lightbox.min.css'); ?>" rel="stylesheet" type="text/css" />
+  <link href="<?php  echo vendor_url('filemanager', 'css/style.css'); ?>" rel="stylesheet" type="text/css" />
+	<link href="<?php  echo vendor_url('filemanager', 'css/dropzone.min.css'); ?>" type="text/css" rel="stylesheet" />
 	<?php
 	$sprite_lang_file = 'img/spritemap_'.$lang.'.png';
 	$sprite_lang_file2 = 'img/spritemap@2x_'.$lang.'.png';
@@ -306,9 +306,9 @@ $get_params = http_build_query(array(
 		    }
 		}
 	</style>
-	<link href="<?php echo BASEFM; ?>css/jquery.contextMenu.min.css" rel="stylesheet" type="text/css" />	
-	<link href="<?php echo BASEFM; ?>css/bootstrap-modal.min.css" rel="stylesheet" type="text/css" />
-	<link href="<?php echo BASEFM; ?>jPlayer/skin/blue.monday/jplayer.blue.monday.css" rel="stylesheet" type="text/css">
+	<link href="<?php echo vendor_url('filemanager', 'css/jquery.contextMenu.min.css'); ?>" rel="stylesheet" type="text/css" />	
+	<link href="<?php echo vendor_url('filemanager', 'css/bootstrap-modal.min.css'); ?>" rel="stylesheet" type="text/css" />
+	<link href="<?php echo vendor_url('filemanager', 'jPlayer/skin/blue.monday/jplayer.blue.monday.css'); ?>" rel="stylesheet" type="text/css">
 	<!--[if lt IE 8]><style>
 	.img-container span, .img-container-mini span {
 	    display: inline-block;
@@ -322,19 +322,19 @@ $get_params = http_build_query(array(
 	<script type="text/javascript">
 	if (typeof jQuery === 'undefined')
 	{
-	  document.write(unescape("%3Cscript src='js/jquery.js' type='text/javascript'%3E%3C/script%3E"));
+	  document.write(unescape("%3Cscript src='<?php echo vendor_url('jquery', 'jquery-1.10.2.min.js'); ?>' type='text/javascript'%3E%3C/script%3E"));
 	}
 	</script>
-        <script type="text/javascript" src="<?php echo BASEFM; ?>js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="<?php echo BASEFM; ?>js/bootstrap-lightbox.min.js"></script>
-	<script type="text/javascript" src="<?php echo BASEFM; ?>js/dropzone.min.js"></script>
-	<script type="text/javascript" src="<?php echo BASEFM; ?>js/jquery.touchSwipe.min.js"></script>
-	<script type="text/javascript" src="<?php echo BASEFM; ?>js/modernizr.custom.js"></script>
-	<script type="text/javascript" src="<?php echo BASEFM; ?>js/bootbox.min.js"></script>
-	<script type="text/javascript" src="<?php echo BASEFM; ?>js/bootstrap-modal.min.js"></script>   
-	<script type="text/javascript" src="<?php echo BASEFM; ?>js/bootstrap-modalmanager.min.js"></script>
-	<script type="text/javascript" src="<?php echo BASEFM; ?>jPlayer/jquery.jplayer.min.js"></script>
-	<script type="text/javascript" src="<?php echo BASEFM; ?>js/ZeroClipboard.min.js"></script>
+	<script type="text/javascript" src="<?php echo vendor_url('filemanager', 'js/bootstrap.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo vendor_url('filemanager', 'js/bootstrap-lightbox.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo vendor_url('filemanager', 'js/dropzone.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo vendor_url('filemanager', 'js/jquery.touchSwipe.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo vendor_url('filemanager', 'js/modernizr.custom.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo vendor_url('filemanager', 'js/bootbox.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo vendor_url('filemanager', 'js/bootstrap-modal.min.js'); ?>"></script>   
+	<script type="text/javascript" src="<?php echo vendor_url('filemanager', 'js/bootstrap-modalmanager.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo vendor_url('filemanager', 'jPlayer/jquery.jplayer.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo vendor_url('filemanager', 'js/ZeroClipboard.min.js'); ?>"></script>
 	<?php
 	if ($aviary_active){
 	if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) { ?>
@@ -347,10 +347,10 @@ $get_params = http_build_query(array(
 	<!--[if lt IE 9]>
 	  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
 	<![endif]-->
-	<script src="<?php echo BASEFM; ?>js/jquery.ui.position.min.js" type="text/javascript"></script>
-	<script src="<?php echo BASEFM; ?>js/jquery-ui-1.10.4.custom.js" type="text/javascript"></script>
-	<script src="<?php echo BASEFM; ?>js/jquery.ui.touch-punch.min.js" type="text/javascript"></script>
-	<script src="<?php echo BASEFM; ?>js/jquery.contextMenu.min.js" type="text/javascript"></script>    
+	<script src="<?php echo vendor_url('jquery-ui', 'jquery.ui.position.min.js'); ?>" type="text/javascript"></script>
+	<script src="<?php echo vendor_url('jquery-ui', 'jquery-ui-1.10.1.custom.min.js'); ?>" type="text/javascript"></script>
+	<script src="<?php echo vendor_url('jquery-ui', 'jquery.ui.touch-punch.min.js'); ?>" type="text/javascript"></script>
+	<script src="<?php echo vendor_url('filemanager', 'js/jquery.contextMenu.min.js'); ?>" type="text/javascript"></script>
 	
 	<script>
 	    var ext_img=new Array('<?php echo implode("','", $ext_img)?>');

@@ -2,4 +2,5 @@ dploy.yaml
 system/application/sessions/*
 www/media/default/thumbs/*
 www/media/default/files/*
+.phpintel
 .phpintel/*

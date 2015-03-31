@@ -28,7 +28,7 @@ class Panel extends Admin_Controller {
 		if(!is_readable($this->files_path) || !is_writable($this->files_path))
 			show_error('Set folder '.$this->files_path.' and its contents readable and writable first.');
 
-		if(!defined('FMPATH')) define('FMPATH', 'shared_media/vendor/filemanager/');
+		if(!defined('FMPATH')) define('FMPATH', 'public/vendor/filemanager/');
 	}
 
 
@@ -58,7 +58,7 @@ class Panel extends Admin_Controller {
 
 	function upload()
 	{
-		if(!defined('FMPATH')) define('FMPATH', 'shared_media/vendor/filemanager/');
+		if(!defined('FMPATH')) define('FMPATH', 'public/vendor/filemanager/');
 
 		include FMPATH.'config/config.php';
 		if($_SESSION['RF']["verify"] != "RESPONSIVEfilemanager") die('forbiden');

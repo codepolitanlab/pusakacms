@@ -1,0 +1,13 @@
+{
+	"module_name": "Dashboard",
+	"module_slug": "dashboard",
+	"module_description": "Core module to show core content (posts, pages)",
+	"version": "1.0.0",
+	"author": "Toni Haryanto",
+	"author_site": "id.toniharyanto.id",
+	"menu": {
+		"caption": "Dashboard",
+		"context": "Dashboard",
+		"order": 5
+	}
+}

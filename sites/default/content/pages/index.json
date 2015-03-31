@@ -4,8 +4,8 @@
         "url": "home"
     },
     "lipsum": {
-        "title": "Lipsum",
         "url": "lipsum",
+        "title": "Lipsum",
         "children": {
             "subpage": {
                 "url": "lipsum\/subpage",
