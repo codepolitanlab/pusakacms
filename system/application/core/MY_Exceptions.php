@@ -97,53 +97,10 @@ class MY_Exceptions extends CI_Exceptions {
 		if(file_exists($theme_path.'views/layouts/'.$template.'.php'))
 			include($theme_path.'views/layouts/'.$template.'.php');
 		else
-			include(VIEWPATH.'errors/'.$template.'.php');
+			include(VIEWPATH.'errors/html/'.$template.'.php');
 		$buffer = ob_get_contents();
 		ob_end_clean();
 		return $buffer;
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Native PHP error handler
-	 *
-	 * @param	int	$severity	Error level
-	 * @param	string	$message	Error message
-	 * @param	string	$filepath	File path
-	 * @param	int	$line		Line number
-	 * @return	string	Error page output
-	 */
-	public function show_php_error($severity, $message, $filepath, $line)
-	{
-		$templates_path = config_item('error_views_path');
-		if (empty($templates_path))
-		{
-			$templates_path = VIEWPATH.'errors'.DIRECTORY_SEPARATOR;
-		}
-
-		$severity = isset($this->levels[$severity]) ? $this->levels[$severity] : $severity;
-
-		// For safety reasons we don't show the full file path in non-CLI requests
-		if ( ! is_cli())
-		{
-			$filepath = str_replace('\\', '/', $filepath);
-			if (FALSE !== strpos($filepath, '/'))
-			{
-				$x = explode('/', $filepath);
-				$filepath = $x[count($x)-2].'/'.end($x);
-			}
-		}
-
-		if (ob_get_level() > $this->ob_level + 1)
-		{
-			ob_end_flush();
-		}
-		ob_start();
-		include($templates_path.'error_php.php');
-		$buffer = ob_get_contents();
-		ob_end_clean();
-		echo $buffer;
 	}
 
 }

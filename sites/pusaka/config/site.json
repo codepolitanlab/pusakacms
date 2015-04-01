@@ -1,9 +1,0 @@
-{
-    "site_name": "PusakaCMS",
-    "site_slogan": "Just a Simple Flat File CMS :)",
-	"site_owner": "Toni Haryanto",
-	"site_domain":"sekolah.co.id",
-	"protocol":"http",
-    "meta_description": "PusakaCMS adalah Content Management System (CMS) dengan konten berbasis file, tidak memerlukan instalasi database server dan dilengkapi dengan fitur multisite dan export ke HTML statis.",
-    "meta_keywords": "pusakacms, cms, flat file cms, content management system, file based cms, multisite cms, codeigniter cms, export to html"
-}

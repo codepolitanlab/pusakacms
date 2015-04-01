@@ -1,1 +1,9 @@
-{"site_name":"PusakaCMS","site_slogan":"Just a Simple Homepage by PusakaCMS","site_owner":"Toni Haryanto","site_domain":"pusakacms.org","protocol":"http","meta_description":"PusakaCMS adalah Content Management System (CMS) dengan media penyimpanan konten berbasis file, dibangun dengan PHP di atas framework CodeIgniter.","meta_keywords":"pusakacms, codeigniter, cms, file based cms, flat file cms"}
+{
+    "site_name": "Default Sites",
+    "site_slogan": "Just a Simple Homepage by PusakaCMS",
+    "site_owner": "Nama Saya",
+    "site_domain": "",
+    "protocol": "http",
+    "meta_description": "Put your meta description here",
+    "meta_keywords": "Put your meta keywords here"
+}
