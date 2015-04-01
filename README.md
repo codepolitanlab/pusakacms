@@ -6,11 +6,11 @@ Current version: 1.2.0b
 
 ## Features
 
-- Multisite
 - Built on top of [CodeIgniter v3](http://www.codeigniter.com/)
 - HMVC ready using [CodeIgniter Modular Extension ](https://bitbucket.org/wiredesignz/codeigniter-modular-extensions-hmvc)
 - File based content storage
 - Version Control System (VCS) friendly
+- Multisite
 - Pages and posts management
 - Theme system
 - Template parser using [Lex Parser](https://github.com/pyrocms/lex)
