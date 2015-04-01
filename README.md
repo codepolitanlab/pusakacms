@@ -17,6 +17,15 @@ Current version: 1.2.0b
 - Export web contents to static HTML
 - File manager using [Responsive File Manager](http://www.responsivefilemanager.com/)
 
+## Quick Install
+
+- Download Latest release [here](https://github.com/nyankod/pusakacms/releases)
+- Create folder in your localhost, i.e. *pusaka/*
+- Extract all PusakaCMS files to folder *pusaka/*
+- Open you browser and call *http://localhost/pusaka/www/default/*
+- To access admin panel, use URL *http://localhost/pusaka/www/default/panel/*
+- login with default username: **admin@admin.com** and password: **password**
+
 ## Teams
 
 - [Toni Haryanto](id.toniharyanto.net)
