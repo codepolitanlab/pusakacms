@@ -27,6 +27,12 @@ Current version: 1.2.0b
 - Open you browser and call *http://localhost/pusaka/www/default/*
 - To access admin panel, use URL *http://localhost/pusaka/www/default/panel/*
 - login with default username: **admin@admin.com** and password: **password**
+- If you are using linux/unix based OS, make sure to give PHP write access to folder *system/application/sessions/*, *sites/*, and *www/media/*. Typically you may use these command:
+
+```
+$ sudo chmod 775 system/application/sessions/ sites/ www/media/ -R
+$ sudo chown :www-data system/application/sessions/ sites/ www/media/ -R
+```
 
 ## Teams
 
