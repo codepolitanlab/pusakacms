@@ -120,6 +120,20 @@ if ( ! function_exists('get_content_image'))
 	}
 }
 
+if ( ! function_exists('get_content_image_thumb'))
+{
+	function get_content_image_thumb($file = false, $attr = true, $site_slug = false) {
+		if(! $site_slug) $site_slug = SITE_SLUG;
+
+		$url =  base_url().'media/'.$site_slug.'/files/thumb/'.$file;
+
+		if($attr)
+			return '<img src="'.$url.'" '.$attr.' />'."\n";
+		
+		return $url;
+	}
+}
+
 if ( ! function_exists('get_content_file'))
 {
 	function get_content_file($file = false) {
@@ -235,7 +249,14 @@ if ( ! function_exists('get_module_nav_tree'))
 					
 					if(!empty($module['menu'])){
 						$menus[$module['menu']['context']][$module['menu']['order']] = array("link" => rtrim($folder, DIRECTORY_SEPARATOR),
-																					 "caption" => $module['menu']['caption']);
+																					 		 "caption" => $module['menu']['caption']);
+						// add allowed sites
+						if(file_exists($location.$folder.'config/permission.php'))
+						{
+							include $location.$folder.'config/permission.php';
+							$menus[$module['menu']['context']][$module['menu']['order']]["allowed_sites"] = $config['allowed_sites'];
+							unset($config['allowed_sites']);
+						}
 					}
 
 				}

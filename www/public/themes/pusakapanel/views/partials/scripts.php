@@ -8,7 +8,6 @@
 <script src="<?php echo theme_url() ?>assets/js/script.js"></script>
 
 <script>
-	var base_url = "<?php echo site_url(); ?>";
 	var links = document.links;
 	for (var i = 0, linksLength = links.length; i < linksLength; i++) {
 		if (links[i].hostname != window.location.hostname) {

@@ -44,6 +44,9 @@
 <script src="<?php echo theme_url("assets/js/jquery.history.js") ?>"></script>
 
 <script>
+	var base_url = "<?php echo site_url(); ?>";
+	var siteSlug = "<?php echo SITE_SLUG; ?>";
+
 	// IMPORTANT
 	// for handle closing rfm modal bootstrap
 	window.closeBootstrapModal = function(){

@@ -22,43 +22,9 @@ class Panel extends Admin_Controller {
 	{
 		// filter sites
 		$data['sites'] = $this->site_m->get_sites();
-		// $data['total_indexed'] = $this->direktori_m->count_site();
 
 		$this->template->view('index', $data);
 	}
-
-	// function reindex()
-	// {
-	// 	$sites = $this->site_m->get_sites();
-		
-	// 	// clean unused site index
-	// 	// $this->direktori_m->delete_unused_index($sites);
-
-	// 	// clean unused site post index
-	// 	// $this->direktori_m->delete_unused_sitepost($sites);
-
-	// 	$indexed = 0;
-	// 	foreach ($sites as $site_slug => $site_data) {
-	// 		if($this->direktori_m->count_site('site_slug', rtrim($site_slug, '/')) < 1)
-	// 		{
-	// 			$sekolah_data = json_decode(file_get_contents(SITE_FOLDER.$site_slug.'config/sekolah.json'), true);
-	// 			$sekolah_data['site_slug'] = rtrim($site_slug, DIRECTORY_SEPARATOR);
-	// 			$sekolah_data = array_merge($site_data, $sekolah_data);
-	// 			$sekolah_data['site_created'] = date("Y-m-d");
-
-	// 			if($this->direktori_m->insert_site($sekolah_data))
-	// 				$indexed++;
-	// 		}
-	// 	}
-
-
-	// 	if($indexed > 0)
-	// 		$this->session->set_flashdata('success', $indexed.' row(s) indexed.');
-	// 	else
-	// 		$this->session->set_flashdata('success', 'No new site found.');
-
-	// 	redirect(getenv('HTTP_REFERER'));
-	// }
 
 	function reindex_posts($site_slug = false)
 	{

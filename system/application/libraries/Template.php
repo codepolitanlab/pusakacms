@@ -1223,6 +1223,12 @@ class Template
 		return ($return)?$return:false;
 	}
 
+	// parse content from outside library
+	function parse_content($content, $data = false)
+	{
+		return $this->_lexparser->parse($content, $data, array($this, '_lex_callback'));
+	}
+
 }
 
 // END Template class

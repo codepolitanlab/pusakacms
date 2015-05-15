@@ -29,6 +29,10 @@ class Asset_plugin extends Plugins {
 		return get_content_image($file, $attr);
 	}
 
+	function get_content_image_thumb($file = false, $attr = '') {
+		return get_content_image_thumb($file, $attr);
+	}
+
 	function get_content_file($file = false) {
 		return get_content_file($file);
 	}

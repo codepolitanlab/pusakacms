@@ -10,17 +10,25 @@
 				</a>
 				<ul class="dropdown-menu">
 					<?php foreach ($nav as $sort => $links): ?>
-						<li>
-							<a href="<?php echo site_url('panel/'.$links['link']); ?>"><?php echo $links['caption']; ?></a>
-						</li>
-				<?php endforeach; ?>
+						<?php if(!isset($links['allowed_sites']) || (isset($links['allowed_sites']) && in_array(SITE_SLUG, $links['allowed_sites']))): ?> 
+
+							<li>
+								<a href="<?php echo site_url('panel/'.$links['link']); ?>"><?php echo $links['caption']; ?></a>
+							</li>
+
+						<?php endif; ?>
+					<?php endforeach; ?>
 				</ul>
 			</li>
 		<?php else: ?>
 			<?php foreach ($nav as $links): ?>
-			<li>
-				<a href="<?php echo site_url('panel/'.$links['link']); ?>"><?php echo $links['caption']; ?></a>
-			</li>
+				<?php if(!isset($links['allowed_sites']) || (isset($links['allowed_sites']) && in_array(SITE_SLUG, $links['allowed_sites']))): ?>
+
+					<li>
+						<a href="<?php echo site_url('panel/'.$links['link']); ?>"><?php echo $links['caption']; ?></a>
+					</li>
+
+				<?php endif; ?>
 			<?php endforeach; ?>
 		<?php endif; ?>
 	<?php endforeach; ?>

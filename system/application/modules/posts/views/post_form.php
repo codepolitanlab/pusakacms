@@ -72,7 +72,7 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-body">
-				<iframe src="<?php echo site_url('panel/media/dialog'); ?>/?type=1&field_id=post_image" width="100%" height="600px" frameborder="0"></iframe>
+				<iframe src="<?php echo site_url('panel/media/dialog'); ?>/?type=1&field_id=post_image&relative_url=1" width="100%" height="600px" frameborder="0"></iframe>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

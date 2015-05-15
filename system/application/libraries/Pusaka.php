@@ -412,6 +412,11 @@ class Pusaka {
 
 		$tree = json_decode(file_get_contents($file_location), true);
 
+		if($sort == 'asc')
+			ksort($tree);
+		else
+			krsort($tree);
+
 		return $tree;
 	}
 
