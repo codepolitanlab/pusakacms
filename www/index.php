@@ -121,11 +121,12 @@ $application_folder = '../system/application';
 $view_folder = 'views';
 
 
-// SITES FOLDER NAME
-$sites_folder = '../sites/';
-
 // WWW FOLDER NAME
 $www_folder = '../www/';
+
+// SITES FOLDER NAME
+// $sites_folder = '../sites/'; // use this instead if you want to use pusakacms in your own server
+$sites_folder = $www_folder.'media/';
 
 // ADDON FOLDER NAME
 $addon_folder = '../addons/';
