@@ -8,10 +8,18 @@ class Panel extends Admin_Controller {
 		parent::__construct();
 
 		if(! $this->logged_in()) redirect('panel/login');
+
+		$this->load->library('settings/settings');
 		
+		// get from config first
 		$this->export_location = ($this->config->item('export_location'))
 		? $this->config->item('export_location')
-		: SITE_FOLDER.SITE_SLUG.'/html_output';
+		: '';
+
+		// if location were posted
+		$this->export_location = ($this->input->post('location'))
+		? $this->input->post('location')
+		: $this->export_location;
 	}
 
 	function index()
@@ -19,12 +27,24 @@ class Panel extends Admin_Controller {
 		if(!$this->config->item('url_suffix'))
 			$this->template->set("info", "Set <span class='code'>\$config['url_suffix']</span> in <em>system/application/config/config.php</em> to <span class='code'>'.html'</span> before you can export content to HTML.");
 
-		$this->template->view('export');
+		$data['location'] = $this->export_location;
+
+		$this->template->view('export', $data);
+	}
+
+	function save_export_location()
+	{
+		$data['export_location'] = $this->export_location;
+
+		if($this->settings->set_config('system', $data))
+			echo '{"status":"success", "message":"Export location saved."}';
+		else
+			echo '{"status":"error", "message":"Export location failed to saved."}';
 	}
 
 	function check_writable()
 	{
-		$folder = $this->input->post('location');
+		$folder = $this->export_location;
 
 		// if(!file_exists($this->export_location))
 		// 	mkdir($this->export_location, 0777);
@@ -37,10 +57,6 @@ class Panel extends Admin_Controller {
 
 	function copy_theme()
 	{
-		$this->export_location = ($this->input->post('location'))
-		? $this->input->post('location')
-		: $this->export_location;
-
 		$theme = $this->config->item('theme');
 		$theme_locations = $this->template->theme_locations();
 		$theme_location = false;
@@ -60,24 +76,26 @@ class Panel extends Admin_Controller {
 
 	function copy_files()
 	{
-		$this->export_location = ($this->input->post('location'))
-		? $this->input->post('location')
-		: $this->export_location;
+		if(!file_exists($this->export_location.'/'.MEDIA_FOLDER.SITE_SLUG.'/files/'))
+			mkdir($this->export_location.'/'.MEDIA_FOLDER.SITE_SLUG.'/files/', 0777, true);
 
-		if(!file_exists($this->export_location.'/'.SITE_FOLDER.SITE_SLUG.'/content/'))
-			mkdir($this->export_location.'/'.SITE_FOLDER.SITE_SLUG.'/content/', 0777, true);
-
-		recurse_copy(SITE_FOLDER.SITE_SLUG.'/content/files', $this->export_location.'/'.SITE_FOLDER.SITE_SLUG.'/content/files');
+		recurse_copy(SITE_FOLDER.SITE_SLUG.'/files', $this->export_location.'/'.MEDIA_FOLDER.SITE_SLUG.'/files');
 
 		echo '{"status":"success", "message":"Files content copied."}';
 	}
 
+	function copy_vendor()
+	{
+		if(!file_exists($this->export_location.'/public/vendor/'))
+			mkdir($this->export_location.'/public/vendor/', 0777, true);
+
+		recurse_copy(WWW_FOLDER.'/public/vendor', $this->export_location.'/public/vendor');
+
+		echo '{"status":"success", "message":"Vendor files copied."}';
+	}
+
 	function export_pages($data = false, $parent = '', $depth = 1)
 	{
-		$this->export_location = ($this->input->post('location'))
-		? $this->input->post('location')
-		: $this->export_location;
-
 		$page = ($data)? $data : $this->pusaka->get_pages_tree();
 
 		$uplink = '';
@@ -87,6 +105,7 @@ class Panel extends Admin_Controller {
 
 		$replacement = array(
 			site_url().'blog/p/' => 'blog/',
+			site_url().'home.html' => 'index.html',
 			site_url() => $uplink,
 			base_url() => $uplink,
 			);
@@ -122,10 +141,6 @@ class Panel extends Admin_Controller {
 
 	function export_blog()
 	{
-		$this->export_location = ($this->input->post('location'))
-		? $this->input->post('location')
-		: $this->export_location;
-
 		// sync post first
 		$this->pusaka->sync_post();
 		$this->pusaka->sync_label();
@@ -139,11 +154,12 @@ class Panel extends Admin_Controller {
 		$labels = directory_map(LABEL_FOLDER, 1);
 
 		// BLOG LIST PAGE 1 ==============================================================
+
 		$replacement = array(
 			site_url().'blog/p/' => '',
-			site_url().'blog/' => '',
-			site_url() => '../',
-			base_url() => '../',
+			site_url().'blog/' => 'blog/',
+			site_url() => 'index.html',
+			base_url() => '',
 			);
 		$search = array_keys($replacement);
 		$replace = array_values($replacement);
@@ -152,8 +168,7 @@ class Panel extends Admin_Controller {
 			mkdir($this->export_location.'/blog', 0777, true);
 
 		$file = str_replace($search, $replace, $this->_render_page(site_url('blog')));
-		write_file($this->export_location.'/blog/index.html', $file);
-
+		write_file($this->export_location.'/blog.html', $file);
 
 		// BLOG LIST PAGE 2 > ==============================================================
 		$replacement = array(
@@ -212,10 +227,6 @@ class Panel extends Admin_Controller {
 
 	function add_missing_index_folder($data = false, $parent = '', $depth = 1)
 	{
-		$this->export_location = ($this->input->post('location'))
-		? $this->input->post('location')
-		: $this->export_location;
-
 		$uplink = '../';
 		if($depth > 1)
 			for ($i=1; $i < $depth; $i++)

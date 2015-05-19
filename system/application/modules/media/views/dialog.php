@@ -316,7 +316,7 @@ $get_params = http_build_query(array(
 	}
 	</style><![endif]-->
 	<script>
-	var BASE_URL = '<?php echo site_url(); ?>';
+	var BASE_URL = '<?php echo site_url('', null, true); ?>';
 	</script>
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script type="text/javascript">
@@ -363,7 +363,7 @@ $get_params = http_build_query(array(
 		    dictResponseError: "SERVER ERROR",
 		    paramName: "file", // The name that will be used to transfer the file
 		    maxFilesize: <?php echo $MaxSizeUpload; ?>, // MB
-		    url: "<?php echo site_url('panel/media/upload'); ?>",
+		    url: "<?php echo site_url('panel/media/upload', null, true); ?>",
 		    accept: function(file, done) {
 			    var extension=file.name.split('.').pop();
 			    extension=extension.toLowerCase();
@@ -388,7 +388,7 @@ $get_params = http_build_query(array(
 			    img.src = newURL;
 			    $.ajax({
 						type: "POST",
-						url: "<?php echo site_url('panel/media'); ?>/ajax_calls?action=save_img",
+						url: "<?php echo site_url('panel/media', null, true); ?>/ajax_calls?action=save_img",
 						data: { url: newURL, path:$('#sub_folder').val()+$('#fldr_value').val(), name:$('#aviary_img').data('name') }
 			    }).done(function( msg ) {			
 						featherEditor.close();
@@ -658,7 +658,7 @@ $files=array_merge(array($prev_folder),array($current_folder),$sorted);
     
     <div class="row-fluid">
 	<?php	
-	$link= site_url("panel/media/dialog")."/?".$get_params;
+	$link= site_url("panel/media/dialog". null, true)."/?".$get_params;
 	?>
 	<ul class="breadcrumb">	
 	<li class="pull-left"><a href="<?php echo $link?>/"><i class="icon-home"></i></a></li>
@@ -678,7 +678,7 @@ $files=array_merge(array($prev_folder),array($current_folder),$sorted);
 	?>
 	<li class="pull-right"><a class="btn-small" href="javascript:void('')" id="info"><i class="icon-question-sign"></i></a></li>
 	<li class="pull-right"><a class="btn-small" href="javascript:void('')" id="change_lang_btn"><i class="icon-globe"></i></a></li>
-	<li class="pull-right"><a id="refresh" class="btn-small" href="<?php echo site_url("panel/media/dialog")."/?"; ?><?php echo $get_params.$subdir."&".uniqid() ?>"><i class="icon-refresh"></i></a></li>
+	<li class="pull-right"><a id="refresh" class="btn-small" href="<?php echo site_url("panel/media/dialog", null, true)."/?"; ?><?php echo $get_params.$subdir."&".uniqid() ?>"><i class="icon-refresh"></i></a></li>
 	
 	<li class="pull-right">
 	    <div class="btn-group">
@@ -761,7 +761,7 @@ $files=array_merge(array($prev_folder),array($current_folder),$sorted);
 			    	<input type="hidden" class="path" value="<?php echo str_replace('.','',dirname($rfm_subfolder.$subdir)); ?>"/>
 			    	<input type="hidden" class="path_thumb" value="<?php echo dirname($thumbs_path.$subdir)."/"; ?>"/>
 			    <?php } ?>
-				  <a class="folder-link" href="<?php echo site_url("panel/media/dialog")."/?"; ?><?php echo $get_params.rawurlencode($src)."&".uniqid() ?>">
+				  <a class="folder-link" href="<?php echo site_url("panel/media/dialog", null, true)."/?"; ?><?php echo $get_params.rawurlencode($src)."&".uniqid() ?>">
 					  <div class="img-precontainer">
 							<div class="img-container directory"><span></span>
 							<img class="directory-img"  src="<?php echo BASEFM; ?>img/<?php echo $icon_theme; ?>/folder<?php if($file==".."){ echo "_back"; }?>.png" />
@@ -782,7 +782,7 @@ $files=array_merge(array($prev_folder),array($current_folder),$sorted);
 			<?php }else{ ?>
 				    </a>
 				    <div class="box">
-					<h4 class="<?php if($ellipsis_title_after_first_row){ echo "ellipsis"; } ?>"><a class="folder-link" data-file="<?php echo $file ?>" href="<?php echo site_url("panel/media/dialog")."/?"; ?><?php echo $get_params.rawurlencode($src)."&".uniqid() ?>"><?php echo $file; ?></a></h4>
+					<h4 class="<?php if($ellipsis_title_after_first_row){ echo "ellipsis"; } ?>"><a class="folder-link" data-file="<?php echo $file ?>" href="<?php echo site_url("panel/media/dialog", null, true)."/?"; ?><?php echo $get_params.rawurlencode($src)."&".uniqid() ?>"><?php echo $file; ?></a></h4>
 				    </div>
 				    <input type="hidden" class="name" value="<?php echo $file_array['file_lcase'];  ?>"/>
 				    <input type="hidden" class="date" value="<?php echo $file_array['date']; ?>"/>
@@ -958,17 +958,17 @@ $files=array_merge(array($prev_folder),array($current_folder),$sorted);
 				    <a class="tip-right preview" title="<?php echo lang_Preview?>" data-url="<?php echo $src;?>" data-toggle="lightbox" href="#previewLightbox"><i class=" icon-eye-open"></i></a>
 				    <?php }elseif(($is_video || $is_audio) && in_array($extension_lower,$jplayer_ext)){ ?>
 				    <a class="tip-right modalAV <?php if($is_audio){ echo "audio"; }else{ echo "video"; } ?>"
-					title="<?php echo lang_Preview?>" data-url="<?php echo site_url('panel/media'); ?>/ajax_calls?action=media_preview&title=<?php echo $filename; ?>&file=<?php echo $current_path.$rfm_subfolder.$subdir.$file; ?>"
+					title="<?php echo lang_Preview?>" data-url="<?php echo site_url('panel/media', null, true); ?>/ajax_calls?action=media_preview&title=<?php echo $filename; ?>&file=<?php echo $current_path.$rfm_subfolder.$subdir.$file; ?>"
 					href="javascript:void('');" ><i class=" icon-eye-open"></i></a>
 						<?php }elseif($preview_text_files && in_array($extension_lower,$previewable_text_file_exts)){ ?>
-					    <a class="tip-right file-preview-btn" title="<?php echo lang_Preview?>" data-url="<?php echo site_url('panel/media'); ?>/ajax_calls?action=get_file&sub_action=preview&preview_mode=text&title=<?php echo $filename; ?>&file=<?php echo $current_path.$rfm_subfolder.$subdir.$file; ?>"
+					    <a class="tip-right file-preview-btn" title="<?php echo lang_Preview?>" data-url="<?php echo site_url('panel/media', null, true); ?>/ajax_calls?action=get_file&sub_action=preview&preview_mode=text&title=<?php echo $filename; ?>&file=<?php echo $current_path.$rfm_subfolder.$subdir.$file; ?>"
 						href="javascript:void('');" ><i class=" icon-eye-open"></i></a>
 						<?php }elseif($googledoc_enabled && in_array($extension_lower,$googledoc_file_exts)){ ?>
-					    <a class="tip-right file-preview-btn" title="<?php echo lang_Preview?>" data-url="<?php echo site_url('panel/media'); ?>/ajax_calls?action=get_file&sub_action=preview&preview_mode=google&title=<?php echo $filename; ?>&file=<?php echo $current_path.$rfm_subfolder.$subdir.$file; ?>"
+					    <a class="tip-right file-preview-btn" title="<?php echo lang_Preview?>" data-url="<?php echo site_url('panel/media', null, true); ?>/ajax_calls?action=get_file&sub_action=preview&preview_mode=google&title=<?php echo $filename; ?>&file=<?php echo $current_path.$rfm_subfolder.$subdir.$file; ?>"
 						href="docs.google.com;" ><i class=" icon-eye-open"></i></a>	
 
 						<?php }elseif($viewerjs_enabled && in_array($extension_lower,$viewerjs_file_exts)){ ?>
-					    <a class="tip-right file-preview-btn" title="<?php echo lang_Preview?>" data-url="<?php echo site_url('panel/media'); ?>/ajax_calls?action=get_file&sub_action=preview&preview_mode=viewerjs&title=<?php echo $filename; ?>&file=<?php echo $current_path.$rfm_subfolder.$subdir.$file; ?>"
+					    <a class="tip-right file-preview-btn" title="<?php echo lang_Preview?>" data-url="<?php echo site_url('panel/media', null, true); ?>/ajax_calls?action=get_file&sub_action=preview&preview_mode=viewerjs&title=<?php echo $filename; ?>&file=<?php echo $current_path.$rfm_subfolder.$subdir.$file; ?>"
 						href="docs.google.com;" ><i class=" icon-eye-open"></i></a>			    
 						
 				    <?php }else{ ?>

@@ -24,9 +24,13 @@ if ( ! function_exists('site_url'))
 	 * @param	string	$protocol
 	 * @return	string
 	 */
-	function site_url($uri = '', $protocol = NULL)
+	function site_url($uri = '', $protocol = NULL, $eliminate_suffix = false)
 	{
-		return get_instance()->config->site_url($uri, $protocol);
+		if(! $eliminate_suffix)
+			return get_instance()->config->site_url($uri, $protocol);
+		else
+			return str_replace(get_instance()->config->item('url_suffix'), '', get_instance()->config->site_url($uri, $protocol));
+
 	}
 }
 

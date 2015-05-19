@@ -5,4 +5,4 @@
 </div>
 
 <!-- Element where elFinder will be created (REQUIRED) -->
-<iframe src="<?php echo site_url('panel/media/dialog'); ?>" width="100%" height="600px" style="border:1px solid #ddd;"></iframe>
+<iframe src="<?php echo site_url('panel/media/dialog', null, true); ?>" width="100%" height="600px" style="border:1px solid #ddd;"></iframe>

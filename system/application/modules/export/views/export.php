@@ -9,7 +9,7 @@
 	<div class="panel-body align-center">
 		<div class="row">
 			<div class="col-md-9">
-				<input type="text" class="form-control" name="location" id="location" placeholder="Fill export location, i.e. D:/xampp/htdocs/html or /var/www/html">
+				<input type="text" class="form-control" name="location" id="location" placeholder="Fill export location, i.e. D:/xampp/htdocs/html or /var/www/html" value="<?php echo $location; ?>">
 			</div>
 			<div class="col-md-3">
 				<?php if($this->config->item('url_suffix') == '.html'): ?>
@@ -31,9 +31,11 @@
 
 <script>
 	var url = [
+	{"url":"<?php echo site_url('panel/export/save_export_location');?>"},
 	{"url":"<?php echo site_url('panel/export/check_writable');?>"},
 	{"url":"<?php echo site_url('panel/export/copy_theme');?>"},
 	{"url":"<?php echo site_url('panel/export/copy_files');?>"},
+	{"url":"<?php echo site_url('panel/export/copy_vendor');?>"},
 	{"url":"<?php echo site_url('panel/export/export_pages');?>"},
 	{"url":"<?php echo site_url('panel/export/export_blog');?>"},
 	{"url":"<?php echo site_url('panel/export/add_missing_index_folder');?>"}

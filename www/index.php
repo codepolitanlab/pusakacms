@@ -124,9 +124,12 @@ $view_folder = 'views';
 // WWW FOLDER NAME
 $www_folder = '../www/';
 
+// MEDIA FOLDER NAME
+$media_folder = 'media/';
+
 // SITES FOLDER NAME
 // $sites_folder = '../sites/'; // use this instead if you want to use pusakacms in your own server
-$sites_folder = $www_folder.'media/';
+$sites_folder = $www_folder.$media_folder;
 
 // ADDON FOLDER NAME
 $addon_folder = '../addons/';
@@ -283,6 +286,8 @@ if ( ! is_dir($system_path))
 
 	define('VIEWPATH', $view_folder);
 
+	define('MEDIA_FOLDER', $media_folder);
+	
 	define('SITE_FOLDER', rtrim(realpath($sites_folder), '/').'/');
 
 	define('WWW_FOLDER', rtrim(realpath($www_folder), '/').'/');
