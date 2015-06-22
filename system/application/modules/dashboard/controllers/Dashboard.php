@@ -59,9 +59,9 @@ class Dashboard extends Public_Controller {
 
 		for ($i = count($segments); $i > 0; $i--) 
 		{	
-			$file_path = PAGE_FOLDER.implode('/', $segments);
+			$file_path = PAGE_FOLDER.implode(DIRECTORY_SEPARATOR, $segments);
 
-			if(file_exists($file_path.'.md') || file_exists($file_path.'/index.md'))
+			if(file_exists($file_path.'.md') || file_exists($file_path.DIRECTORY_SEPARATOR.'index.md'))
 			{
 				$strseg = $file_path;
 				break;

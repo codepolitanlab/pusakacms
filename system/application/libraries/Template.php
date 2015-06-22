@@ -1056,35 +1056,21 @@ class Template
 		// check if the view has extension
 		$file_elems = array_slice(explode('.', $view), 0, 2);
 
-		if(count($file_elems) == 2)
+		foreach ($this->supported_files as $ext)
 		{
-			$file_ext = $file_elems[1];
-			$file_path = $view;
-		}
-		else
-		{
-			foreach ($this->supported_files as $ext)
+			if (file_exists($view . '.' . $ext))
 			{
-				if (file_exists($view . '.' . $ext))
-				{
-					$file_ext = $ext;
-					$file_path = $view . '.' . $ext;
-					break;
-				}
+				$file_ext = $ext;
+				$file_path = $view . '.' . $ext;
+				break;
 			}
-
+	
 			// if not found, probably because it is a folder, not file
-			if(! $file_ext)
+			else if(file_exists($view . '/index.' . $ext))
 			{
-				foreach ($this->supported_files as $ext)
-				{
-					if(file_exists($view . '/index.' . $ext))
-					{
-						$file_ext = $ext;
-						$file_path = $view . '/index.' . $ext;
-						break;
-					}
-				}
+				$file_ext = $ext;
+				$file_path = $view . '/index.' . $ext;
+				break;
 			}
 		}
 

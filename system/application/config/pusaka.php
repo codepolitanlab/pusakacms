@@ -42,7 +42,7 @@ $config['post_term'] = 'blog';
 | content folders path relatives to each site folder
 |
 */
-$config['page_folder'] = 'content/pages/';
-$config['post_folder'] = 'content/posts/';
-$config['label_folder'] = 'content/labels/';
-$config['nav_folder'] = 'content/navs/';
+$config['page_folder'] = 'content'.DIRECTORY_SEPARATOR.'pages'.DIRECTORY_SEPARATOR;
+$config['post_folder'] = 'content'.DIRECTORY_SEPARATOR.'posts'.DIRECTORY_SEPARATOR;
+$config['label_folder'] = 'content'.DIRECTORY_SEPARATOR.'labels'.DIRECTORY_SEPARATOR;
+$config['nav_folder'] = 'content'.DIRECTORY_SEPARATOR.'navs'.DIRECTORY_SEPARATOR;

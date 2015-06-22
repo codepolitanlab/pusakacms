@@ -1424,7 +1424,7 @@ ul.navlist li ul {
 	background: #2b2e28;
 }
 .panel-login-header {
-	background: #83b73a;
+	background: #f4f7f9;
 	padding: 60px 0px;
 }
 .panel-login-form {
@@ -1454,9 +1454,20 @@ ul.navlist li ul {
 	background: #eaf4dd;
 	width: 160px;
 	border-color: #eaf4dd;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	height:50px;
+	border:0;
 }
 .panel-login-form .input-group-addon {
 	background: #eaf4dd;
+	border:0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	height:50px;
+	color: #bfbfbf;
 }
 
 .panel-login-form .panel-login-form-forgot {
@@ -1472,6 +1483,13 @@ ul.navlist li ul {
 .btn-primary:focus {
 	background: #d9ac0e;
 	border-color: #d9ac0e;
+}
+.panel-login-form .btn-login {
+	border: 0;
+	height:50px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 @media (max-width: 767px) {
@@ -1536,7 +1554,7 @@ ul.navlist li ul {
 	height: 60px;
 	line-height: 60px;
 	padding: 0px 20px;
-	color: #748166;
+	color: #5d7e82;
 	font-weight: 300;
 }
 .navbar.navbar-inverse .collapse.navbar-collapse .nav.navbar-nav li a .fa {
@@ -1545,10 +1563,10 @@ ul.navlist li ul {
 }
 .navbar.navbar-inverse .collapse.navbar-collapse .nav.navbar-nav li a:hover {
 	background: #353832;
-	color: #a0cf5d;
+	color: #85c2ca;
 }
 .navbar.navbar-inverse .collapse.navbar-collapse .nav.navbar-nav li.active a {
-	color: #a0cf5d;
+	color: #a3d9e0;
 	background: #2b2e28;
 }
 .navbar.navbar-inverse .collapse.navbar-collapse .nav.navbar-nav li .dropdown-menu {

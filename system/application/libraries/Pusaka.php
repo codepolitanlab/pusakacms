@@ -405,7 +405,7 @@ class Pusaka {
 	{
 		$file_location = POST_FOLDER.'/'.$this->navfile;
 		if($site_slug)
-			$file_location = SITE_FOLDER.$site_slug.'/content/posts/'.$this->navfile;
+			$file_location = SITE_FOLDER.$site_slug.DIRECTORY_SEPARATOR.'sitedata'.DIRECTORY_SEPARATOR.$this->CI->config->item('post_folder').$this->navfile;
 
 		if(! file_exists($file_location))
 			$this->sync_post($site_slug);
@@ -498,7 +498,7 @@ class Pusaka {
 		
 		$post_folder = ($site_slug == SITE_SLUG)
 						? POST_FOLDER
-						: SITE_FOLDER.$site_slug.'/'.$this->CI->config->item('post_folder');
+						: SITE_FOLDER.$site_slug.DIRECTORY_SEPARATOR.'sitedata'.DIRECTORY_SEPARATOR.$this->CI->config->item('post_folder');
 
 		$post_db = new Nyankod\JsonFileDB($post_folder);
 		$post_db->setTable('index');
@@ -579,7 +579,7 @@ class Pusaka {
 	{
 		$post_folder = POST_FOLDER;
 		if($site_slug)
-			$post_folder = SITE_FOLDER.$site_slug.'/content/posts';
+			$post_folder = SITE_FOLDER.$site_slug.DIRECTORY_SEPARATOR.'sitedata'.DIRECTORY_SEPARATOR.$this->CI->config->item('post_folder');
 
 		if(! file_exists($post_folder.'/'.$this->navfile))
 			write_file($post_folder.'/'.$this->navfile, json_encode(array(), JSON_PRETTY_PRINT));
