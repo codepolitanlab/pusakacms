@@ -12,7 +12,7 @@ class Site_m extends MY_Model {
 		$sites = array();
 		foreach ($folder as $key => $val) {
 			if($key != '_domain'.DIRECTORY_SEPARATOR && is_dir(SITE_FOLDER.$key))
-				$sites[$key] = json_decode(file_get_contents(SITE_FOLDER.$key.'config'.DIRECTORY_SEPARATOR.'site.json'), true);
+				$sites[$key] = json_decode(file_get_contents(SITE_FOLDER.$key.'sitedata'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'site.json'), true);
 		};
 
 		return $sites;

@@ -23,7 +23,7 @@ class Panel extends Admin_Controller {
 		
 		if(! $this->logged_in()) redirect('panel/login');
 
-		$this->config_path = SITE_FOLDER.SITE_SLUG.'/config/';
+		$this->config_path = SITE_PATH.'config/';
 
 		if(!is_readable($this->config_path) || !is_writable($this->config_path))
 			show_error('Set folder '.$this->config_path.' and its contents readable and writable first.');

@@ -33,5 +33,7 @@ Class MyHookClass {
 			else
 				show_error('Site with domain '.$domain.' not configured yet.', '404', 'Site Not Found');
 		}
+
+		if(! defined('SITE_PATH')) define('SITE_PATH', SITE_FOLDER.SITE_SLUG.DIRECTORY_SEPARATOR.'sitedata'.DIRECTORY_SEPARATOR);
 	}
 }

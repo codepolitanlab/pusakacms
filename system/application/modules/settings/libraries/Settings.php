@@ -7,8 +7,8 @@ class Settings
 
 	function __construct()
 	{
-		$this->config_path = SITE_FOLDER.SITE_SLUG.'/config/';
-		$this->db_path = SITE_FOLDER.SITE_SLUG.'/db/';
+		$this->config_path = SITE_PATH.'config/';
+		$this->db_path = SITE_PATH.'db/';
 	}
 
 	public function get_config_path()
