@@ -30,7 +30,6 @@ class Panel extends Admin_Controller {
 
 	function index()
 	{
-
 		$this->template->view('dashboard');
 	}
 

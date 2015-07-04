@@ -39,10 +39,20 @@ $config['post_term'] = 'blog';
 | content folders
 |--------------------------------------------------------------------------
 |
-| content folders path relatives to each site folder
+| content folders path relatives to sitedata/ folder in each site
 |
 */
-$config['page_folder'] = 'content'.DIRECTORY_SEPARATOR.'pages'.DIRECTORY_SEPARATOR;
-$config['post_folder'] = 'content'.DIRECTORY_SEPARATOR.'posts'.DIRECTORY_SEPARATOR;
-$config['label_folder'] = 'content'.DIRECTORY_SEPARATOR.'labels'.DIRECTORY_SEPARATOR;
-$config['nav_folder'] = 'content'.DIRECTORY_SEPARATOR.'navs'.DIRECTORY_SEPARATOR;
+$config['page_folder'] 		= 'content'.DIRECTORY_SEPARATOR.'pages'.DIRECTORY_SEPARATOR;
+$config['post_folder'] 		= 'content'.DIRECTORY_SEPARATOR.'posts'.DIRECTORY_SEPARATOR;
+$config['label_folder'] 	= 'content'.DIRECTORY_SEPARATOR.'labels'.DIRECTORY_SEPARATOR;
+$config['nav_folder'] 		= 'content'.DIRECTORY_SEPARATOR.'navs'.DIRECTORY_SEPARATOR;
+
+/*
+|--------------------------------------------------------------------------
+| content folders
+|--------------------------------------------------------------------------
+|
+| content folders name
+|
+*/
+$config['blueprint_folder']	= 'blueprint';
