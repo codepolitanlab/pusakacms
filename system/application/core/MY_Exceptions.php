@@ -81,9 +81,9 @@ class MY_Exceptions extends CI_Exceptions {
 		// this check is used for MyHookClass
 		if(class_exists('CI_Controller')){
 			$CI = &get_instance();
-			$theme_path = $CI->template->get_theme_path();
+			if(method_exists($CI, 'template'))
+				$theme_path = $CI->template->get_theme_path();
 		}
-
 
 		set_status_header($status_code);
 

@@ -58,32 +58,34 @@ if ( ! function_exists('generate_nav'))
 
 		$navstring = '';
 
-		foreach ($data as $link) {
+		if(!empty($data)){
+			foreach ($data as $link) {
 			// $active = uri_string() == $link['url'] ? ' '.$opt['active_class'] : '';
-			$active = strstr('/'.uri_string(), '/'.$link['url']) ? ' '.$opt['active_class'] : '';
-			
-			$has_children_li_class = '';
-			$has_children_a_attr = '';
-			$has_children_li_attr = '';
-			$has_children_a_attr = '';
+				$active = strstr('/'.uri_string(), '/'.$link['url']) ? ' '.$opt['active_class'] : '';
 
-			if(isset($link['children'])){
-				$has_children_li_class = ' '.$opt['has_children_li_class'];
-				$has_children_a_attr = ' '.$opt['has_children_a_class'];
-				$has_children_li_attr = ' '.$opt['has_children_li_attr'];
-				$has_children_a_attr = ' '.$opt['has_children_a_attr'];
-			}
-			
-			$url = $link['source'] == 'uri' ? site_url($link['url']) : $link['source'].$link['url'];
+				$has_children_li_class = '';
+				$has_children_a_attr = '';
+				$has_children_li_attr = '';
+				$has_children_a_attr = '';
 
-			$navstring .= '<li class="'.$opt['li_class'].$has_children_li_class.$active.'" '.$opt['li_attr'].$has_children_li_attr.'>';
-			$navstring .= '<a class="'.$opt['a_class'].$has_children_a_attr.$active.'" '.$opt['a_attr'].$has_children_a_attr.' href="'.$url.'" target="'.$link['target'].'">'.$link['title'].'</a>';
-			if(isset($link['children'])){
-				$navstring .= '<ul class="'.$opt['ul_children_class'].'" '.$opt['ul_children_attr'].'>';
-				$navstring .= generate_nav($link['children'], $opt);
-				$navstring .= '</ul>';
+				if(isset($link['children'])){
+					$has_children_li_class = ' '.$opt['has_children_li_class'];
+					$has_children_a_attr = ' '.$opt['has_children_a_class'];
+					$has_children_li_attr = ' '.$opt['has_children_li_attr'];
+					$has_children_a_attr = ' '.$opt['has_children_a_attr'];
+				}
+
+				$url = $link['source'] == 'uri' ? site_url($link['url']) : $link['source'].$link['url'];
+
+				$navstring .= '<li class="'.$opt['li_class'].$has_children_li_class.$active.'" '.$opt['li_attr'].$has_children_li_attr.'>';
+				$navstring .= '<a class="'.$opt['a_class'].$has_children_a_attr.$active.'" '.$opt['a_attr'].$has_children_a_attr.' href="'.$url.'" target="'.$link['target'].'">'.$link['title'].'</a>';
+				if(isset($link['children'])){
+					$navstring .= '<ul class="'.$opt['ul_children_class'].'" '.$opt['ul_children_attr'].'>';
+					$navstring .= generate_nav($link['children'], $opt);
+					$navstring .= '</ul>';
+				}
+				$navstring .= '</li>';
 			}
-			$navstring .= '</li>';
 		}
 
 		return $navstring;

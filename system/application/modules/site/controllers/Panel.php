@@ -69,7 +69,7 @@ class Panel extends Admin_Controller {
 		{
 			// create site folder
 			$site_slug = $this->input->post('site_slug');
-			mkdir(SITE_FOLDER.'/'.$site_slug.'/db/', 0775, true);
+			mkdir(SITE_FOLDER.'/'.$site_slug, 0775, true);
 
 			// extract template
 			$zip = new ZipArchive;
@@ -93,7 +93,7 @@ class Panel extends Admin_Controller {
 				'meta_keywords'	=> ''
 				);
 			
-			if(! write_file(SITE_FOLDER.'/'.$site_slug.'/config/site.json', json_encode($site_data, JSON_PRETTY_PRINT))){
+			if(! write_file(SITE_FOLDER.'/'.$site_slug.'/sitedata/config/site.json', json_encode($site_data, JSON_PRETTY_PRINT))){
 				$this->session->set_flashdata('error', 'Cannot write site settings.');
 				redirect("panel/site", 'refresh');
 			}
@@ -121,10 +121,10 @@ class Panel extends Admin_Controller {
 				);
 
 			// remove default user first
-			unlink(SITE_FOLDER.'/'.$site_slug.'/db/users.json');
+			unlink(SITE_FOLDER.'/'.$site_slug.'/sitedata/db/users.json');
 
 			// create a new one
-			if(! write_file(SITE_FOLDER.'/'.$site_slug.'/db/users.json', json_encode(array($user_data), JSON_PRETTY_PRINT))){
+			if(! write_file(SITE_FOLDER.'/'.$site_slug.'/sitedata/db/users.json', json_encode(array($user_data), JSON_PRETTY_PRINT))){
 				$this->session->set_flashdata('error', 'Cannot write admin user file.');
 				redirect("panel/site", 'refresh');
 			}
@@ -133,6 +133,7 @@ class Panel extends Admin_Controller {
 			mkdir('media/'.$site_slug.'/files', 0775, true);
 			mkdir('media/'.$site_slug.'/themes', 0775, true);
 			copy('media/index.html', 'media/'.$site_slug.'/index.html');
+			copy('media/index.html', 'media/'.$site_slug.'/sitedata/index.html');
 			copy('media/index.html', 'media/'.$site_slug.'/files/index.html');
 			copy('media/index.html', 'media/'.$site_slug.'/themes/index.html');
 
