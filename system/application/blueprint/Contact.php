@@ -1,57 +1,60 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-
-require_once APPPATH.'libraries/cpform/CPForm.php';
+<?php ('BASEPATH') OR exit('No direct script access allowed');
 
 class Contact extends CPForm {
 
-    public function __construct()
+    function set_fields()
     {
-
-        $this->username = [
+        $this->username = array(
                 'fieldType' => 'TextField',
-                'initial'=>'ridwanbejo',
-                'config' => [
+                'label' => 'Username',
+                'config' => array(
                     'placeholder' => 'isi dengan name anda...',
-                    'id' => 'name'
-                ],
-            ];
+                    'value'=>'ridwanbejo',
+                    'id' => 'name',
+                    'class' => 'form-control'
+                ),
+            );
 
-        $this->first_name = [
+        $this->first_name = array(
                 'fieldType' => 'TextField',
-                'initial'=>'',
-                'config' => [
+                'label' => 'Nama Depan',
+                'config' => array(
                     'placeholder' => 'isi dengan first name anda...',
-                    'id' => 'first_name'
-                ],
-            ];
+                    'id' => 'first_name',
+                    'class' => 'form-control'
+                ),
+            );
 
-        $this->last_name = [
+        $this->last_name = array(
                 'fieldType' => 'TextField',
-                'initial'=>'',
-                'config' => [
+                'label' => 'Nama Belakang',
+                'config' => array(
                     'placeholder' => 'isi dengan last name anda...',
-                    'id' => 'last_name'
-                ],
-            ];
+                    'id' => 'last_name',
+                    'class' => 'form-control'
+                ),
+            );
 
-        $this->email = [
+        $this->email = array(
                 'fieldType' => 'TextField',
-                'initial'=>'',
-                'config' => [
+                'label' => 'Email',
+                'config' => array(
                     'placeholder' => 'isi dengan e-mail anda...',
-                    'id' => 'email'
-                ],
-            ];
+                    'id' => 'email',
+                    'class' => 'form-control'
+                ),
+            );
 
-        $this->website = [
+        $this->website = array(
                 'fieldType' => 'TextField',
-                'initial'=>'',
-                'config' => [
+                'label' => 'Website',
+                'config' => array(
                     'placeholder' => 'isi dengan website anda...',
-                    'id' => 'website'
-                ],
-            ];
+                    'id' => 'website',
+                    'class' => 'form-control'
+                ),
+            );
+
     }
 
 }

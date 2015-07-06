@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('template', 'pusaka', 'form_validation');
+$autoload['libraries'] = array('template', 'pusaka', 'form_validation', 'cpform/CPForm', 'cpform/CPFormUtil');
 
 /*
 | -------------------------------------------------------------------

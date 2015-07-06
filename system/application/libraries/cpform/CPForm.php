@@ -12,7 +12,9 @@ class CPForm {
 	protected $cpform_errors = [];
 	protected $cpform_is_valid = FALSE;
 
-	public function init()
+	protected function set_fields(){ return true; }
+
+	function __construct()
 	{
 		$this->cpform_CI = &get_instance();
 
@@ -21,6 +23,12 @@ class CPForm {
 		// load CodeIgniter form validation library
 		$this->cpform_CI->load->library('form_validation');
 
+		// set the fields
+		$this->set_fields();
+	}
+
+	public function init()
+	{
 		foreach($this as $key => $value)
 		{
 			// if it is not cpform property
@@ -33,7 +41,7 @@ class CPForm {
 					require_once $this->cpform_path.'Fields/'.$value['fieldType'].'.php';
 
 					// create field type object
-					$fieldtype = new $value['fieldType']($key, $value['initial'], $value['config']);
+					$fieldtype = new $value['fieldType']($key, $value['label'], $value['config']);
 					$this->cpform_values[$key] = $fieldtype;
 
 				} else {
@@ -46,9 +54,9 @@ class CPForm {
 			$form_data = [];
 			foreach ($_POST as $key => $value){
 				if (! empty($this->cpform_values[$key])){
-			}
 					$form_data[$key] = $value;
 				}
+			}
 			$this->validate($form_data);
 		}
 	}
@@ -95,7 +103,10 @@ class CPForm {
 		$fields = '';
 		$fields .= "<ul>";
 		foreach($this->cpform_values as $key => $value) {
-			$temp_fields = '<li>'.$value->render().'</li>';
+			$temp_fields = '<li>';
+			$temp_fields .= $value->label;
+			$temp_fields .= $value->render();
+			$temp_fields .= '</li>';
 			$this->cpform_fields[$key] = $temp_fields;
 			$fields .= $temp_fields;
 			$temp_fields = '';
@@ -108,7 +119,10 @@ class CPForm {
 	public function as_paragraph(){
 		$fields = '';
 		foreach($this->cpform_values as $key => $value) {
-			$temp_fields = '<p>'.$value->render().'</p>';
+			$temp_fields = '<p>';
+			$temp_fields .= $value->label;
+			$temp_fields .= $value->render();
+			$temp_fields .= '</p>';
 			$this->cpform_fields[$key] = $temp_fields;
 			$fields .= $temp_fields;
 			$temp_fields = '';

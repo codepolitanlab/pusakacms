@@ -9,10 +9,10 @@ class BaseField {
     protected $name = '';
     protected $rules = '';
 
-    public function __construct($name='', $initial='', $config=[])
+    public function __construct($name='', $label='', $config=[])
     {
         $this->name = $name;
-        $this->initial = $initial;
+        $this->label = $label;
         $this->config = $config;
 
     }

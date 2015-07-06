@@ -15,7 +15,6 @@ class TextField extends BaseField {
         }
 
         $this->widget .= ' name="'.$this->name.'" ';
-        $this->widget .= ' value="'.$this->initial.'" ';
         $this->widget .= ' />';
 
         return $this->widget;
