@@ -7,6 +7,7 @@ class BaseField {
     protected $initial = '';
     protected $config = '';
     protected $name = '';
+    protected $rules = '';
 
     public function __construct($name='', $initial='', $config=[])
     {

@@ -3,24 +3,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class CPForm {
 
+	protected $CI;
 	protected $cpform_fields = [];
 	protected $cpform_config = [];
 	protected $cpform_values = [];
 	protected $cpform_errors = [];
 	protected $cpform_is_valid = FALSE;
 
+	function __construct()
+	{
+		$this->CI = &get_instance();
+
+		// load CodeIgniter form validation library
+		$this->CI->load->library('form_validation');
+	}
+
 	public function init(){
 		$this->cpform_path = APPPATH."libraries/cpform/";
 
 		foreach($this as $key => $value) {
-			$is_user_attribute = !(strrpos($key,"cpform") === false);
-
-			if ($is_user_attribute)  {
-			}
-			else {
+			// if it is not cpform property
+			if ((strrpos($key,"cpform") === false))  {
+				// load field type class
 				require_once $this->cpform_path.'Fields/'.$value['fieldType'].'.php';
-				$temp_value = new $value['fieldType']($key, $value['initial'], $value['config']);
-				$this->cpform_values[$key] = $temp_value;
+
+				// create field type object
+				$fieldtype = new $value['fieldType']($key, $value['initial'], $value['config']);
+				$this->cpform_values[$key] = $fieldtype;
 			}
 
 		}
