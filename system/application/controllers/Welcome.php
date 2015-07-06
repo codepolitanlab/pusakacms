@@ -5,7 +5,7 @@ class Welcome extends Admin_Controller {
 
 	public function index()
 	{
-		echo "sipsip";
+		echo "Atom rasa Sublime Text!";
 	}
 
 	public function contact()

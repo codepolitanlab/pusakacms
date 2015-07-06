@@ -23,7 +23,7 @@ class Admin_Controller extends MY_Controller
 				'Settings' => array(),
 				'Account' => array(
 						5 => array(
-								'link' => 'logout', 
+								'link' => 'logout',
 						 		'caption' => "Logout"
 						 	)
 						)
