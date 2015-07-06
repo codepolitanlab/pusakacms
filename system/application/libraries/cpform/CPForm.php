@@ -3,44 +3,52 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class CPForm {
 
-	protected $CI;
+	protected $cpform_CI;
+	protected $cpform_path;
+
 	protected $cpform_fields = [];
 	protected $cpform_config = [];
 	protected $cpform_values = [];
 	protected $cpform_errors = [];
 	protected $cpform_is_valid = FALSE;
 
-	function __construct()
+	public function init()
 	{
-		$this->CI = &get_instance();
+		$this->cpform_CI = &get_instance();
 
-		// load CodeIgniter form validation library
-		$this->CI->load->library('form_validation');
-	}
-
-	public function init(){
 		$this->cpform_path = APPPATH."libraries/cpform/";
 
-		foreach($this as $key => $value) {
+		// load CodeIgniter form validation library
+		$this->cpform_CI->load->library('form_validation');
+
+		foreach($this as $key => $value)
+		{
 			// if it is not cpform property
-			if ((strrpos($key,"cpform") === false))  {
-				// load field type class
-				require_once $this->cpform_path.'Fields/'.$value['fieldType'].'.php';
+			if (strrpos($key,"cpform") === false)
+			{
+				// check if fieldType exists
+				if(file_exists($this->cpform_path.'Fields/'.$value['fieldType'].'.php'))
+				{
+					// load field type class
+					require_once $this->cpform_path.'Fields/'.$value['fieldType'].'.php';
 
-				// create field type object
-				$fieldtype = new $value['fieldType']($key, $value['initial'], $value['config']);
-				$this->cpform_values[$key] = $fieldtype;
+					// create field type object
+					$fieldtype = new $value['fieldType']($key, $value['initial'], $value['config']);
+					$this->cpform_values[$key] = $fieldtype;
+
+				} else {
+					show_error('Field type '.$value['fieldType'].' is not available.');
+				}
 			}
-
 		}
 
 		if ($_POST){
 			$form_data = [];
 			foreach ($_POST as $key => $value){
 				if (! empty($this->cpform_values[$key])){
+			}
 					$form_data[$key] = $value;
 				}
-			}
 			$this->validate($form_data);
 		}
 	}

@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 require_once APPPATH.'libraries/cpform/Fields/CharField.php';
 
-class URLField extends CharField {
+class FileField extends CharField {
 
     public function rules($str){
         if (empty($str))
