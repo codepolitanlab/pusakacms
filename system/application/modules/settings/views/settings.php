@@ -7,17 +7,15 @@
 <!-- form tabs -->
 <ul class="nav nav-tabs">
 	<?php foreach ($settings_form as $key => $val): ?>
-		<li <?php echo ($tab == $val['title'])?' class="active"' : ''; ?>>
-			<a href="<?php echo "#".$val['id']; ?>" role="tab" data-toggle="tab"><?php echo $val['title']; ?></a>
+		<li <?php echo ($tab == $val['id'])?' class="active"' : ''; ?>>
+			<a href="<?php echo site_url('panel/settings/index/'.$val['id']); ?>">
+				<?php echo $val['title']; ?>
+			</a>
 		</li>
 	<?php endforeach; ?>
 </ul>
 
 <!-- form contents -->
 <div id="myTabContent" class="tab-content">
-	<?php foreach ($settings_form as $key => $val): ?>
-		<div class="tab-pane fade in <?php echo ($tab == $val['title'])?'active' : ''; ?>" id="<?php echo $val['id']; ?>">
-			<?php echo $val['form']; ?>
-		</div>
-	<?php endforeach; ?>
+	<?php echo $settings_form[$tab]['form']; ?>
 </div>

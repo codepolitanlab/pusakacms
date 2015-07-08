@@ -55,37 +55,26 @@ class CPForm {
 					$fieldtype = new $value['fieldType']($key, $value['label'], $value['config']);
 					$this->cpform_output[$key] = $fieldtype;
 
+					// set validation rules
+					if(isset($value['rules']))
+						$this->cpform_CI->form_validation->set_rules($key, $value['label'], $value['rules']);
+
 				} else {
 					show_error('Field type '.$value['fieldType'].' is not available.');
 				}
 			}
 		}
-
-		if ($_POST){
-			$form_data = array();
-			foreach ($_POST as $key => $value){
-				if (! empty($this->cpform_output[$key])){
-					$form_data[$key] = $value;
-				}
-			}
-			$this->validate($form_data);
-		}
 	}
 
-	public function config($config = array(), $additional = array()){
+	public function config($config = array(), $additional = array())
+	{
 		$this->cpform_config = $config;
 		$this->cpform_additional = array_merge($this->cpform_additional, $additional);
 	}
 
-	protected function validate($form_data=array()){
-
-		$valid = TRUE;
-
-		foreach ($form_data as $key => $value){
-			$valid = ($valid && $this->cpform_output[$key]->rules($value));
-		}
-
-		$this->cpform_is_valid = $valid;
+	public function validate()
+	{
+		return $this->cpform_CI->form_validation->run();
 	}
 
 	public function get_field($field=''){

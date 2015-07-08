@@ -34,7 +34,7 @@ class Panel extends Admin_Controller {
 	* SETTINGS
 	**********************************************/
 
-	function index($settings = false)
+	function index($settings = "Settings_site")
 	{
 		// read all Settings form class
 		$form_locations = array();
@@ -49,26 +49,31 @@ class Panel extends Admin_Controller {
 			$pathinfo = pathinfo($form_location);
 			$classpath = $pathinfo['dirname'];
 			$filename = $pathinfo['filename'];
-			$setting_form = $this->cpformutil->load($filename, $classpath);
-
-			// get saved contents
-			if(file_exists($this->config_path.$filename.'.json'))
-			$values[$filename] = json_decode(file_get_contents($this->config_path.$filename.'.json'), true);
-
-			// init form fields
-			$setting_form->init($values[$filename]);
+			$the_forms[$filename] = $this->cpformutil->load($filename, $classpath);
 
 			// set to output
 			$data['settings_form'][$filename] = array(
-				'title' => $setting_form->cpform_title,
-				'id' => $filename,
-				'form' => $setting_form->generate('paragraph')
+				'title' => $the_forms[$filename]->cpform_title,
+				'id' => $filename
 			);
 		}
 
+		// check if url valid
+		if(! array_key_exists($settings, $the_forms)) show_404();
+
+		// get saved contents
+		if(file_exists($this->config_path.$settings.'.json'))
+			$values[$settings] = json_decode(file_get_contents($this->config_path.$settings.'.json'), true);
+
+		// init current form fields
+		$the_forms[$settings]->init($values[$settings]);
+		$data['settings_form'][$settings]['form'] = $the_forms[$settings]->generate('paragraph');
+
 		// submit if data valid
-		if($post = $this->input->post())
+		if($the_forms[$settings]->validate())
 		{
+			$post = $this->input->post();
+
 			// save config to file
 			if(! write_file($this->config_path.$settings.'.json', json_encode($post, JSON_PRETTY_PRINT))){
 				$this->session->set_flashdata('error', 'unable to save '.$settings.' settings to '.$settings.'.json file.');
@@ -83,11 +88,11 @@ class Panel extends Admin_Controller {
 				$this->pusaka->register_domain($post['site_domain'], $values[$settings]['site_domain']);
 
 			$this->session->set_flashdata('success', 'config saved.');
-			redirect('panel/settings');
+			redirect(getenv('HTTP_REFERER'));
 		}
 
 		$this->template
-		->set('tab', 'Site')
+		->set('tab', $settings)
 		->view('settings', $data);
 	}
 

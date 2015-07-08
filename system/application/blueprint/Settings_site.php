@@ -59,7 +59,6 @@ class Settings_site extends CPForm {
                 'id' => 'site_domain',
                 'class' => 'form-control'
             ),
-            'rules' => 'required'
         );
 
         $this->protocol = array(
@@ -70,6 +69,7 @@ class Settings_site extends CPForm {
                 'id' => 'protocol',
                 'class' => 'form-control'
             ),
+            'rules' => 'required'
         );
 
         $this->meta_description = array(
