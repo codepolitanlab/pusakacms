@@ -28,6 +28,7 @@ class Settings_site extends CPForm {
                 'id' => 'site_name',
                 'class' => 'form-control'
             ),
+            'rules' => 'required'
         );
 
         $this->site_slogan = array(
@@ -58,6 +59,7 @@ class Settings_site extends CPForm {
                 'id' => 'site_domain',
                 'class' => 'form-control'
             ),
+            'rules' => 'required'
         );
 
         $this->protocol = array(
