@@ -3,16 +3,16 @@
 // use Nyankod\JsonFileDB;
 
 /**
- * Cms
- *
- * Simple tool for making simple sites.
- *
- * @package		Pusaka
- * @author		Toni Haryanto (@toharyan)
- * @copyright	Copyright (c) 2011-2012, Nyankod
- * @license		http://nyankod.com/license
- * @link		http://nyankod.com/pusakacms
- */
+* Cms
+*
+* Simple tool for making simple sites.
+*
+* @package		Pusaka
+* @author		Toni Haryanto (@toharyan)
+* @copyright	Copyright (c) 2011-2012, Nyankod
+* @license		http://nyankod.com/license
+* @link		http://nyankod.com/pusakacms
+*/
 
 class Panel extends Admin_Controller {
 
@@ -20,22 +20,56 @@ class Panel extends Admin_Controller {
 
 	function __construct(){
 		parent::__construct();
-		
+
 		if(! $this->logged_in()) redirect('panel/login');
 
 		$this->config_path = SITE_PATH.'config/';
 
 		if(!is_readable($this->config_path) || !is_writable($this->config_path))
-			show_error('Set folder '.$this->config_path.' and its contents readable and writable first.');
+		show_error('Set folder '.$this->config_path.' and its contents readable and writable first.');
 	}
 
 
 	/*********************************************
-	 * SETTINGS
-	 **********************************************/
+	* SETTINGS
+	**********************************************/
 
-	function index()
+	function index($settings = false)
 	{
+		// read all Settings form class
+		$form_locations = array();
+		foreach ($this->cpformutil->forms_path as $form_path) {
+			$form_locations = array_merge($form_locations, glob($form_path.'Settings_*.php'));
+		}
+
+		// generate forms
+		foreach ($form_locations as $form_location) {
+			// load form class
+			$pathinfo = pathinfo($form_location);
+			$classpath = $pathinfo['dirname'];
+			$filename = $pathinfo['filename'];
+			$setting_form = $this->cpformutil->load($filename, $classpath);
+			$setting_form->init();
+
+			// set form config
+			$main_config = array(
+				'action' => site_url('panel/settings/index/'.$filename),
+				'method' => 'POST',
+			);
+			$additional_config = array(
+				'submit_class' => 'btn btn-success',
+				'submit_value' => 'Submit '.$setting_form->cpform_title.' Setting'
+			);
+			$setting_form->config($main_config, $additional_config);
+
+			// set to output
+			$data['settings_form'][$filename] = array(
+				'title' => $setting_form->cpform_title,
+				'id' => $filename,
+				'form' => $setting_form->generate('paragraph')
+			);
+		}
+
 		// get config files
 		$config_file = array_filter(scandir($this->config_path), function($user){
 			return (substr($user, -5) == '.json');
@@ -65,7 +99,7 @@ class Panel extends Admin_Controller {
 			foreach ($savefile as $filekey => $fileval) {
 				if(! write_file($this->config_path.$filekey.'.json', json_encode($fileval, JSON_PRETTY_PRINT))){
 					$this->session->set_flashdata('error', 'unable to save '.$filekey.' settings to '.$filekey.'.json file.');
-					redirect('panel/settings');	
+					redirect('panel/settings');
 				}
 			}
 
@@ -74,16 +108,16 @@ class Panel extends Admin_Controller {
 
 			// update domain
 			if(! empty($savefile['site']['site_domain']))
-				$this->pusaka->register_domain($savefile['site']['site_domain'], $config['site']['site_domain']);
+			$this->pusaka->register_domain($savefile['site']['site_domain'], $config['site']['site_domain']);
 
 			$this->session->set_flashdata('success', 'config saved.');
 			redirect('panel/settings');
 		}
 
 		$this->template
-		->set('tab', 'site')
+		->set('tab', 'Site')
 		->set('config', $config)
-		->view('settings');
+		->view('settings', $data);
 	}
 
 }

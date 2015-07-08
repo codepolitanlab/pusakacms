@@ -4,6 +4,8 @@ class Settings_system extends CPForm {
 
     function set_fields()
     {
+        $this->cpform_title = "System";
+
         $this->theme = array(
                 'fieldType' => 'TextField',
                 'label' => 'Theme',

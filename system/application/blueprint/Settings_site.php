@@ -4,6 +4,8 @@ class Settings_site extends CPForm {
 
     function set_fields()
     {
+        $this->cpform_title = "Site";
+
         $this->site_name = array(
             'fieldType' => 'TextField',
             'label' => 'Site Name',

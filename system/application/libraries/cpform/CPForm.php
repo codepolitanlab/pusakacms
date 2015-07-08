@@ -5,11 +5,17 @@ class CPForm {
 	protected $cpform_CI;
 	protected $cpform_path;
 
-	protected $cpform_fields = [];
-	protected $cpform_config = [];
-	protected $cpform_values = [];
-	protected $cpform_errors = [];
+	public $cpform_title = 'Form';
+
+	protected $cpform_fields = array();
+	protected $cpform_config = array();
+	protected $cpform_values = array();
+	protected $cpform_errors = array();
 	protected $cpform_is_valid = FALSE;
+
+	protected $cpform_additional = array(
+		'submit_class' => ''
+	);
 
 	protected function set_fields(){ return true; }
 
@@ -50,7 +56,7 @@ class CPForm {
 		}
 
 		if ($_POST){
-			$form_data = [];
+			$form_data = array();
 			foreach ($_POST as $key => $value){
 				if (! empty($this->cpform_values[$key])){
 					$form_data[$key] = $value;
@@ -60,12 +66,12 @@ class CPForm {
 		}
 	}
 
-	public function config($config=[]){
+	public function config($config = array(), $additional = array()){
 		$this->cpform_config = $config;
-
+		$this->cpform_additional = array_merge($this->cpform_additional, $additional);
 	}
 
-	protected function validate($form_data=[]){
+	protected function validate($form_data=array()){
 
 		$valid = TRUE;
 
@@ -82,8 +88,8 @@ class CPForm {
 
 	public function generate($output_type='list'){
 		$output = 'as_'.$output_type;
-		$form = '';
-		$form .= '<form';
+
+		$form = '<form';
 
 		foreach ($this->cpform_config as $key => $value) {
 			$attribute = $key.'='.$value;
@@ -92,7 +98,7 @@ class CPForm {
 
 		$form .= '>';
 		$form .= $this->$output();
-		$form .= '<input type="submit" value="Submit" />';
+		$form .= '<input type="submit" value="'.$this->cpform_additional['submit_value'].'" class="'.$this->cpform_additional['submit_class'].'" />';
 		$form .= '</form>';
 
 		return $form;
