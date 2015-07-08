@@ -92,8 +92,8 @@ class Panel extends Admin_Controller {
 				'meta_description' => '',
 				'meta_keywords'	=> ''
 				);
-			
-			if(! write_file(SITE_FOLDER.'/'.$site_slug.'/sitedata/config/site.json', json_encode($site_data, JSON_PRETTY_PRINT))){
+
+			if(! write_file(SITE_FOLDER.'/'.$site_slug.'/sitedata/db/Settings_site.json', json_encode($site_data, JSON_PRETTY_PRINT))){
 				$this->session->set_flashdata('error', 'Cannot write site settings.');
 				redirect("panel/site", 'refresh');
 			}
