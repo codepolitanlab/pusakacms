@@ -55,7 +55,7 @@ class Pusaka {
 	{
 		if(!$map)
 			$map = directory_map(PAGE_FOLDER, $depth);
-		
+
 		$new_map = array();
 		foreach ($map as $folder => $file){
 			if($file != 'index.json' && $file != 'index.md' && $file != 'index.html'){
@@ -90,7 +90,7 @@ class Pusaka {
 		// page move to another folder
 		if($source != $dest) {
 			// if it is move to subpage, not to root
-			if(!empty($dest)) { 
+			if(!empty($dest)) {
 				// if parent still as standalone file (not in folder)
 				if(file_exists(PAGE_FOLDER.$dest.'.md')) {
 					// create folder and move the parent inside
@@ -469,7 +469,7 @@ class Pusaka {
 			$begin = ($page - 1) * $this->post_per_page;
 			$limit = $this->post_per_page;
 			$new_map = ($page != 'all') ? array_slice($map, $begin, $limit) : $map;
-			
+
 			$posts['entries'] = array();
 			foreach ($new_map as $postlist) {
 				if($post = $this->get_post($postlist['url'], $parse, true, false, $site_slug))
@@ -495,7 +495,7 @@ class Pusaka {
 	function get_post($url = null, $parse = true, $content_to_intro = true, $by_filename = false, $site_slug = false)
 	{
 		if(! $site_slug) $site_slug = SITE_SLUG;
-		
+
 		$post_folder = ($site_slug == SITE_SLUG)
 						? POST_FOLDER
 						: SITE_FOLDER.$site_slug.DIRECTORY_SEPARATOR.'sitedata'.DIRECTORY_SEPARATOR.$this->CI->config->item('post_folder');
@@ -515,7 +515,7 @@ class Pusaka {
 			// url must have 4 segment (blog/yyyy/mm/dd/slug)
 			if(count($segs) != 5)
 				return false;
-			
+
 			$the_post = $post_db->select('url', $url);
 		}
 
@@ -527,7 +527,7 @@ class Pusaka {
 		if(!empty($file)){
 			$post = explode("{:", $file);
 			array_shift($post);
-			
+
 			$new_post = array(
 				'date' => $the_post['date'],
 				'file' => $the_post['filename']
@@ -650,7 +650,7 @@ class Pusaka {
 		// if $uri not set, assume it is for default frontend post
 		if(! $uri){
 			$config['base_url'] = site_url().POST_TERM;
-			
+
 			if($label)
 				$config['base_url'] .= '/label/'.$label;
 			else
@@ -665,7 +665,7 @@ class Pusaka {
 
 
 		$config['total_rows'] = $total;
-		$config['per_page'] = $this->post_per_page; 
+		$config['per_page'] = $this->post_per_page;
 		$config['use_page_numbers'] = TRUE;
 
 		// layouting
@@ -680,7 +680,7 @@ class Pusaka {
 
 		$config['num_tag_open'] = '<li>';
 		$config['num_tag_close'] = '</li>';
-		
+
 		$config['next_link'] = 'Next &gt;';
 		$config['next_tag_open'] = '<li>';
 		$config['next_tag_close'] = '</li>';
@@ -697,7 +697,7 @@ class Pusaka {
 			}
 		}
 
-		$this->CI->pagination->initialize($config); 
+		$this->CI->pagination->initialize($config);
 		return $this->CI->pagination->create_links();
 	}
 
@@ -713,9 +713,9 @@ class Pusaka {
 	 */
 	function get_page($url = null, $parse = true)
 	{
-		if(file_exists(PAGE_FOLDER.$url.'.md')) 
+		if(file_exists(PAGE_FOLDER.$url.'.md'))
 			$file = file_get_contents(PAGE_FOLDER.$url.'.md');
-		elseif(file_exists(PAGE_FOLDER.$url.'/index.md')) 
+		elseif(file_exists(PAGE_FOLDER.$url.'/index.md'))
 			$file = file_get_contents(PAGE_FOLDER.$url.'/index.md');
 		else
 			return false;
@@ -724,9 +724,9 @@ class Pusaka {
 		if(!empty($file)){
 			$page = explode("{:", $file);
 			array_shift($page);
-			
+
 			$page_arr = array('url' => $url);
-			
+
 			$file_segment = explode('/', $url);
 			if(count($url) > 0){
 				$page_arr['slug'] = array_pop($file_segment);
@@ -734,7 +734,7 @@ class Pusaka {
 					$page_arr['parent'] = implode('/', $file_segment);
 			}
 
-			if($parse){	
+			if($parse){
 				foreach ($page as $elm) {
 					$segs = preg_split("/( :} | :}|:} |:})/", $elm, 2);
 
@@ -893,7 +893,7 @@ class Pusaka {
 		}
 
 		//this means request come from outside module
-		if(! $site_slug) 
+		if(! $site_slug)
 			$site_slug = SITE_SLUG;
 
 		// delete previous domain if it is updating
@@ -904,12 +904,13 @@ class Pusaka {
 			if(!unlink(SITE_FOLDER.'_domain/'.$old_domain.'.conf'))
 				show_error('cnnot delete file');
 		}
-		
+
 		// create new
-		if(write_file(SITE_FOLDER.'_domain/'.$new_domain.'.conf', $site_slug))
-			return true;
-		else
-			show_error('cannot write domain configuration file. Make sure folder sites/_domain/ is writable.');
+		if(! empty($new_domain) && $new_domain !== FALSE)
+			if(write_file(SITE_FOLDER.'_domain/'.$new_domain.'.conf', $site_slug))
+				return true;
+			else
+				show_error('cannot write domain configuration file. Make sure folder sites/_domain/ is writable.');
 
 		return false;
 	}
