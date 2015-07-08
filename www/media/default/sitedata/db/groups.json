@@ -1,12 +1,3 @@
 [
-    {
-        "id": 1,
-        "name": "admin",
-        "description": "Administrator"
-    },
-    {
-        "id": 2,
-        "name": "members",
-        "description": "General User"
-    }
+
 ]

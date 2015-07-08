@@ -1,8 +1,8 @@
 {
-    "site_name": "Default Sites",
+    "site_name": "Default Site",
     "site_slogan": "Just a Simple Homepage by PusakaCMS",
     "site_owner": "Nama Saya",
-    "site_domain": "",
+    "site_domain": "pusakacms.org",
     "protocol": "http",
     "meta_description": "Put your meta description here",
     "meta_keywords": "Put your meta keywords here"

@@ -18,28 +18,28 @@ class MY_Controller extends MX_Controller{
 
 		// load library
 		$this->load->library('users/ion_auth');
-		
+
 		// check if main config file exist
-		if(!file_exists((SITE_PATH.'config/site.json'))){
+		if(!file_exists((SITE_PATH.'db/Settings_site.json'))){
 			show_error('site.json config file for your site is not found. Please create it first.');
 		}
-		if(!file_exists((SITE_PATH.'config/system.json'))){
+		if(!file_exists((SITE_PATH.'db/Settings_system.json'))){
 			show_error('system.json config file for your site is not found. Please create it first.');
 		}
 
 		// get all config file
-		$config_file = array_filter(scandir(SITE_PATH.'config'), function($user){
-			return (strpos($user, '.json'));
+		$config_file = array_filter(scandir(SITE_PATH.'db/'), function($user){
+			return (strpos($user, 'Settings_') !== FALSE);
 		});
 
 		foreach ($config_file as $confile) {
-			$config = json_decode(file_get_contents(SITE_PATH.'config/'.$confile), true);
+			$config = json_decode(file_get_contents(SITE_PATH.'db/'.$confile), true);
 			foreach ($config as $key => $value) {
 				$this->config->set_item($key, $value);
 				$this->data[$key] = $value;
 			}
 		}
-		
+
 		if(json_last_error() > 0){
 			show_error('config file error: '. json_last_error_msg());
 		}
@@ -82,5 +82,5 @@ class MY_Controller extends MX_Controller{
 			}
 		}
 	}
-	
+
 }

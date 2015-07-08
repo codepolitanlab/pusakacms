@@ -8,16 +8,18 @@ class CPForm {
 	public $cpform_title = 'Form';
 
 	protected $cpform_fields = array();
-	protected $cpform_config = array();
-	protected $cpform_values = array();
+	protected $cpform_output = array();
 	protected $cpform_errors = array();
 	protected $cpform_is_valid = FALSE;
 
+	protected $cpform_config = array();
 	protected $cpform_additional = array(
-		'submit_class' => ''
+		'submit_class' => '',
+		'submit_value' => 'Submit'
 	);
 
-	protected function set_fields(){ return true; }
+	protected function _set_fields(){ return true; }
+	protected function _set_config(){ return true; }
 
 	function __construct()
 	{
@@ -28,13 +30,14 @@ class CPForm {
 		// load CodeIgniter form validation library
 		$this->cpform_CI->load->library('form_validation');
 
-		// set the fields
-		$this->set_fields();
+		// set the config and fields
+		$this->_set_config();
+		$this->_set_fields();
 	}
 
-	public function init()
+	public function init($values = array())
 	{
-		foreach($this as $key => $value)
+		foreach($this as $key => &$value)
 		{
 			// if it is not cpform property
 			if (strrpos($key,"cpform") === false)
@@ -45,9 +48,12 @@ class CPForm {
 					// load field type class
 					require_once $this->cpform_path.'Fields/'.$value['fieldType'].'.php';
 
+					// set values from parameter to config
+					if(isset($values[$key])) $value['config']['value'] = $values[$key];
+
 					// create field type object
 					$fieldtype = new $value['fieldType']($key, $value['label'], $value['config']);
-					$this->cpform_values[$key] = $fieldtype;
+					$this->cpform_output[$key] = $fieldtype;
 
 				} else {
 					show_error('Field type '.$value['fieldType'].' is not available.');
@@ -58,7 +64,7 @@ class CPForm {
 		if ($_POST){
 			$form_data = array();
 			foreach ($_POST as $key => $value){
-				if (! empty($this->cpform_values[$key])){
+				if (! empty($this->cpform_output[$key])){
 					$form_data[$key] = $value;
 				}
 			}
@@ -76,7 +82,7 @@ class CPForm {
 		$valid = TRUE;
 
 		foreach ($form_data as $key => $value){
-			$valid = ($valid && $this->cpform_values[$key]->rules($value));
+			$valid = ($valid && $this->cpform_output[$key]->rules($value));
 		}
 
 		$this->cpform_is_valid = $valid;
@@ -107,7 +113,7 @@ class CPForm {
 	public function as_list(){
 		$fields = '';
 		$fields .= "<ul>";
-		foreach($this->cpform_values as $key => $value) {
+		foreach($this->cpform_output as $key => $value) {
 			$temp_fields = '<li>';
 			$temp_fields .= $value->label;
 			$temp_fields .= $value->render();
@@ -123,7 +129,7 @@ class CPForm {
 
 	public function as_paragraph(){
 		$fields = '';
-		foreach($this->cpform_values as $key => $value) {
+		foreach($this->cpform_output as $key => $value) {
 			$temp_fields = '<p>';
 			$temp_fields .= $value->label;
 			$temp_fields .= $value->render();

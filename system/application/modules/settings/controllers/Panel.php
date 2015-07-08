@@ -23,7 +23,7 @@ class Panel extends Admin_Controller {
 
 		if(! $this->logged_in()) redirect('panel/login');
 
-		$this->config_path = SITE_PATH.'config/';
+		$this->config_path = SITE_PATH.'db/';
 
 		if(!is_readable($this->config_path) || !is_writable($this->config_path))
 		show_error('Set folder '.$this->config_path.' and its contents readable and writable first.');
@@ -43,24 +43,20 @@ class Panel extends Admin_Controller {
 		}
 
 		// generate forms
+		$values = array();
 		foreach ($form_locations as $form_location) {
 			// load form class
 			$pathinfo = pathinfo($form_location);
 			$classpath = $pathinfo['dirname'];
 			$filename = $pathinfo['filename'];
 			$setting_form = $this->cpformutil->load($filename, $classpath);
-			$setting_form->init();
 
-			// set form config
-			$main_config = array(
-				'action' => site_url('panel/settings/index/'.$filename),
-				'method' => 'POST',
-			);
-			$additional_config = array(
-				'submit_class' => 'btn btn-success',
-				'submit_value' => 'Submit '.$setting_form->cpform_title.' Setting'
-			);
-			$setting_form->config($main_config, $additional_config);
+			// get saved contents
+			if(file_exists($this->config_path.$filename.'.json'))
+			$values[$filename] = json_decode(file_get_contents($this->config_path.$filename.'.json'), true);
+
+			// init form fields
+			$setting_form->init($values[$filename]);
 
 			// set to output
 			$data['settings_form'][$filename] = array(
@@ -70,45 +66,21 @@ class Panel extends Admin_Controller {
 			);
 		}
 
-		// get config files
-		$config_file = array_filter(scandir($this->config_path), function($user){
-			return (substr($user, -5) == '.json');
-		});
-
-		$savefile = array();
-		$validation_rules = array();
-		foreach ($config_file as $confile) {
-			$config[substr($confile, 0, -5)] = json_decode(file_get_contents($this->config_path.$confile), true);
-			$savefile[substr($confile, 0, -5)] = array();
-
-			// set validation rules
-			foreach ($config[substr($confile, 0, -5)] as $key => $value) {
-				$this->form_validation->set_rules(substr($confile, 0, -5).'__'.$key, '<strong>'.substr($confile, 0, -5).'__'.$key.'</strong>', 'trim');
-			}
-		}
-
 		// submit if data valid
-		if($this->form_validation->run()){
-			$post = $this->input->post();
-			foreach ($post as $postkey => $postval) {
-				$field = explode("__", $postkey);
-				$savefile[$field[0]] += array($field[1] => $postval);
-			}
-
+		if($post = $this->input->post())
+		{
 			// save config to file
-			foreach ($savefile as $filekey => $fileval) {
-				if(! write_file($this->config_path.$filekey.'.json', json_encode($fileval, JSON_PRETTY_PRINT))){
-					$this->session->set_flashdata('error', 'unable to save '.$filekey.' settings to '.$filekey.'.json file.');
-					redirect('panel/settings');
-				}
+			if(! write_file($this->config_path.$settings.'.json', json_encode($post, JSON_PRETTY_PRINT))){
+				$this->session->set_flashdata('error', 'unable to save '.$settings.' settings to '.$settings.'.json file.');
+				redirect('panel/settings');
 			}
 
 			// call events
 			$this->call_event('Settings', 'after_update', $savefile);
 
 			// update domain
-			if(! empty($savefile['site']['site_domain']))
-			$this->pusaka->register_domain($savefile['site']['site_domain'], $config['site']['site_domain']);
+			if(isset($post['site_domain']))
+				$this->pusaka->register_domain($post['site_domain'], $values[$settings]['site_domain']);
 
 			$this->session->set_flashdata('success', 'config saved.');
 			redirect('panel/settings');
@@ -116,7 +88,6 @@ class Panel extends Admin_Controller {
 
 		$this->template
 		->set('tab', 'Site')
-		->set('config', $config)
 		->view('settings', $data);
 	}
 

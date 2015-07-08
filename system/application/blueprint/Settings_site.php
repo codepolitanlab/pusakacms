@@ -2,10 +2,23 @@
 
 class Settings_site extends CPForm {
 
-    function set_fields()
+    function _set_config()
     {
         $this->cpform_title = "Site";
 
+        // set form config
+        $this->cpform_config = array(
+            'action' => site_url('panel/settings/index/'.get_class($this)),
+            'method' => 'POST',
+        );
+        $this->cpform_additional = array(
+            'submit_class' => 'btn btn-success',
+            'submit_value' => 'Submit Site Setting'
+        );
+    }
+
+    function _set_fields()
+    {
         $this->site_name = array(
             'fieldType' => 'TextField',
             'label' => 'Site Name',
