@@ -1,0 +1,128 @@
+{
+    "home": {
+        "title": "Home",
+        "url": "home"
+    },
+    "blog": {
+        "title": "Blog",
+        "url": "blog"
+    },
+    "docs": {
+        "title": "Docs",
+        "url": "docs",
+        "children": {
+            "panduan-pengembang": {
+                "title": "Panduan Pengembang",
+                "url": "docs\/panduan-pengembang",
+                "children": {
+                    "membuat-template": {
+                        "title": "Membuat Template",
+                        "url": "docs\/panduan-pengembang\/membuat-template"
+                    },
+                    "library": {
+                        "title": "Library",
+                        "url": "docs\/panduan-pengembang\/library",
+                        "children": {
+                            "textile": {
+                                "title": "Textile",
+                                "url": "docs\/panduan-pengembang\/library\/textile"
+                            },
+                            "template": {
+                                "title": "Template",
+                                "url": "docs\/panduan-pengembang\/library\/template"
+                            },
+                            "markdown": {
+                                "title": "Markdown",
+                                "url": "docs\/panduan-pengembang\/library\/markdown"
+                            },
+                            "pusaka": {
+                                "title": "Pusaka",
+                                "url": "docs\/panduan-pengembang\/library\/pusaka"
+                            }
+                        }
+                    },
+                    "helper": {
+                        "title": "Helper",
+                        "url": "docs\/panduan-pengembang\/helper",
+                        "children": {
+                            "template": {
+                                "title": "Template",
+                                "url": "docs\/panduan-pengembang\/helper\/template"
+                            }
+                        }
+                    }
+                }
+            },
+            "apa-itu-pusaka": {
+                "title": "Apa Itu Pusaka",
+                "url": "docs\/apa-itu-pusaka",
+                "children": {
+                    "changelog": {
+                        "title": "Changelog",
+                        "url": "docs\/apa-itu-pusaka\/changelog"
+                    },
+                    "showcase": {
+                        "title": "Showcase",
+                        "url": "docs\/apa-itu-pusaka\/showcase",
+                        "children": {
+                            "lisensi": {
+                                "title": "Lisensi",
+                                "url": "docs\/apa-itu-pusaka\/showcase\/lisensi"
+                            }
+                        }
+                    },
+                    "fitur": {
+                        "title": "Fitur",
+                        "url": "docs\/apa-itu-pusaka\/fitur"
+                    },
+                    "download": {
+                        "title": "Download",
+                        "url": "docs\/apa-itu-pusaka\/download"
+                    },
+                    "kontribusi": {
+                        "title": "Kontribusi",
+                        "url": "docs\/apa-itu-pusaka\/kontribusi"
+                    }
+                }
+            },
+            "panduan-pengguna": {
+                "title": "Panduan Pengguna",
+                "url": "docs\/panduan-pengguna",
+                "children": {
+                    "format-penulisan": {
+                        "title": "Format Penulisan",
+                        "url": "docs\/panduan-pengguna\/format-penulisan"
+                    },
+                    "membuat-halaman": {
+                        "title": "Membuat Halaman",
+                        "url": "docs\/panduan-pengguna\/membuat-halaman"
+                    },
+                    "struktur-file": {
+                        "title": "Struktur File",
+                        "url": "docs\/panduan-pengguna\/struktur-file"
+                    },
+                    "mengatur-navigasi": {
+                        "title": "Mengatur Navigasi",
+                        "url": "docs\/panduan-pengguna\/mengatur-navigasi"
+                    },
+                    "instalasi": {
+                        "title": "Instalasi",
+                        "url": "docs\/panduan-pengguna\/instalasi"
+                    },
+                    "konfigurasi": {
+                        "title": "Konfigurasi",
+                        "url": "docs\/panduan-pengguna\/konfigurasi"
+                    },
+                    "mengatur-kategori": {
+                        "title": "Mengatur Kategori",
+                        "url": "docs\/panduan-pengguna\/mengatur-kategori"
+                    },
+                    "posting-blog": {
+                        "title": "Posting Blog",
+                        "url": "docs\/panduan-pengguna\/posting-blog"
+                    }
+                }
+            }
+        }
+    }
+}

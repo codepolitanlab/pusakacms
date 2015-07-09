@@ -10,7 +10,7 @@ class Panel extends Admin_Controller {
 		if(! $this->logged_in()) redirect('panel/login');
 
 		$this->load->library('settings/settings');
-		
+
 		// get from config first
 		$this->export_location = ($this->config->item('export_location'))
 		? $this->config->item('export_location')
@@ -36,7 +36,7 @@ class Panel extends Admin_Controller {
 	{
 		$data['export_location'] = $this->export_location;
 
-		if($this->settings->set_config('system', $data))
+		if($this->settings->set_config('Settings_system', $data))
 			echo '{"status":"success", "message":"Export location saved."}';
 		else
 			echo '{"status":"error", "message":"Export location failed to saved."}';
@@ -111,13 +111,13 @@ class Panel extends Admin_Controller {
 			);
 		$search = array_keys($replacement);
 		$replace = array_values($replacement);
-		
+
 		if(!$data){
 			if(!file_exists($this->export_location))
 				mkdir($this->export_location, 0777);
 
 			$this->pusaka->sync_page();
-			
+
 			// create index.html from home.html
 			$file = str_replace($search, $replace, $this->_render_page(site_url('home')));
 			write_file($this->export_location.'/index.html', $file);

@@ -1,0 +1,46 @@
+[
+    {
+        "title": "Docs",
+        "slug": "docs",
+        "url": "docs",
+        "source": "uri",
+        "target": "_self",
+        "children": [
+            {
+                "title": "Apa itu Pusaka?",
+                "slug": "apa-itu-pusaka",
+                "url": "docs\/apa-itu-pusaka",
+                "source": "uri",
+                "target": "_self"
+            },
+            {
+                "title": "Panduan Pengguna",
+                "slug": "panduan-pengguna",
+                "url": "docs\/panduan-pengguna",
+                "source": "uri",
+                "target": "_self"
+            }
+        ]
+    },
+    {
+        "title": "Download",
+        "slug": "download",
+        "url": "github.com\/nyankod\/pusakacms\/releases",
+        "source": "https:\/\/",
+        "target": "_blank"
+    },
+    {
+        "title": "Tema",
+        "slug": "tema",
+        "url": "themes",
+        "source": "uri",
+        "target": "_self"
+    },
+    {
+        "title": "Blog",
+        "slug": "blog",
+        "url": "blog",
+        "source": "uri",
+        "target": "_self"
+    }
+]

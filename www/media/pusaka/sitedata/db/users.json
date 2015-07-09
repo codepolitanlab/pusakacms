@@ -1,0 +1,25 @@
+[
+    {
+        "id": 1,
+        "ip_address": "127.0.0.1",
+        "username": "admin",
+        "password": "$2y$08$WM6AFJRIi7MHA0qOmUL10uqZSNJyBeD85Leuyg\/NrTKbWi5xva2aG",
+        "salt": null,
+        "email": "admin@admin.com",
+        "activation_code": null,
+        "forgotten_password_code": null,
+        "forgotten_password_time": null,
+        "remember_code": null,
+        "created_on": 1268889823,
+        "last_login": 1436434727,
+        "active": 1,
+        "groups": [
+            "1",
+            "2"
+        ],
+        "first_name": "Admin",
+        "last_name": "istrator",
+        "company": "PusakaCMS",
+        "phone": ""
+    }
+]

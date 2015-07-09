@@ -1,0 +1,84 @@
+{
+    "home": {
+        "title": "Home",
+        "url": "home"
+    },
+    "themes": {
+        "title": "Themes",
+        "url": "themes"
+    },
+    "docs": {
+        "title": "Docs",
+        "url": "docs",
+        "children": {
+            "apa-itu-pusaka": {
+                "title": "Apa Itu Pusaka",
+                "url": "docs\/apa-itu-pusaka",
+                "children": {
+                    "fitur": {
+                        "title": "Fitur",
+                        "url": "docs\/apa-itu-pusaka\/fitur"
+                    },
+                    "kontribusi": {
+                        "title": "Kontribusi",
+                        "url": "docs\/apa-itu-pusaka\/kontribusi"
+                    },
+                    "showcase": {
+                        "title": "Showcase",
+                        "url": "docs\/apa-itu-pusaka\/showcase"
+                    },
+                    "lisensi": {
+                        "title": "Lisensi",
+                        "url": "docs\/apa-itu-pusaka\/lisensi"
+                    },
+                    "changelog": {
+                        "title": "Changelog",
+                        "url": "docs\/apa-itu-pusaka\/changelog"
+                    }
+                }
+            },
+            "panduan-pengguna": {
+                "url": "docs\/panduan-pengguna",
+                "title": "Panduan Pengguna",
+                "children": {
+                    "instalasi-di-komputer-lokal": {
+                        "title": "Instalasi Di Komputer Lokal",
+                        "url": "docs\/panduan-pengguna\/instalasi-di-komputer-lokal"
+                    },
+                    "membuat-halaman": {
+                        "title": "Membuat Halaman",
+                        "url": "docs\/panduan-pengguna\/membuat-halaman"
+                    },
+                    "struktur-file": {
+                        "title": "Struktur File",
+                        "url": "docs\/panduan-pengguna\/struktur-file"
+                    },
+                    "format-penulisan": {
+                        "title": "Format Penulisan",
+                        "url": "docs\/panduan-pengguna\/format-penulisan"
+                    },
+                    "mengatur-kategori": {
+                        "title": "Mengatur Kategori",
+                        "url": "docs\/panduan-pengguna\/mengatur-kategori"
+                    },
+                    "posting-blog": {
+                        "title": "Posting Blog",
+                        "url": "docs\/panduan-pengguna\/posting-blog"
+                    },
+                    "mengatur-navigasi": {
+                        "title": "Mengatur Navigasi",
+                        "url": "docs\/panduan-pengguna\/mengatur-navigasi"
+                    },
+                    "upgrade-sistem": {
+                        "title": "Upgrade Sistem",
+                        "url": "docs\/panduan-pengguna\/upgrade-sistem"
+                    },
+                    "konfigurasi": {
+                        "url": "docs\/panduan-pengguna\/konfigurasi",
+                        "title": "Konfigurasi"
+                    }
+                }
+            }
+        }
+    }
+}
