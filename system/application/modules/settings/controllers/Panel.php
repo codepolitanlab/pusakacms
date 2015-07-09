@@ -64,6 +64,8 @@ class Panel extends Admin_Controller {
 		// get saved contents
 		if(file_exists($this->config_path.$settings.'.json'))
 			$values[$settings] = json_decode(file_get_contents($this->config_path.$settings.'.json'), true);
+		else
+			$values[$settings] = array();
 
 		// init current form fields
 		$the_forms[$settings]->init($values[$settings]);
@@ -77,7 +79,7 @@ class Panel extends Admin_Controller {
 			// save config to file
 			if(! write_file($this->config_path.$settings.'.json', json_encode($post, JSON_PRETTY_PRINT))){
 				$this->session->set_flashdata('error', 'unable to save '.$settings.' settings to '.$settings.'.json file.');
-				redirect('panel/settings');
+				redirect(getenv('HTTP_REFERER'));
 			}
 
 			// call events
