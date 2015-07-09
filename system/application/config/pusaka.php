@@ -5,7 +5,7 @@
 | localhost domain
 |--------------------------------------------------------------------------
 |
-| Domain in localhost for checking it is in a localhost so 
+| Domain in localhost for checking it is in a localhost so
 | we can put site slug after it. Default to 'localhost'
 |
 */
@@ -49,10 +49,10 @@ $config['nav_folder'] 		= 'content'.DIRECTORY_SEPARATOR.'navs'.DIRECTORY_SEPARAT
 
 /*
 |--------------------------------------------------------------------------
-| content folders
+| blueprint folders
 |--------------------------------------------------------------------------
 |
-| content folders name
+| blueprint folders name
 |
 */
 $config['blueprint_folder']	= 'blueprint';
