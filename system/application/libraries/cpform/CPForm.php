@@ -12,6 +12,8 @@ class CPForm {
 	protected $cpform_errors = array();
 	protected $cpform_is_valid = FALSE;
 
+	protected $cpform_exclude_prefix = array('cpform');
+
 	protected $cpform_config = array();
 	protected $cpform_additional = array(
 		'submit_class' => '',
@@ -40,7 +42,7 @@ class CPForm {
 		foreach($this as $key => &$value)
 		{
 			// if it is not cpform property
-			if (strrpos($key,"cpform") === false)
+			if (strposa($key, $this->cpform_exclude_prefix) === false)
 			{
 				// check if fieldType exists
 				if(file_exists($this->cpform_path.'Fields/'.$value['fieldType'].'.php'))

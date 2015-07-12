@@ -31,7 +31,7 @@ class Template
 	private $_css = array();
 
 	private $_partials = array();
-	
+
 	private $_layout_folder = 'layouts/';
 	private $_partial_folder = 'partials/';
 
@@ -115,7 +115,7 @@ class Template
 			// Let's use this obvious default
 			$this->_asset_locations = array(APPPATH.'views/');
 		}
-		
+
 		// Theme was set
 		if ($this->_theme)
 		{
@@ -294,7 +294,7 @@ class Template
 
 		return $this->_body;
 	}
-	
+
 	/**
 	 * Build the entire HTML output of markdown content
 	 *
@@ -317,7 +317,7 @@ class Template
 		{
 			$this->_title = $this->_guess_title();
 		}
-		
+
 		// Output template variables to the template
 		$template['title']       = $this->_title;
 		$template['breadcrumbs'] = $this->_breadcrumbs;
@@ -516,7 +516,7 @@ class Template
 	 * Set js for output later
 	 *
 	 * @access	public
-	 * @param	  string	$js		jquery.js from theme | files::script.js from files module 
+	 * @param	  string	$js		jquery.js from theme | files::script.js from files module
 	 * @return	void
 	 */
 	public function set_js($file)
@@ -609,7 +609,7 @@ class Template
 	{
 		if(! $theme)
 			return $this->_theme_path;
-		else 
+		else
 		{
 			$path = false;
 
@@ -916,9 +916,9 @@ class Template
 	 * @param	mixed	$data
 	 * @return	array
 	 */
-	public function load_view($view, $data = array(), $parse = FALSE)
+	public function load_view($view, $data = array(), $parse = FALSE, $override_view_path = NULL)
 	{
-		return $this->_find_view($view, (array)$data, $parse);
+		return $this->_find_view($view, (array)$data, $parse, $override_view_path);
 	}
 
 	// find layout files, they could be mobile or web
@@ -932,7 +932,7 @@ class Template
 		// Base view folder
 		$view_folder = APPPATH.'views/';
 
-		if(!$theme){	
+		if(!$theme){
 			// Using a theme? Put the theme path in before the view folder
 			if ( ! empty($this->_theme))
 			{
@@ -973,12 +973,12 @@ class Template
 		// otherwise we only want to get list of layouts
 		if(! $theme)
 			$this->_ci->load->vars('template_views', $view_folder);
-		
+
 		return $view_folder;
 	}
 
 	// A module view file can be overriden in a theme
-	private function _find_view($view, array $data, $parse_view = FALSE)
+	private function _find_view($view, array $data, $parse_view = FALSE, $override_view_path = NULL)
 	{
 		// Only bother looking in themes if there is a theme
 		if ( ! empty($this->_theme))
@@ -1001,7 +1001,7 @@ class Template
 		}
 
 		// Not found it yet? Just load, its either in the module or root view
-		return self::_load_view($view, $this->_data + $data, $parse_view);
+		return self::_load_view($view, $this->_data + $data, $parse_view, $override_view_path);
 	}
 
 	private function _load_view($view, array $data, $parse_view = FALSE, $override_view_path = NULL)
@@ -1023,7 +1023,7 @@ class Template
 			else
 			{
 				$this->_ci->load->vars($data);
-				
+
 				// Load it directly, bypassing $this->load->view() as ME resets _ci_view
 				$content = $this->_ci->load->file(
 					$override_view_path.$view.self::_ext($view),
@@ -1064,7 +1064,7 @@ class Template
 				$file_path = $view . '.' . $ext;
 				break;
 			}
-	
+
 			// if not found, probably because it is a folder, not file
 			else if(file_exists($view . '/index.' . $ext))
 			{
@@ -1119,7 +1119,7 @@ class Template
 
 					$Parsedown = new Parsedown();
 					$content = $Parsedown->setBreaksEnabled(true)->text($content);
-				
+
 				} else
 					$this->fields[trim($segs[0])] = trim($segs[1]);
 			}

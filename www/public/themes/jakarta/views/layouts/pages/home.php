@@ -9,9 +9,9 @@
 	<div class="main-wrapper" data-spy="scroll" data-target=".collapse">
 
 
-		<?php 
+		<?php
 		/* Show navbar */
-		get_partial('navbar'); 
+		get_partial('navbar');
 		?>
 
 
@@ -47,7 +47,7 @@
 		<!-- FOOTER -->
 		<footer class="home-footer text-center">
 			<div class="container">
-				Copyright &copy; Nyankod. Powered by PusakaCMS. All rights reserved. 
+				Copyright &copy; Nyankod. Powered by PusakaCMS. All rights reserved.
 			</div>
 		</div>
 		<!-- END: FOOTER -->

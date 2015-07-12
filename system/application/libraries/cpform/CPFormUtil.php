@@ -18,12 +18,24 @@ class CPFormUtil {
 	public function load($class_form='', $location = ''){
 		// use location if set
 		if(!empty($location))
-		$this->forms_path = array($location.DIRECTORY_SEPARATOR);
+			$this->forms_path = array($location.DIRECTORY_SEPARATOR);
 
 		// check if class exists
 		foreach ($this->forms_path as $value) {
 			if(file_exists($value.$class_form.'.php')){
-				$found = true;
+				require_once $value.$class_form.'.php';
+				return new $class_form();
+			}
+		}
+
+		show_error($class_form.' class not found.');
+	}
+
+	public function create($classname = false)
+	{
+		// check if class exists
+		foreach ($this->forms_path as $value) {
+			if(file_exists($value.$class_form.'.php')){
 				require_once $value.$class_form.'.php';
 				return new $class_form();
 			}

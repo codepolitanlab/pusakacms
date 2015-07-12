@@ -1,0 +1,6 @@
+{
+    "widget": "hello",
+    "title": "Hello Widget",
+    "show_title": true,
+    "area": "nonarea"
+}
