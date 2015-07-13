@@ -22,7 +22,6 @@ if ( ! function_exists('render_instance'))
         $CI = &get_instance();
         // accomodate widget paths
         $widget_path = array(
-            $CI->template->get_theme_path().'views/widgets'.DIRECTORY_SEPARATOR,
             ADDON_FOLDER.'widgets'.DIRECTORY_SEPARATOR,
             APPPATH.'widgets'.DIRECTORY_SEPARATOR
         );

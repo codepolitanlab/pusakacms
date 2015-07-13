@@ -9,8 +9,6 @@ class Panel extends Admin_Controller {
 
     function index()
     {
-        echo THEME_PATH;
-        // $widget = $this->cpformutil->load('Widget_hello', $widget_path);
-        // echo $widget->render();
+        
     }
 }

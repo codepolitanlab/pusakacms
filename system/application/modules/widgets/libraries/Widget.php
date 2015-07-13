@@ -4,12 +4,14 @@ class Widget extends CPForm {
 
     protected $cpform_exclude_prefix = array('cpform', 'widget');
 
-    protected $widget_name;
-    protected $widget_description;
-    protected $widget_container_class = 'widget';
+    // this is set by widget developer
+    public $widget_name;
+    public $widget_description;
+    public $widget_container_class = 'widget';
 
     protected $widget_data = array();
     protected $widget_area = 'nonarea';
+    protected $widget_view_path = '';
 
     function __construct()
     {
@@ -17,7 +19,6 @@ class Widget extends CPForm {
 
         // get children class name and file location
         $reflector = new ReflectionClass(get_class($this));
-        $this->widget_path = dirname($reflector->getFileName()).DIRECTORY_SEPARATOR;
         $this->widget_slug = substr($reflector->getName(), strlen('Widget_'));
 
         // set data store location
@@ -56,7 +57,14 @@ class Widget extends CPForm {
         );
     }
 
-    public function set_values($data)
+    // these two method init() and process() are set by widget developer
+    protected function _process($data = array())
+    {
+        // get value before render
+        $this->widget_data = $data;
+    }
+
+    public function save_data($data)
     {
         if(isset($data['area']) && ! empty($data['area']))
             $this->widget_area = $data['area'];
@@ -66,16 +74,26 @@ class Widget extends CPForm {
 
     public function render($data = array())
     {
-        // get value before render
-        $this->widget_data = $data;
+        // call process() method first to prepare data
+        $this->_process($data);
 
-        // render widget view
+        // accomodate view paths
+        $view_paths = array(
+            $this->cpform_CI->template->get_theme_path().'views/widgets/'.$this->widget_slug.DIRECTORY_SEPARATOR,
+            ADDON_FOLDER.'widgets/'.$this->widget_slug.DIRECTORY_SEPARATOR,
+            APPPATH.'widgets/'.$this->widget_slug.DIRECTORY_SEPARATOR
+        );
+        foreach ($view_paths as $path) {
+            if(file_exists($path.'view.php'))
+                $this->widget_view_path = $path;
+        }
+
+        // set output and the container
         $output = '<div class="'.$this->widget_container_class.' '.$this->widget_slug.'">'."\n";
-        $output .= $this->cpform_CI->template->load_view('view', $this->widget_data, TRUE, $this->widget_path)."\n";
+        $output .= $this->cpform_CI->template->load_view('view', $this->widget_data, TRUE, $this->widget_view_path)."\n";
         $output .= '</div>'."\n";
 
         return $output;
     }
-
 
 }
