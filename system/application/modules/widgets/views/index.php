@@ -24,17 +24,18 @@
 						<?php if (! empty($widget_val)):?>
 
 							<?php foreach ($widget_val as $wid_name => $wid_value): ?>
-								<div class="panel panel-info">
+								<div class="panel panel-default">
 									<div class="panel-heading" role="tab" id="heading_<?php echo $wid_name; ?>">
-										<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_<?php echo $wid_name; ?>" aria-expanded="false" aria-controls="collapse_<?php echo $wid_name; ?>" class="collapsed panel-title light">
+										<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_<?php echo $wid_name; ?>" aria-expanded="false" aria-controls="collapse_<?php echo $wid_name; ?>" class="collapsed panel-title">
 											<?php echo $wid_value['widget_name']; ?>
 											<span class="pull-right"><small>+ Add</small></span>
 										</a>
 									</div>
 									<div id="collapse_<?php echo $wid_name; ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_<?php echo $wid_name; ?>" aria-expanded="false" style="height: 0px;">
 										<div class="panel-body">
-											<?php echo $wid_value['form'];
-											?>
+											<p class="text-muted"><?php echo $wid_value['widget_description']; ?></p>
+										
+											<?php echo $wid_value['form']; ?>
 										</div>
 									</div>
 								</div>
