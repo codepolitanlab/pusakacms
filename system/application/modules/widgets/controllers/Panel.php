@@ -70,7 +70,7 @@ class Panel extends Admin_Controller {
 
 		foreach ($area_folders as $folder => $files) {
 			if(count($files) > 0)
-				$data['areas'][] = rtrim($folder, '/');
+				$data['areas'][] = rtrim($folder, DIRECTORY_SEPARATOR);
 		}
 
 		$this->template->view('index', $data);
@@ -85,13 +85,13 @@ class Panel extends Admin_Controller {
 		$data['widgets'] = false;
 		foreach ($files as $file) {
 			// get widget data
-			$widget_data = json_decode(file_get_contents(WIDGET_FOLDER.$area.'/'.$file), true);
+			$widget_data = json_decode(file_get_contents(WIDGET_FOLDER.$area.DIRECTORY_SEPARATOR.$file), true);
 
 			$widget_slug = strtolower(url_title($widget_data['title']));
 
 			// override config form
 			$form_config = array(
-				'action' => site_url('panel/widgets/edit/'. $widget_slug.'/'. $area),
+				'action' => site_url('panel/widgets/edit/'. $widget_slug.DIRECTORY_SEPARATOR. $area),
 				'method' => 'POST'
 				);
 
@@ -128,7 +128,7 @@ class Panel extends Admin_Controller {
 	function edit($widget_name = false, $area = 'nonarea')
 	{
 		// get widget data
-		$prev_data = json_decode(file_get_contents(WIDGET_FOLDER.$area.'/'.$widget_name.'.json'), true);
+		$prev_data = json_decode(file_get_contents(WIDGET_FOLDER.$area.DIRECTORY_SEPARATOR.$widget_name.'.json'), true);
 
 		// get widget class
 		$widget = $this->widgets_m->load_widget('Widget_'.$prev_data['widget'], $prev_data);
