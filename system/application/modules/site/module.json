@@ -8,6 +8,6 @@
 	"menu": {
 		"caption": "Site Management",
 		"context": "Settings",
-		"order": 10
+		"order": 15
 	}
 }

@@ -50,6 +50,7 @@ class MY_Controller extends MX_Controller{
 		if(! defined('POST_FOLDER')) define('POST_FOLDER', SITE_PATH.$this->config->item('post_folder'));
 		if(! defined('LABEL_FOLDER')) define('LABEL_FOLDER', SITE_PATH.$this->config->item('label_folder'));
 		if(! defined('NAV_FOLDER')) define('NAV_FOLDER', SITE_PATH.$this->config->item('nav_folder'));
+		if(! defined('WIDGET_FOLDER')) define('WIDGET_FOLDER', SITE_PATH.$this->config->item('widget_folder'));
 
 		if(! defined('POST_TERM')) define('POST_TERM', $this->config->item('post_term'));
 

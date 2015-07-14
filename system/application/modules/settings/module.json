@@ -8,6 +8,6 @@
 	"menu": {
 		"caption": "Configurations",
 		"context": "Settings",
-		"order": 5
+		"order": 10
 	}
 }

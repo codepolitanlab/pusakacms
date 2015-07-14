@@ -26,11 +26,11 @@ $(function(){
 		if(mode == 'edit'){
 			$('#area-form').attr('action', base_url + 'panel/navigation/edit_area/'+slug);
 			$('#btn-submit-area-form').html('Edit');
-			$('#areaModalLabel').html('Edit Navigation Area');
+			$('#areaModalLabel').html('Edit Area');
 		} else {
 			$('#area-form').attr('action', base_url + 'panel/navigation/create_area');
 			$('#btn-submit-area-form').html('Create');
-			$('#areaModalLabel').html('New Navigation Area');				
+			$('#areaModalLabel').html('New Area');				
 		}
 	});
 
@@ -61,7 +61,7 @@ $(function(){
 		} else {
 			$('#link-form').attr('action', base_url + 'panel/navigation/create_link');
 			$('#btn-submit-link-form').html('Create');
-			$('#linkModalLabel').html('Add New Link');				
+			$('#linkModalLabel').html('Add New Link');
 		}
 	})
 

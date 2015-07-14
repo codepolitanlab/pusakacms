@@ -46,6 +46,7 @@ $config['page_folder'] 		= 'content'.DIRECTORY_SEPARATOR.'pages'.DIRECTORY_SEPAR
 $config['post_folder'] 		= 'content'.DIRECTORY_SEPARATOR.'posts'.DIRECTORY_SEPARATOR;
 $config['label_folder'] 	= 'content'.DIRECTORY_SEPARATOR.'labels'.DIRECTORY_SEPARATOR;
 $config['nav_folder'] 		= 'content'.DIRECTORY_SEPARATOR.'navs'.DIRECTORY_SEPARATOR;
+$config['widget_folder']	= 'content'.DIRECTORY_SEPARATOR.'widgets'.DIRECTORY_SEPARATOR;
 
 /*
 |--------------------------------------------------------------------------

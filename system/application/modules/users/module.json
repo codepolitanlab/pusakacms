@@ -8,6 +8,6 @@
 	"menu": {
 		"caption": "Users",
 		"context": "Settings",
-		"order": 15
+		"order": 5
 	}
 }

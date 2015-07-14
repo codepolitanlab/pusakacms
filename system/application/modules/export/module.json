@@ -6,8 +6,8 @@
 	"author": "Toni Haryanto",
 	"author_site": "id.toniharyanto.id",
 	"menu": {
-		"caption": "Export",
-		"context": "Misc",
-		"order": 10
+		"caption": "Export to HTML",
+		"context": "Settings",
+		"order": 20
 	}
 }

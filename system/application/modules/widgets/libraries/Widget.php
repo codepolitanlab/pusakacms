@@ -9,14 +9,12 @@ class Widget extends CPForm {
     public $widget_description;
     public $widget_container_class = 'widget';
 
-    protected $widget_data = array();
+    public $widget_data = array();
     protected $widget_area = 'nonarea';
     protected $widget_view_path = '';
 
     function __construct()
     {
-        parent::__construct();
-
         // get children class name and file location
         $reflector = new ReflectionClass(get_class($this));
         $this->widget_slug = substr($reflector->getName(), strlen('Widget_'));
@@ -55,6 +53,9 @@ class Widget extends CPForm {
             ),
             'rules' => 'required'
         );
+
+        // call parent constructor in the end
+        parent::__construct();
     }
 
     // these two method init() and process() are set by widget developer

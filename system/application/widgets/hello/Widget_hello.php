@@ -8,6 +8,17 @@ class Widget_hello extends Widget {
         // any configuration set here
         $this->widget_name = 'Hello World';
         $this->widget_description = 'PusakaCMS widget sample';
+        $this->widget_container_class = 'widget';
+
+        // set form config
+        $this->cpform_config = array(
+            'action' => site_url('panel/widgets/add/'.get_class($this)),
+            'method' => 'POST',
+        );
+        $this->cpform_additional = array(
+            'submit_class' => 'btn btn-primary',
+            'submit_value' => 'Submit'
+        );
     }
 
     function _set_fields()

@@ -16,12 +16,27 @@ class CPForm {
 
 	protected $cpform_config = array();
 	protected $cpform_additional = array(
-		'submit_class' => '',
+		'submit_class' => 'btn',
 		'submit_value' => 'Submit'
 	);
 
 	protected function _set_fields(){ return true; }
-	protected function _set_config(){ return true; }
+
+	// set default config
+	protected function _set_config()
+	{
+		$this->cpform_title = get_class($this);
+
+        // set form config
+        $this->cpform_config = array(
+            'action' => site_url(),
+            'method' => 'POST',
+        );
+        $this->cpform_additional = array(
+            'submit_class' => 'btn',
+            'submit_value' => 'Submit'
+        );
+	}
 
 	function __construct()
 	{

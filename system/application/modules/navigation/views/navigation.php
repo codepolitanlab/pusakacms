@@ -13,7 +13,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<div class="row">
-					<div class="col-md-6"><?php echo $area_slug; ?></div>
+					<div class="col-md-6 panel-title"><?php echo $area_slug; ?></div>
 					<div class="col-md-6 align-right">
 						<a href="#" data-toggle="modal" data-target="#linkModal" data-area="<?php echo $area_slug; ?>" class="btn btn-xs btn-primary"><span class="fa fa-link"></span> Add link</a>
 						<a href="#" data-toggle="modal" data-target="#areaModal" class="btn btn-xs btn-info" data-title="<?php echo $area_slug; ?>" data-slug="<?php echo $area_slug; ?>" data-mode="edit" title="Edit Area"><span class="fa fa-pencil"></span></a>

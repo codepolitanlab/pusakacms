@@ -19,6 +19,7 @@ class Admin_Controller extends MY_Controller
 		$nav = array(
 				'Dashboard' => array(),
 				'Content' => array(),
+				'Appearance' => array(),
 				'Misc' => array(),
 				'Settings' => array(),
 				'Account' => array(
