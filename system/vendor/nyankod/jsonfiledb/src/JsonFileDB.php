@@ -218,6 +218,9 @@ class JsonFileDB
             }
         }
 
+        if(count($result) == 1)
+            return $result[0];
+
         return $result;
     }
 

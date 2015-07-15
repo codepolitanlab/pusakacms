@@ -28,7 +28,7 @@
 									<div class="panel-heading" role="tab" id="heading_<?php echo $wid_name; ?>">
 										<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_<?php echo $wid_name; ?>" aria-expanded="false" aria-controls="collapse_<?php echo $wid_name; ?>" class="collapsed panel-title">
 											<?php echo $wid_value['widget_name']; ?>
-											<span class="pull-right"><small>+ Add</small></span>
+											<span class="pull-right"><small class="btn btn-default btn-xs">+ Add</small></span>
 										</a>
 									</div>
 									<div id="collapse_<?php echo $wid_name; ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_<?php echo $wid_name; ?>" aria-expanded="false" style="height: 0px;">
