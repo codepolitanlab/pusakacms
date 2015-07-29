@@ -11,6 +11,7 @@ class CPForm {
 	protected $cpform_output = array();
 	protected $cpform_errors = array();
 	protected $cpform_is_valid = FALSE;
+	protected $cpform_callback = array();
 
 	protected $cpform_exclude_prefix = array('cpform');
 
@@ -66,15 +67,16 @@ class CPForm {
 					require_once $this->cpform_path.'Fields/'.$value['fieldType'].'.php';
 
 					// set values from parameter to config
-					if(isset($values[$key])) $value['config']['value'] = $values[$key];
+					if(isset($values[$key])) $value['config']['value'] = htmlentities($values[$key]);
 
 					// create field type object
-					$fieldtype = new $value['fieldType']($key, $value['label'], $value['config']);
+					$fieldtype = new $value['fieldType']($key, $value);
 					$this->cpform_output[$key] = $fieldtype;
+					unset($fieldtype);
 
 					// set validation rules
 					if(isset($value['rules']))
-						$this->cpform_CI->form_validation->set_rules($key, $value['label'], $value['rules']);
+						$this->cpform_CI->form_validation->set_rules($key, $value['label'], $value['rules'], isset($value['rule_messages']) ? $value['rule_messages'] : array());
 
 				} else {
 					show_error('Field type '.$value['fieldType'].' is not available.');
@@ -121,7 +123,7 @@ class CPForm {
 		$fields .= "<ul>";
 		foreach($this->cpform_output as $key => $value) {
 			$temp_fields = '<li>';
-			$temp_fields .= $value->label;
+			$temp_fields .= '<label for="'.$value->name.'">'.$value->label.'</label>';
 			$temp_fields .= $value->render();
 			$temp_fields .= '</li>';
 			$this->cpform_fields[$key] = $temp_fields;
@@ -137,7 +139,7 @@ class CPForm {
 		$fields = '';
 		foreach($this->cpform_output as $key => $value) {
 			$temp_fields = '<p>';
-			$temp_fields .= $value->label;
+			$temp_fields .= '<label for="'.$value->name.'">'.$value->label.'</label>';
 			$temp_fields .= $value->render();
 			$temp_fields .= '</p>';
 			$this->cpform_fields[$key] = $temp_fields;
@@ -154,5 +156,10 @@ class CPForm {
 
 	public function is_valid(){
 		return $this->cpform_is_valid;
+	}
+
+	public function set_message($key, $message)
+	{
+		$this->cpform_CI->form_validation->set_message($key, $message);
 	}
 }

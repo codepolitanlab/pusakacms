@@ -1,0 +1,13 @@
+{
+	"module_name": "Themes",
+	"module_slug": "themes",
+	"module_description": "Theme management module",
+	"version": "1.0.0",
+	"author": "Toni Haryanto",
+	"author_site": "id.toniharyanto.id",
+	"menu": {
+		"caption": "Themes",
+		"context": "Appearance",
+		"order": 4
+	}
+}

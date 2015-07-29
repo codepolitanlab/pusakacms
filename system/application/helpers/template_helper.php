@@ -111,6 +111,9 @@ if ( ! function_exists('get_content_image'))
 	function get_content_image($file = false, $attr = true, $site_slug = false) {
 		if(! $site_slug) $site_slug = SITE_SLUG;
 
+		if(empty($file) || ! file_exists(SITE_FOLDER.$site_slug.'/files/'.$file))
+			$file = 'default.jpg';
+
 		$url =  base_url().'media/'.$site_slug.'/files/'.$file;
 
 		if($attr)

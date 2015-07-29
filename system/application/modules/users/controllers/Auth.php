@@ -6,16 +6,17 @@ class Auth extends Public_Controller {
 	{
 		parent::__construct();
 		
-		if(! $this->config->item('filebased', 'ion_auth'))
+		if($this->config->item('filebased', 'ion_auth') === FALSE)
 			$this->load->database();
+		else
+			if(! is_writable(SITE_PATH.'db/users.json') || ! is_writable(SITE_PATH.'db/groups.json'))
+				show_error('Files users.json and groups.json in folder '.SITE_PATH.'db/ must be writable.');
 
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
 		$this->lang->load('users/auth');
 		$this->load->helper('language');
 
-		if(! is_writable(SITE_PATH.'db/users.json') || ! is_writable(SITE_PATH.'db/groups.json'))
-			show_error('Files users.json and groups.json in folder '.SITE_PATH.'db/ must be writable.');
 	}
 
 	//redirect if needed, otherwise display the user list
@@ -30,9 +31,12 @@ class Auth extends Public_Controller {
 	//log the user in
 	function login()
 	{
+		$redirect = $this->input->get('red')?$this->input->get('red'):'panel';
+
 		if($this->logged_in()) redirect('panel');
 
 		$this->data['title'] = "Login";
+		$this->data['redirect'] = $redirect ? '?red='.$redirect : '';
 
 		//validate form input
 		$this->form_validation->set_rules('identity', 'Identity', 'required');
@@ -49,7 +53,12 @@ class Auth extends Public_Controller {
 				//if the login is successful
 				//redirect them back to the home page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect('panel', 'refresh');
+
+				// assumes dot is available only if redirect to other domain
+				if(strpos($redirect, '.') === FALSE)
+					redirect($redirect, 'refresh');
+				else
+					header('Location: http://'.$redirect);
 			}
 			else
 			{
@@ -478,6 +487,42 @@ class Auth extends Public_Controller {
 			//redirect them back to the auth page
 			redirect('users/auth', 'refresh');
 		}
+	}
+
+	function vanilla_connect()
+	{
+		$this->load->library('users/jsconnect');
+
+		// 1. Get your client ID and secret here. These must match those in your jsConnect settings.
+		$clientID = "874934346";
+		$secret = "6079c723dd51440847628ac4f1ae66ac";
+
+		// 2. Grab the current user from your session management system or database here.
+		$signedIn = true; // this is just a placeholder
+
+
+		// YOUR CODE HERE. Please grab your user info from database or session and make your own code. I just use session for example
+		$user_id = $this->session->userdata('id');
+		$user_name = $this->session->userdata('username');
+		$user_email = $this->session->userdata('email');
+		$photourl = "";
+
+		// 3. Fill in the user information in a way that Vanilla can understand.
+		
+		// CHANGE THESE FOUR LINES.
+		$user['uniqueid'] = $user_id;
+		$user['name'] = $user_name;
+		$user['email'] = $user_email;
+		$user['photourl'] = $photourl;
+		
+		// 4. Generate the jsConnect string.
+
+		// This should be true unless you are testing. 
+		// You can also use a hash name like md5, sha1 etc which must be the name as the connection settings in Vanilla.
+		$secure = false; 
+
+		$this->jsconnect->WriteJsConnect($user, $_GET, $clientID, $secret, $secure);
+		
 	}
 
 

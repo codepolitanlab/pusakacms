@@ -27,14 +27,12 @@ class Panel extends Admin_Controller {
 	* SETTINGS
 	**********************************************/
 
-	function index($settings = "Settings_site")
+	function index()
 	{
 		// read all Settings form class
 		$form_locations = array();
 		foreach ($this->cpformutil->forms_path as $form_path) {
-				$path = glob($form_path.'Settings_*.php');
-				if(! empty($path))
-					$form_locations = array_merge($form_locations, $path);
+			$form_locations = array_merge($form_locations, glob($form_path.'Settings_*.php'));
 		}
 
 		// generate forms

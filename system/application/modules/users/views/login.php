@@ -3,7 +3,7 @@
 
 <div id="infoMessage"><?php echo $message;?></div>
 
-<?php echo form_open("users/auth/login");?>
+<?php echo form_open("users/auth/login/".$redirect);?>
 
   <p>
     <?php echo lang('login_identity_label', 'identity');?>

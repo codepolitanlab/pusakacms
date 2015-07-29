@@ -13,6 +13,7 @@
 		<ul class="nav nav-tabs" role="tablist">
 			<li role="presentation" class="active"><a href="#core" aria-controls="core" role="tab" data-toggle="tab">Core Widgets</a></li>
 			<li role="presentation"><a href="#addon" aria-controls="addon" role="tab" data-toggle="tab">Addon Widgets</a></li>
+			<li role="presentation"><a href="#theme" aria-controls="theme" role="tab" data-toggle="tab">Theme Widgets</a></li>
 		</ul>
 
 		<!-- Tab panes -->
@@ -34,7 +35,7 @@
 									<div id="collapse_<?php echo $wid_name; ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_<?php echo $wid_name; ?>" aria-expanded="false" style="height: 0px;">
 										<div class="panel-body">
 											<p class="text-muted"><?php echo $wid_value['widget_description']; ?></p>
-										
+
 											<?php echo $wid_value['form']; ?>
 										</div>
 									</div>
@@ -56,27 +57,23 @@
 	<div class="col-md-6">
 		<h3>Widget Areas</h3>
 
-		<?php if($areas): ?>
+		<?php if(isset($areas) && !empty($areas)): ?>
 			<?php foreach ($areas as $area_slug): ?>
 				<div class="panel panel-success">
 					<div class="panel-heading">
-						<div class="row">
-							<div class="col-md-6">
-								<a role="button" data-toggle="collapse" href="#collapse_<?php echo $area_slug; ?>" class="panel-title">
-									<?php echo $area_slug; ?>
-								</a>
-							</div>
-						</div>
+						<a role="button" data-toggle="collapse" href="#collapse_<?php echo $area_slug; ?>" class="panel-title">
+							<?php echo $area_slug; ?>
+						</a>	
 					</div>
-					<div  id="collapse_<?php echo $area_slug; ?>" class="panel-collapse collapse in">
-						<div class="panel-body" id="<?php echo $area_slug; ?>">
+					<div id="collapse_<?php echo $area_slug; ?>" class="panel-sortable-root panel-collapse collapse in">
+						<ol class="panel-body panel-sortable" id="<?php echo $area_slug; ?>">
 							<?php echo Modules::run('widgets/panel/widget_list', $area_slug); ?>
-						</div>
+						</ol>
 					</div>
 				</div>
 			<?php endforeach; ?>
 		<?php else: ?>
-			<p>There is no any widget area yet.</p>
+			<p>There is no any widget created yet.</p>
 		<?php endif; ?>
 
 	</div>
@@ -84,10 +81,21 @@
 
 <script>
 	$(function(){
-		<?php if($areas): $group = 0; foreach ($areas as $area_slug => $area_content): ?>
-		$('#<?php echo $area_slug; ?>').nestable({group: <?php echo $group; ?>}).on('change', updateSort);
+		<?php if($areas): $group = 0; foreach ($areas as $area_slug): ?>
+		$('#collapse_<?php echo $area_slug; ?>').nestable({
+		 	group: <?php echo $group; ?>,
+		 	listNodeName    : 'ol',
+            itemNodeName    : 'li',
+            rootClass       : 'panel-sortable-root',
+            listClass       : 'panel-sortable',
+            itemClass       : 'panel-sortable-item',
+            handleClass     : 'panel-handle',
+            expandBtnHTML   : '',
+            collapseBtnHTML : '',
+            maxDepth        : 1
+		 }).on('change', updateSort);
 		<?php $group++; endforeach; endif; ?>
-	})
+	});
 
 	// callback to update arrange navigation
 	var updateSort = function(e)
@@ -101,14 +109,15 @@
 
 		if (window.JSON) {
 			var newmap = window.JSON.stringify(list.nestable('serialize'));
-			$.post(base_url+'panel/navigation/sort/'+area, {newmap : newmap})
+			console.log(newmap);
+			$.post(base_url+'panel/widgets/sort/'+area, {newmap : newmap})
 			.done(function(data){
 				var res = JSON.parse(data);
 				$('#alert-'+res.status).children('span').html(res.message);
 				$('#alert-'+res.status).fadeIn(300);
 				timeout = setTimeout(function(){
 					$('.alert').fadeOut(300);
-				}, 5000)
+				}, 5000);
 			});
 		} else {
 			output.val('JSON browser support required for this demo.');

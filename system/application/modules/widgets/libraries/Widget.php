@@ -54,6 +54,16 @@ class Widget extends CPForm {
             'rules' => 'required'
         );
 
+        // set form config
+        $this->cpform_config = array(
+            'action' => site_url('panel/widgets/add/'.get_class($this)),
+            'method' => 'POST',
+        );
+        $this->cpform_additional = array(
+            'submit_class' => 'btn btn-primary',
+            'submit_value' => 'Submit'
+        );
+
         // call parent constructor in the end
         parent::__construct();
     }

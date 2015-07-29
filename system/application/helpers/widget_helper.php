@@ -4,17 +4,14 @@ if ( ! function_exists('render_area'))
 {
     function render_area($area = 'nonarea')
     {
-        if(! file_exists(WIDGET_FOLDER.$area))
+        if(! file_exists(WIDGET_FOLDER.$area) || ! file_exists(WIDGET_FOLDER.$area.DIRECTORY_SEPARATOR.'index.json'))
             return false;
 
-        $files = array_filter(scandir(WIDGET_FOLDER.$area), function($file){
-            return (strpos($file, '.json') !== FALSE);
-        });
+        $files = json_decode(file_get_contents(WIDGET_FOLDER.$area.DIRECTORY_SEPARATOR.'index.json'), true);
 
         $output = '';
         foreach ($files as $file) {
-            $slug = str_replace('.json', '', $file);
-            $output .= render_instance($slug, $area);
+            $output .= render_instance($file, $area);
         }
 
         return $output;
@@ -35,6 +32,7 @@ if ( ! function_exists('render_instance'))
         $CI = &get_instance();
         // accomodate widget paths
         $widget_path = array(
+            WWW_FOLDER . $CI->template->get_theme_path($CI->config->item('theme')). 'views/widgets' . DIRECTORY_SEPARATOR,
             ADDON_FOLDER.'widgets'.DIRECTORY_SEPARATOR,
             APPPATH.'widgets'.DIRECTORY_SEPARATOR
         );

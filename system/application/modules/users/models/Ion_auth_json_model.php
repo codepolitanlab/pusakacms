@@ -676,11 +676,14 @@ class Ion_auth_json_model extends Ion_auth_model
 
 		$this->db->setTable('users');
 		$user = $this->db->select('id', $id);
-		if($user){
+		if($user && is_array($user['groups'])){
 			foreach ($user['groups'] as $group) {
 				$this->db->setTable('groups');
 				$groups[] = $this->db->select('id', $group);
 			}
+		} else {
+			$this->db->setTable('groups');
+			$groups[] = $this->db->select('id', $user['groups']);
 		}
 
 		return $groups;
@@ -728,8 +731,12 @@ class Ion_auth_json_model extends Ion_auth_model
 		$salt       = $this->store_salt ? $this->salt() : FALSE;
 		$password   = $this->hash_password($password, $salt);
 
-		$this->db->setTable('groups');
-		$default_group = $this->db->select('name', $this->config->item('default_group', 'ion_auth'));
+		if(empty($groups))
+		{
+			$this->db->setTable('groups');
+			$default_group = $this->db->select('name', $this->config->item('default_group', 'ion_auth'));
+			$groups[] = $default_group['id'];
+		}
 		
 		$this->db->setTable('users');
 
@@ -743,7 +750,7 @@ class Ion_auth_json_model extends Ion_auth_model
 		    'created_on' => time(),
 		    'last_login' => time(),
 		    'active'     => ($manual_activation === false ? 1 : 0),
-		    'groups'	 => array($default_group['id'])
+		    'groups'	 => $groups
 		);
 
 		if ($this->store_salt)

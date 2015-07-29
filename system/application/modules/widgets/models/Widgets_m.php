@@ -7,6 +7,7 @@ class Widgets_m extends MY_Model
 	function __construct()
 	{
 		$this->widget_path = array(
+			'theme' => WWW_FOLDER . $this->template->get_theme_path($this->config->item('theme')). 'views/widgets' . DIRECTORY_SEPARATOR,
 			'addon' => ADDON_FOLDER . 'widgets' . DIRECTORY_SEPARATOR,
 			'core' => APPPATH . 'widgets' . DIRECTORY_SEPARATOR
 		);
@@ -16,7 +17,9 @@ class Widgets_m extends MY_Model
 	{
 		
 		$widgets = array();
-		$files = directory_map($this->widget_path[$type], 1);
+		if(! $files = directory_map($this->widget_path[$type], 1))
+			return false;
+		
 		foreach ($files as $file) {
 			
 			// if it is folder
@@ -105,7 +108,13 @@ class Widgets_m extends MY_Model
 		
 		if (!file_exists(WIDGET_FOLDER . $data['area'])) mkdir(WIDGET_FOLDER . $data['area'], 0775, true);
 		
-		return write_file(WIDGET_FOLDER . $data['area'] . '/' . strtolower(url_title($data['title'])) . '.json', json_encode($data, JSON_PRETTY_PRINT));
+		// write widget data file
+		write_file(WIDGET_FOLDER . $data['area'] . '/' . strtolower(url_title($data['title'])) . '.json', json_encode($data, JSON_PRETTY_PRINT));
+
+		// update widget index
+		$index = json_decode(file_get_contents(WIDGET_FOLDER.$data['area'].DIRECTORY_SEPARATOR.'index.json'), true);
+		$index[] = strtolower(url_title($data['title']));
+		return write_file(WIDGET_FOLDER . $data['area'] . '/index.json', json_encode($index, JSON_PRETTY_PRINT));
 	}
 
 
@@ -114,13 +123,20 @@ class Widgets_m extends MY_Model
 		$data['widget'] = str_replace('Widget_', '', $widget_class);
 
 		// delete previous data
-		unlink(WIDGET_FOLDER.$prev_data['area'].'/'.strtolower(url_title($prev_data['title'])).'.json');
+		$this->delete_widget(strtolower(url_title($prev_data['title'])), $prev_data['area']);
 		
 		return $this->save_widget($widget_class, $data);
 	}
 
 	function delete_widget($widget_slug, $area)
 	{
-		return unlink(WIDGET_FOLDER.$area.'/'.$widget_slug.'.json');
+		// delete the file
+		unlink(WIDGET_FOLDER.$area.'/'.$widget_slug.'.json');
+
+		// update widget index
+		$index = json_decode(file_get_contents(WIDGET_FOLDER.$area.DIRECTORY_SEPARATOR.'index.json'), true);
+		if(($key = array_search($widget_slug, $index)) !== false)
+		    unset($index[$key]);
+		return write_file(WIDGET_FOLDER . $area . '/index.json', json_encode($index, JSON_PRETTY_PRINT));
 	}
 }

@@ -7,7 +7,7 @@ class PasswordField extends BaseField {
 
     public function render(){
 
-        $this->widget = '<input type="text"';
+        $this->widget = '<input type="password"';
 
         foreach ($this->config as $key => $value) {
             $attribute = $key.'="'.$value.'"';
@@ -15,7 +15,6 @@ class PasswordField extends BaseField {
         }
 
         $this->widget .= ' name="'.$this->name.'" ';
-        $this->widget .= ' value="'.$this->initial.'" ';
         $this->widget .= ' />';
 
         return $this->widget;

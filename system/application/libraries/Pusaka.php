@@ -430,12 +430,12 @@ class Pusaka {
 	 * @param	int		page number
 	 * @return	array
 	 */
-	function get_posts($category = null, $page = 1, $sort = 'desc', $parse = true, $site_slug = false)
+	function get_posts($category = null, $page = 1, $perpage = false, $sort = 'desc', $parse = true, $site_slug = false)
 	{
 		if(!$site_slug) $site_slug = SITE_SLUG;
 
 		// I don't know why this line of code cannot affected if put in __construct
-		$this->set_post_per_page();
+		$this->set_post_per_page($perpage);
 
 		$posts = array();
 

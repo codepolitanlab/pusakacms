@@ -444,4 +444,9 @@ class JsonFileDB
         else
             throw new JsonDBException("New table couldn't be created: ".$tablePath);
     }
+
+    public function generate_id()
+    {
+        return time();
+    }
 }

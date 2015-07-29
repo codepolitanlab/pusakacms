@@ -2046,3 +2046,20 @@ ul.navlist li ul {
  .nav-tabs>li.active>a:focus {
  	background-color: #f9f9f9;
  }
+
+ li.panel-sortable-item {
+	list-style: none !important;
+}
+
+ li.panel-sortable-item .panel-handle {
+ 	background: #C7D5D8;
+ 	left: 10px;
+  top: 1px;
+ }
+ li.panel-sortable-item .panel-handle:before {
+ 	top: -2px;
+ 	color: #F4F3F3;
+ }
+ li.panel-sortable-item .panel-title {
+	margin-left: 35px;
+ }

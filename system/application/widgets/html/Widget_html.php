@@ -1,20 +1,16 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Widget_hello extends Widget {
+class Widget_html extends Widget {
 
 
     function _set_config()
     {
         // any configuration set here
-        $this->widget_name = 'Hello World';
-        $this->widget_description = 'PusakaCMS widget sample';
+        $this->widget_name = 'HTML Block';
+        $this->widget_description = 'Add HTML block';
         $this->widget_container_class = 'widget';
 
-        // set form config
-        $this->cpform_config = array(
-            'action' => site_url('panel/widgets/add/'.get_class($this)),
-            'method' => 'POST',
-        );
+        // set additional config
         $this->cpform_additional = array(
             'submit_class' => 'btn btn-primary',
             'submit_value' => 'Submit'
@@ -24,12 +20,12 @@ class Widget_hello extends Widget {
     function _set_fields()
     {
         // any other fields set here
-        $this->message = array(
-            'fieldType' => 'TextField',
-            'label' => 'Hello Message',
+        $this->html = array(
+            'fieldType' => 'TextareaField',
+            'label' => 'HTML code',
             'config' => array(
-                'placeholder' => 'your welcome message',
-                'id' => 'message',
+                'placeholder' => 'place HTML block code here',
+                'id' => 'html',
                 'class' => 'form-control'
             )
         );

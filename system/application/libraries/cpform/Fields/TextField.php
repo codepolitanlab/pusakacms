@@ -10,7 +10,11 @@ class TextField extends BaseField {
         $this->widget = '<input type="text"';
 
         foreach ($this->config as $key => $value) {
-            $attribute = $key.'="'.$value.'"';
+            if($key == 'value')
+                $attribute = $key.'="'.set_value($this->name, $value).'"';
+            else
+                $attribute = $key.'="'.$value.'"';
+
             $this->widget .= ' '.$attribute.' ';
         }
 

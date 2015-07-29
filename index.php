@@ -1,2 +1,3 @@
 <?php
-header('Location: ./www');
+
+header('Location: ./www', TRUE, '301');

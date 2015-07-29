@@ -30,7 +30,7 @@ class Panel extends Admin_Controller {
 	{
 		if(! $site_slug) show_404();
 
-		$posts = $this->pusaka->get_posts('all', 'all', 'desc', false, $site_slug);
+		$posts = $this->pusaka->get_posts('all', 'all', false, 'desc', false, $site_slug);
 
 		// delete unused post
 		$this->direktori_m->delete_unused_post($posts, $site_slug);

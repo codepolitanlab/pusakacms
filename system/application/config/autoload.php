@@ -52,7 +52,15 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('template', 'pusaka', 'form_validation', 'cpform/CPForm', 'cpform/CPFormUtil', 'widgets/Widget');
+$autoload['libraries'] = array(
+	'template', 
+	'pusaka', 
+	'form_validation', 
+	'cpform/CPForm', 
+	'cpform/CPFormUtil', 
+	'widgets/Widget', 
+	'themes/Themes'
+);
 
 /*
 | -------------------------------------------------------------------
@@ -78,7 +86,7 @@ $autoload['drivers'] = array('session');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('file', 'url', 'template', 'directory', 'post', 'nav', 'json', 'string', 'widget');
+$autoload['helper'] = array('form', 'file', 'url', 'template', 'directory', 'post', 'nav', 'json', 'string', 'widget');
 
 
 /*
