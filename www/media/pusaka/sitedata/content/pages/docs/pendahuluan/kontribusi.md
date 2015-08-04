@@ -1,6 +1,5 @@
 {: title :} Kontribusi
 {: slug :} kontribusi
-{: parent :} docs/apa-itu-pusaka
 {: content :} PusakaCMS dibangun dengan harapan menjadi CMS yang *simple*, mudah digunakan, dan cepat. PusakaCMS akan tetap menggunakan file untuk menyimpan data dalam rangka mendukung penggunaan Versioning Control System. Namun untuk keperluan skalabilitas, kedepannya akan dibuat dua opsi penyimpanan data, yakni file dan database.
 
 Kalau kamu tertarik untuk ikut mengembangkan PusakaCMS dan membuatnya lebih baik, kamu bisa mengusulkan ide peningkatan kemampuan sistem di bagian issue repositori. Juga bila Kamu menemukan bugs atau error di dalam sistem, silakan laporkan di bagian issue repositori. 

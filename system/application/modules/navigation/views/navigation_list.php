@@ -14,7 +14,7 @@
         </div>
         <?php if(isset($link['children'])): ?>
             <ol class="dd-list">
-                <?php echo Modules::run('panel/navigation/navigation_list', $area, $link['children']); ?>
+                <?php echo Modules::run('navigation/panel/navigation_list', $area, $link['children']); ?>
             </ol>
         <?php endif; ?>
     </li>

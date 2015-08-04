@@ -1,7 +1,6 @@
 {: title :} Showcase
 {: slug :} showcase
-{: parent :} docs/apa-itu-pusaka
-{: content :} - [PusakaCMS](http://pusakacmsorg)
+{: content :} - [PusakaCMS](http://pusakacms.org)
 - [Bayuayu Rent Car](http://www.bayuayurentcar.com/)
 - [Sekolah.co.id](http://www.sekolah.co.id/)
 

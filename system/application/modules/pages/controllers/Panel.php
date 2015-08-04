@@ -127,12 +127,15 @@ class Panel extends Admin_Controller {
 		$segs = $this->uri->uri_string();
 		$seg_array = explode("/", $segs, 4);
 
-		if(isset($seg_array[3]))
-			$prevslug = $seg_array[3];
+		if(isset($seg_array[3])){
+			$parent = explode("/", $seg_array[3]);
+			$prevslug = array_pop($parent);
+			$parent = implode("/", $parent);
+		}
 		else
 			show_404();
 
-		$prevpage = $this->pusaka->get_page($prevslug, false);
+		$prevpage = $this->pusaka->get_page($seg_array[3], false);
 		if(!isset($prevpage['slug']))
 			$prevpage['slug'] = $prevslug;
 
@@ -158,8 +161,8 @@ class Panel extends Admin_Controller {
 			->enable_parser_body(false)
 			->set('type', 'edit')
 			->set('page', $prevpage)
-			->set('parent', '')
-			->set('url', $prevpage['slug'])
+			->set('parent', $parent)
+			->set('url', $parent.'/'.$prevpage['slug'])
 			->set('layouts', $this->pusaka->get_layouts($this->config->item('theme')))
 			->set('pagelinks', $this->pusaka->get_flatnav())
 			->view('page_form');
@@ -208,7 +211,7 @@ class Panel extends Admin_Controller {
 		$source = implode("/", $source_arr);
 		$dest = $this->input->post('dest');
 
-		$this->pusaka->move_page($source.'/'.$page, $page, $source, $dest);
+		$this->pusaka->move_page($page, $page, $source, $dest);
 		
 		// update page index
 		$msg = $this->sync(false);

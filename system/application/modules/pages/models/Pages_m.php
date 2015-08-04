@@ -42,6 +42,10 @@ class Pages_m extends MY_Model {
 	{
 		$file_content = "";
 
+		// we don't want to save parent data
+		$parent = $page['parent'];
+		unset($page['parent']);
+
 		// set content
 		foreach ($page as $key => $value) {
 			if($value){
@@ -53,11 +57,11 @@ class Pages_m extends MY_Model {
 			}
 		}
 
-			// move page
-		$this->pusaka->move_page($prevpage['slug'], $page['slug'], $prevpage['parent'], $page['parent']);
+		// move page
+		$this->pusaka->move_page($prevpage['slug'], $page['slug'], $prevpage['parent'], $parent);
 
-			// update page content
-		if(write_file(PAGE_FOLDER.$page['parent'].'/'.$page['slug'].'.md', $file_content, 'w+'))
+		// update page content
+		if(write_file(PAGE_FOLDER.$parent.'/'.$page['slug'].'.md', $file_content, 'w+'))
 		{
 			$this->pusaka->sync_page();
 			return true;

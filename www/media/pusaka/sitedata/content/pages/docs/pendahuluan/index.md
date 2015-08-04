@@ -1,5 +1,5 @@
 {: title :} Pendahuluan
-{: slug :} docs
+{: slug :} pendahuluan
 {: content :} **PusakaCMS** adalah *Content Management System (CMS)* berbasis file, dalam artian semua konten disimpan di dalam file teks tanpa menggunakan *database engine* seperti MySQL, PostgreSQL atau SQLite. PusakaCMS mengedepankan kesederhanaan dalam proses penyimpanan dan publikasi konten, serta kecepatan akses. Kamu tidak akan menemukan proses tahapan instalasi atau konfigurasi database di dalam sistem PusakaCMS.
 
 PusakaCMS dibangun di atas framework [CodeIgniter](http://ellislab.com/codeigniter) versi 3 yang dikenal unggul dalam hal kecepatan proses dan kemudahan pengembangan. PusakaCMS banyak mendapatkan inspirasi dari file-based CMS lain seperti [Kirby](http://getkirby.com), [Stacey](http://staceyapp.com) dan [Fizl](http://github.com/obrignoni/Fizl).

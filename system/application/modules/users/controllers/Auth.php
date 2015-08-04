@@ -90,6 +90,12 @@ class Auth extends Public_Controller {
 				'autocomplete' => "off"
 			);
 
+			
+			$this->template->set_layout('page');
+
+			if($this->template->layout_exists('login'))
+				$this->template->set_layout('login');
+				
 			$this->template->view('login', $this->data);
 		}
 	}

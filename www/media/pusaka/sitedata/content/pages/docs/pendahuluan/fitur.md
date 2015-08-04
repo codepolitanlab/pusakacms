@@ -1,6 +1,5 @@
 {: title :} Fitur
 {: slug :} fitur
-{: parent :} docs/apa-itu-pusaka
 {: content :} - Penyimpanan konten berbasis file
 - Managemen Halaman
 - Managemen blog dan kategorisasi

@@ -1,6 +1,5 @@
 {: title :} Changelog
 {: slug :} changelog
-{: parent :} docs/apa-itu-pusaka
 {: content :} ## v1.2.0 Beta Release
 
 In this version there are several changes on codes and folder structures.

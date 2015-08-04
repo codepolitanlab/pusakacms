@@ -1,2 +1,0 @@
-{: title :} Pengaturan Menu
-{: content :}

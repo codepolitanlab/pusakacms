@@ -30,13 +30,6 @@
         "target": "_blank"
     },
     {
-        "title": "Tema",
-        "slug": "tema",
-        "url": "themes",
-        "source": "uri",
-        "target": "_self"
-    },
-    {
         "title": "Blog",
         "slug": "blog",
         "url": "blog",
