@@ -4,12 +4,15 @@
         "slug": "news",
         "url": "news",
         "source": "uri",
-        "target": "_self"
-    }, {
-        "title": "List",
-        "slug": "list",
-        "url": "sagala\/rupa",
-        "source": "uri",
-        "target": "_self"
+        "target": "_self",
+        "children": [
+            {
+                "title": "List",
+                "slug": "list",
+                "url": "sagala\/rupa",
+                "source": "uri",
+                "target": "_self"
+            }
+        ]
     }
 ]

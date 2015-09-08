@@ -702,6 +702,25 @@ class Pusaka {
 	}
 
 	// --------------------------------------------------------------------
+	/**
+	 * search if page is exist
+	 *
+	 * @access	private
+	 * @param	string	category, null for get all
+	 * @param	int		page number
+	 * @return	array
+	 */
+	function page_exist($url = null)
+	{
+		if(file_exists(PAGE_FOLDER.$url.'.md'))
+			return file_get_contents(PAGE_FOLDER.$url.'.md');
+		elseif(file_exists(PAGE_FOLDER.$url.'/index.md'))
+			return file_get_contents(PAGE_FOLDER.$url.'/index.md');
+		else
+			return false;
+	}
+
+	// --------------------------------------------------------------------
 
 	/**
 	 * get detail page
@@ -713,13 +732,8 @@ class Pusaka {
 	 */
 	function get_page($url = null, $parse = true)
 	{
-		if(file_exists(PAGE_FOLDER.$url.'.md'))
-			$file = file_get_contents(PAGE_FOLDER.$url.'.md');
-		elseif(file_exists(PAGE_FOLDER.$url.'/index.md'))
-			$file = file_get_contents(PAGE_FOLDER.$url.'/index.md');
-		else
-			return false;
-
+		if($file = $this->page_exist($url) === false)
+			return $file;
 
 		if(!empty($file)){
 			$page = explode("{:", $file);

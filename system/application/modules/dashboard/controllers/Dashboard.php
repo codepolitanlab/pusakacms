@@ -25,31 +25,33 @@ class Dashboard extends Public_Controller {
 	{
 		$segments = $this->uri->segment_array();
 
-		$is_home = FALSE;
-
-		// Blank mean it's the home page, ya hurd?
+		// Blank mean it uses post as home
 		if (empty($segments))
 		{
-			$is_home = TRUE;
-			$segments = array('home');
+			if($this->pusaka->page_exist($this->config->item('post_as_home')))
+				$this->page(array($this->config->item('post_as_home')));
+			else
+				return call_user_func_array(array($this, 'post'), array());
 
-			if($this->config->item('post_as_home'))
+		} else {
+			// reset index to 0
+			$params = $segments = array_values($segments);
+			array_shift($params);
+
+			// if root page called and same as home page
+			if(count($segments) == 1 && $segments[0] == $this->config->item('post_as_home'))
+				redirect('');
+
+			// if it is STREAM POST
+			if($segments[0] == POST_TERM)
+			{
 				return call_user_func_array(array($this, 'post'), $params);
-		}
-
-		// reset index to 0
-		$params = $segments = array_values($segments);
-		array_shift($params);
-		
-		// if it is STREAM POST
-		if($segments[0] == POST_TERM)
-		{
-			return call_user_func_array(array($this, 'post'), $params);
-		}
-		// if it is a PAGE
-		else 
-		{
-			$this->page($segments);
+			}
+			// then it is a PAGE
+			else
+			{
+				$this->page($segments);
+			}
 		}
 	}
 
