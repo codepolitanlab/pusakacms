@@ -732,7 +732,7 @@ class Pusaka {
 	 */
 	function get_page($url = null, $parse = true)
 	{
-		if($file = $this->page_exist($url) === false)
+		if(! $file = $this->page_exist($url))
 			return $file;
 
 		if(!empty($file)){
