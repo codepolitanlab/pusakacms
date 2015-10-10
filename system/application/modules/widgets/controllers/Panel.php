@@ -10,6 +10,9 @@ class Panel extends Admin_Controller
 		if (!$this->logged_in()) redirect('panel/login');
 		
 		$this->load->model('widgets/widgets_m');
+
+		if (!file_exists(WIDGET_FOLDER))
+			mkdir(WIDGET_FOLDER, 0777, true);
 		
 		if (!is_readable(WIDGET_FOLDER) || !is_writable(WIDGET_FOLDER)) show_error('Set folder ' . WIDGET_FOLDER . ' and its contents readable and writable first.');
 	}

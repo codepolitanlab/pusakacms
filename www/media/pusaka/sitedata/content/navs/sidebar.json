@@ -1,15 +1,15 @@
 [
     {
-        "title": "News",
-        "slug": "news",
-        "url": "news",
+        "title": "List",
+        "slug": "list",
+        "url": "sagala\/rupa",
         "source": "uri",
         "target": "_self",
         "children": [
             {
-                "title": "List",
-                "slug": "list",
-                "url": "sagala\/rupa",
+                "title": "News",
+                "slug": "news",
+                "url": "news",
                 "source": "uri",
                 "target": "_self"
             }

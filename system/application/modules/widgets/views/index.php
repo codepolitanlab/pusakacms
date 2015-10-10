@@ -43,7 +43,7 @@
 							<?php endforeach; ?>
 
 						<?php else: ?>
-							<p>There is no core widgets.</p>
+							<p>There is no widgets in this group.</p>
 						<?php endif; ?>
 
 					</div>

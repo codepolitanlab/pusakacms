@@ -2,7 +2,7 @@
     "theme": "keris",
     "theme_option": "orange",
     "admin_theme": "pusakapanel",
-    "post_as_home": "",
+    "post_as_home": "home",
     "post_term": "blog",
     "post_per_page": "10",
     "disqus_shortname": "pusakacms",
