@@ -1525,7 +1525,7 @@ ul.navlist li ul {
 /* NAVBAR */
 
 .panel-dashboard-wrapper {
-	background: #f9f9f9;
+	background: #f2f2f2;
 }
 
 .navbar.navbar-inverse {
@@ -2063,7 +2063,5 @@ ul.navlist li ul {
  li.panel-sortable-item .panel-title {
 	margin-left: 35px;
  }
-
- div#cke_content {
-    border: 2px solid #BDC3C7;
-}
+ .cke_top {padding: 0 0 5px !important;}
+ .CodeMirror-foldgutter {width: 3px !important;}

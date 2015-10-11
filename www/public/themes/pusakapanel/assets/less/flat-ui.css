@@ -1430,7 +1430,8 @@ label {
 }
 
 .form-control {
-	border: 2px solid #bdc3c7;
+	border: 0;
+	border-bottom: 2px solid #bdc3c7;
 	color: #34495e;
 	font-family: "Lato",Helvetica,Arial,sans-serif;
 	font-size: 15px;

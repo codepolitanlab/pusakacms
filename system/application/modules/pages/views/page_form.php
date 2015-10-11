@@ -57,7 +57,7 @@
 
 			<div class="form-group">
 				<label for="content">Content</label>	
-				<textarea id="pagedownMe" name="content" class="form-control cm-textarea" rows="40"><?php echo set_value('content', validate_value($page, 'content')); ?></textarea>
+				<textarea id="pagedownMe" name="content" class="form-control cm-textarea ckeditor" rows="40"><?php echo set_value('content', validate_value($page, 'content')); ?></textarea>
 			</div>
 		</div>
 
