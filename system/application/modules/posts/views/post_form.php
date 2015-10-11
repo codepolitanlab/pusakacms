@@ -30,7 +30,7 @@
 				<div class="col-md-12">
 					<div class="form-group">
 						<label for="content">Content</label>
-						<textarea id="pagedownMe" class="form-control" name="content" rows="20"><?php echo set_value('content', validate_value($post, 'content')); ?></textarea>
+						<textarea class="form-control ckeditor" name="content" rows="20"><?php echo set_value('content', validate_value($post, 'content')); ?></textarea>
 					</div>
 					<div class="form-group">
 						<label for="intro">Introduction</label>	

@@ -2063,3 +2063,7 @@ ul.navlist li ul {
  li.panel-sortable-item .panel-title {
 	margin-left: 35px;
  }
+
+ div#cke_content {
+    border: 2px solid #BDC3C7;
+}
