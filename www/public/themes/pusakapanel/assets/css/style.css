@@ -185,6 +185,9 @@
  	padding-top: 0;
  }
  /* flat collapse */
+ .panel {
+ 	border-radius: 0;
+ }
  
  body .panel-group .panel {
  	border-radius: 0px;
@@ -203,11 +206,14 @@
  
  body .panel-heading .panel-title {
  	font-size: 19px;
- 	font-weight: 300;
+ 	font-weight: 400;
+ 	color: white;
  }
  
  body .panel-default > .panel-heading {
- 	border-color: #BDC3C7;
+ 	border: 0;
+    border-bottom: 2px solid #888;
+    background-color: #CACACA;
  }
  /* end flat collapse */
  /* masonry */
@@ -2040,11 +2046,25 @@ ul.navlist li ul {
  #progress-msg p {
  	margin: 0;
  }
- 
+ .nav-tabs {
+ 	border-bottom: 1px solid #BDC3C7;
+}
+.nav-tabs>li>a {
+    border-radius: 0;
+    background-color: #E2E2E2;
+    border-bottom: 1px solid #BDC3C7;
+}
+.nav-tabs>li>a:hover,
+.nav-tabs>li>a:focus {
+    border-color: #BDC3C7 #BDC3C7 #F2F2F2;
+    background-color: #F9F9F9;
+}
  .nav-tabs>li.active>a,
  .nav-tabs>li.active>a:hover,
  .nav-tabs>li.active>a:focus {
- 	background-color: #f9f9f9;
+ 	background-color: transparent;
+ 	border: 1px solid #BDC3C7;
+    border-bottom-color: #F2F2F2;
  }
 
  li.panel-sortable-item {
@@ -2064,4 +2084,3 @@ ul.navlist li ul {
 	margin-left: 35px;
  }
  .cke_top {padding: 0 0 5px !important;}
- .CodeMirror-foldgutter {width: 3px !important;}

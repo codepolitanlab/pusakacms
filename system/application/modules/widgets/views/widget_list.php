@@ -1,6 +1,6 @@
 <?php if($widgets): ?>
 	<?php foreach ($widgets as $widget_slug => $widget): ?>
-		<li class="panel panel-default panel-sortable-item" style="margin-bottom:10px;" data-title="<?php echo $widget['widget_data']['title']; ?>">
+		<li class="panel panel-info panel-sortable-item" style="margin-bottom:10px;" data-title="<?php echo $widget['widget_data']['title']; ?>">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-md-9">

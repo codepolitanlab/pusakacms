@@ -25,7 +25,7 @@
 						<?php if (! empty($widget_val)):?>
 
 							<?php foreach ($widget_val as $wid_name => $wid_value): ?>
-								<div class="panel panel-default">
+								<div class="panel panel-info">
 									<div class="panel-heading" role="tab" id="heading_<?php echo $wid_name; ?>">
 										<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_<?php echo $wid_name; ?>" aria-expanded="false" aria-controls="collapse_<?php echo $wid_name; ?>" class="collapsed panel-title">
 											<?php echo $wid_value['widget_name']; ?>
