@@ -12,6 +12,7 @@
 		<li class="active"><a href="#main" role="tab" data-toggle="tab">Main</a></li>
 		<li><a href="#optional" role="tab" data-toggle="tab">Optional</a></li>
 	</ul>
+
 	<!-- Tab panes -->
 	<div class="tab-content">
 		<div class="tab-pane active" id="main">
@@ -29,7 +30,19 @@
 					</div>		
 				</div>
 			</div>
-			
+
+			<div class="form-group">
+				<label for="content" class="pull-left">Content</label>	
+				<div class="btn-group pull-right" role="group">
+					<button type="button" data-editor="ckeditor" class="btn btn-editor btn-xs btn-success">CKEditor</button>
+					<button type="button" data-editor="codemirror" class="btn btn-editor btn-xs">Code</button>
+				</div>
+
+				<textarea id="contentfield" name="content" class="form-control cm-textarea ckeditor clearfix" rows="40"><?php echo set_value('content', validate_value($page, 'content')); ?></textarea>
+			</div>
+		</div>
+
+		<div class="tab-pane" id="optional">
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
@@ -55,13 +68,6 @@
 				</div>
 			</div>
 
-			<div class="form-group">
-				<label for="content">Content</label>	
-				<textarea id="pagedownMe" name="content" class="form-control cm-textarea ckeditor" rows="40"><?php echo set_value('content', validate_value($page, 'content')); ?></textarea>
-			</div>
-		</div>
-
-		<div class="tab-pane" id="optional">
 			<div class="form-group">
 				<label for="role">Role <small>role who can access this page separated by comma, leave blank for no restriction</small></label>
 				<input name="role" id="role" class="form-control" placeholder="i.e. admin, user" value="<?php echo set_value('role', validate_value($page, 'role')); ?>">

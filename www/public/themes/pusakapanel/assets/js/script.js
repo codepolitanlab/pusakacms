@@ -1,3 +1,14 @@
+// load codemirror
+var cmeditor = CodeMirror.fromTextArea(document.getElementById("contentfield"), {
+	mode: "markdown",
+	autoCloseTags: true,
+	lineNumbers: true,
+	lineWrapping: true,
+	styleActiveLine: true,
+	theme: "monokai"
+});
+$(cmeditor.getWrapperElement()).hide();
+
 $(function(){
 	// expand page list
 	$('.content-list .expand').click(function(){
@@ -86,6 +97,42 @@ $(function(){
 			$('#groupModalLabel').html('Add Group');
 		}
 	})
+
+	// editor switch
+	$('.btn-editor').click(function(){
+		var c = "";
+		var editor = $(this).data('editor');
+		$('.btn-editor').removeClass('btn-success');
+		$(this).addClass('btn-success');
+
+		// turn on ckeditor
+		if(editor == 'ckeditor'){
+			// get data from ckeditor and place to textarea
+			c = cmeditor.getValue();
+			$('#contentfield').val(c);
+			//hide codemirror
+			$(cmeditor.getWrapperElement()).hide();
+			// create ckeditor instance
+			var ckeditor1 = CKEDITOR.replace('contentfield');
+
+		// turn on codemirror
+		} else {
+			var c = CKEDITOR.instances.contentfield.getData();
+			// get data from ckeditor and place to textarea
+			$('#contentfield').val(c);
+			// destroy ckeditor
+			CKEDITOR.instances.contentfield.destroy();
+			// set codemirror content
+			cmeditor.setValue(c);
+			setTimeout(function() {
+				cmeditor.refresh();
+			},1);
+			// show codemirror editor
+			$(cmeditor.getWrapperElement()).show();
+			// hide textarea
+			$('#contentfield').hide();
+		}
+	});
 });
 
 // define timeout

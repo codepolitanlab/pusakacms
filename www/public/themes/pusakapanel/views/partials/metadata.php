@@ -24,8 +24,19 @@
 <!-- Custom styles for this template -->
 <link href="<?php echo theme_url("assets/css/style.css") ?>" rel="stylesheet">
 <link href="<?php echo vendor_url('codemirror', 'lib/codemirror.css'); ?>" rel="stylesheet">
-<link href="<?php echo vendor_url('codemirror', 'theme/mbo.css'); ?>" rel="stylesheet">
+<link href="<?php echo vendor_url('codemirror', 'theme/monokai.css'); ?>" rel="stylesheet">
 <link href="<?php echo vendor_url("jquery-ui", "smoothness/jquery-ui-1.10.1.custom.min.css") ?>" rel="stylesheet">
+
+<!-- codemirror assets -->
+<script src="<?php echo vendor_url('codemirror', 'lib/codemirror.js'); ?>"></script>
+<script src="<?php echo vendor_url('codemirror', 'addon/edit/closetag.js'); ?>"></script>
+<script src="<?php echo vendor_url('codemirror', 'addon/fold/xml-fold.js'); ?>"></script>
+<script src="<?php echo vendor_url('codemirror', 'addon/selection/active-line.js'); ?>"></script>
+<script src="<?php echo vendor_url('codemirror', 'mode/javascript/javascript.js'); ?>"></script>
+<script src="<?php echo vendor_url('codemirror', 'mode/xml/xml.js'); ?>"></script>
+<script src="<?php echo vendor_url('codemirror', 'mode/css/css.js'); ?>"></script>
+<script src="<?php echo vendor_url('codemirror', 'mode/htmlmixed/htmlmixed.js'); ?>"></script>
+<script src="<?php echo vendor_url('codemirror', 'mode/markdown/markdown.js'); ?>"></script>
 
 <script src="<?php echo vendor_url("jquery", "jquery-1.7.2.min.js") ?>"></script>
 <script src="<?php echo vendor_url("jquery-ui", "jquery-ui-1.10.1.custom.min.js") ?>"></script>
