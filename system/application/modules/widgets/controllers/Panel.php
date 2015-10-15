@@ -121,6 +121,16 @@ class Panel extends Admin_Controller
 		
 		redirect(getenv('HTTP_REFERER'));
 	}
+
+	function delete_area($area = false) 
+	{
+		if (!$area) show_404();
+		
+		if (delete_files(WIDGET_FOLDER.$area, TRUE)) $this->session->set_flashdata('success', 'Widget area has been deleted.');
+		else $this->session->set_flashdata('error', 'Widget area failed to delete.');
+		
+		redirect(getenv('HTTP_REFERER'));
+	}
 	
 	function sort($area = 'nonarea') 
 	{

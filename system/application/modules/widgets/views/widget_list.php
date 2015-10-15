@@ -11,7 +11,7 @@
 						</a>
 					</div>
 					<div class="col-md-3 align-right">
-						<a href="<?php echo site_url('panel/widgets/delete/'.$widget_slug.'/'.$area); ?>" class="btn btn-default btn-xs remove" title="Delete Area"><span class="fa fa-times"></span></a>
+						<a href="<?php echo site_url('panel/widgets/delete/'.$widget_slug.'/'.$area); ?>" class="btn btn-default btn-xs remove" title="Delete widget"><span class="fa fa-times"></span></a>
 					</div>
 				</div>
 			</div>

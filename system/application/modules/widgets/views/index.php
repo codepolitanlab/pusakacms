@@ -61,9 +61,16 @@
 			<?php foreach ($areas as $area_slug): ?>
 				<div class="panel panel-success">
 					<div class="panel-heading">
-						<a role="button" data-toggle="collapse" href="#collapse_<?php echo $area_slug; ?>" class="panel-title">
-							<?php echo $area_slug; ?>
-						</a>	
+						<div class="row">
+							<div class="col-md-9">
+								<a role="button" data-toggle="collapse" href="#collapse_<?php echo $area_slug; ?>" class="panel-title">
+									<?php echo $area_slug; ?>
+								</a>
+							</div>
+							<div class="col-md-3 align-right">
+								<a href="<?php echo site_url('panel/widgets/delete_area/'.$area_slug); ?>" class="btn btn-default btn-xs remove" title="Delete area"><span class="fa fa-times"></span></a>
+							</div>
+						</div>
 					</div>
 					<div id="collapse_<?php echo $area_slug; ?>" class="panel-sortable-root panel-collapse collapse in">
 						<ol class="panel-body panel-sortable" id="<?php echo $area_slug; ?>">
