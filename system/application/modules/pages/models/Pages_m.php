@@ -60,6 +60,9 @@ class Pages_m extends MY_Model {
 		// move page
 		$this->pusaka->move_page($prevpage['slug'], $page['slug'], $prevpage['parent'], $parent);
 
+		if(! file_exists(PAGE_FOLDER.$parent.'/'.$page['slug'].'.md'))
+			$page['slug'] .= '/index';
+
 		// update page content
 		if(write_file(PAGE_FOLDER.$parent.'/'.$page['slug'].'.md', $file_content, 'w+'))
 		{

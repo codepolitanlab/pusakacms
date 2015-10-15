@@ -1,0 +1,7 @@
+{
+    "title": "Sidebar Menu",
+    "show_title": "true",
+    "area": "sidebar",
+    "nav_area": "sidebar",
+    "widget": "navigations"
+}

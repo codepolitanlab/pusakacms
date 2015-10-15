@@ -98,7 +98,7 @@ class Pusaka {
 					rename(PAGE_FOLDER.$dest.'.md', PAGE_FOLDER.$dest.'/index.md');
 
 					// create index.html file
-					copy(PAGE_FOLDER.'index.html', PAGE_FOLDER.$dest.'/index.html');
+					// copy(PAGE_FOLDER.'index.html', PAGE_FOLDER.$dest.'/index.html');
 				}
 			}
 		}
@@ -112,8 +112,9 @@ class Pusaka {
 
 		// if file left the empty folder, not from the root
 		if(!empty($source) && $filesleft = glob(PAGE_FOLDER.$source.'/*')){
-			// if there are only index.html, index.md
-			if(count($filesleft) <= 2){
+
+			// if there are only index.md
+			if(count($filesleft) < 2){
 				// move to upper parent
 				$this->raise_page($source);
 			}
@@ -127,7 +128,9 @@ class Pusaka {
 		$parent_subparent = implode("/", $parent_subparent_arr);
 		rename(PAGE_FOLDER.$source.'/index.md', PAGE_FOLDER.$parent_subparent.'/'.$parent_name.'.md');
 
-		unlink(PAGE_FOLDER.$source.'/index.html');
+		if(file_exists(PAGE_FOLDER.$source.'/index.html'))
+			unlink(PAGE_FOLDER.$source.'/index.html');
+
 		rmdir(PAGE_FOLDER.$source);
 	}
 

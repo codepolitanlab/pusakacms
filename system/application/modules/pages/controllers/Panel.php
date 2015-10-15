@@ -125,6 +125,7 @@ class Panel extends Admin_Controller {
 	function edit()
 	{
 		$segs = $this->uri->uri_string();
+		// explode to get page slug
 		$seg_array = explode("/", $segs, 4);
 
 		if(isset($seg_array[3])){

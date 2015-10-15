@@ -8,10 +8,10 @@
 
 	<div class="container">		
 		<div class="row">
-			<div class="col-md-3">
+			<div class="col-md-4">
 				<?php get_partial('sidebar'); ?>
 			</div>
-			<div class="col-md-9 the-content">
+			<div class="col-md-8 the-content">
 				<h1><?php echo get_field('title'); ?></h1>
 				
 				<?php echo $template['body']; ?>

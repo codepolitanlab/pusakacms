@@ -8,9 +8,13 @@
         "url": "docs",
         "children": {
             "pendahuluan": {
-                "url": "docs\/pendahuluan",
                 "title": "Pendahuluan",
+                "url": "docs\/pendahuluan",
                 "children": {
+                    "kontribusi": {
+                        "title": "Kontribusi",
+                        "url": "docs\/pendahuluan\/kontribusi"
+                    },
                     "changelog": {
                         "title": "Changelog",
                         "url": "docs\/pendahuluan\/changelog"
@@ -26,20 +30,16 @@
                     "showcase": {
                         "title": "Showcase",
                         "url": "docs\/pendahuluan\/showcase"
-                    },
-                    "kontribusi": {
-                        "url": "docs\/pendahuluan\/kontribusi",
-                        "title": "Kontribusi"
                     }
                 }
             },
             "panduan-pengguna": {
-                "title": "Panduan pengguna",
                 "url": "docs\/panduan-pengguna",
+                "title": "Panduan pengguna",
                 "children": {
                     "instalasi-di-komputer-lokal": {
-                        "title": "Instalasi di komputer lokal",
-                        "url": "docs\/panduan-pengguna\/instalasi-di-komputer-lokal"
+                        "url": "docs\/panduan-pengguna\/instalasi-di-komputer-lokal",
+                        "title": "Instalasi di komputer lokal"
                     },
                     "instalasi-di-server": {
                         "title": "Instalasi di server",

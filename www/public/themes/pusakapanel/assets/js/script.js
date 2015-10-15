@@ -1,15 +1,9 @@
-// load codemirror
-var cmeditor = CodeMirror.fromTextArea(document.getElementById("contentfield"), {
-	mode: "markdown",
-	autoCloseTags: true,
-	lineNumbers: true,
-	lineWrapping: true,
-	styleActiveLine: true,
-	theme: "monokai"
-});
-$(cmeditor.getWrapperElement()).hide();
-
 $(function(){
+	// confirm delete
+	$('.remove').click(function(){
+		return confirm('Are you sure want to delete this item?');
+	})
+	
 	// expand page list
 	$('.content-list .expand').click(function(){
 		$parent = $(this).parent().parent().parent().parent('.list-desc');
@@ -21,11 +15,6 @@ $(function(){
 
 	// jquery slugify
 	$('.slug').slugify('.title');
-
-	// confirm delete
-	$('.remove').click(function(){
-		return confirm('Are you sure want to delete this item?');
-	})
 
 	// nav area modals
 	$('#areaModal').on('show.bs.modal', function (e) {
@@ -146,3 +135,48 @@ var set_parent_dropdown = function(area)
 		$('#link_parent').html(data);
 	});
 }
+
+// alert before close browser or change page
+var alertClose = 0;
+var alertCloseMessage = "You didn't save changes.";
+window.onbeforeunload = function (e) {
+	e = e || window.event;
+
+	for (var i in CKEDITOR.instances) {
+        if(CKEDITOR.instances[i].checkDirty())
+        {
+            alertClose = 1;
+        }
+    }
+
+	if(alertClose > 0){
+		if (e) {
+			e.returnValue = alertCloseMessage;
+		}
+		return alertCloseMessage;
+	}
+};
+
+// load codemirror
+var cmeditor = CodeMirror.fromTextArea(document.getElementById("contentfield"), {
+	mode: "markdown",
+	autoCloseTags: true,
+	lineNumbers: true,
+	lineWrapping: true,
+	styleActiveLine: true,
+	theme: "monokai"
+});
+$(cmeditor.getWrapperElement()).hide();
+
+// check if editor content has changed
+cmeditor.on('change', function(){
+	alertClose = 1;
+});
+
+// check if form changed
+$("form :input").change(function() {
+	alertClose = 1;
+});
+$("form").submit(function() {
+	window.onbeforeunload = null;
+});

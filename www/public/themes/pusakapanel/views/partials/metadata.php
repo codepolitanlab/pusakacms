@@ -49,6 +49,6 @@
 	// IMPORTANT
 	// for handle closing rfm modal bootstrap
 	window.closeBootstrapModal = function(){
-    	$('.modal').modal('hide');
+		$('.modal').modal('hide');
 	};
 </script>
