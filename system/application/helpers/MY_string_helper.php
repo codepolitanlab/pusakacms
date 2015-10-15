@@ -10,3 +10,11 @@ if ( ! function_exists('strposa'))
         return false;
     }
 }
+
+if (! function_exists('replace_pusaka_brackets'))
+{
+	function replace_pusaka_brackets($content)
+	{
+		return str_replace(array("{:", ":}"), array("&#123;:", ":&#125;"), $content);
+	}
+}

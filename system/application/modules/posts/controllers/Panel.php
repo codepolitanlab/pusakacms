@@ -85,10 +85,14 @@ class Panel extends Admin_Controller {
 
 			// set content
 			foreach ($post as $key => $value) {
-				if($key == 'slug')
-					$file_content .= "{: ".$key." :} ".strtolower(url_title($value))."\n";
-				else
-					$file_content .= "{: ".$key." :} ".$value."\n";
+				if($value){
+					$value = replace_pusaka_brackets($value);
+
+					if($key == 'slug')
+						$file_content .= "{: ".$key." :} ".strtolower(url_title($value))."\n";
+					else
+						$file_content .= "{: ".$key." :} ".$value."\n";
+				}
 			}
 
 			$date = date("Y-m-d-H-i-");
@@ -145,10 +149,14 @@ class Panel extends Admin_Controller {
 
 			// set content
 			foreach ($post as $key => $value) {
-				if($key == 'slug')
-					$file_content .= "{: ".$key." :} ".strtolower(url_title($value))."\n";
-				else
-					$file_content .= "{: ".$key." :} ".$value."\n";
+				if($value){
+					$value = replace_pusaka_brackets($value);
+
+					if($key == 'slug')
+						$file_content .= "{: ".$key." :} ".strtolower(url_title($value))."\n";
+					else
+						$file_content .= "{: ".$key." :} ".$value."\n";
+				}
 			}
 
 			$date = date("Y-m-d-H-i", strtotime($prevpost['date'])).'-';

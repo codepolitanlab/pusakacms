@@ -1,2 +1,6 @@
+{: btnSaveExit :} 1
 {: title :} Lisensi
-{: content :}
+{: slug :} lisensi
+{: content :} <p>Halaman lisensi</p>
+
+{: layout :} _docs

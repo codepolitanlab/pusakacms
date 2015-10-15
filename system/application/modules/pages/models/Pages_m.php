@@ -9,6 +9,8 @@ class Pages_m extends MY_Model {
 		// set content
 		foreach ($page as $key => $value) {
 			if($value){
+				$value = replace_pusaka_brackets($value);
+				
 				if($key == 'slug')
 					$file_content .= "{: ".$key." :} ".strtolower(url_title($value))."\n";
 				else
@@ -49,6 +51,7 @@ class Pages_m extends MY_Model {
 		// set content
 		foreach ($page as $key => $value) {
 			if($value){
+				$value = replace_pusaka_brackets($value);
 				
 				if($key == 'slug')
 					$file_content .= "{: ".$key." :} ".strtolower(url_title($value))."\n";

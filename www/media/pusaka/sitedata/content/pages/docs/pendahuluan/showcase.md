@@ -1,7 +1,12 @@
+{: btnSaveExit :} 1
 {: title :} Showcase
 {: slug :} showcase
-{: content :} - [PusakaCMS](http://pusakacms.org)
-- [Bayuayu Rent Car](http://www.bayuayurentcar.com/)
-- [Sekolah.co.id](http://www.sekolah.co.id/)
+{: content :} <ul>
+	<li><a href="http://pusakacmsorg">PusakaCMS</a></li>
+	<li><a href="http://www.bayuayurentcar.com/">Bayuayu Rent Car</a></li>
+	<li><a href="http://www.sekolah.co.id/">Sekolah.co.id</a></li>
+</ul>
 
-Kamu dapat menambahkan sendiri URL websitemu yang dibuat dengan menggunakan PusakaCMS disini sebagai *backlink* dengan memberitahu kami alamat websitemu melalui akun twitter [@nyankodTWEET](http://twitter.com/nyankodTWEET) dan kami akan dengan senang hati menambahkannya di daftar ini.
+<p>Kamu dapat menambahkan sendiri URL websitemu yang dibuat dengan menggunakan PusakaCMS disini sebagai <em>backlink</em> dengan memberitahu kami alamat websitemu melalui akun twitter <a href="http://twitter.com/nyankodTWEET">@nyankodTWEET</a> dan kami akan dengan senang hati menambahkannya di daftar ini.</p>
+
+{: layout :} _docs

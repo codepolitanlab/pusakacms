@@ -1,119 +1,140 @@
+{: btnSaveExit :} 1
 {: title :} Changelog
 {: slug :} changelog
-{: content :} ## v1.2.0 Beta Release
+{: content :} <h2>v1.2.0 Beta Release</h2>
 
-In this version there are several changes on codes and folder structures.
+<p>In this version there are several changes on codes and folder structures.</p>
 
-## Changelog
+<h2>Changelog</h2>
 
-- create *addons/modules/* folder so addon modules (non-core modules) can be placed here
-- change folder name *www/shared_media/* to *www/public/*
-- move some assets from pusakapanel and jakarta theme to special place in *www/public/vendor/*
-- upgrade CodeIgniter to v3.0.0
-- implement Responsive File Manager
-- create automenu module in panel
-- change get_theme_url() to theme_url()
-- add vendor_url() function helper
-- remove unnecessary assets
-- change error template
+<ul>
+	<li>create <em>addons/modules/</em> folder so addon modules (non-core modules) can be placed here</li>
+	<li>change folder name <em>www/shared_media/</em> to <em>www/public/</em></li>
+	<li>move some assets from pusakapanel and jakarta theme to special place in <em>www/public/vendor/</em></li>
+	<li>upgrade CodeIgniter to v3.0.0</li>
+	<li>implement Responsive File Manager</li>
+	<li>create automenu module in panel</li>
+	<li>change get_theme_url() to theme_url()</li>
+	<li>add vendor_url() function helper</li>
+	<li>remove unnecessary assets</li>
+	<li>change error template</li>
+</ul>
 
----------
+<hr />
+<h2>v1.1.5 Beta Release</h2>
 
-## v1.1.5 Beta Release
+<h3>Improvement</h3>
 
-### Improvement
+<ul>
+	<li>Integration CodeIgniter v3.0rc</li>
+	<li>Update HMVC for compatibility with CodeIgniter v3</li>
+	<li>Integration Ion Auth module for authentication and modified for file based compatible</li>
+	<li>Post and page content saving without exiting form</li>
+</ul>
 
-- Integration CodeIgniter v3.0rc
-- Update HMVC for compatibility with CodeIgniter v3
-- Integration Ion Auth module for authentication and modified for file based compatible
-- Post and page content saving without exiting form
+<h3>Bugfixes</h3>
 
-### Bugfixes
+<ul>
+	<li>convert parent page of deleted children page to file if it has no more children</li>
+</ul>
 
-- convert parent page of deleted children page to file if it has no more children
+<h3>Update Changes</h3>
 
-### Update Changes
+<ul>
+	<li>default login are now username:admin@admin.com password:password</li>
+	<li>index.php now placed in www/ folder</li>
+</ul>
 
-- default login are now username:admin@admin.com password:password
-- index.php now placed in www/ folder
+<hr />
+<h2>v1.1.4 Beta Release</h2>
 
----------
+<h3>improvement</h3>
 
-## v1.1.4 Beta Release
+<ul>
+	<li>add generate_pagenav function helper</li>
+	<li>each page can now given permission for any role</li>
+</ul>
 
-### improvement
+<h3>bugfixes</h3>
 
-- add generate_pagenav function helper
-- each page can now given permission for any role
+<ul>
+	<li>weird response when move page level</li>
+	<li>fix get_content_image function helper name</li>
+</ul>
 
-### bugfixes
+<hr />
+<h2>v1.1.3 Beta Release</h2>
 
-- weird response when move page level
-- fix get_content_image function helper name
+<h3>Enhancement</h3>
 
----------
+<ul>
+	<li>Multisite now can act like a subfolder</li>
+</ul>
 
-## v1.1.3 Beta Release
+<h3>Bugfix</h3>
 
-### Enhancement
+<ul>
+	<li>placing attributes when calling plugin function</li>
+</ul>
 
-- Multisite now can act like a subfolder
+<hr />
+<h2>v1.1.2 Beta Release</h2>
 
-### Bugfix
+<ul>
+	<li>fix unload config pusaka :P</li>
+</ul>
 
-- placing attributes when calling plugin function
+<hr />
+<h2>v1.1.1 Beta Release</h2>
 
----------
+<h3>Bugfixes</h3>
 
-## v1.1.2 Beta Release
+<ul>
+	<li>session now made for each site</li>
+	<li>limit function called for plugin by create a plugin file</li>
+	<li>checking &#39;localhost&#39; as local domain is now configurable</li>
+	<li>encrypt password stored</li>
+	<li>make json file uncallable via http</li>
+</ul>
 
-- fix unload config pusaka :P
+<hr />
+<h2>v1.1.0 Beta Release</h2>
 
----------
+<h3>Improvement</h3>
 
-## v1.1.1 Beta Release
+<ul>
+	<li>Add new feature: Export to static HTML</li>
+	<li>Add intro field in blog for glance</li>
+</ul>
 
-### Bugfixes
+<h3>Bugfix</h3>
 
-- session now made for each site
-- limit function called for plugin by create a plugin file
-- checking 'localhost' as local domain is now configurable
-- encrypt password stored
-- make json file uncallable via http
+<ul>
+	<li>content in page and edit form shouldn&#39;t be parsed</li>
+	<li>showing custom meta tag in head</li>
+	<li>cleaning unnecessary function in some helper</li>
+	<li>check if username file exist when log in</li>
+</ul>
 
----------
+<hr />
+<h2>v1.0.0 Beta Release</h2>
 
-## v1.1.0 Beta Release
+<p>The main features has been finished. Those are:</p>
 
-### Improvement
+<ul>
+	<li>Page and Post Management</li>
+	<li>Theme Management</li>
+	<li>Codeigniter HMVC ready</li>
+	<li>Lex Template Engine</li>
+	<li>Minimalist Admin Panel, with some main features:</li>
+	<li>Page management</li>
+	<li>Post management</li>
+	<li>Navigation link management</li>
+	<li>Settings form</li>
+	<li>User management</li>
+</ul>
 
-- Add new feature: Export to static HTML
-- Add intro field in blog for glance
+<p><em>Important: This is beta release so it need some more bugfix until we sure there is no more bugs. This release is intended for testing and learning until the stable version is done.</em></p>
 
-### Bugfix
-
-- content in page and edit form shouldn't be parsed
-- showing custom meta tag in head
-- cleaning unnecessary function in some helper
-- check if username file exist when log in
-
---------
-
-##v1.0.0 Beta Release
-
-The main features has been finished. Those are:
-
-- Page and Post Management
-- Theme Management
-- Codeigniter HMVC ready
-- Lex Template Engine
-- Minimalist Admin Panel, with some main features:
-- Page management
-- Post management
-- Navigation link management
-- Settings form
-- User management
-
-*Important: This is beta release so it need some more bugfix until we sure there is no more bugs. This release is intended for testing and learning until the stable version is done.*
-
---------
+<hr />
+{: layout :} _docs

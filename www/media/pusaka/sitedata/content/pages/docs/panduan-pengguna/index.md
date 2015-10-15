@@ -1,3 +1,6 @@
+{: btnSaveExit :} 1
 {: title :} Panduan Pengguna
 {: slug :} panduan-pengguna
-{: content :} sipsipsip
+{: content :} <p>sipsipsip</p>
+
+{: layout :} _docs

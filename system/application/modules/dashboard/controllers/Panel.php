@@ -32,5 +32,4 @@ class Panel extends Admin_Controller {
 	{
 		$this->template->view('dashboard');
 	}
-
 }

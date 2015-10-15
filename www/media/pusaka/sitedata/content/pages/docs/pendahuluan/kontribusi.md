@@ -1,17 +1,22 @@
+{: btnSaveExit :} 1
 {: title :} Kontribusi
 {: slug :} kontribusi
-{: content :} PusakaCMS dibangun dengan harapan menjadi CMS yang *simple*, mudah digunakan, dan cepat. PusakaCMS akan tetap menggunakan file untuk menyimpan data dalam rangka mendukung penggunaan Versioning Control System. Namun untuk keperluan skalabilitas, kedepannya akan dibuat dua opsi penyimpanan data, yakni file dan database.
+{: content :} <p>PusakaCMS dibangun dengan harapan menjadi CMS yang <em>simple</em>, mudah digunakan, dan cepat. PusakaCMS akan tetap menggunakan file untuk menyimpan data dalam rangka mendukung penggunaan Versioning Control System. Namun untuk keperluan skalabilitas, kedepannya akan dibuat dua opsi penyimpanan data, yakni file dan database.</p>
 
-Kalau kamu tertarik untuk ikut mengembangkan PusakaCMS dan membuatnya lebih baik, kamu bisa mengusulkan ide peningkatan kemampuan sistem di bagian issue repositori. Juga bila Kamu menemukan bugs atau error di dalam sistem, silakan laporkan di bagian issue repositori. 
+<p>Kalau kamu tertarik untuk ikut mengembangkan PusakaCMS dan membuatnya lebih baik, kamu bisa mengusulkan ide peningkatan kemampuan sistem di bagian issue repositori. Juga bila Kamu menemukan bugs atau error di dalam sistem, silakan laporkan di bagian issue repositori.</p>
 
-Bila Kamu seorang programmer dan akrab dengan CodeIgniter, Kamu bisa *forking* [repositori PusakaCMS](https://github.com/nyankod/pusakacms) kemudian lakukan *pull request* untuk setiap perbaikan sistem atau peningkatan performa. Bila Kamu membuat modul baru diluar modul inti PusakaCMS, Kamu dapat menyimpannya di repositorimu sendiri, dan jika Kamu tertarik untuk membagikan modul buatanmu ke pengguna lain, kamu bisa mendaftarkannya di halaman Modul website PusakaCMS melalui *pull request*.
+<p>Bila Kamu seorang programmer dan akrab dengan CodeIgniter, Kamu bisa <em>forking</em> <a href="https://github.com/nyankod/pusakacms">repositori PusakaCMS</a> kemudian lakukan <em>pull request</em> untuk setiap perbaikan sistem atau peningkatan performa. Bila Kamu membuat modul baru diluar modul inti PusakaCMS, Kamu dapat menyimpannya di repositorimu sendiri, dan jika Kamu tertarik untuk membagikan modul buatanmu ke pengguna lain, kamu bisa mendaftarkannya di halaman Modul website PusakaCMS melalui <em>pull request</em>.</p>
 
-Kami akan sangat senang bila CMS sederhana ini menjadi manfaat untuk banyak orang. Lebih lengkap tentang bagaimana Kamu bisa menambahkan fitur dan pengayaan di PusakaCMS silakan baca di bagian [Panduan Pengembang](http://localhost/pusakacms/default/panduan-pengembang).
+<p>Kami akan sangat senang bila CMS sederhana ini menjadi manfaat untuk banyak orang. Lebih lengkap tentang bagaimana Kamu bisa menambahkan fitur dan pengayaan di PusakaCMS silakan baca di bagian <a href="http://localhost/pusakacms/default/panduan-pengembang">Panduan Pengembang</a>.</p>
 
-## Kontributor
+<h2>Kontributor</h2>
 
-- [Toni Haryanto](http://toniharyanto.net)
-- [Kresna Galuh Darastya Herlangga](http://kresnagaluh.com)
-- [Ahmad Oriza](http://ahmadoriza.com)
+<ul>
+	<li><a href="http://toniharyanto.net">Toni Haryanto</a></li>
+	<li><a href="http://kresnagaluh.com">Kresna Galuh Darastya Herlangga</a></li>
+	<li><a href="http://ahmadoriza.com">Ahmad Oriza</a></li>
+</ul>
 
-Ingin namamu terpasang disini sebagai kontributor? Silakan *pull request* kode yang kamu buat berikut dengan menambahkan namamu di halaman ini.
+<p>Ingin namamu terpasang disini sebagai kontributor? Silakan <em>pull request</em> kode yang kamu buat berikut dengan menambahkan namamu di halaman ini.</p>
+
+{: layout :} _docs

@@ -11,25 +11,25 @@
                 "title": "Pendahuluan",
                 "url": "docs\/pendahuluan",
                 "children": {
+                    "fitur": {
+                        "title": "Fitur",
+                        "url": "docs\/pendahuluan\/fitur"
+                    },
                     "kontribusi": {
                         "title": "Kontribusi",
                         "url": "docs\/pendahuluan\/kontribusi"
                     },
-                    "changelog": {
-                        "title": "Changelog",
-                        "url": "docs\/pendahuluan\/changelog"
+                    "showcase": {
+                        "title": "Showcase",
+                        "url": "docs\/pendahuluan\/showcase"
                     },
                     "lisensi": {
                         "title": "Lisensi",
                         "url": "docs\/pendahuluan\/lisensi"
                     },
-                    "fitur": {
-                        "title": "Fitur",
-                        "url": "docs\/pendahuluan\/fitur"
-                    },
-                    "showcase": {
-                        "title": "Showcase",
-                        "url": "docs\/pendahuluan\/showcase"
+                    "changelog": {
+                        "title": "Changelog",
+                        "url": "docs\/pendahuluan\/changelog"
                     }
                 }
             },
@@ -38,12 +38,12 @@
                 "title": "Panduan pengguna",
                 "children": {
                     "instalasi-di-komputer-lokal": {
-                        "url": "docs\/panduan-pengguna\/instalasi-di-komputer-lokal",
-                        "title": "Instalasi di komputer lokal"
+                        "title": "Instalasi di komputer lokal",
+                        "url": "docs\/panduan-pengguna\/instalasi-di-komputer-lokal"
                     },
                     "instalasi-di-server": {
-                        "title": "Instalasi di server",
-                        "url": "docs\/panduan-pengguna\/instalasi-di-server"
+                        "url": "docs\/panduan-pengguna\/instalasi-di-server",
+                        "title": "Instalasi di server"
                     }
                 }
             }
