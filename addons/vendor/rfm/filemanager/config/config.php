@@ -94,7 +94,7 @@ $config = array(
 	| DO NOT put inside upload folder
 	|
 	*/
-	'thumbs_base_path' => '../../../../media/'.$site_slug.'/thumbs/',
+	'thumbs_base_path' => '../../../../sites/'.$site_slug.'/thumbs/',
 
 	/*
 	|--------------------------------------------------------------------------
