@@ -75,7 +75,7 @@ class MY_Exceptions extends CI_Exceptions {
 	 */
 	public function show_error($heading, $message, $template = 'error_general', $status_code = 500)
 	{
-		$theme_path = WWW_FOLDER.'public/themes/jakarta/';
+		$theme_path = ADDON_PATH.'themes/jakarta/';
 
 		// if CI_Controller has been loaded, 
 		// this check is used for MyHookClass

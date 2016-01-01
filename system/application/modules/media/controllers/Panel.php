@@ -23,7 +23,7 @@ class Panel extends Admin_Controller {
 
 		if(! $this->logged_in()) redirect('panel/login');
 
-		$this->files_path = 'media/'. SITE_SLUG .'/files';
+		$this->files_path = SITES_PATH. SITE_SLUG .'/files';
 		if(!is_readable($this->files_path) || !is_writable($this->files_path))
 			show_error('Set folder '.$this->files_path.' and its contents readable and writable first.');
 	}

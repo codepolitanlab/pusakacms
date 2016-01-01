@@ -102,12 +102,8 @@ class Template
 			$this->{'_'.$key} = $val;
 		}
 
-		// No locations set in config?
-		if ($this->_theme_locations === array())
-		{
-			// Let's use this obvious default
-			$this->_theme_locations = array(WWW_FOLDER.'public/themes/');
-		}
+		// set default theme location
+		array_push($this->_theme_locations, ADDON_PATH.'themes/');
 
 		// No asset locations set in config?
 		if ($this->_asset_locations === array())

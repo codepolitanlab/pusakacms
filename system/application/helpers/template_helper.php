@@ -95,7 +95,7 @@ if ( ! function_exists('vendor_url'))
 {
 	function vendor_url($vendor, $url = '') {
 
-		return base_url().'public/vendor/'.$vendor.'/'.$url;
+		return base_url().ADDON_PATH.'vendor/'.$vendor.'/'.$url;
 	}
 }
 
@@ -114,7 +114,7 @@ if ( ! function_exists('get_content_image'))
 		if(empty($file) || ! file_exists(SITE_FOLDER.$site_slug.'/files/'.$file))
 			$file = 'default.jpg';
 
-		$url =  base_url().'media/'.$site_slug.'/files/'.$file;
+		$url =  base_url().SITES_PATH.$site_slug.'/files/'.$file;
 
 		if($attr)
 			return '<img src="'.$url.'" '.$attr.' />'."\n";
@@ -128,7 +128,7 @@ if ( ! function_exists('get_content_image_thumb'))
 	function get_content_image_thumb($file = false, $attr = true, $site_slug = false) {
 		if(! $site_slug) $site_slug = SITE_SLUG;
 
-		$url =  base_url().'media/'.$site_slug.'/files/thumb/'.$file;
+		$url =  base_url().SITES_PATH.$site_slug.'/files/thumb/'.$file;
 
 		if($attr)
 			return '<img src="'.$url.'" '.$attr.' />'."\n";
@@ -140,7 +140,7 @@ if ( ! function_exists('get_content_image_thumb'))
 if ( ! function_exists('get_content_file'))
 {
 	function get_content_file($file = false) {
-		$url =  base_url().'media/'.SITE_SLUG.'/files/'.$file;
+		$url =  base_url().SITES_PATH.SITE_SLUG.'/files/'.$file;
 
 		return $url;
 	}

@@ -1,6 +1,6 @@
 dploy.yaml
 system/application/sessions/*
-www/media/default/thumbs/*
-www/media/default/files/*
+sites/default/thumbs/*
+sites/default/files/*
 .phpintel
 .phpintel/*
