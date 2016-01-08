@@ -1,18 +1,22 @@
 ## Parsedown
 
-Better [Markdown](http://en.wikipedia.org/wiki/Markdown) parser for PHP.
+[![Build Status](https://img.shields.io/travis/erusev/parsedown/master.svg?style=flat-square)](https://travis-ci.org/erusev/parsedown)
+<!--[![Total Downloads](http://img.shields.io/packagist/dt/erusev/parsedown.svg?style=flat-square)](https://packagist.org/packages/erusev/parsedown)-->
 
-[[ demo ]](http://parsedown.org/demo)
+Better Markdown Parser in PHP
+
+[Demo](http://parsedown.org/demo) |
+[Benchmarks](http://parsedown.org/speed) |
+[Tests](http://parsedown.org/tests/) |
+[Documentation](https://github.com/erusev/parsedown/wiki/)
 
 ### Features
 
-* [Fast](http://parsedown.org/speed)
-* [Consistent](http://parsedown.org/consistency)
-* [GitHub Flavored](https://help.github.com/articles/github-flavored-markdown)
-* [Tested](http://parsedown.org/tests/) in PHP 5.2, 5.3, 5.4, 5.5, 5.6 and [hhvm](http://www.hhvm.com/)
+* Super Fast
+* [GitHub flavored](https://help.github.com/articles/github-flavored-markdown)
 * Extensible
-* [Markdown Extra extension](https://github.com/erusev/parsedown-extra) <sup>new</sup>
-* [JavaScript port](https://github.com/hkdobrev/parsedown.js) under development <sup>new</sup>
+* Tested in 5.3 to 5.6
+* [Markdown Extra extension](https://github.com/erusev/parsedown-extra)
 
 ### Installation
 
@@ -26,18 +30,28 @@ $Parsedown = new Parsedown();
 echo $Parsedown->text('Hello _Parsedown_!'); # prints: <p>Hello <em>Parsedown</em>!</p>
 ```
 
-More examples in [the wiki](https://github.com/erusev/parsedown/wiki/Usage) and in [this video tutorial](http://youtu.be/wYZBY8DEikI).
+More examples in [the wiki](https://github.com/erusev/parsedown/wiki/) and in [this video tutorial](http://youtu.be/wYZBY8DEikI).
 
 ### Questions
 
-**How does Parsedown work?**<br/>
-Parsedown recognises that the Markdown syntax is optimised for humans so it tries to read like one. It goes through text line by line. It looks at how lines start to identify blocks. It looks for special characters to identify inline elements.
+**How does Parsedown work?**
 
-**Why doesn’t Parsedown use namespaces?**<br/>
-Using namespaces would mean dropping support for PHP 5.2. We believe that since Parsedown is a single class with an uncommon name, making this trade wouldn't be worth it.
+It tries to read Markdown like a human. First, it looks at the lines. It’s interested in how the lines start. This helps it recognise blocks. It knows, for example, that if a line start with a `-` then it perhaps belong to a list. Once it recognises the blocks, it continues to the content. As it reads, it watches out for special characters. This helps it recognise inline elements (or inlines).
 
-**Is Parsedown compliant with CommonMark?**<br/>
-We are [working on it](https://github.com/erusev/parsedown/tree/commonmark).
+We call this approach "line based". We believe that Parsedown is the first Markdown parser to use it. Since the release of Parsedown, other developers have used the same approach to develop other Markdown parsers in PHP and in other languages.
 
-**Who uses Parsedown?**<br/>
-[phpDocumentor](http://www.phpdoc.org/), [October CMS](http://octobercms.com/), [Bolt CMS](http://bolt.cm/), [RaspberryPi.org](http://www.raspberrypi.org/) and [more](https://www.versioneye.com/php/erusev:parsedown/references).
+**Is it compliant with CommonMark?**
+
+It passes most of the CommonMark tests. Most of the tests that don't pass deal with cases that are quite uncommon. Still, as CommonMark matures, compliance should improve.
+
+**Who uses it?**
+
+[phpDocumentor](http://www.phpdoc.org/), [October CMS](http://octobercms.com/), [Bolt CMS](http://bolt.cm/), [Kirby CMS](http://getkirby.com/), [Grav CMS](http://getgrav.org/), [Statamic CMS](http://www.statamic.com/),  [RaspberryPi.org](http://www.raspberrypi.org/) and [more](https://www.versioneye.com/php/erusev:parsedown/references).
+
+**How can I help?**
+
+Use it, star it, share it and if you feel generous, [donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=528P3NZQMP8N2).
+
+---
+
+You might also like [Caret](http://caret.io) - our Markdown editor for the desktop.

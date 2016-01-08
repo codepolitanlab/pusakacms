@@ -53,6 +53,7 @@ $autoload['packages'] = array();
 */
 
 $autoload['libraries'] = array(
+	'database',
 	'template', 
 	'pusaka', 
 	'form_validation', 

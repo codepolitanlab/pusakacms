@@ -1,17 +1,16 @@
 <div>_content_</div>
 
-sparse:
-
-<div>
-<div class="inner">
-_content_
-</div>
-</div>
-
 paragraph
 
+<div>
+  <div class="inner">
+    _content_
+  </div>
+</div>
+
 <style type="text/css">
-    p {
-        color: red;
-    }
+  p {color: #789;}
 </style>
+
+<div>
+  <a href="/">home</a></div>

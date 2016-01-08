@@ -1,4 +1,8 @@
-[link](http://example.com) and [another link](/tests/)
+[link](http://example.com)
+
+[link](/url-(parentheses)) with parentheses in URL 
+
+([link](/index.php)) in parentheses
 
 [`link`](http://example.com)
 
