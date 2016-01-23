@@ -4,22 +4,20 @@ class Settings_system extends CPForm {
 
     function _set_config()
     {
-        $this->cpform_title = "System";
+        $this->title = "System";
 
         // set form config
-        $this->cpform_config = array(
+        $this->config = array(
             'action' => site_url('panel/settings/index/'.get_class($this)),
             'method' => 'POST',
         );
-        $this->cpform_additional = array(
+        $this->additional = array(
             'submit_class' => 'btn btn-success',
             'submit_value' => 'Submit Site Setting'
         );
-    }
 
-    function _set_fields()
-    {
-        $this->theme = array(
+        
+        $this->fields['theme'] = array(
             'fieldType' => 'TextField',
             'label' => 'Theme',
             'config' => array(
@@ -30,7 +28,7 @@ class Settings_system extends CPForm {
             'rules' => 'required'
         );
 
-        $this->theme_option = array(
+        $this->fields['theme_option'] = array(
             'fieldType' => 'TextField',
             'label' => 'Theme Option',
             'config' => array(
@@ -40,7 +38,7 @@ class Settings_system extends CPForm {
             ),
         );
 
-        $this->admin_theme = array(
+        $this->fields['admin_theme'] = array(
             'fieldType' => 'TextField',
             'label' => 'Admin Theme',
             'config' => array(
@@ -51,7 +49,7 @@ class Settings_system extends CPForm {
             'rules' => 'required'
         );
 
-        $this->post_as_home = array(
+        $this->fields['post_as_home'] = array(
             'fieldType' => 'TextField',
             'label' => 'Post as home',
             'config' => array(
@@ -61,7 +59,7 @@ class Settings_system extends CPForm {
             ),
         );
 
-        $this->post_term = array(
+        $this->fields['post_term'] = array(
             'fieldType' => 'TextField',
             'label' => 'Post term',
             'config' => array(
@@ -72,7 +70,7 @@ class Settings_system extends CPForm {
             'rules' => 'required'
         );
 
-        $this->post_per_page = array(
+        $this->fields['post_per_page'] = array(
             'fieldType' => 'TextField',
             'label' => 'Post per page',
             'config' => array(
@@ -83,7 +81,7 @@ class Settings_system extends CPForm {
             'rules' => 'required'
         );
 
-        $this->disqus_shortname = array(
+        $this->fields['disqus_shortname'] = array(
             'fieldType' => 'TextField',
             'label' => 'Disqus shortname',
             'config' => array(
@@ -93,7 +91,7 @@ class Settings_system extends CPForm {
             ),
         );
 
-        $this->export_location = array(
+        $this->fields['export_location'] = array(
             'fieldType' => 'TextField',
             'label' => 'Export location',
             'config' => array(

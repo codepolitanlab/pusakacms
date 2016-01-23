@@ -54,6 +54,7 @@ $autoload['packages'] = array();
 
 $autoload['libraries'] = array(
 	'database',
+	'migration',
 	'template', 
 	'pusaka', 
 	'form_validation', 

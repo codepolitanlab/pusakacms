@@ -90,7 +90,7 @@ class Widget extends CPForm {
 
         // accomodate view paths
         $view_paths = array(
-            $this->cpform_CI->template->get_theme_path().'views/widgets/'.$this->widget_slug.DIRECTORY_SEPARATOR,
+            $this->CI->template->get_theme_path().'views/widgets/'.$this->widget_slug.DIRECTORY_SEPARATOR,
             ADDON_FOLDER.'widgets/'.$this->widget_slug.DIRECTORY_SEPARATOR,
             APPPATH.'widgets/'.$this->widget_slug.DIRECTORY_SEPARATOR
         );
@@ -101,7 +101,7 @@ class Widget extends CPForm {
 
         // set output and the container
         $output = '<div class="'.$this->widget_container_class.' '.$this->widget_slug.'">'."\n";
-        $output .= $this->cpform_CI->template->load_view('view', $this->widget_data, TRUE, $this->widget_view_path)."\n";
+        $output .= $this->CI->template->load_view('view', $this->widget_data, TRUE, $this->widget_view_path)."\n";
         $output .= '</div>'."\n";
 
         return $output;

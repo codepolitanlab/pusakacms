@@ -4,22 +4,20 @@ class Settings_site extends CPForm {
 
     function _set_config()
     {
-        $this->cpform_title = "Site";
+        $this->title = "Site";
 
         // set form config
-        $this->cpform_config = array(
+        $this->config = array(
             'action' => site_url('panel/settings/index/'.get_class($this)),
             'method' => 'POST',
         );
-        $this->cpform_additional = array(
+        $this->additional = array(
             'submit_class' => 'btn btn-success',
             'submit_value' => 'Submit Site Setting'
         );
-    }
 
-    function _set_fields()
-    {
-        $this->site_name = array(
+        
+        $this->fields['site_name'] = array(
             'fieldType' => 'TextField',
             'label' => 'Site Name',
             'config' => array(
@@ -31,7 +29,7 @@ class Settings_site extends CPForm {
             'rules' => 'required'
         );
 
-        $this->site_slogan = array(
+        $this->fields['site_slogan'] = array(
             'fieldType' => 'TextField',
             'label' => 'Site Slogan',
             'config' => array(
@@ -41,7 +39,7 @@ class Settings_site extends CPForm {
             ),
         );
 
-        $this->site_owner = array(
+        $this->fields['site_owner'] = array(
             'fieldType' => 'TextField',
             'label' => 'Site Owner Name',
             'config' => array(
@@ -51,7 +49,7 @@ class Settings_site extends CPForm {
             ),
         );
 
-        $this->site_domain = array(
+        $this->fields['site_domain'] = array(
             'fieldType' => 'TextField',
             'label' => 'Site Domain',
             'config' => array(
@@ -61,7 +59,7 @@ class Settings_site extends CPForm {
             ),
         );
 
-        $this->protocol = array(
+        $this->fields['protocol'] = array(
             'fieldType' => 'TextField',
             'label' => 'Protocol',
             'config' => array(
@@ -72,7 +70,7 @@ class Settings_site extends CPForm {
             'rules' => 'required'
         );
 
-        $this->meta_description = array(
+        $this->fields['meta_description'] = array(
             'fieldType' => 'TextField',
             'label' => 'Meta description',
             'config' => array(
@@ -82,7 +80,7 @@ class Settings_site extends CPForm {
             ),
         );
 
-        $this->meta_keywords = array(
+        $this->fields['meta_keywords'] = array(
             'fieldType' => 'TextField',
             'label' => 'Meta keywords',
             'config' => array(

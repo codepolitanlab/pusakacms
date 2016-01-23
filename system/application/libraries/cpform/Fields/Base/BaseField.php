@@ -11,13 +11,14 @@ class BaseField {
     protected $rule_messages = array();
     protected $options = array();
 
-    public function __construct($name='', $value=array())
+    public function __construct($name='', $attr=array(), $value = '')
     {
-        $this->name = isset($value['name']) ? $value['name'] : $name;
-        $this->label = isset($value['label']) ? $value['label'] : $name;
-        if(isset($value['initial'])) $this->initial = $value['initial'];
-        if(isset($value['config'])) $this->config = $value['config'];
-        if(isset($value['options'])) $this->options = $value['options'];
-        if(isset($value['rules'])) $this->rules = $value['rules'];
+        $this->name = isset($attr['name']) ? $attr['name'] : $name;
+        $this->label = isset($attr['label']) ? $attr['label'] : $name;
+        if(isset($attr['initial'])) $this->initial = $attr['initial'];
+        if(isset($attr['config'])) $this->config = $attr['config'];
+        if(isset($attr['options'])) $this->options = $attr['options'];
+        if(isset($attr['rules'])) $this->rules = $attr['rules'];
+        if(!empty($value)) $this->config['value'] = $value;
     }
 }

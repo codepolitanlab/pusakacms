@@ -6,7 +6,7 @@ class Settings
 
 	function __construct()
 	{
-		$this->db_path = SITE_PATH.'db/';
+		$this->db_path = SITE_PATH.'db'.DIRECTORY_SEPARATOR;
 	}
 
 	public function get_config_path()

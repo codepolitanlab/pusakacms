@@ -49,7 +49,7 @@ class Panel extends Admin_Controller {
 
 			// set to output
 			$data['settings_form'][$filename] = array(
-				'title' => $the_forms[$filename]->cpform_title,
+				'title' => $the_forms[$filename]->title,
 				'id' => $filename
 			);
 		}

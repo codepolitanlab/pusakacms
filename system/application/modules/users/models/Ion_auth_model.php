@@ -1691,8 +1691,9 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events('pre_set_session');
 
 		$session_data = array(
+		    'site_slug'		   => SITE_SLUG,
 		    'identity'             => $user->{$this->identity_column},
-		    'id' 	               => $user->id,
+		    'id' 	           => $user->id,
 		    'username'             => $user->username,
 		    'email'                => $user->email,
 		    SITE_SLUG.'_username'  => $user->username,

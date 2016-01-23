@@ -14,7 +14,7 @@ class Admin_Controller extends MY_Controller
 		// check if database folder writable
 		$this->config_path = SITE_PATH.'db/';
 		if(!is_readable($this->config_path) || !is_writable($this->config_path))
-		show_error('Set folder '.$this->config_path.' and its contents readable and writable first.');
+			show_error('Set folder '.$this->config_path.' and its contents readable and writable first.');
 
 		// set theme
 		$this->template->set_theme($this->config->item('admin_theme'));

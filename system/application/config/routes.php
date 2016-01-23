@@ -47,13 +47,12 @@ $route["sync_post"] 			= "dashboard/sync_post";
 $route["update_domain/(:any)"]	= "dashboard/update_domain/$1";
 
 $route["panel"]								= "dashboard/panel";
-$route['panel/([a-zA-Z0-9_-]+)']            = '$1/panel/index';
-$route['panel/([a-zA-Z0-9_-]+)/(.+)']	    = '$1/panel/$2';
+$route["panel/logout"]			= "users/auth/logout";
+$route['panel/([a-zA-Z0-9_-]+)']        = '$1/panel/index';
+$route['panel/([a-zA-Z0-9_-]+)/(.+)']	= '$1/panel/$2';
 
 $route["users/login"]	= "users/auth/login";
 $route["panel/login"]	= "users/auth/admin_login";
-$route["panel/logout"]	= "users/auth/logout";
-
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
