@@ -42,7 +42,7 @@ class Fastcrud_Controller extends Admin_Controller
 
 	function index($page = 1)
 	{
-		$this->data['table'] = $this->fastcrud->data($this->crud_conf['view'].'/index', $page);
+		$this->data['table'] = $this->fastcrud->data(site_url($this->crud_conf['path'].'/index'), $page);
 
 		$this->template->view($this->crud_conf['view'].'/index', $this->data);
 	}
