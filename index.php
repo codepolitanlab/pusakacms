@@ -125,14 +125,14 @@ $view_folder = 'views';
 $www_folder = '';
 
 // MEDIA FOLDER NAME
-$media_folder = 'media/';
+$media_folder = 'media'.DIRECTORY_SEPARATOR;
 
 // SITES FOLDER NAME
-$sites_folder = 'sites/'; // use this instead if you want to use pusakacms in your own server
+$sites_folder = 'sites'.DIRECTORY_SEPARATOR; // use this instead if you want to use pusakacms in your own server
 // $sites_folder = $www_folder.$media_folder;
 
 // ADDON FOLDER NAME
-$addon_folder = 'addons/';
+$addon_folder = 'addons'.DIRECTORY_SEPARATOR;
 
 
 /*
@@ -288,12 +288,12 @@ if ( ! is_dir($system_path))
 
 	define('MEDIA_FOLDER', $media_folder);
 	
-	define('SITE_FOLDER', rtrim(realpath($sites_folder), '/').'/');
+	define('SITE_FOLDER', rtrim(realpath($sites_folder), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR);
 	define('SITES_PATH', $sites_folder);
 
-	define('WWW_FOLDER', rtrim(realpath($www_folder), '/').'/');
+	define('WWW_FOLDER', rtrim(realpath($www_folder), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR);
 
-	define('ADDON_FOLDER', rtrim(realpath($addon_folder), '/').'/');
+	define('ADDON_FOLDER', rtrim(realpath($addon_folder), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR);
 	define('ADDON_PATH', $addon_folder);
 
 /**

@@ -46,17 +46,6 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label for="slug">Parent <small>Parent page</small></label>
-						<select class="form-control" name="parent" id="parent">
-							<option value="">—</option>
-							<?php foreach ($pagelinks as $pagelink => $caption): ?>
-								<option value="<?php echo $pagelink; ?>" <?php echo ($pagelink==$parent || $pagelink==validate_value($page, 'parent'))? "selected":''; ?>><?php echo $caption; ?></option>
-							<?php endforeach; ?>
-						</select>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="form-group">
 						<label for="title">Layout <small>page layout file</small></label>
 						<select class="form-control" name="layout" id="layout">
 							<option value="">Auto</option>
@@ -66,12 +55,14 @@
 						</select>
 					</div>
 				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="role">Role <small>User group who can access this page separated by comma, leave blank for no restriction</small></label>
+						<input name="role" id="role" class="form-control" placeholder="i.e. admin, user" value="<?php echo set_value('role', validate_value($page, 'role')); ?>">
+					</div>
+				</div>
 			</div>
 
-			<div class="form-group">
-				<label for="role">Role <small>role who can access this page separated by comma, leave blank for no restriction</small></label>
-				<input name="role" id="role" class="form-control" placeholder="i.e. admin, user" value="<?php echo set_value('role', validate_value($page, 'role')); ?>">
-			</div>
 			<div class="form-group">
 				<label for="meta_description">Meta Description <small>optional</small></label>
 				<textarea name="meta_description" id="meta_description" class="form-control" rows="3"><?php echo set_value('meta_description', validate_value($page, 'meta_description')); ?></textarea>

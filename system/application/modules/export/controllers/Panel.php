@@ -86,17 +86,17 @@ class Panel extends Admin_Controller {
 
 	function copy_vendor()
 	{
-		if(!file_exists($this->export_location.'/public/vendor/'))
-			mkdir($this->export_location.'/public/vendor/', 0777, true);
+		if(!file_exists($this->export_location.'/addons/vendor/'))
+			mkdir($this->export_location.'/addons/vendor/', 0777, true);
 
-		recurse_copy(WWW_FOLDER.'/public/vendor', $this->export_location.'/public/vendor');
+		recurse_copy(WWW_FOLDER.'/addons/vendor', $this->export_location.'/addons/vendor');
 
 		echo '{"status":"success", "message":"Vendor files copied."}';
 	}
 
 	function export_pages($data = false, $parent = '', $depth = 1)
 	{
-		$page = ($data)? $data : $this->pusaka->get_pages_tree();
+		$pages = ($data)? $data : $this->pusaka->get_pages_tree();
 
 		$uplink = '';
 		if($depth > 1)
@@ -113,8 +113,8 @@ class Panel extends Admin_Controller {
 		$replace = array_values($replacement);
 
 		if(!$data){
-			if(!file_exists($this->export_location))
-				mkdir($this->export_location, 0777);
+			// if(!file_exists($this->export_location))
+			// 	mkdir($this->export_location, 0777);
 
 			$this->pusaka->sync_page();
 
@@ -123,7 +123,7 @@ class Panel extends Admin_Controller {
 			write_file($this->export_location.'/index.html', $file);
 		}
 
-		foreach ($page as $slug => $page) {
+		foreach ($pages as $slug => $page) {
 			$file = str_replace($search, $replace, $this->_render_page(site_url($page['url'])));
 			write_file($this->export_location.'/'.$parent.$slug.'.html', $file);
 

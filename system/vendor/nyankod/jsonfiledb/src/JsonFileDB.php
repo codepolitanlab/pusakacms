@@ -1,30 +1,32 @@
 <?php 
-
 namespace Nyankod;
 
 class JsonFileDB
 {
-
     protected $jsonPath;
     protected $jsonFile;
     protected $fileHandle;
     protected $fileData = array();
     protected $prettyOutput;
+    protected $jsonEncodeOptions = 0;
     protected $dbExt;
 
     /**
      * @param null $_jsonPath
      */
-    public function __construct($_jsonPath = false, $_ext = '.json')
+    public function __construct($_jsonPath = false, $_jsonFile = null, $_ext = '.json')
     {
         $this->setPath($_jsonPath);
         $this->setExt($_ext);
+
+        if ($_jsonFile !== null)
+            $this->setTable($this->jsonPath.$_jsonFile.$this->dbExt);
     }
 
     public function setPath($_jsonPath)
     {
         if ($_jsonPath) {
-            $this->jsonPath = $_jsonPath;
+            $this->jsonPath = rtrim($_jsonPath, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
         } else {
             throw new JsonDBException('Error. Please supply a database location path');
         }
@@ -40,9 +42,9 @@ class JsonFileDB
      *
      * @throws JsonDBException
      */
-    public function setTable($table = false)
+    public function setTable($_jsonFile = false)
     {
-        $this->jsonFile = $this->jsonPath.$table.$this->dbExt;
+        $this->jsonFile = $this->jsonPath.$_jsonFile.$this->dbExt;
         
         $create = false;
         if (! file_exists($this->jsonFile))
@@ -61,7 +63,8 @@ class JsonFileDB
      */
     public function __destruct()
     {
-        if($this->fileHandle){
+        if($this->fileHandle){   
+            flock($this->fileHandle, LOCK_UN);
             fclose($this->fileHandle);
         }
     }
@@ -105,17 +108,59 @@ class JsonFileDB
     /**
      * Set Pretty Output
      *
-     * @param bool $val
+     * @param bool|array $val
+     * @return $this
      *
      * @throws JsonDBException
      */
     public function setPrettyOutput($val)
     {
+        if (is_array($val) && count($val) === 1) {
+            return $this->setPrettyOutput($val[0]);
+        }
+
         if (is_bool($val)) {
             $this->prettyOutput = $val;
-        } else {
-            throw new JsonDBException('Error. Please supply a bool value');
+            return $this;
         }
+
+        throw new JsonDBException('Error. Please supply a bool value');
+    }
+
+    /**
+     * Return options for json_encode.
+     *
+     * @return int
+     */
+    public function getJsonEncodeOptions()
+    {
+        if ($this->prettyOutput) {
+            return $this->jsonEncodeOptions | JSON_PRETTY_PRINT;
+        }
+
+        return $this->jsonEncodeOptions;
+    }
+
+    /**
+     * Set options for json_encode.
+     *
+     * @param int|array $val
+     * @return $this
+     *
+     * @throws JsonDBException
+     */
+    public function setJsonEncodeOptions($val)
+    {
+        if (is_array($val) && count($val) === 1) {
+            return $this->setJsonEncodeOptions($val[0]);
+        }
+
+        if (is_int($val)) {
+            $this->jsonEncodeOptions = $val;
+            return $this;
+        }
+
+        throw new JsonDBException('Error. Please supply a int value');
     }
 
     /**
@@ -125,12 +170,13 @@ class JsonFileDB
      */
     protected function lockFile()
     {
-        $handle = fopen($this->jsonFile, "c+");
+        $handle = fopen($this->jsonFile, 'c+');
         if (flock($handle, LOCK_EX)) {
             $this->fileHandle = $handle;
-        } else {
-            throw new JsonDBException('Can\'t set file-lock');
+            return;
         }
+
+        throw new JsonDBException('Can\'t set file-lock');
     }
 
     /**
@@ -141,26 +187,27 @@ class JsonFileDB
      */
     protected function save()
     {
-        if ($this->prettyOutput) {
-            $flags = JSON_PRETTY_PRINT;
-        } else {
-            $flags = 0;
-        }
-        
         $this->lockFile();
+        
+        $flags = $this->jsonEncodeOptions;
+        if ($this->prettyOutput) {
+            $flags = JSON_PRETTY_PRINT | $flags;
+        }
 
-        // if ($this->fileData == null || $this->fileData == '' || empty($this->fileData)) {
-        //     throw new JsonDBException('Refusing to write null data to: ' . $this->jsonFile);
-        // }
+        if (!is_array($this->fileData)) {
+            if ($this->fileData === null || $this->fileData === '') {
+                throw new JsonDBException('Refusing to write null data to: ' . $this->jsonFile);
+            }
+        }
 
         ftruncate($this->fileHandle, 0);
         if (fwrite($this->fileHandle, json_encode($this->fileData, $flags))) {
             fflush($this->fileHandle);
-            flock($this->fileHandle, LOCK_UN);
+
             return true;
-        } else {
-            throw new JsonDBException('Can\'t write data to: ' . $this->jsonFile);
         }
+
+        throw new JsonDBException('Can\'t write data to: ' . $this->jsonFile);
     }
 
     /**
@@ -176,60 +223,57 @@ class JsonFileDB
     /**
      * Get Field Names
      *
-     * @param int $recordNumber
+     * @param int|array $recordNumber
      *
      * @return array
      */
     public function getFieldNames($recordNumber = 0)
     {
-        if (isset($this->fileData[$recordNumber])) {
-            return array_keys($this->fileData[$recordNumber]);
-        } else {
-            return array();
+        if (is_array($recordNumber)) {
+            if (count($recordNumber) === 1) {
+                return $this->getFieldNames($recordNumber[0]);
+            }
+            return $this->getFieldNames(0);
         }
+
+        if (array_key_exists($recordNumber, $this->fileData)) {
+            return array_keys($this->fileData[$recordNumber]);
+        }
+
+        return [];
     }
 
     /**
      * Select
      *
      * @param mixed $key
-     * @param int   $val
+     * @param int $val
      *
      * @return array
      */
     public function select($key, $val = 0)
     {
         $result = array();
-        if (is_array($key)) {
-            $result = $this->select($key[1], $key[2]);
-        } else {
-            $data = $this->fileData;
+        if (is_array($key) && count($key) === 2) {
+            return $this->select($key[0], $key[1]);
+        }
 
-            foreach ($data as $_key => $_val) {
-                if (isset($data[$_key][$key])) {
-                    if ($data[$_key][$key] == $val) {
-                        $result[] = $data[$_key];
-                    }
-                } elseif ($val == 0) {
-                    if ($_key == $key) {
-                        $result[] = $data[$_key];
-                    }
+        $data = $this->fileData;
+
+        foreach ($data as $_key => $_val) {
+            if (array_key_exists($_key, $data) && array_key_exists($key, $data[$_key])) {
+                if ($data[$_key][$key] === $val) {
+                    $result[] = $data[$_key];
                 }
             }
         }
 
-        if(count($result) == 1)
-            return $result[0];
-
-        return $result;
+        return count($result) == 1 ? $result[0] : $result;
     }
 
-    public function select_children($key, $val, $array = false)
+    public function select_children($key, $val, $childAarray = false)
     {
-        if(!$array)
-            $new_array = $this->fileData;
-        else
-            $new_array = $array;
+        $new_array = (!$childAarray)? $this->fileData : $childAarray;
 
         $result = array();
 
@@ -249,15 +293,46 @@ class JsonFileDB
     }
 
     /**
+     * Like
+     *
+     * @param mixed $key
+     * @param string $like
+     *
+     * @return array
+     */
+    public function like($key, $like = null)
+    {
+        if (is_array($key) && count($key) === 2) {
+            return $this->like($key[0], $key[1]);
+        }
+
+        $data   = $this->fileData;
+        $result = [];
+        foreach ($data as $_key => $_val) {
+            if (array_key_exists($_key, $data) && array_key_exists($key, $data[$_key]) && strrpos($data[$_key][$key], $like)) 
+            {
+                $result[] = $_val;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * Update All
      *
      * @param array $data
      *
      * @return array
+     * @throws \philwc\JsonDBException
      */
-    public function updateAll($data = array())
+    public function updateAll(array $data = [])
     {
-        if (isset($data[0]) && substr_compare($data[0], $this->jsonFile, 0)) {
+        if (is_array($data) && array_key_exists(0, $data) && is_array($data[0]) && count($data) === 1) {
+            return $this->updateAll($data[0]);
+        }
+
+        if (array_key_exists(0, $data) && substr_compare($data[0], $this->jsonFile, 0)) {
             $data = $data[1];
         }
 
@@ -270,39 +345,35 @@ class JsonFileDB
      * Update
      *
      * @param mixed $key
-     * @param int   $val
+     * @param int $val
      * @param array $newData
      *
      * @return bool
+     * @throws \philwc\JsonDBException
      */
-    public function update($key, $val = 0, $newData = array())
+    public function update($key, $val = 0, array $newData = [])
     {
-        $result = false;
-        if (is_array($key)) {
-            $result = $this->update($key[1], $key[2], $key[3]);
-        } else {
-            $data = $this->fileData;
-            foreach ($data as $_key => $_val) {
+        if (is_array($key) && count($key) === 3) {
+            return $this->update($key[0], $key[1], $key[2]);
+        }
 
-                if ($val === false) {
-                    $data[$key] = $newData;
-                    $result     = true;
-                    break;
-                } elseif (isset($data[$_key][$key])) {
-                    if ($data[$_key][$key] == $val) {
-                        $data[$_key] = $newData;
-                        $result      = true;
-                        break;
-                    }
+        if (count($this->select($key, $val)) !== 0) {
+            $data       = $this->fileData;
+            $resultData = [];
+
+            foreach ($data as $_key => $_val) {
+                if ($data[$_key][$key] === $val) {
+                    $resultData[] = $newData;
+                } else {
+                    $resultData[] = $_val;
                 }
             }
-            if ($result) {
-                $this->fileData = $data;
-            }
-        }
-        $this->save();
 
-        return $result;
+            $this->fileData = $resultData;
+            return $this->save();
+        }
+
+        return false;
     }
 
     public function update_children($key, $val, $newdata = array(), $array = false)
@@ -342,98 +413,73 @@ class JsonFileDB
      * @param array $data
      *
      * @return bool
+     * @throws \philwc\JsonDBException
      */
-    public function insert($data = array())
+    public function insert(array $data = [])
     {
-        if (isset($data[0]) && substr_compare($data[0], $this->jsonFile, 0)) {
+        if (is_array($data) && array_key_exists(0, $data) && is_array($data[0]) && count($data) === 1) {
+            return $this->insert($data[0]);
+        }
+
+        if (array_key_exists(0, $data) && substr_compare($data[0], $this->jsonFile, 0)) {
             $data = $data[1];
         }
-        $this->fileData[] = $data;
-        $this->save();
 
-        return true;
+        $this->fileData[] = $data;
+        return $this->save();
     }
 
     /**
      * Delete All
      *
      * @return bool
+     * @throws \philwc\JsonDBException
      */
     public function deleteAll()
     {
         $this->fileData = array();
-        $this->save();
-
-        return true;
+        return $this->save();
     }
 
     /**
      * Delete
      *
      * @param mixed $key
-     * @param int   $val
+     * @param int $val
+     * @param array $childArray
      *
      * @return int
+     * @throws \philwc\JsonDBException
      */
-    public function delete($key, $val = 0)
+    public function delete($key, $val, $childArray = false)
     {
-        $result = 0;
-        if (is_array($key)) {
-            $result = $this->delete($key[1], $key[2]);
-        } else {
-            $data = $this->fileData;
-            foreach ($data as $_key => $_val) {
+        $new_array = (!$childArray) ? $this->fileData : $childArray;
 
-                if ($val === false && $_key == $key) {
-                    unset($data[$_key]);
-                    $result++;
+        foreach($new_array as $_key => &$arr){
+            if (array_key_exists($key, $arr)) {
+                if($arr[$key] == $val){
+                    unset($new_array[$_key]);
                     break;
-                } elseif (isset($data[$_key][$key])) {
-                    if ($data[$_key][$key] == $val) {
-                        unset($data[$_key]);
-                        $result++;
-                    }
                 }
-            }
-            if ($result) {
-                sort($data);
-                $this->fileData = $data;
-            }
-        }
-        $this->save();
-
-        return $result;
-    }
-
-    public function delete_children($key, $val, $array = false)
-    {
-        if(!$array)
-            $new_array = $this->fileData;
-        else
-            $new_array = $array;
-
-        foreach($new_array as $i => &$arr){
-            if($arr[$key] == $val){
-                unset($new_array[$i]);
-                break;
             }
 
             if(!empty($arr['children'])){
-                $arr['children'] = $this->delete_children($key, $val, $arr['children']);
+                $arr['children'] = $this->delete($key, $val, $arr['children']);
 
                 if(count($arr['children']) < 1)
                     unset($arr['children']);
             }
         }
 
-        if(!$array){
+        if(!$childArray){
             $this->fileData = array_values($new_array);
             return $this->save();
         } else
             return array_values($new_array);
     }
 
-    public function createTable($tablePath) {
+    public function createTable($tablePath)
+    {
         if(is_array($tablePath)) $tablePath = $tablePath[0];
 
         $file = fopen($tablePath, 'a');

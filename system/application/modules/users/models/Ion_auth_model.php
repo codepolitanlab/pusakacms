@@ -171,8 +171,6 @@ class Ion_auth_model extends CI_Model
 	public function __construct()
 	{
 		parent::__construct();
-		if($this->config->item('filebased', 'ion_auth') === FALSE)
-			$this->load->database();
 
 		$this->load->config('users/ion_auth', TRUE);
 		$this->load->helper('cookie');

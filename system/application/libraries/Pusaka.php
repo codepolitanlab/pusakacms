@@ -166,8 +166,8 @@ class Pusaka {
 	 */
 	function sync_page()
 	{
-		if(! file_exists(PAGE_FOLDER.'/'.$this->navfile))
-			write_file(PAGE_FOLDER.'/'.$this->navfile, json_encode(array(), JSON_PRETTY_PRINT));
+		if(! file_exists(PAGE_FOLDER.$this->navfile))
+			write_file(PAGE_FOLDER.$this->navfile, json_encode(array(), JSON_PRETTY_PRINT));
 
 		$output = array('status' => 'success', 'message' => 'Everything already synced.');
 
@@ -178,7 +178,8 @@ class Pusaka {
 		$map = $this->scan_pages();
 
 		// get the old page index
-		$from_file = json_decode(file_get_contents(PAGE_FOLDER.'/'.$this->navfile), true);
+		$from_file = json_decode(file_get_contents(PAGE_FOLDER.$this->navfile), true);
+		if(empty($from_file)) $from_file = array();
 
 		// add new item to index
 		$merge_diff = array_merge_recursive($from_file, $map);
@@ -187,7 +188,7 @@ class Pusaka {
 		$new_index = array_intersect_assoc_recursive($merge_diff, $map);
 
 		// make sure it is writablle
-		if(! write_file(PAGE_FOLDER.'/'.$this->navfile, json_encode($new_index, JSON_PRETTY_PRINT), "w")){
+		if(! write_file(PAGE_FOLDER.$this->navfile, json_encode($new_index, JSON_PRETTY_PRINT))){
 			$output = array('status' => 'error', 'message' => "Page index file ".$this->navfile." is not writable. Make it writable first.\n");
 		}
 		else
@@ -408,7 +409,7 @@ class Pusaka {
 	{
 		$file_location = POST_FOLDER.'/'.$this->navfile;
 		if($site_slug)
-			$file_location = SITE_FOLDER.$site_slug.DIRECTORY_SEPARATOR.'sitedata'.DIRECTORY_SEPARATOR.$this->CI->config->item('post_folder').$this->navfile;
+			$file_location = SITE_FOLDER.$site_slug.DIRECTORY_SEPARATOR.$this->CI->config->item('post_folder').$this->navfile;
 
 		if(! file_exists($file_location))
 			$this->sync_post($site_slug);
@@ -501,7 +502,7 @@ class Pusaka {
 
 		$post_folder = ($site_slug == SITE_SLUG)
 						? POST_FOLDER
-						: SITE_FOLDER.$site_slug.DIRECTORY_SEPARATOR.'sitedata'.DIRECTORY_SEPARATOR.$this->CI->config->item('post_folder');
+						: SITE_FOLDER.$site_slug.DIRECTORY_SEPARATOR.$this->CI->config->item('post_folder');
 
 		$post_db = new Nyankod\JsonFileDB($post_folder);
 		$post_db->setTable('index');
@@ -582,7 +583,7 @@ class Pusaka {
 	{
 		$post_folder = POST_FOLDER;
 		if($site_slug)
-			$post_folder = SITE_FOLDER.$site_slug.DIRECTORY_SEPARATOR.'sitedata'.DIRECTORY_SEPARATOR.$this->CI->config->item('post_folder');
+			$post_folder = SITE_FOLDER.$site_slug.DIRECTORY_SEPARATOR.$this->CI->config->item('post_folder');
 
 		if(! file_exists($post_folder.'/'.$this->navfile))
 			write_file($post_folder.'/'.$this->navfile, json_encode(array(), JSON_PRETTY_PRINT));
@@ -738,49 +739,42 @@ class Pusaka {
 		if(! $file = $this->page_exist($url))
 			return $file;
 
-		if(!empty($file)){
-			$page = explode("{:", $file);
-			array_shift($page);
+		// split fields and content
+		list($fields, $pagedata['content']) = explode("\n---\n", $file, 2);
+		$fields = explode("\n", trim($fields));
 
-			$page_arr = array('url' => $url);
+		$pagedata['url'] = $url;
+		$file_segment = explode('/', $url);
+		if(count($url) > 0){
+			$pagedata['slug'] = array_pop($file_segment);
+			if(count($url) > 0)
+				$pagedata['parent'] = implode('/', $file_segment);
+		}
+		
+		foreach ($fields as $elm) {
+			$segs = preg_split("/[\s:]+/", $elm, 2);
 
-			$file_segment = explode('/', $url);
-			if(count($url) > 0){
-				$page_arr['slug'] = array_pop($file_segment);
-				if(count($url) > 0)
-					$page_arr['parent'] = implode('/', $file_segment);
+			// if field content use array format
+			if(preg_match('/^\[(.*)\]/', trim($segs[1]), $theset)){
+				if($parse){
+					$pagedata[trim($segs[0])] = preg_split("/[\s,]+/", trim($theset[1]));
+				} else
+					$pagedata[trim($segs[0])] = trim($theset[1]);
 			}
+			else
+				$pagedata[trim($segs[0])] = trim($segs[1]);
 
-			if($parse){
-				foreach ($page as $elm) {
-					$segs = preg_split("/( :} | :}|:} |:})/", $elm, 2);
-
-					// set meta to config
-					if(in_array(trim($segs[0]), array('meta_keywords', 'meta_description', 'author')))
-						$this->CI->config->set_item(trim($segs[0]), trim($segs[1]));
-
-					if(trim($segs[0]) == 'labels')
-						$page_arr[trim($segs[0])] = preg_split("/(\s,\s|\s,|,\s)/", $segs[1]);
-
-					elseif(trim($segs[0]) == 'content')
-					{
-						$Parsedown = new Parsedown();
-						$page_arr[trim($segs[0])] = $Parsedown->setBreaksEnabled(true)->text($segs[1]);
-					}
-					else
-						$page_arr[trim($segs[0])] = trim($segs[1]);
-				}
-			} else {
-				foreach ($page as $elm) {
-					$segs = preg_split("/( :} | :}|:} |:})/", $elm, 2);
-					$page_arr[trim($segs[0])] = trim($segs[1]);
-				}
-			}
-
-			return $page_arr;
+			// set meta to config
+			if(in_array(trim($segs[0]), array('meta_keywords', 'meta_description', 'author')))
+				$this->CI->config->set_item(trim($segs[0]), trim($segs[1]));
 		}
 
-		return false;
+		// if($parse){
+		// 	$Parsedown = new Parsedown();
+		// 	$pagedata['content'] = $Parsedown->setBreaksEnabled(true)->text($pagedata['content']);
+		// }
+
+		return $pagedata;
 	}
 
 	// --------------------------------------------------------------------
@@ -856,7 +850,7 @@ class Pusaka {
 		}
 
 
-		return rtrim($file, '/');
+		return rtrim($file, DIRECTORY_SEPARATOR);
 	}
 
 	// --------------------------------------------------------------------------

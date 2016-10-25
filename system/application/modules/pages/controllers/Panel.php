@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// use Nyankod\JsonFileDB;
+use Nyankod\JsonFileDB;
 
 /**
  * Cms
@@ -32,7 +32,7 @@ class Panel extends Admin_Controller {
 		array(
 			'field'   => 'content', 
 			'label'   => 'Page Content', 
-			'rules'   => 'required'
+			'rules'   => 'trim|required'
 			)
 		);
 
@@ -45,17 +45,23 @@ class Panel extends Admin_Controller {
 			show_error('Set folder '.PAGE_FOLDER.' readable and writable first.');
 
 		// set page index file
-		$this->page_db = new Nyankod\JsonFileDB(PAGE_FOLDER);
+		$this->page_db = new JsonFileDB(PAGE_FOLDER);
 		$this->page_db->setTable('index');
 
 		$this->load->model('pages_m');
+	}
+
+	function oh()
+	{
+		$st = '[dasdas,sdasd,asdsa,adasd]';
+		preg_match('/^\[(.*)\]/', $st, $matches);
+		print_r($matches);
 	}
 
 
 	/*********************************************
 	 * PAGES
 	 **********************************************/
-
 	function index()
 	{
 		// $pages = $this->pusaka->get_pages_tree();
@@ -97,6 +103,10 @@ class Panel extends Admin_Controller {
 
 		if($this->form_validation->run()){
 			$page = $this->input->post();
+
+			// prepend and append brackets for array type field
+			$page['role'] = '['.trim($page['role']).']';
+			$page['meta_keywords'] = '['.trim($page['meta_keywords']).']';
 			
 			if($this->pages_m->save_page($page)){
 				$this->session->set_flashdata('success', 'Page saved.');
@@ -104,7 +114,7 @@ class Panel extends Admin_Controller {
 				if($this->input->post('btnSaveExit'))
 					redirect('panel/pages');
 				else
-					redirect('panel/pages/edit/'.$page['parent'].'/'.$page['slug']);
+					redirect('panel/pages/edit/'.$page['slug']);
 			}
 			else {
 				$this->template->set('error', 'Page failed to save. Make sure the folder '.PAGE_FOLDER.' is writable.');
@@ -144,6 +154,12 @@ class Panel extends Admin_Controller {
 
 		if($this->form_validation->run()){
 			$page = $this->input->post();
+
+			$page['parent'] = $prevpage['parent'] = $parent;
+
+			// prepend and append brackets for array type field
+			$page['role'] = '['.trim($page['role']).']';
+			$page['meta_keywords'] = '['.trim($page['meta_keywords']).']';
 			
 			// update page content
 			if($this->pages_m->update_page($page, $prevpage))
@@ -154,7 +170,7 @@ class Panel extends Admin_Controller {
 			if($this->input->post('btnSaveExit'))
 				redirect('panel/pages');
 			else
-				redirect('panel/pages/edit/'.$page['parent'].'/'.$page['slug']);
+				redirect('panel/pages/edit/'.$parent.'/'.$page['slug']);
 		}
 
 

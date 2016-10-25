@@ -1,6 +1,9 @@
 <div>
 	<?php if($this->session->flashdata('message')): ?>
-		<?php echo $this->session->flashdata('message'); ?>
+		<div class="alert alert-info alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			<?php echo $this->session->flashdata('message'); ?>
+		</div>
 	<?php endif; ?>
 
 	<?php if($this->session->flashdata('success')): ?>

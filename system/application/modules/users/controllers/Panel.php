@@ -7,10 +7,7 @@ class Panel extends Admin_Controller
 	function __construct() 
 	{
 		parent::__construct();
-		
-		if ($this->config->item('filebased', 'ion_auth') === FALSE) $this->load->database();
-		else if (!is_writable(SITE_PATH . 'db/users.json') || !is_writable(SITE_PATH . 'db/groups.json')) show_error('Files users.json and groups.json in folder ' . SITE_PATH . 'db/ must be writable.');
-		
+
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth') , $this->config->item('error_end_delimiter', 'ion_auth'));
 		
 		$this->lang->load('auth');

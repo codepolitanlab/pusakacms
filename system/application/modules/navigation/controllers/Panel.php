@@ -273,7 +273,7 @@ class Panel extends Admin_Controller {
 				$updated = $data = $this->nav_db->select_children('slug', $link['link_slug']);
 
 				// then delete it from old area
-				$this->nav_db->delete_children('slug', $link['link_slug']);
+				$this->nav_db->delete('slug', $link['link_slug']);
 
 				// insert link to new area
 				$this->nav_db->setTable($link['link_area']);
@@ -312,7 +312,7 @@ class Panel extends Admin_Controller {
 
 		$this->nav_db->setTable($area);
 
-		if($this->nav_db->delete_children('slug', $slug))
+		if($this->nav_db->delete('slug', $slug))
 			$this->session->set_flashdata('success', 'Link "'.$slug.'" deleted.');
 		else
 			$this->session->set_flashdata('error', 'Link failed to delete. Make sure the folder '.NAV_FOLDER.' is writable.');

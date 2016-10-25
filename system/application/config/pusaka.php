@@ -39,7 +39,7 @@ $config['post_term'] = 'blog';
 | content folders
 |--------------------------------------------------------------------------
 |
-| content folders path relatives to sitedata/ folder in each site
+| content folders path relatives each site folder
 |
 */
 $config['page_folder'] 		= 'content'.DIRECTORY_SEPARATOR.'pages'.DIRECTORY_SEPARATOR;
