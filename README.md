@@ -1,6 +1,6 @@
 # PusakaCMS
 
-## Warning, this project is deprecated and will be continued to another upcoming project!
+## Warning, this project is still in beta phase and not ready for production yet!
 
 Pusaka CMS is a file-based Content Management System built on top of CodeIgniter 3 Framework
 
