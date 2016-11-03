@@ -11,12 +11,20 @@ class ComposerStaticInite223c66bcabaed30ebe5ef899f166afd
         array (
             'Nyankod\\' => 8,
         ),
+        'D' => 
+        array (
+            'Dotenv\\' => 7,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'Nyankod\\' => 
         array (
             0 => __DIR__ . '/..' . '/nyankod/jsonfiledb/src',
+        ),
+        'Dotenv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
         ),
     );
 

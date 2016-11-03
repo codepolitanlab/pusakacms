@@ -8,9 +8,9 @@
     },
     {
         "title": "Sample Page",
-        "slug": "sample-page",
-        "url": "sample-page",
+        "slug": "sample",
         "source": "uri",
+        "url": "sample",
         "target": "_self"
     },
     {

@@ -51,14 +51,6 @@ class Panel extends Admin_Controller {
 		$this->load->model('pages_m');
 	}
 
-	function oh()
-	{
-		$st = '[dasdas,sdasd,asdsa,adasd]';
-		preg_match('/^\[(.*)\]/', $st, $matches);
-		print_r($matches);
-	}
-
-
 	/*********************************************
 	 * PAGES
 	 **********************************************/

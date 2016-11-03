@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= '';
+$config['base_url']	= "http://" . $_SERVER['SERVER_NAME'] . "/" . $_ENV['BASE_FOLDER'];
 
 /*
 |--------------------------------------------------------------------------
@@ -57,7 +57,7 @@ $config['uri_protocol']	= 'AUTO';
 | http://codeigniter.com/user_guide/general/urls.html
 */
 
-$config['url_suffix'] = '.html';
+$config['url_suffix'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -293,7 +293,7 @@ $config['cache_query_string'] = FALSE;
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = 'dfkasjc4oim)MJmsodmae8%^$&*Hjfkldjase';
+$config['encryption_key'] = $_ENV['ENC_KEY'];
 
 
 /*

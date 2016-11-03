@@ -9,6 +9,7 @@
 	"require": {
         "pyrocms/lex": "2.3.*",
         "erusev/parsedown": "1.6.*",
-        "nyankod/jsonfiledb": "0.2.*"
+        "vlucas/phpdotenv": "^2.4",
+		"nyankod/jsonfiledb": "0.3.*"
 	}
 }

@@ -83,9 +83,8 @@ class Auth extends Public_Controller {
 				'placeholder' => "Password",
 				'autocomplete' => "off"
 			);
-
 			
-			$this->template->set_layout('page');
+			$this->template->set_layout('default');
 
 			if($this->template->layout_exists('login'))
 				$this->template->set_layout('login');

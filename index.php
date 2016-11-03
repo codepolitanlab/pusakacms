@@ -25,6 +25,16 @@
  * @filesource
  */
 
+// load Composer
+// we don't use ci composer loader since we need this for first time
+$composer_autoload = 'system/vendor/autoload.php';
+if(!file_exists($composer_autoload)) die('Please install composer first.');
+require_once($composer_autoload);
+
+// load .env file
+$dotenv = new Dotenv\Dotenv(__DIR__);
+$dotenv->load();
+
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT

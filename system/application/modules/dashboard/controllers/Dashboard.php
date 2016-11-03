@@ -21,7 +21,7 @@ class Dashboard extends Public_Controller {
 	 * @access	public
 	 * @return	void
 	 */
-	public function index()
+	public function _remap()
 	{
 		$segments = $this->uri->segment_array();
 
@@ -55,34 +55,26 @@ class Dashboard extends Public_Controller {
 		}
 	}
 
+	function index()
+	{
+		$this->_remap();
+	}
+
 	function page($segments)
 	{
-		$strseg = "";
+		$strseg = implode('/', $segments);
+		$page = $this->pusaka->get_page($strseg);
 
-		for ($i = count($segments); $i > 0; $i--) 
-		{	
-			$file_path = PAGE_FOLDER.implode(DIRECTORY_SEPARATOR, $segments);
+		if(isset($page['layout']) && $this->template->layout_exists($page['layout']))
+			$this->template->set_layout($page['layout']);
 
-			if(file_exists($file_path.'.md') || file_exists($file_path.DIRECTORY_SEPARATOR.'index.md'))
-			{
-				$strseg = $file_path;
-				break;
-			}
+		// set default view
+		$view = 'page';
+		if(file_exists($this->template->get_theme_path() .'views/' .$strseg . EXT))
+			$view = $strseg;
 
-			array_pop($segments);
-		}
-
-		// if content file not found, show 404
-		if(empty($strseg)) show_404();
-
-		// set default layout
-		$this->template->set_layout('page');
-
-		// check if there is a custom layout for this page
-		if($this->template->layout_exists('pages/'.implode("/",$segments)))
-			$this->template->set_layout('pages/'.implode("/",$segments));
-
-		$this->template->view_content($file_path, $this->data);
+		$this->data['page'] = $page;
+		$this->template->view($view, $this->data);
 	}
 
 	function sync_page($prefix = null)
@@ -108,7 +100,6 @@ class Dashboard extends Public_Controller {
 
 	function post()
 	{
-		$this->template->set_layout(null);
 		$this->data['label'] = false;
 
 		$segments = $this->uri->segment_array();
@@ -120,7 +111,7 @@ class Dashboard extends Public_Controller {
 
 			$this->data['posts'] = $this->pusaka->get_posts();
 
-			$this->template->view('layouts/post-loop', $this->data);
+			$this->template->view('posts', $this->data);
 		}
 		else {
 			// if it is a post list with page number
@@ -128,7 +119,7 @@ class Dashboard extends Public_Controller {
 				$this->config->set_item('page_title', $this->config->item('post_term').' - '.$this->config->item('page_title'));
 
 				$this->data['posts'] = $this->pusaka->get_posts(null, isset($segments[2]) ? $segments[2] : 1);
-				$this->template->view('layouts/post-loop', $this->data);
+				$this->template->view('posts', $this->data);
 			}
 
 			// if it is a blog label
@@ -139,7 +130,7 @@ class Dashboard extends Public_Controller {
 
 				$this->data['label'] = $segments[2];
 				$this->data['posts'] = $this->pusaka->get_posts($segments[2], isset($segments[3]) ? $segments[3] : 1);
-				$this->template->view('layouts/post-loop', $this->data);
+				$this->template->view('posts', $this->data);
 			}
 			
 			// then it is a detail post
@@ -157,7 +148,7 @@ class Dashboard extends Public_Controller {
 				if(isset($this->data['post']['meta_keywords']) && !empty($this->data['post']['meta_keywords']))
 					$this->config->set_item('meta_keywords', $this->data['post']['meta_keywords'].', '.$this->config->item('meta_keywords'));
 
-				$this->template->view('layouts/post', $this->data);
+				$this->template->view('single', $this->data);
 				
 			}
 		}

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9e1f7aa3b8b142120821535a82c16874",
-    "content-hash": "867225393bdfe5f6402f7c7e6d825426",
+    "hash": "49428c21fd95d99b6225c5c51d244e50",
+    "content-hash": "ba52347bcad1ed2e3892b5836d4d1c38",
     "packages": [
         {
             "name": "erusev/parsedown",
@@ -48,16 +48,16 @@
         },
         {
             "name": "nyankod/jsonfiledb",
-            "version": "v0.2.2",
+            "version": "v0.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/nyankod/JsonFileDB.git",
-                "reference": "2c6652489251774babc6c5a9a6cc64240426b47a"
+                "url": "https://github.com/codepolitan-lab/JsonFileDB.git",
+                "reference": "11a5cd3e362060de3ea2577fb6453754d4e6678b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nyankod/JsonFileDB/zipball/2c6652489251774babc6c5a9a6cc64240426b47a",
-                "reference": "2c6652489251774babc6c5a9a6cc64240426b47a",
+                "url": "https://api.github.com/repos/codepolitan-lab/JsonFileDB/zipball/11a5cd3e362060de3ea2577fb6453754d4e6678b",
+                "reference": "11a5cd3e362060de3ea2577fb6453754d4e6678b",
                 "shasum": ""
             },
             "type": "library",
@@ -83,7 +83,7 @@
                 "db",
                 "json"
             ],
-            "time": "2014-11-13 07:07:56"
+            "time": "2016-10-25 12:05:37"
         },
         {
             "name": "pyrocms/lex",
@@ -129,6 +129,56 @@
                 "template"
             ],
             "time": "2014-02-07 03:39:58"
+        },
+        {
+            "name": "vlucas/phpdotenv",
+            "version": "v2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vlucas/phpdotenv.git",
+                "reference": "3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c",
+                "reference": "3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8 || ^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dotenv\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause-Attribution"
+            ],
+            "authors": [
+                {
+                    "name": "Vance Lucas",
+                    "email": "vance@vancelucas.com",
+                    "homepage": "http://www.vancelucas.com"
+                }
+            ],
+            "description": "Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.",
+            "keywords": [
+                "dotenv",
+                "env",
+                "environment"
+            ],
+            "time": "2016-09-01 10:05:43"
         }
     ],
     "packages-dev": [],

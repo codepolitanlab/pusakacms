@@ -523,45 +523,46 @@ class Pusaka {
 			$the_post = $post_db->select('url', $url);
 		}
 
-
 		if(empty($the_post) || ! file_exists($post_folder.$the_post['filename']))
 			return false;
 
 		$file = file_get_contents($post_folder.$the_post['filename']);
-		if(!empty($file)){
-			$post = explode("{:", $file);
-			array_shift($post);
 
-			$new_post = array(
-				'date' => $the_post['date'],
-				'file' => $the_post['filename']
-				);
+		if(!empty($file))
+		{
+			// split fields and content
+			list($fields, $new_post['content']) = explode("\n---\n", $file, 2);
+			$fields = explode("\n", trim($fields));
 
-			foreach ($post as $elm) {
-				$segs = preg_split("/( :} | :}|:} |:})/", $elm, 2);
+			foreach ($fields as $elm)
+			{
+				$segs = preg_split("/[\s:]+/", $elm, 2);
 
-				if(trim($segs[0]) == 'labels'){
-					$new_post[trim($segs[0])] = preg_split("/(\s,\s|\s,|,\s|,)/", $segs[1]);
-					continue;
-				}
-
-				if((trim($segs[0]) == 'content' || trim($segs[0]) == 'intro') && $parse)
-				{
-					$Parsedown = new Parsedown();
-					$new_post[trim($segs[0])] = $Parsedown->setBreaksEnabled(true)->text($segs[1]);
+				// if field content use array format
+				if(preg_match('/^\[(.*)\]/', trim($segs[1]), $theset)){
+					if($parse){
+						$new_post[trim($segs[0])] = preg_split("/[\s,]+/", trim($theset[1]));
+					} else
+					$new_post[trim($segs[0])] = trim($theset[1]);
 				}
 				else
 					$new_post[trim($segs[0])] = trim($segs[1]);
 
-				$new_post['url'] = $url;
+				// set meta to config
+				if(in_array(trim($segs[0]), array('meta_keywords', 'meta_description', 'author')))
+					$this->CI->config->set_item(trim($segs[0]), trim($segs[1]));
 			}
+
+			$new_post['date'] = $the_post['date'];
+			$new_post['file'] = $the_post['filename'];
+
+			$new_post['url'] = $url;
 
 			if(!isset($new_post['intro']) && $content_to_intro)
 				$new_post['intro'] = $new_post['content'];
 
 			if(!isset($new_post['slug']))
 				$new_post['slug'] = $postslug;
-
 
 			// print_r($new_post);
 			return $new_post;
