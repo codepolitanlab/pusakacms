@@ -39,6 +39,7 @@ return array(
 	'Text_filter' => 'text filter',
 	'Swipe_help' => 'Swipe the name of file/folder to show options',
 	'Upload_base' => 'Base upload',
+	'Upload_url' => 'URL',
 	'Upload_java' => 'JAVA upload (big size files)',
 	'Upload_java_help' => "If the Java Applet doesn't load, 1. make sure you have Java installed, otherwise <a href='http://java.com/en/download/'>[download link]</a>   2. make sure nothing is blocked by your firewall",
 	'Upload_base_help' => "Drag & Drop files or click in the area above (modern browsers) and select the file(s). When the upload is complete, click the 'Return to files list' button.",
@@ -69,9 +70,9 @@ return array(
 	'Clear_Clipboard' => 'Clear clipboard',
 	'Clear_Clipboard_Confirm' => 'Are you sure you want to clear the clipboard?',
 	'Files_ON_Clipboard' => 'There are files on the clipboard.',
-	'Copy_Cut_Size_Limit' => 'The selected files/folders are too big to %s. Limit: %d MB/operation', // %s = cut or copy
-	'Copy_Cut_Count_Limit' => 'You selected too many files/folders to %s. Limit: %d files/operation', // %s = cut or copy
-	'Copy_Cut_Not_Allowed' => 'You are not allowed to %s files.', // %s(1) = cut or copy, %s(2) = files or folders
+	'Copy_Cut_Size_Limit' => 'The selected files/folders are too big to %1$s. Limit: %2$d MB/operation', // %1$s = cut or copy, %2$d = max size
+	'Copy_Cut_Count_Limit' => 'You selected too many files/folders to %1$s. Limit: %2$d files/operation', // %1$s = cut or copy, %2$d = max count
+	'Copy_Cut_Not_Allowed' => 'You are not allowed to %1$s %2$s.', // %12$s = cut or copy, %2$s = files or folders
 	'Aviary_No_Save' => 'Could not save image',
 	'Zip_No_Extract' => 'Could not extract. File might be corrupt.',
 	'Zip_Invalid' => 'This extension is not supported. Valid: zip, gz, tar.',
@@ -96,5 +97,27 @@ return array(
 	'New_File' => 'New File',
 	'No_Extension' => 'You have to add a file extension.',
 	'Valid_Extensions' => 'Valid extensions: %s', // %s = txt,log etc.
+	'Upload_message' => "Drop file here to upload",
 
+	'SERVER ERROR' => "SERVER ERROR",
+	'forbiden' => "Forbiden",
+	'wrong path' => "Wrong path",
+	'wrong name' => "Wrong name",
+	'wrong extension' => "Wrong extension",
+	'wrong option' => "Wrong option",
+	'wrong data' => "Wrong data",
+	'wrong action' => "Wrong action",
+	'wrong sub-action' => "Wrong sub-actio",
+	'no action passed' => "No action passed",
+	'no path' => "No path",
+	'no file' => "No file",
+	'view type number missing' => "View type number missing",
+	'Not enought Memory' => "Not enought Memory",
+	'max_size_reached' => "Your image folder has reach its maximale size of %d MB.", //%d = max overall size
+	'B' => "B",
+	'KB' => "KB",
+	'MB' => "MB",
+	'GB' => "GB",
+	'TB' => "TB",
+	'total size' => "Total size",
 );

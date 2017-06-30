@@ -14,7 +14,9 @@
 | path to your installation.
 |
 */
-$config['base_url']	= "http://" . $_SERVER['SERVER_NAME'] . "/" . $_ENV['BASE_FOLDER'];
+$baseurl = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https://' : 'http://';
+$baseurl .= $_SERVER['SERVER_NAME'];
+$config['base_url']	= $baseurl;
 
 /*
 |--------------------------------------------------------------------------
@@ -128,7 +130,7 @@ $config['subclass_prefix'] = 'MY_';
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
-$config['composer_autoload'] = FALSE;
+$config['composer_autoload'] = 'system/vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -293,7 +295,7 @@ $config['cache_query_string'] = FALSE;
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = $_ENV['ENC_KEY'];
+$config['encryption_key'] = "sdasjkcunfreoiufoecfi0ewrey";
 
 
 /*
@@ -335,7 +337,7 @@ $config['encryption_key'] = $_ENV['ENC_KEY'];
 |
 */
 $config['sess_driver'] = 'files';
-// $config['sess_cookie_name'] = 'ci_session';
+$config['sess_cookie_name'] = 'sess_';
 $config['sess_expiration'] = ((60*60)*24)*2;
 $config['sess_save_path'] = APPPATH.'sessions';
 $config['sess_match_ip'] = FALSE;

@@ -103,15 +103,15 @@ class CPForm {
 		$output = 'as_'.$output_type;
 
 		$form = '<form';
-	
-			foreach ($this->config as $key => $value) {
-				$attribute = $key.'='.$value;
-				$form .= ' '.$attribute.' ';
-			}
-	
-			$form .= '>';
-			$form .= $this->{$output}();
-			$form .= '<input type="submit" value="'.$this->additional['submit_value'].'" class="'.$this->additional['submit_class'].'" />';
+		
+		foreach ($this->config as $key => $value) {
+			$attribute = $key.'='.$value;
+			$form .= ' '.$attribute.' ';
+		}
+		
+		$form .= '>';
+		$form .= $this->{$output}();
+		$form .= '<input type="submit" value="'.$this->additional['submit_value'].'" class="'.$this->additional['submit_class'].'" />';
 		$form .= '</form>';
 
 		return $form;
@@ -120,45 +120,45 @@ class CPForm {
 	public function as_list(){
 		$fields = '';
 		$fields .= "<ul>";
-			foreach($this->output as $key => $value) {
-				$temp_fields = '<li>';
-					$temp_fields .= '<label for="'.$value->name.'">'.$value->label.'</label>';
-					$temp_fields .= $value->render();
-				$temp_fields .= '</li>';
-				$this->fields[$key] = $temp_fields;
-				$fields .= $temp_fields;
-				$temp_fields = '';
-			}
-			$fields .= "<ul>";
-		
-				return $fields;
-			}
-		
-			public function as_paragraph(){
-				$fields = '';
-				foreach($this->output as $key => $value) {
-					$temp_fields = '<p>';
-						$temp_fields .= '<label for="'.$value->name.'">'.$value->label.'</label>';
-						$temp_fields .= $value->render();
-					$temp_fields .= '</p>';
-					$this->fields[$key] = $temp_fields;
-					$fields .= $temp_fields;
-					$temp_fields = '';
-				}
-		
-				return $fields;
-			}
-		
-			public function as_table(){
-		
-			}
-		
-			public function is_valid(){
-				return $this->is_valid;
-			}
-		
-			public function set_message($key, $message)
-			{
-				$this->CI->form_validation->set_message($key, $message);
-			}
+		foreach($this->output as $key => $value) {
+			$temp_fields = '<li>';
+			$temp_fields .= '<label for="'.$value->name.'">'.$value->label.'</label>';
+			$temp_fields .= $value->render();
+			$temp_fields .= '</li>';
+			$this->fields[$key] = $temp_fields;
+			$fields .= $temp_fields;
+			$temp_fields = '';
 		}
+		$fields .= "<ul>";
+		
+		return $fields;
+	}
+	
+	public function as_paragraph(){
+		$fields = '';
+		foreach($this->output as $key => $value) {
+			$temp_fields = '<p>';
+			$temp_fields .= '<label for="'.$value->name.'">'.$value->label.'</label>';
+			$temp_fields .= $value->render();
+			$temp_fields .= '</p>';
+			$this->fields[$key] = $temp_fields;
+			$fields .= $temp_fields;
+			$temp_fields = '';
+		}
+		
+		return $fields;
+	}
+	
+	public function as_table(){
+		
+	}
+	
+	public function is_valid(){
+		return $this->is_valid;
+	}
+	
+	public function set_message($key, $message)
+	{
+		$this->CI->form_validation->set_message($key, $message);
+	}
+}

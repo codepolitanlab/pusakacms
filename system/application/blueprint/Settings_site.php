@@ -7,88 +7,88 @@ class Settings_site extends CPForm {
         $this->title = "Site";
 
         // set form config
-        $this->config = array(
+        $this->config = [
             'action' => site_url('panel/settings/index/'.get_class($this)),
             'method' => 'POST',
-        );
-        $this->additional = array(
+        ];
+        $this->additional = [
             'submit_class' => 'btn btn-success',
             'submit_value' => 'Submit Site Setting'
-        );
+        ];
 
         
-        $this->fields['site_name'] = array(
+        $this->fields['site_name'] = [
             'fieldType' => 'TextField',
             'label' => 'Site Name',
-            'config' => array(
+            'config' => [
                 'placeholder' => 'Your site name',
                 'value'=>'Pusaka Site',
                 'id' => 'site_name',
                 'class' => 'form-control'
-            ),
+            ],
             'rules' => 'required'
-        );
+        ];
 
-        $this->fields['site_slogan'] = array(
+        $this->fields['site_slogan'] = [
             'fieldType' => 'TextField',
             'label' => 'Site Slogan',
-            'config' => array(
+            'config' => [
                 'placeholder' => 'Just a Simple Homepage by PusakaCMS',
                 'id' => 'site_slogan',
                 'class' => 'form-control'
-            ),
-        );
+            ],
+        ];
 
-        $this->fields['site_owner'] = array(
+        $this->fields['site_owner'] = [
             'fieldType' => 'TextField',
             'label' => 'Site Owner Name',
-            'config' => array(
+            'config' => [
                 'placeholder' => 'John Doe',
                 'id' => 'site_owner',
                 'class' => 'form-control'
-            ),
-        );
+            ],
+        ];
 
-        $this->fields['site_domain'] = array(
+        $this->fields['site_domain'] = [
             'fieldType' => 'TextField',
             'label' => 'Site Domain',
-            'config' => array(
+            'config' => [
                 'placeholder' => 'i.e. mydomain.com',
                 'id' => 'site_domain',
                 'class' => 'form-control'
-            ),
-        );
+            ],
+        ];
 
-        $this->fields['protocol'] = array(
+        $this->fields['protocol'] = [
             'fieldType' => 'TextField',
             'label' => 'Protocol',
-            'config' => array(
+            'config' => [
                 'value' => 'http',
                 'id' => 'protocol',
                 'class' => 'form-control'
-            ),
+            ],
             'rules' => 'required'
-        );
+        ];
 
-        $this->fields['meta_description'] = array(
+        $this->fields['meta_description'] = [
             'fieldType' => 'TextField',
             'label' => 'Meta description',
-            'config' => array(
+            'config' => [
                 'placeholder' => 'Your site description',
                 'id' => 'meta_description',
                 'class' => 'form-control'
-            ),
-        );
+            ],
+        ];
 
-        $this->fields['meta_keywords'] = array(
+        $this->fields['meta_keywords'] = [
             'fieldType' => 'TextField',
             'label' => 'Meta keywords',
-            'config' => array(
+            'config' => [
                 'placeholder' => 'Your site keywords',
                 'id' => 'meta_keywords',
                 'class' => 'form-control'
-            ),
-        );
+            ],
+        ];
 
     }
 

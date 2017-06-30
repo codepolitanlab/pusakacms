@@ -7,24 +7,24 @@ namespace Composer\Autoload;
 class ComposerStaticInite223c66bcabaed30ebe5ef899f166afd
 {
     public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Symfony\\Component\\Yaml\\' => 23,
+        ),
         'N' => 
         array (
             'Nyankod\\' => 8,
         ),
-        'D' => 
-        array (
-            'Dotenv\\' => 7,
-        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Symfony\\Component\\Yaml\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/yaml',
+        ),
         'Nyankod\\' => 
         array (
             0 => __DIR__ . '/..' . '/nyankod/jsonfiledb/src',
-        ),
-        'Dotenv\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
         ),
     );
 

@@ -20,7 +20,7 @@
         "replace": {
             "fuel/lex": "*"
         },
-        "time": "2014-02-07 03:39:58",
+        "time": "2014-02-07T03:39:58+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -47,21 +47,65 @@
         ]
     },
     {
-        "name": "erusev/parsedown",
-        "version": "1.6.0",
-        "version_normalized": "1.6.0.0",
+        "name": "nyankod/jsonfiledb",
+        "version": "v0.3.0",
+        "version_normalized": "0.3.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/erusev/parsedown.git",
-            "reference": "3ebbd730b5c2cf5ce78bc1bf64071407fc6674b7"
+            "url": "https://github.com/codepolitan-lab/JsonFileDB.git",
+            "reference": "11a5cd3e362060de3ea2577fb6453754d4e6678b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/erusev/parsedown/zipball/3ebbd730b5c2cf5ce78bc1bf64071407fc6674b7",
-            "reference": "3ebbd730b5c2cf5ce78bc1bf64071407fc6674b7",
+            "url": "https://api.github.com/repos/codepolitan-lab/JsonFileDB/zipball/11a5cd3e362060de3ea2577fb6453754d4e6678b",
+            "reference": "11a5cd3e362060de3ea2577fb6453754d4e6678b",
             "shasum": ""
         },
-        "time": "2015-10-04 16:44:32",
+        "time": "2016-10-25T12:05:37+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Nyankod\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Toni Haryanto",
+                "email": "toha.samba@gmail.com"
+            }
+        ],
+        "description": "json database library for PHP",
+        "homepage": "https://github.com/nyankod/JsonFileDB",
+        "keywords": [
+            "database",
+            "db",
+            "json"
+        ]
+    },
+    {
+        "name": "erusev/parsedown",
+        "version": "1.6.2",
+        "version_normalized": "1.6.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/erusev/parsedown.git",
+            "reference": "1bf24f7334fe16c88bf9d467863309ceaf285b01"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/erusev/parsedown/zipball/1bf24f7334fe16c88bf9d467863309ceaf285b01",
+            "reference": "1bf24f7334fe16c88bf9d467863309ceaf285b01",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2017-03-29T16:04:15+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -88,79 +132,44 @@
         ]
     },
     {
-        "name": "vlucas/phpdotenv",
-        "version": "v2.4.0",
-        "version_normalized": "2.4.0.0",
+        "name": "symfony/yaml",
+        "version": "v3.3.2",
+        "version_normalized": "3.3.2.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/vlucas/phpdotenv.git",
-            "reference": "3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c"
+            "url": "https://github.com/symfony/yaml.git",
+            "reference": "9752a30000a8ca9f4b34b5227d15d0101b96b063"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c",
-            "reference": "3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c",
+            "url": "https://api.github.com/repos/symfony/yaml/zipball/9752a30000a8ca9f4b34b5227d15d0101b96b063",
+            "reference": "9752a30000a8ca9f4b34b5227d15d0101b96b063",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.3.9"
+            "php": ">=5.5.9"
         },
         "require-dev": {
-            "phpunit/phpunit": "^4.8 || ^5.0"
+            "symfony/console": "~2.8|~3.0"
         },
-        "time": "2016-09-01 10:05:43",
+        "suggest": {
+            "symfony/console": "For validating YAML files using the lint command"
+        },
+        "time": "2017-06-02T22:05:06+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.4-dev"
+                "dev-master": "3.3-dev"
             }
         },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "Dotenv\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause-Attribution"
-        ],
-        "authors": [
-            {
-                "name": "Vance Lucas",
-                "email": "vance@vancelucas.com",
-                "homepage": "http://www.vancelucas.com"
-            }
-        ],
-        "description": "Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.",
-        "keywords": [
-            "dotenv",
-            "env",
-            "environment"
-        ]
-    },
-    {
-        "name": "nyankod/jsonfiledb",
-        "version": "v0.3.0",
-        "version_normalized": "0.3.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/codepolitan-lab/JsonFileDB.git",
-            "reference": "11a5cd3e362060de3ea2577fb6453754d4e6678b"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/codepolitan-lab/JsonFileDB/zipball/11a5cd3e362060de3ea2577fb6453754d4e6678b",
-            "reference": "11a5cd3e362060de3ea2577fb6453754d4e6678b",
-            "shasum": ""
-        },
-        "time": "2016-10-25 12:05:37",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Nyankod\\": "src/"
-            }
+                "Symfony\\Component\\Yaml\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
@@ -168,16 +177,15 @@
         ],
         "authors": [
             {
-                "name": "Toni Haryanto",
-                "email": "toha.samba@gmail.com"
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
             }
         ],
-        "description": "json database library for PHP",
-        "homepage": "https://github.com/nyankod/JsonFileDB",
-        "keywords": [
-            "database",
-            "db",
-            "json"
-        ]
+        "description": "Symfony Yaml Component",
+        "homepage": "https://symfony.com"
     }
 ]

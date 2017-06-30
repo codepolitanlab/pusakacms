@@ -63,7 +63,7 @@ class Dashboard extends Public_Controller {
 	function page($segments)
 	{
 		$strseg = implode('/', $segments);
-		$page = $this->pusaka->get_page($strseg);
+		$page = $this->pusaka->get_page($strseg.'/');
 
 		if(isset($page['layout']) && $this->template->layout_exists($page['layout']))
 			$this->template->set_layout($page['layout']);

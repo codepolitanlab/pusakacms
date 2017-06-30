@@ -1,0 +1,8 @@
+post_type: page
+fields:
+    title:
+        label: Page title
+        type: text
+    content:
+        label: Page content
+        type: textarea

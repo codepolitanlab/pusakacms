@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// use Nyankod\JsonFileDB;
+use Symfony\Component\Yaml\Yaml;
 
 /**
 * Cms
@@ -58,8 +58,8 @@ class Panel extends Admin_Controller {
 		if(! array_key_exists($settings, $the_forms)) show_404();
 
 		// get saved contents
-		if(file_exists($this->config_path.$settings.'.json'))
-			$values[$settings] = json_decode(file_get_contents($this->config_path.$settings.'.json'), true);
+		if(file_exists($this->config_path.$settings.'.yml'))
+			$values[$settings] = Yaml::parse(file_get_contents($this->config_path.$settings.'.yml'));
 		else
 			$values[$settings] = array();
 
@@ -73,8 +73,8 @@ class Panel extends Admin_Controller {
 			$post = $this->input->post();
 
 			// save config to file
-			if(! write_file($this->config_path.$settings.'.json', json_encode($post, JSON_PRETTY_PRINT))){
-				$this->session->set_flashdata('error', 'unable to save '.$settings.' settings to '.$settings.'.json file.');
+			if(! write_file($this->config_path.$settings.'.yml', Yaml::dump($post, 1))) {
+				$this->session->set_flashdata('error', 'unable to save '.$settings.' settings to '.$settings.'.yml file.');
 				redirect(getenv('HTTP_REFERER'));
 			}
 

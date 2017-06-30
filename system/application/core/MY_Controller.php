@@ -1,5 +1,7 @@
 <?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
+use Symfony\Component\Yaml\Yaml;
+
 /* load the MX_Controller class */
 require APPPATH."third_party/MX/Controller.php";
 
@@ -20,28 +22,24 @@ class MY_Controller extends MX_Controller{
 		$this->load->library('users/ion_auth');
 
 		// check if main config file exist
-		if(!file_exists((SITE_PATH.'db/Settings_site.json'))){
-			show_error('site.json config file for your site is not found. Please create it first.');
+		if(!file_exists((SITE_PATH.'db/Settings_site.yml'))){
+			show_error('site.yml config file for your site is not found. Please create it first.');
 		}
-		if(!file_exists((SITE_PATH.'db/Settings_system.json'))){
-			show_error('system.json config file for your site is not found. Please create it first.');
+		if(!file_exists((SITE_PATH.'db/Settings_system.yml'))){
+			show_error('system.yml config file for your site is not found. Please create it first.');
 		}
 
 		// get all config file
-		$config_file = array_filter(scandir(SITE_PATH.'db/'), function($user){
-			return (strpos($user, 'Settings_') !== FALSE);
+		$config_file = array_filter(get_filenames(SITE_PATH.'db/'), function($file){
+			return (strpos($file, 'Settings_') !== FALSE);
 		});
 
 		foreach ($config_file as $confile) {
-			$config = json_decode(file_get_contents(SITE_PATH.'db/'.$confile), true);
+			$config = Yaml::parse(file_get_contents(SITE_PATH.'db/'.$confile));
 			foreach ($config as $key => $value) {
 				$this->config->set_item($key, $value);
 				$this->data[$key] = $value;
 			}
-		}
-
-		if(json_last_error() > 0){
-			show_error('config file error: '. json_last_error_msg());
 		}
 
 		$this->config->set_item('page_title', $this->config->item('site_name'));

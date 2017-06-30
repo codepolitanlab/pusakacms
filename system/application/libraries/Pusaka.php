@@ -1,5 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+use Symfony\Component\Yaml\Yaml;
+
 /**
  * Pusaka Library
  *
@@ -737,12 +739,24 @@ class Pusaka {
 	 */
 	function get_page($url = null, $parse = true)
 	{
-		if(! $file = $this->page_exist($url))
-			return $file;
+		$file = realpath(PAGE_FOLDER.$url.'index.yml');
 
-		// split fields and content
-		list($fields, $pagedata['content']) = explode("\n---\n", $file, 2);
-		$fields = explode("\n", trim($fields));
+		// get page fields
+		if(file_exists($file))
+			$pagedata = Yaml::parse(file_get_contents($file));
+
+		
+		// get another md or html file as custom fields
+		$Parsedown = new Parsedown();
+		$files = get_filenames(PAGE_FOLDER.$url);
+		foreach ($files as $file) {
+			$filepath = pathinfo(PAGE_FOLDER.$url.$file);
+			if(in_array($filepath['extension'], ['md','html'])){
+				$pagedata[$filepath['filename']] = file_get_contents(PAGE_FOLDER.$url.$file);
+				if($filepath['extension'] == 'md')
+					$pagedata[$filepath['filename']] = $Parsedown->setBreaksEnabled(true)->text($pagedata[$filepath['filename']]);
+			}
+		}
 
 		$pagedata['url'] = $url;
 		$file_segment = explode('/', $url);
@@ -751,29 +765,6 @@ class Pusaka {
 			if(count($url) > 0)
 				$pagedata['parent'] = implode('/', $file_segment);
 		}
-		
-		foreach ($fields as $elm) {
-			$segs = preg_split("/[\s:]+/", $elm, 2);
-
-			// if field content use array format
-			if(preg_match('/^\[(.*)\]/', trim($segs[1]), $theset)){
-				if($parse){
-					$pagedata[trim($segs[0])] = preg_split("/[\s,]+/", trim($theset[1]));
-				} else
-					$pagedata[trim($segs[0])] = trim($theset[1]);
-			}
-			else
-				$pagedata[trim($segs[0])] = trim($segs[1]);
-
-			// set meta to config
-			if(in_array(trim($segs[0]), array('meta_keywords', 'meta_description', 'author')))
-				$this->CI->config->set_item(trim($segs[0]), trim($segs[1]));
-		}
-
-		// if($parse){
-		// 	$Parsedown = new Parsedown();
-		// 	$pagedata['content'] = $Parsedown->setBreaksEnabled(true)->text($pagedata['content']);
-		// }
 
 		return $pagedata;
 	}

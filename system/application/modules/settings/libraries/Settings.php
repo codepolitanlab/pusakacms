@@ -19,7 +19,7 @@ class Settings
 		if(! $configname || empty($data))
 			return false;
 
-		$file = $this->db_path.$configname.'.json';
+		$file = $this->db_path.$configname.'.yml';
 		if(file_exists($file)){
 			$old_data = json_decode(file_get_contents($file), true);
 			$data = array_merge($old_data, $data);

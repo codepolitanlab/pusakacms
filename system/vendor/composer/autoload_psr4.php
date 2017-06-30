@@ -6,6 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
+    'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
     'Nyankod\\' => array($vendorDir . '/nyankod/jsonfiledb/src'),
-    'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
 );

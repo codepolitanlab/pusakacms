@@ -39,6 +39,7 @@ return array(
 	'Text_filter' => 'סנן טקסט',
 	'Swipe_help' => 'סמן את הקובץ / תיקיה על מנת להציג אפשריות',
 	'Upload_base' => 'רגיל',
+	'Upload_url' => 'URL',
 	'Upload_java' => 'JAVA (לקבצים גדולים)',
 	'Upload_java_help' => "אם אפליקצית הJAVA לא נטענת , 1. וודא שJAVA מותקנת במחשבך , אחר <a href='http://java.com/en/download/'>לחץ להורדה</a>   2. וודא שהכל מאופשר בחומת האש .",
 	'Upload_base_help' => "גרור ושחרר את הקבוצים אשר הינך מעוניין לעלות . בסיום יש ללחוץ על \"חזור אל רשימת קבצים\"",
@@ -96,6 +97,28 @@ return array(
 	'New_File' => 'קובץ חדש',
 	'No_Extension' => 'חובה לציין את סיומת הקובץ.', 
 	'Valid_Extensions' => 'סיומות חוקיות: %s', // %s = txt,log etc.
+	'Upload_message' => "Drop file here to upload",
 
+	'SERVER ERROR' => "SERVER ERROR",
+	'forbiden' => "Forbiden",
+	'wrong path' => "Wrong path",
+	'wrong name' => "Wrong name",
+	'wrong extension' => "Wrong extension",
+	'wrong option' => "Wrong option",
+	'wrong data' => "Wrong data",
+	'wrong action' => "Wrong action",
+	'wrong sub-action' => "Wrong sub-actio",
+	'no action passed' => "No action passed",
+	'no path' => "No path",
+	'no file' => "No file",
+	'view type number missing' => "View type number missing",
+	'Not enought Memory' => "Not enought Memory",
+	'max_size_reached' => "Your image folder has reach its maximale size of %d MB.", //%d = max overall size
+	'B' => "B",
+	'KB' => "KB",
+	'MB' => "MB",
+	'GB' => "GB",
+	'TB' => "TB",
+	'total size' => "Total size",
 );
 
