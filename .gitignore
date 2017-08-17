@@ -1,5 +1,5 @@
 dploy.yaml
-system/application/sessions/*
+system/pusaka/sessions/*
 sites/default/thumbs/*
 sites/default/files/*
 .phpintel
