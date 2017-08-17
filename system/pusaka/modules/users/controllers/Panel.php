@@ -21,6 +21,7 @@ class Panel extends Admin_Controller
 	//redirect if needed, otherwise display the user list
 	function index() 
 	{
+		print_r($this->session->userdata());
 		
 		if (!$this->logged_in()) 
 		{

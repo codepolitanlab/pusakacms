@@ -1,0 +1,13 @@
+{
+	"module_name": "Page",
+	"module_slug": "page",
+	"module_description": "Core module to show core content (posts, pages)",
+	"version": "1.0.0",
+	"author": "Toni Haryanto",
+	"author_site": "toharyan.blogspot.co.id",
+	"menu": {
+		"caption": "Page",
+		"context": "Content",
+		"order": 5
+	}
+}

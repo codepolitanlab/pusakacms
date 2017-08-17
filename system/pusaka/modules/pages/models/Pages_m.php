@@ -22,19 +22,6 @@ class Pages_m extends MY_Model {
 		$file_content .= "---\n";
 		$file_content .= $page_content;
 
-		// if it is placed as subpage
-		// if(!empty($page['parent'])) { 
-		// 	// if parent still as standalone file (not in folder)
-		// 	if(file_exists(PAGE_FOLDER.$page['parent'].'.md')) {
-		// 			// create folder and move the parent inside
-		// 		mkdir(PAGE_FOLDER.$page['parent'], 0775);
-		// 		rename(PAGE_FOLDER.$page['parent'].'.md', PAGE_FOLDER.$page['parent'].'/index.md');
-
-		// 			// create index.html file
-		// 		copy(PAGE_FOLDER.'index.html', PAGE_FOLDER.$page['parent'].'/index.html');
-		// 	}
-		// }
-
 		if(write_file(PAGE_FOLDER.$slug.'.md', $file_content))
 		{
 			$this->pusaka->sync_page();

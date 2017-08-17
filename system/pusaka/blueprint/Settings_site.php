@@ -8,7 +8,7 @@ class Settings_site extends CPForm {
 
         // set form config
         $this->config = [
-            'action' => site_url('panel/settings/index/'.get_class($this)),
+            'action' => site_url('panel/settings/index/settings_site'),
             'method' => 'POST',
         ];
         $this->additional = [

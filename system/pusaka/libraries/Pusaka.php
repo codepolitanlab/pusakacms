@@ -59,29 +59,26 @@ class Pusaka {
 			$map = directory_map(PAGE_FOLDER, $depth);
 
 		$new_map = array();
-		foreach ($map as $folder => $file){
-			if($file != 'index.json' && $file != 'index.md' && $file != 'index.html'){
+		foreach ($map as $folder => $file)
+		{
+			// if this is subfolder
+			if(is_array($file)){
+				$slug = $this->remove_extension($folder);
+				$content = array(
+					'title' => $this->guess_name($folder),
+					'url' => $prefix.$slug,
+					'children' => $this->scan_pages($file, $prefix.$slug.'/'),
+					);
 
-				if(is_array($file)){
-					$slug = $this->remove_extension($folder);
-					$content = array(
-						'title' => $this->guess_name($folder),
-						'url' => $prefix.$slug,
-						'children' => $this->scan_pages($file, $prefix.$slug.'/'),
-						);
-				} else {
-					$slug = $this->remove_extension($file);
-					$content = array(
-						'title' => $this->guess_name($file),
-						'url' => $prefix.$slug,
-						);
-				}
-
+				if(empty($content['children']))
+					unset($content['children']);
+			
 				if($this->is_use_builder($prefix.$slug))
 					$content['builder'] = true;
 
 				$new_map[$slug] = $content;
 			}
+
 		}
 
 		return $new_map;
@@ -168,6 +165,7 @@ class Pusaka {
 	 */
 	function sync_page()
 	{
+		// create page if not exist
 		if(! file_exists(PAGE_FOLDER.$this->navfile))
 			write_file(PAGE_FOLDER.$this->navfile, json_encode(array(), JSON_PRETTY_PRINT));
 
@@ -801,6 +799,7 @@ class Pusaka {
 
 	/**
 	 * Remove the extension from a file
+	 * and also remove slash in folder name
 	 *
 	 * @access	public
 	 * @param	string 	file name

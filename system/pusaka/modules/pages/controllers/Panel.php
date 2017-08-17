@@ -14,7 +14,7 @@ use Nyankod\JsonFileDB;
  * @link		http://nyankod.com/pusakacms
  */
 
-class Panel_page extends Admin_Controller {
+class Panel extends Admin_Controller {
 
 	public $page_db;
 
@@ -62,12 +62,12 @@ class Panel_page extends Admin_Controller {
 
 		$this->template
 			->set('pages', $pagelist)
-			->view('page/pages');
+			->view('admin/pages');
 	}
 
 	function _page_list($pages)
 	{
-		return $this->load->view('page/page_list', array('pages'=>$pages), true);
+		return $this->load->view('admin/page_list', array('pages'=>$pages), true);
 	}
 
 	function sync($redirect = true)
@@ -121,7 +121,7 @@ class Panel_page extends Admin_Controller {
 			->set('url', '')
 			->set('layouts', $this->pusaka->get_layouts($this->config->item('theme')))
 			->set('pagelinks', $this->pusaka->get_flatnav())
-			->view('page/page_form');
+			->view('admin/page_form');
 	}
 
 	function edit()
@@ -174,7 +174,7 @@ class Panel_page extends Admin_Controller {
 			->set('url', $parent.'/'.$prevpage['slug'])
 			->set('layouts', $this->pusaka->get_layouts($this->config->item('theme')))
 			->set('pagelinks', $this->pusaka->get_flatnav())
-			->view('page/page_form');
+			->view('admin/page_form');
 	} 
 
 	function delete()
@@ -235,6 +235,8 @@ class Panel_page extends Admin_Controller {
 		else
 			$map = $arr;
 
+		echo json_encode($map);
+
 		$newmap = array();
 		foreach ($map as $value) {
 			$newmap[$value['slug']] = $value;
@@ -246,6 +248,7 @@ class Panel_page extends Admin_Controller {
 		}
 
 		if($arr){
+			echo json_encode($newmap);
 			return $newmap;
 		} else {
 			if(! write_file(PAGE_FOLDER.'/index.json', json_encode($newmap, JSON_PRETTY_PRINT)))

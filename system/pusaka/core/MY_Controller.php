@@ -22,16 +22,16 @@ class MY_Controller extends MX_Controller{
 		$this->load->library('users/ion_auth');
 
 		// check if main config file exist
-		if(!file_exists((SITE_PATH.'db/Settings_site.yml'))){
+		if(!file_exists((SITE_PATH.'db/settings_site.yml'))){
 			show_error('site.yml config file for your site is not found. Please create it first.');
 		}
-		if(!file_exists((SITE_PATH.'db/Settings_system.yml'))){
+		if(!file_exists((SITE_PATH.'db/settings_system.yml'))){
 			show_error('system.yml config file for your site is not found. Please create it first.');
 		}
 
 		// get all config file
 		$config_file = array_filter(get_filenames(SITE_PATH.'db/'), function($file){
-			return (strpos($file, 'Settings_') !== FALSE);
+			return (strpos($file, 'settings_') !== FALSE);
 		});
 
 		foreach ($config_file as $confile) {

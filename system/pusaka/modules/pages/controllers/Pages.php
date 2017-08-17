@@ -11,7 +11,7 @@
  * @license		http://nyankod.com/license
  * @link		http://nyankod.com/pusakacms
  */
-class Page extends Public_Controller {
+class Pages extends Public_Controller {
 
 	/**
 	 * Main CMS Function

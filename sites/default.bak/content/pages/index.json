@@ -1,0 +1,30 @@
+{
+    "home": {
+        "title": "Home",
+        "url": "home",
+        "children": {
+            "content": {
+                "title": "Content",
+                "url": "home\/content"
+            },
+            "index": {
+                "title": "Index",
+                "url": "home\/index"
+            }
+        }
+    },
+    "sample": {
+        "url": "sample",
+        "title": "Sample",
+        "children": {
+            "content": {
+                "title": "Content",
+                "url": "sample\/content"
+            },
+            "index": {
+                "title": "Index",
+                "url": "sample\/index"
+            }
+        }
+    }
+}
