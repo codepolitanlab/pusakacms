@@ -103,7 +103,9 @@ $system_path = realpath('system/codeigniter/');
  *
  * NO TRAILING SLASH!
  */
-$application_folder = 'system/application';
+// change wether pusaka or jooglo
+$application_folder = 'system/pusaka';
+// $application_folder = 'system/application';
 
 /*
  *---------------------------------------------------------------
@@ -120,15 +122,16 @@ $application_folder = 'system/application';
  */
 $view_folder = 'views';
 
-
 // WWW FOLDER NAME
+// this is if you put root index.php in subfolder
 $www_folder = '';
 
 // MEDIA FOLDER NAME
 $media_folder = 'media'.DIRECTORY_SEPARATOR;
 
 // SITES FOLDER NAME
-$sites_folder = 'sites'.DIRECTORY_SEPARATOR; // use this instead if you want to use pusakacms in your own server
+$sites_folder = 'sites'.DIRECTORY_SEPARATOR; 
+// use this instead if you want to use pusakacms in your own server
 // $sites_folder = $www_folder.$media_folder;
 
 // ADDON FOLDER NAME

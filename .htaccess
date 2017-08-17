@@ -3,6 +3,9 @@
 	RewriteEngine On
 	DirectoryIndex index.php index.html
 
+	# set environment variable
+	SetEnv CI_ENV development
+
 	# Option 2: To rewrite "domain.com -> www.domain.com" uncomment the following lines.
 	# RewriteCond %{HTTPS} !=on
 	# RewriteCond %{HTTP_HOST} !^www\..+$ [NC]
