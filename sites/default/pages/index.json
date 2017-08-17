@@ -2,19 +2,5 @@
     "home": {
         "title": "Home",
         "url": "home"
-    },
-    "sample": {
-        "url": "sample",
-        "title": "Sample"
-    },
-    "posts": {
-        "title": "Posts",
-        "url": "posts",
-        "children": {
-            "2014-10-10-02-00-hello-pusaka": {
-                "title": "2014 10 10 02 00 hello pusaka",
-                "url": "posts\/2014-10-10-02-00-hello-pusaka"
-            }
-        }
     }
 }

@@ -1,7 +1,7 @@
 $(function(){
 	// confirm delete
 	$('.remove').click(function(){
-		return confirm('Are you sure want to delete this item?');
+		return confirm('Are you sure want to remove this item? \nThis will be remove the folder and all of its child contents.');
 	})
 	
 	// expand page list

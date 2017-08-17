@@ -187,7 +187,11 @@ class Panel extends Admin_Controller {
 		else
 			show_404();
 
-		if(unlink(PAGE_FOLDER.'/'.$prevslug.'.md')){
+		$source_arr = explode("/", $prevslug);
+		$page = array_pop($source_arr);
+		$source = implode("/", $source_arr);
+
+		if($this->pusaka->move_page($page, $page, $source, '_trash')){
 			$this->session->set_flashdata('success', 'Page '.$prevslug.' deleted.');
 
 			// check to raise parent page

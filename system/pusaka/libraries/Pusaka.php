@@ -62,7 +62,7 @@ class Pusaka {
 		foreach ($map as $folder => $file)
 		{
 			// if this is subfolder
-			if(is_array($file)){
+			if(is_array($file) && !empty($file) && $folder != '_trash'.DIRECTORY_SEPARATOR){
 				$slug = $this->remove_extension($folder);
 				$content = array(
 					'title' => $this->guess_name($folder),
@@ -118,6 +118,8 @@ class Pusaka {
 				$this->raise_page($source);
 			}
 		}
+
+		return true;
 	}
 
 	function raise_page($source)
