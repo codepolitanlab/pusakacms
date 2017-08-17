@@ -1,5 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+use Symfony\Component\Yaml\Yaml;
+
 class Pages_m extends MY_Model {
 
 	function save_page($page)
@@ -7,7 +9,7 @@ class Pages_m extends MY_Model {
 		$page_content = $page['content'];
 		unset($page['content']);
 
-		$slug = url_title($page['slug'], '-', true);
+		$page_slug = url_title($page['slug'], '-', true);
 		unset($page['slug']);
 
 		$file_content = "";
@@ -22,7 +24,7 @@ class Pages_m extends MY_Model {
 		$file_content .= "---\n";
 		$file_content .= $page_content;
 
-		if(write_file(PAGE_FOLDER.$slug.'.md', $file_content))
+		if(write_file(PAGE_FOLDER.$page_slug.'.md', $file_content))
 		{
 			$this->pusaka->sync_page();
 			return true;
@@ -39,37 +41,36 @@ class Pages_m extends MY_Model {
 		$parent = $page['parent'];
 		unset($page['parent']);
 
-		$slug = url_title($page['slug'], '-', true);
+		// set page_slug for folder name
+		$page_slug = url_title($page['slug'], '-', true);
 		unset($page['slug']);
 
+		// set page_content to be saved separated
 		$page_content = $page['content'];
 		unset($page['content']);
 
-		// set page fields
-		foreach ($page as $key => $value) {
-			if($value){
-				$file_content .= $key.": ".$value."\n";
-			}
-		}
-		// add content separator
-		$file_content .= "---\n";
-		$file_content .= $page_content;
-
 		// move page
-		$this->pusaka->move_page($prevpage['slug'], $slug, $prevpage['parent'], $parent);
+		$this->pusaka->move_page($prevpage['slug'], $page_slug, $prevpage['parent'], $parent);
 
 		// if file not existed, then it must be in its folder
-		if(! file_exists(PAGE_FOLDER.$parent.'/'.$slug.'.md'))
-			$slug .= '/index';
+		// if(! file_exists(PAGE_FOLDER.$parent.'/'.$page_slug.'.md'))
+		// 	$page_slug .= '/index';
 
 		// update page content
-		if(write_file(PAGE_FOLDER.$parent.'/'.$slug.'.md', $file_content, 'w+'))
+		if(! write_file(PAGE_FOLDER.$parent.'/'.$page_slug.'/content.md', $page_content, 'w+'))
 		{
-			$this->pusaka->sync_page();
-			return true;
-		} else {
+			error_log("Writing content.md failed on ". PAGE_FOLDER.$parent.'/'.$page_slug);
 			return false;
 		}
+
+		// update page variables
+		if(! write_file(PAGE_FOLDER.$parent.'/'.$page_slug.'/index.yml', Yaml::dump($page, 1), 'w+'))
+		{
+			error_log("Writing index.yml failed on ". PAGE_FOLDER.$parent.'/'.$page_slug);
+			return false;
+		}
+
+		return $this->pusaka->sync_page();
 	}
 
 }

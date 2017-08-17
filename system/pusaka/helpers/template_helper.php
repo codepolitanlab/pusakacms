@@ -360,6 +360,9 @@ if ( ! function_exists('validate_value'))
 		$res = '';
 		if(isset($arr[$key]))
 			$res = $arr[$key];
+
+		if(is_array($res))
+			$res = implode(', ', $res);
 		
 		return $res;
 	}

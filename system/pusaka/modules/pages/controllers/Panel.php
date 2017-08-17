@@ -150,8 +150,8 @@ class Panel extends Admin_Controller {
 			$page['parent'] = $prevpage['parent'] = $parent;
 
 			// prepend and append brackets for array type field
-			$page['role'] = '['.trim($page['role']).']';
-			$page['meta_keywords'] = '['.trim($page['meta_keywords']).']';
+			$page['role'] = preg_split('/[\ \n\,]+/', $page['role']);
+			$page['meta_keywords'] = preg_split('/[\ \n\,]+/', $page['meta_keywords']);
 			
 			// update page content
 			if($this->pages_m->update_page($page, $prevpage))
